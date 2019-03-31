@@ -48,7 +48,11 @@ return [
 
         'daily' => [
             'driver' => 'daily',
-            'path' => storage_path('logs/laravel.log'),
+            'path' => storage_path('logs/chormnes_web.log'),
+            'formatter' => Monolog\Formatter\LineFormatter::class,
+            'formatter_with' => [
+                'format' => "[%datetime%] [%level_name%] %context% [%message%]\n"
+            ],
             'level' => 'debug',
             'days' => 14,
         ],

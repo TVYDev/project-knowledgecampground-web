@@ -19,6 +19,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
+        \App\Http\Middleware\StoreLastRouteRequest::class,
     ];
 
     /**
@@ -60,6 +61,8 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'verify_access_token' => \App\Http\Middleware\VerifyAccessToken::class,
+        'prevent_login_register_after_authenticated' => \App\Http\Middleware\PreventLoginOrRegisterAfterAuthenticated::class,
     ];
 
     /**
