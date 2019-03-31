@@ -2,10 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use App\Lib\RequestAPI;
 use Closure;
 
 class PreventLoginOrRegisterAfterAuthenticated
 {
+    use RequestAPI;
     /**
      * Handle an incoming request.
      *

@@ -2,10 +2,13 @@
 
 namespace App\Http\Middleware;
 
+use App\Lib\HttpConstants;
+use App\Lib\RequestAPI;
 use Closure;
 
 class VerifyAccessToken
 {
+    use RequestAPI;
     /**
      * Handle an incoming request.
      *

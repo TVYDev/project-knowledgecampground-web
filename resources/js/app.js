@@ -17,17 +17,25 @@ window.Vue = require('vue');
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// const files = require.context('./', true, /\.vue$/i)
+// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)))
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+Vue.config.productionTip = false;
 
 const app = new Vue({
-    el: '#app'
+    // el: '#app'
 });
+
+/**
+ * KC Scripts
+ */
+require('./navbar');
+require('./auth/login');
+require('./noty_alert');

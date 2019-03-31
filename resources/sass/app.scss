@@ -1,6 +1,13 @@
 
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Happy+Monkey');
+@import url('https://fonts.googleapis.com/css?family=Barlow+Condensed');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css?family=Sniglet');
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+@import url('https://fonts.googleapis.com/css?family=Patrick+Hand');
+
 
 // Variables
 @import 'variables';
@@ -8,7 +15,195 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+// Noty
+@import '~noty/src/noty.scss';
+@import '~noty/src/themes/nest.scss';
+
+// FontAwesome
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '~@fortawesome/fontawesome-free/scss/solid.scss';
+@import '~@fortawesome/fontawesome-free/scss/regular.scss';
+@import '~@fortawesome/fontawesome-free/scss/brands.scss';
+
+//***************************************
+// Global Style
+//***************************************
+body {
+  padding-top: 4rem;
+  font-family: 'Montserrat';
+  font-size: 13px;
+  background: $page-background;
 }
+
+// Override default location of noty
+#noty_layout__topRight, #noty_layout__topLeft, #noty_layout__topCenter {
+  top: 3.2rem;
+  width: auto;
+  .noty_body {
+    font-size: 1.1rem;
+    font-family: "Patrick Hand", sans-serif;
+    text-align: left;
+  }
+}
+
+.container {
+  max-width: 100%;
+  padding: 0 4rem;
+}
+
+hr.greenLine {
+  margin: 1.5rem 0;
+  background-color: $secondary-green;
+}
+hr.grayLine {
+  background-color: $thirdly-gray;
+  margin: 3px 0;
+}
+
+.formTitle {
+  text-transform: uppercase;
+  color: $main-green;
+  margin: 0.1rem 0 2rem 0;
+}
+
+//-----Buttons
+button:focus {
+  outline: 0;
+}
+.btn-primary {
+  margin: 0px;
+  border: none;
+  background-color: $page-background;
+  color: $main-green;
+}
+.btn-primary i {
+  transition: all 0.5s ease-in-out;
+}
+.btn-primary:hover, .btn-primary:focus {
+  cursor: pointer;
+  background-color: $main-green;
+  color: white;
+}
+.btnSubmit {
+  font-weight: bold;
+  color: $white;
+  background-color: $secondary-green;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  border-left: 5px solid $main-green;
+  border-right: 5px solid $main-green;
+  border-radius: 10px;
+}
+.btnSubmit:hover, .btnSubmit:focus {
+  color: $main-green;
+  background-color: $page-background;
+  border-color: $main-green;
+  border-top: 1px solid $main-green;
+  border-bottom: 1px solid $main-green;
+}
+.btnLink {
+  color: $secondary-green;
+  font-weight: bold;
+  border: none;
+  background: none;
+}
+.btnLink:hover, .btnLink:focus {
+  color: $secondary-green;
+  text-decoration: underline;
+  font-weight: normal;
+  cursor: pointer;
+}
+.btnLink:hover::after {
+  content: ' ⋙';
+}
+.btnSocialMedia {
+  margin-top: 10px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  background-color: white;
+  .socialMediaGo {
+    visibility: hidden;
+  }
+}
+.btnSocialMedia:hover, .btnSocialMedia:focus {
+  border-style: dashed;
+  cursor: pointer;
+  .socialMediaText {
+    font-weight: bold;
+  }
+  .socialMediaGo {
+    visibility: visible;
+  }
+}
+.btnFacebook {
+  border: 1px solid $facebook;
+  .socialMediaText {
+    color: $facebook;
+  }
+}
+.btnTwitter {
+  border: 1px solid $twitter;
+  .socialMediaText {
+    color: $twitter;
+  }
+}
+.btnGoogle {
+  border: 1px solid $google;
+  .socialMediaText{
+    color: $google;
+  }
+}
+.btnSocialMedia > div {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  color: white;
+  grid-auto-rows: minmax(30px, 30px);
+  div:nth-child(1) {
+    align-self: center;
+  }
+  div:nth-child(2) {
+    justify-self: left;
+    align-self: center;
+  }
+  div:nth-child(3) {
+    justify-self: right;
+    align-self: center;
+  }
+  .socialMediaImg {
+    width: 25px;
+  }
+  i {
+    color: $main-gray;
+  }
+}
+
+//-----Font awesome icons
+.far, .fas, .fab{
+  vertical-align: middle;
+  font-size: 1.2rem;
+}
+.fa-1-5x {
+  font-size: 1.5rem;
+}
+.fa-2x {
+  font-size: 2rem;
+}
+
+//-----Bootstrap form
+.form-group {
+  margin-left: 0;
+  margin-right: 0;
+}
+.col-form-label {
+  padding-left: 0;
+  font-weight: bold;
+}
+
+//***********************
+// KC Navbar
+//***********************
+@import 'navbar';
+@import 'auth/login';
+@import '_animate.css';
+@import 'auth/user_profile';

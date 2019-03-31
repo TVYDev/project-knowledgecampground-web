@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Lib\HttpConstants;
 use Closure;
 
 class StoreLastRouteRequest
