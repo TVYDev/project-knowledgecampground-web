@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Lib\RouteConstants;
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,7 +35,7 @@ Route::group([
         ->name('user.getLogout');
 
     Route::post('/register', 'UserController@postRegister')
-        ->name('user.postRegister')
+        ->name(RouteConstants::USER_POST_REGISTER)
         ->middleware('prevent_login_register_after_authenticated');
 
     Route::get('/view-user-profile', 'UserController@getViewUserProfile')

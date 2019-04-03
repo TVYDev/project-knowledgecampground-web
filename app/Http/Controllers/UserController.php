@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\KCValidationException;
 use App\Lib\HttpConstants;
 use App\Lib\RequestAPI;
+use App\Lib\ResponseEndPoint;
+use App\Lib\RouteConstants;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    use RequestAPI;
+    use RequestAPI, ResponseEndPoint;
 
     public function __construct()
     {
@@ -35,9 +39,7 @@ class UserController extends Controller
             ]);
 
             if($validator->fails()){
-                return redirect()->route('user.getLogin')
-                    ->withErrors($validator)
-                    ->withInput();
+                throw new KCValidationException(RouteConstants::USER_GET_LOGIN,true, $validator);
             }
 
             // --- call API to request login user
@@ -63,13 +65,11 @@ class UserController extends Controller
             {
             }
 
-            return redirect()->route('home')->withSuccess($response->message);
+            return $this->doResponseSuccess(RouteConstants::HOME, $response->message, false);
         }
-        catch(\Exception $exception)
+        catch(\Exception $e)
         {
-            return Redirect::route('user.getLogin')
-                ->withFailure($this->getErrorMessage($exception, false))
-                ->withInput();
+            return $this->doResponseError($e,RouteConstants::USER_GET_LOGIN,true);
         }
     }
 
@@ -92,9 +92,7 @@ class UserController extends Controller
             ]);
 
             if($validator->fails()){
-                return \redirect()->route('user.getLogin')
-                    ->withErrors($validator)
-                    ->withInput();
+                throw new KCValidationException(RouteConstants::USER_GET_LOGIN,true, $validator);
             }
 
             // --- call API to request register user
@@ -121,13 +119,11 @@ class UserController extends Controller
             {
             }
 
-            return redirect()->route('home')->withSuccess($response->message);
+            return $this->doResponseSuccess(RouteConstants::HOME, $response->message, false);
         }
-        catch(\Exception $exception)
+        catch(\Exception $e)
         {
-            return Redirect::route('user.getLogin')
-                ->withFailure($this->getErrorMessage($exception, false))
-                ->withInput();
+            return $this->doResponseError($e,RouteConstants::USER_GET_LOGIN,true);
         }
     }
 
@@ -150,14 +146,12 @@ class UserController extends Controller
                 \request()->session()->forget(HttpConstants::KEY_TO_KC_USER_AUTHENTICATED);
                 \request()->session()->forget(HttpConstants::KEY_TO_LAST_POST_ROUTE_STORED);
 
-                return \redirect()->route('user.getLogin')->withSuccess('You are logged out successfully');
+                return $this->doResponseSuccess(RouteConstants::USER_GET_LOGIN,'You are logged out successfully',false);
             }
         }
-        catch(\Exception $exception)
+        catch(\Exception $e)
         {
-            return Redirect::route('user.getLogin')
-                ->withFailure($this->getErrorMessage($exception,false))
-                ->withInput();
+            return $this->doResponseError($e,RouteConstants::USER_GET_LOGIN,true);
         }
     }
 
@@ -176,11 +170,9 @@ class UserController extends Controller
 
             dd($response);
         }
-        catch(\Exception $exception)
+        catch(\Exception $e)
         {
-            return Redirect::route('user.getLogin')
-                ->withFailure($this->getErrorMessage($exception, false))
-                ->withInput();
+            return $this->doResponseError($e,RouteConstants::USER_GET_LOGIN,true);
         }
     }
 

@@ -11,6 +11,7 @@ namespace App\Lib;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ConnectException;
 use Illuminate\Http\Request;
 
 trait RequestAPI
@@ -99,6 +100,9 @@ trait RequestAPI
         if($exception instanceof ClientException){
             $json = json_decode($exception->getResponse()->getBody()->getContents());
             $message = $json->message;
+        }
+        else if($exception instanceof ConnectException){
+            $message = "Server is not running.";
         }
         return $message;
     }
