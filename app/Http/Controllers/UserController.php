@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\KCValidationException;
+use App\Http\ViewModels\UserAvatarViewModel;
 use App\Lib\HttpConstants;
 use App\Lib\RequestAPI;
 use App\Lib\ResponseEndPoint;
 use App\Lib\RouteConstants;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -51,19 +50,9 @@ class UserController extends Controller
             // --- save the token after login
             $this->saveAccessToken($response);
 
-            try
-            {
-                // --- call API to request get user_avatar of the user
-                $responseUserAvatar = $this->get($this->getApiRequestUrl('user.get_user_avatar'),null,[
-                    'Authorization' => $this->getAccessToken()
-                ]);
-
-                // --- save user_avatar to session for displaying nav_bar
-                $this->saveUserAvatarToSession($responseUserAvatar);
-            }
-            catch(\Exception $exception)
-            {
-            }
+            // --- save user_avatar to session for displaying nav_bar
+            $userAvatar = new UserAvatarViewModel();
+            $this->saveUserAvatarToSession($userAvatar->getUserAvatar());
 
             return $this->doResponseSuccess(RouteConstants::HOME, $response->message, false);
         }
@@ -105,19 +94,9 @@ class UserController extends Controller
             // --- save token after registered
             $this->saveAccessToken($response);
 
-            try
-            {
-                // --- call API to request get user_avatar of the user
-                $responseUserAvatar = $this->get($this->getApiRequestUrl('user.get_user_avatar'),null,[
-                    'Authorization' => $this->getAccessToken()
-                ]);
-
-                // --- save user_avatar to session for displaying nav_bar
-                $this->saveUserAvatarToSession($responseUserAvatar);
-            }
-            catch(\Exception $exception)
-            {
-            }
+            // --- save user_avatar to session for displaying nav_bar
+            $userAvatar = new UserAvatarViewModel();
+            $this->saveUserAvatarToSession($userAvatar->getUserAvatar());
 
             return $this->doResponseSuccess(RouteConstants::HOME, $response->message, false);
         }
@@ -136,9 +115,7 @@ class UserController extends Controller
         try
         {
             // --- call API to request logout user
-            $response = $this->post($this->getApiRequestUrl('user.logout'),null, [
-                'Authorization' => $this->getAccessToken()
-            ]);
+            $response = $this->post($this->getApiRequestUrl('user.logout'),null,$this->getAuthorizationHeader());
 
             if($response->success == true)
             {
@@ -164,9 +141,7 @@ class UserController extends Controller
         try
         {
             // --- call API to request information of the user
-            $response = $this->get($this->getApiRequestUrl('user.get_user'), null, [
-                'Authorization' => $this->getAccessToken()
-            ]);
+            $response = $this->get($this->getApiRequestUrl('user.get_user'), null,$this->getAuthorizationHeader());
 
             dd($response);
         }

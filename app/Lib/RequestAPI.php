@@ -59,6 +59,11 @@ trait RequestAPI
     {
         return self::call($url, HttpConstants::METHOD_PUT, $data, $headers);
     }
+
+    public function getAuthorizationHeader()
+    {
+        return ['Authorization' => self::getAccessToken()];
+    }
     /**********************************************************************************************
      * END (Make HTTP Request)
      **********************************************************************************************/
