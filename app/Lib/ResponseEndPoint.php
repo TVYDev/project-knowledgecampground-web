@@ -20,8 +20,13 @@ trait ResponseEndPoint
         $redirectObj = null;
         if($exception instanceof KCValidationException)
         {
+            $validatorObj = $exception->getValidatorObject();
+            $errorMessage = implode('|',$validatorObj->errors()->all());
+
+            KCLog::error($errorMessage);
+
             $redirectObj = Redirect::route($exception->getRedirectedRoute())
-                ->withErrors($exception->getValidatorObject());
+                ->withErrors($validatorObj);
             if($exception->isRedirectWithInput())
             {
                 $redirectObj->withInput();
@@ -29,8 +34,12 @@ trait ResponseEndPoint
         }
         else
         {
+            $errorMessage = $this->getErrorMessage($exception, false);
+
+            KCLog::error($errorMessage);
+
             $redirectObj = Redirect::route($redirectRouteForGeneralException)
-                ->withFailure($this->getErrorMessage($exception, false));
+                ->withFailure($errorMessage);
             if($isIncludedInputForGeneralException)
             {
                 $redirectObj->withInput();
@@ -42,6 +51,8 @@ trait ResponseEndPoint
 
     public function doResponseSuccess ($redirectRoute, $message, $isIncludedInput)
     {
+        KCLog::info($message);
+
         $redirectObj = Redirect::route($redirectRoute)->withSuccess($message);
 
         if($isIncludedInput)
