@@ -11,6 +11,7 @@ namespace App\Lib;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ConnectException;
 use Illuminate\Http\Request;
 
 trait RequestAPI
@@ -58,6 +59,11 @@ trait RequestAPI
     {
         return self::call($url, HttpConstants::METHOD_PUT, $data, $headers);
     }
+
+    public function getAuthorizationHeader()
+    {
+        return ['Authorization' => self::getAccessToken()];
+    }
     /**********************************************************************************************
      * END (Make HTTP Request)
      **********************************************************************************************/
@@ -99,6 +105,9 @@ trait RequestAPI
         if($exception instanceof ClientException){
             $json = json_decode($exception->getResponse()->getBody()->getContents());
             $message = $json->message;
+        }
+        else if($exception instanceof ConnectException){
+            $message = "Server is not running.";
         }
         return $message;
     }

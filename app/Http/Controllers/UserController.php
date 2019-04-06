@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\KCValidationException;
+use App\Http\ViewModels\UserAvatarViewModel;
 use App\Lib\HttpConstants;
 use App\Lib\RequestAPI;
+use App\Lib\ResponseEndPoint;
+use App\Lib\RouteConstants;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-    use RequestAPI;
+    use RequestAPI, ResponseEndPoint;
 
     public function __construct()
     {
@@ -35,9 +38,7 @@ class UserController extends Controller
             ]);
 
             if($validator->fails()){
-                return redirect()->route('user.getLogin')
-                    ->withErrors($validator)
-                    ->withInput();
+                throw new KCValidationException(RouteConstants::USER_GET_LOGIN,true, $validator);
             }
 
             // --- call API to request login user
@@ -49,27 +50,15 @@ class UserController extends Controller
             // --- save the token after login
             $this->saveAccessToken($response);
 
-            try
-            {
-                // --- call API to request get user_avatar of the user
-                $responseUserAvatar = $this->get($this->getApiRequestUrl('user.get_user_avatar'),null,[
-                    'Authorization' => $this->getAccessToken()
-                ]);
+            // --- save user_avatar to session for displaying nav_bar
+            $userAvatar = new UserAvatarViewModel();
+            $this->saveUserAvatarToSession($userAvatar->getUserAvatar());
 
-                // --- save user_avatar to session for displaying nav_bar
-                $this->saveUserAvatarToSession($responseUserAvatar);
-            }
-            catch(\Exception $exception)
-            {
-            }
-
-            return redirect()->route('home')->withSuccess($response->message);
+            return $this->doResponseSuccess(RouteConstants::HOME, $response->message, false);
         }
-        catch(\Exception $exception)
+        catch(\Exception $e)
         {
-            return Redirect::route('user.getLogin')
-                ->withFailure($this->getErrorMessage($exception, false))
-                ->withInput();
+            return $this->doResponseError($e,RouteConstants::USER_GET_LOGIN,true);
         }
     }
 
@@ -92,9 +81,7 @@ class UserController extends Controller
             ]);
 
             if($validator->fails()){
-                return \redirect()->route('user.getLogin')
-                    ->withErrors($validator)
-                    ->withInput();
+                throw new KCValidationException(RouteConstants::USER_GET_LOGIN,true, $validator);
             }
 
             // --- call API to request register user
@@ -107,27 +94,15 @@ class UserController extends Controller
             // --- save token after registered
             $this->saveAccessToken($response);
 
-            try
-            {
-                // --- call API to request get user_avatar of the user
-                $responseUserAvatar = $this->get($this->getApiRequestUrl('user.get_user_avatar'),null,[
-                    'Authorization' => $this->getAccessToken()
-                ]);
+            // --- save user_avatar to session for displaying nav_bar
+            $userAvatar = new UserAvatarViewModel();
+            $this->saveUserAvatarToSession($userAvatar->getUserAvatar());
 
-                // --- save user_avatar to session for displaying nav_bar
-                $this->saveUserAvatarToSession($responseUserAvatar);
-            }
-            catch(\Exception $exception)
-            {
-            }
-
-            return redirect()->route('home')->withSuccess($response->message);
+            return $this->doResponseSuccess(RouteConstants::HOME, $response->message, false);
         }
-        catch(\Exception $exception)
+        catch(\Exception $e)
         {
-            return Redirect::route('user.getLogin')
-                ->withFailure($this->getErrorMessage($exception, false))
-                ->withInput();
+            return $this->doResponseError($e,RouteConstants::USER_GET_LOGIN,true);
         }
     }
 
@@ -140,9 +115,7 @@ class UserController extends Controller
         try
         {
             // --- call API to request logout user
-            $response = $this->post($this->getApiRequestUrl('user.logout'),null, [
-                'Authorization' => $this->getAccessToken()
-            ]);
+            $response = $this->post($this->getApiRequestUrl('user.logout'),null,$this->getAuthorizationHeader());
 
             if($response->success == true)
             {
@@ -150,14 +123,12 @@ class UserController extends Controller
                 \request()->session()->forget(HttpConstants::KEY_TO_KC_USER_AUTHENTICATED);
                 \request()->session()->forget(HttpConstants::KEY_TO_LAST_POST_ROUTE_STORED);
 
-                return \redirect()->route('user.getLogin')->withSuccess('You are logged out successfully');
+                return $this->doResponseSuccess(RouteConstants::USER_GET_LOGIN,'You are logged out successfully',false);
             }
         }
-        catch(\Exception $exception)
+        catch(\Exception $e)
         {
-            return Redirect::route('user.getLogin')
-                ->withFailure($this->getErrorMessage($exception,false))
-                ->withInput();
+            return $this->doResponseError($e,RouteConstants::USER_GET_LOGIN,true);
         }
     }
 
@@ -170,17 +141,13 @@ class UserController extends Controller
         try
         {
             // --- call API to request information of the user
-            $response = $this->get($this->getApiRequestUrl('user.get_user'), null, [
-                'Authorization' => $this->getAccessToken()
-            ]);
+            $response = $this->get($this->getApiRequestUrl('user.get_user'), null,$this->getAuthorizationHeader());
 
             dd($response);
         }
-        catch(\Exception $exception)
+        catch(\Exception $e)
         {
-            return Redirect::route('user.getLogin')
-                ->withFailure($this->getErrorMessage($exception, false))
-                ->withInput();
+            return $this->doResponseError($e,RouteConstants::USER_GET_LOGIN,true);
         }
     }
 

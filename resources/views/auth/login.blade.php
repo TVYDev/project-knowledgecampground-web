@@ -25,7 +25,7 @@
                             <div class="form-group row">
                                 <label for="emailLogin" class="col-md-3 col-form-label">Email</label>
                                 <div class="col-md-9 p-0">
-                                    <input type="text" name="emailLogin" class="form-control" required="required">
+                                    <input type="text" name="emailLogin" class="form-control" required="required" value="{{ old('emailLogin') }}">
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -57,13 +57,13 @@
                             <div class="form-group row">
                                 <label for="username" class="col-md-3 col-form-label">Username</label>
                                 <div class="col-md-9 p-0">
-                                    <input type="text" name="username" class="form-control" required="required">
+                                    <input type="text" name="username" class="form-control" required="required" value="{{ old('username') }}">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="emailRegister" class="col-md-3 col-form-label">Email</label>
                                 <div class="col-md-9 p-0">
-                                    <input type="text" name="emailRegister" class="form-control" required="required">
+                                    <input type="text" name="emailRegister" class="form-control" required="required" value="{{ old('emailRegister') }}">
                                 </div>
                             </div>
                             <div class="form-group row">
