@@ -20,6 +20,8 @@ class UserController extends Controller
         $this->middleware('verify_access_token')->except(['getLogin','postLogin','postRegister']);
     }
 
+    public function getChangePassword () {return view('auth.change_password');}
+
     /**-------------------------------------------------------------------------
      * User Login
      * [GET] [POST]

@@ -119,39 +119,102 @@
     .btnAsk:hover i, .btnAsk:focus i, .btnLogin:hover i, .btnLogin:focus i {
       transform: rotate(360deg);
     }
-    .blockProfile {
-      border-bottom: 0.2rem solid $main-green;
-      border-top-left-radius: 40px;
-      border-bottom-right-radius: 40px;
-      display: grid;
-      grid-template-columns: repeat(13, 1fr);
-      padding: 0.4rem 1.5rem;
-      .avatar_img {
-        z-index: 6;
-        cursor: pointer;
-        grid-column-start: 1;
-        grid-column-end: 4;
-        grid-row-start: 1;
-        .svgProfile {
-          width: 30px;
-          height: 30px;
-          .midProfile {
-            //fill: blue;
+
+    .userProfileBtn {
+      background: none;
+      border: none;
+      padding: 0;
+      position: relative;
+      .blockProfile {
+        border-bottom: 0.2rem solid $main-green;
+        border-top-left-radius: 40px;
+        border-bottom-right-radius: 40px;
+        display: grid;
+        grid-template-columns: repeat(13, 1fr);
+        padding: 0.4rem 1.5rem;
+        .avatar_img {
+          z-index: 6;
+          cursor: pointer;
+          grid-column-start: 1;
+          grid-column-end: 4;
+          grid-row-start: 1;
+          .svgProfile {
+            width: 30px;
+            height: 30px;
+            .midProfile {
+              //fill: blue;
+            }
           }
         }
+        .avatar_name {
+          z-index: 5;
+          cursor: pointer;
+          grid-column-start: 3;
+          grid-column-end: 14;
+          grid-row-start: 1;
+          text-align: center;
+          font-family: 'Sniglet', cursive;
+          //border: 1.5px solid $secondary-green;
+          font-weight: bold;
+          border-radius: 15px;
+          align-self: center;
+        }
       }
-      .avatar_name {
-        z-index: 5;
-        cursor: pointer;
-        grid-column-start: 3;
-        grid-column-end: 14;
-        grid-row-start: 1;
-        text-align: center;
-        font-family: 'Sniglet', cursive;
-        //border: 1.5px solid $secondary-green;
-        font-weight: bold;
-        border-radius: 15px;
-        align-self: center;
+      .profileMenuListHidden {
+        visibility: hidden;
+      }
+      .profileMenuList {
+        position: absolute;
+        top: 70%;
+        left: 0;
+        z-index: 999;
+        width: 100%;
+        div {
+          position: relative;
+          width: 100%;
+          i {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 52%;
+            color: $main-gray;
+          }
+          ul {
+            position: absolute;
+            top: 7px;
+            left: 20%;
+            font-family: "Montserrat", sans-serif;
+            font-size: 0.8em;
+            border: 2px solid $main-gray;
+            background-color: white;
+            padding: 5px;
+            border-radius: 10px;
+            padding: 0;
+            margin: 0;
+            li {
+              text-align: center;
+              padding: 8px 8px;
+              list-style: none;
+              width: auto;
+              cursor: pointer;
+              border-radius: 8px;
+            }
+            li:nth-child(2) {
+              border-top: 1px solid $thirdly-gray;
+              border-bottom: 1px solid $thirdly-gray;
+            }
+            li:hover, li:focus {
+              background-color: $secondary-green;
+              font-weight: bold;
+              color: white;
+            }
+            li.btnLogout:hover, li.btnLogout:focus {
+              background-color: $main-red;
+              font-weight: bold;
+              color: white;
+            }
+          }
+        }
       }
     }
   }

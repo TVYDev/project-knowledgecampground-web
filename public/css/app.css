@@ -20822,7 +20822,14 @@ button:focus {
           transform: rotate(360deg);
 }
 
-#KCNavbar #navContent .blockProfile {
+#KCNavbar #navContent .userProfileBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  position: relative;
+}
+
+#KCNavbar #navContent .userProfileBtn .blockProfile {
   border-bottom: 0.2rem solid #0A5748;
   border-top-left-radius: 40px;
   border-bottom-right-radius: 40px;
@@ -20831,7 +20838,7 @@ button:focus {
   padding: 0.4rem 1.5rem;
 }
 
-#KCNavbar #navContent .blockProfile .avatar_img {
+#KCNavbar #navContent .userProfileBtn .blockProfile .avatar_img {
   z-index: 6;
   cursor: pointer;
   grid-column-start: 1;
@@ -20839,12 +20846,12 @@ button:focus {
   grid-row-start: 1;
 }
 
-#KCNavbar #navContent .blockProfile .avatar_img .svgProfile {
+#KCNavbar #navContent .userProfileBtn .blockProfile .avatar_img .svgProfile {
   width: 30px;
   height: 30px;
 }
 
-#KCNavbar #navContent .blockProfile .avatar_name {
+#KCNavbar #navContent .userProfileBtn .blockProfile .avatar_name {
   z-index: 5;
   cursor: pointer;
   grid-column-start: 3;
@@ -20855,6 +20862,73 @@ button:focus {
   font-weight: bold;
   border-radius: 15px;
   align-self: center;
+}
+
+#KCNavbar #navContent .userProfileBtn .profileMenuListHidden {
+  visibility: hidden;
+}
+
+#KCNavbar #navContent .userProfileBtn .profileMenuList {
+  position: absolute;
+  top: 70%;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+}
+
+#KCNavbar #navContent .userProfileBtn .profileMenuList div {
+  position: relative;
+  width: 100%;
+}
+
+#KCNavbar #navContent .userProfileBtn .profileMenuList div i {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 52%;
+  color: #424242;
+}
+
+#KCNavbar #navContent .userProfileBtn .profileMenuList div ul {
+  position: absolute;
+  top: 7px;
+  left: 20%;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8em;
+  border: 2px solid #424242;
+  background-color: white;
+  padding: 5px;
+  border-radius: 10px;
+  padding: 0;
+  margin: 0;
+}
+
+#KCNavbar #navContent .userProfileBtn .profileMenuList div ul li {
+  text-align: center;
+  padding: 8px 8px;
+  list-style: none;
+  width: auto;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+#KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:nth-child(2) {
+  border-top: 1px solid #D8D8D8;
+  border-bottom: 1px solid #D8D8D8;
+}
+
+#KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:hover,
+#KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:focus {
+  background-color: #17CCA9;
+  font-weight: bold;
+  color: white;
+}
+
+#KCNavbar #navContent .userProfileBtn .profileMenuList div ul li.btnLogout:hover,
+#KCNavbar #navContent .userProfileBtn .profileMenuList div ul li.btnLogout:focus {
+  background-color: #FF5654;
+  font-weight: bold;
+  color: white;
 }
 
 .loginContent {
