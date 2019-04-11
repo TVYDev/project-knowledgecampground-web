@@ -20864,10 +20864,6 @@ button:focus {
   align-self: center;
 }
 
-#KCNavbar #navContent .userProfileBtn .profileMenuListHidden {
-  visibility: hidden;
-}
-
 #KCNavbar #navContent .userProfileBtn .profileMenuList {
   position: absolute;
   top: 70%;
@@ -20904,6 +20900,7 @@ button:focus {
 }
 
 #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li {
+  margin: 2px;
   text-align: center;
   padding: 8px 8px;
   list-style: none;
@@ -20920,15 +20917,12 @@ button:focus {
 #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:hover,
 #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:focus {
   background-color: #17CCA9;
-  font-weight: bold;
   color: white;
 }
 
 #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li.btnLogout:hover,
 #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li.btnLogout:focus {
   background-color: #FF5654;
-  font-weight: bold;
-  color: white;
 }
 
 .loginContent {

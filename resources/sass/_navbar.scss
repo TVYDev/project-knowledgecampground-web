@@ -160,9 +160,6 @@
           align-self: center;
         }
       }
-      .profileMenuListHidden {
-        visibility: hidden;
-      }
       .profileMenuList {
         position: absolute;
         top: 70%;
@@ -192,6 +189,7 @@
             padding: 0;
             margin: 0;
             li {
+              margin: 2px;
               text-align: center;
               padding: 8px 8px;
               list-style: none;
@@ -205,13 +203,10 @@
             }
             li:hover, li:focus {
               background-color: $secondary-green;
-              font-weight: bold;
               color: white;
             }
             li.btnLogout:hover, li.btnLogout:focus {
               background-color: $main-red;
-              font-weight: bold;
-              color: white;
             }
           }
         }

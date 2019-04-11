@@ -5,7 +5,7 @@
         </div>
         <div class="avatar_name" style="border: 1.5px solid {{$borderColorHex}};">{{$username}}</div>
     </div>
-    <div class="profileMenuList profileMenuListHidden">
+    <div class="profileMenuList animated" hidden="hidden">
         <div>
             <i class="fas fa-sort-up"></i>
             <ul class="menuBtns">

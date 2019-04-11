@@ -52349,16 +52349,16 @@ $(document).ready(function () {
   });
   var profileMenuList = $('#KCNavbar .profileMenuList');
   $('#KCNavbar .avatar_name, #KCNavbar .avatar_img').click(function () {
-    profileMenuList.toggleClass('profileMenuListHidden');
-    profileMenuList.removeClass('flipInX');
+    profileMenuList.removeAttr('hidden');
 
-    if (!profileMenuList.hasClass('profileMenuListHidden')) {
-      profileMenuList.addClass('animated flipInX');
+    if (profileMenuList.hasClass('flipInX')) {
+      profileMenuList.removeClass('flipInX').addClass('flipOutX');
+    } else {
+      profileMenuList.removeClass('flipOutX').addClass('flipInX');
     }
   });
   $('#KCNavbar .userProfileBtn').focusout(function () {
-    profileMenuList.addClass('profileMenuListHidden');
-    profileMenuList.removeClass('flipInX');
+    profileMenuList.removeClass('flipInX').addClass('flipOutX');
   });
   $('#KCNavbar .menuBtns li').click(function (e) {
     window.location.href = $(this).attr('data-url');
