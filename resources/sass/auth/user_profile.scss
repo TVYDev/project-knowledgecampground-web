@@ -36,7 +36,10 @@
     .avatarBlock {
       justify-self: center;
       text-align: center;
-      .svgProfile {
+      .avatar_img {
+        border: 2px solid $main-green;
+        border-radius: 100px;
+        padding: 5px;
         width: 200px;
         height: 200px;
       }

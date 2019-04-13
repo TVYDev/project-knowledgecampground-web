@@ -20838,7 +20838,7 @@ button:focus {
   padding: 0.4rem 1.5rem;
 }
 
-#KCNavbar #navContent .userProfileBtn .blockProfile .avatar_img {
+#KCNavbar #navContent .userProfileBtn .blockProfile .avatar_img_block {
   z-index: 6;
   cursor: pointer;
   grid-column-start: 1;
@@ -20846,9 +20846,11 @@ button:focus {
   grid-row-start: 1;
 }
 
-#KCNavbar #navContent .userProfileBtn .blockProfile .avatar_img .svgProfile {
-  width: 30px;
-  height: 30px;
+#KCNavbar #navContent .userProfileBtn .blockProfile .avatar_img_block .avatar_img {
+  background-color: #F3F3F3;
+  border: 1.5px solid #0A5748;
+  border-radius: 20px;
+  padding: 1px;
 }
 
 #KCNavbar #navContent .userProfileBtn .blockProfile .avatar_name {
@@ -20859,6 +20861,7 @@ button:focus {
   grid-row-start: 1;
   text-align: center;
   font-family: "Sniglet", cursive;
+  border: 1.5px solid #0A5748;
   font-weight: bold;
   border-radius: 15px;
   align-self: center;
@@ -21054,7 +21057,10 @@ button:focus {
   text-align: center;
 }
 
-.userProfileContent .topPartData .avatarBlock .svgProfile {
+.userProfileContent .topPartData .avatarBlock .avatar_img {
+  border: 2px solid #0A5748;
+  border-radius: 100px;
+  padding: 5px;
   width: 200px;
   height: 200px;
 }

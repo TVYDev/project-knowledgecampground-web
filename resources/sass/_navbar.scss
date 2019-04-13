@@ -132,18 +132,17 @@
         display: grid;
         grid-template-columns: repeat(13, 1fr);
         padding: 0.4rem 1.5rem;
-        .avatar_img {
+        .avatar_img_block {
           z-index: 6;
           cursor: pointer;
           grid-column-start: 1;
           grid-column-end: 4;
           grid-row-start: 1;
-          .svgProfile {
-            width: 30px;
-            height: 30px;
-            .midProfile {
-              //fill: blue;
-            }
+          .avatar_img {
+            background-color: $page-background;
+            border: 1.5px solid $main-green;
+            border-radius: 20px;
+            padding: 1px;
           }
         }
         .avatar_name {
@@ -154,7 +153,7 @@
           grid-row-start: 1;
           text-align: center;
           font-family: 'Sniglet', cursive;
-          //border: 1.5px solid $secondary-green;
+          border: 1.5px solid $main-green;
           font-weight: bold;
           border-radius: 15px;
           align-self: center;

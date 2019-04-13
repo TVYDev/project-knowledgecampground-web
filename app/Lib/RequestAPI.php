@@ -129,18 +129,13 @@ trait RequestAPI
      */
     public function saveUserAvatarToSession ($userAvatar)
     {
-        $ua[UserConstants::USER_AVATAR_ANGLE] = $userAvatar->data->angle;
-        $ua[UserConstants::USER_AVATAR_DEFAULT] = $userAvatar->data->is_active;
         $ua[UserConstants::USER_NAME] = $userAvatar->data->name;
         if($userAvatar->data->is_active){
-            $ua[UserConstants::USER_AVATAR_MIDDLE_COLOR_HEX] = $userAvatar->data->middle_color_hex;
-            $ua[UserConstants::USER_AVATAR_SIDE_LG_COLOR_HEX] = $userAvatar->data->side_lg_color_hex;
-            $ua[UserConstants::USER_AVATAR_SIDE_SM_COLOR_HEX] = $userAvatar->data->side_sm_color_hex;
-            $ua[UserConstants::USER_AVATAR_BORDER_COLOR_HEX] = $userAvatar->data->border_color_hex;
+            $ua[UserConstants::USER_AVATAR_SVG_URL] = HttpConstants::HOST_URL . $userAvatar->data->default_avatar_url;
         }
         else
         {
-            $ua[UserConstants::USER_AVATAR_IMG_URL] = $userAvatar->img_url;
+            $ua[UserConstants::USER_AVATAR_IMG_URL] = HttpConstants::HOST_URL . $userAvatar->img_url;
         }
 
         session([UserConstants::KEY_TO_USER_AVATAR => $ua]);
