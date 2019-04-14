@@ -52344,7 +52344,7 @@ $(document).ready(function () {
     $('#KCNavbar .btnNavMenu').removeClass('active');
     $(this).addClass('active');
   });
-  $('#KCNavbar .btnLogin').click(function () {
+  $('#KCNavbar .btnLogin, #KCNavbar .btnAsk').click(function () {
     window.location.href = $(this).attr('data-url');
   });
   var profileMenuList = $('#KCNavbar .profileMenuList');

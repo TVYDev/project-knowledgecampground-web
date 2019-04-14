@@ -45,3 +45,12 @@ Route::group([
     Route::get('/view-user-profile', 'UserController@getViewUserProfile')
         ->name(RouteConstants::USER_GET_VIEW_USER_PROFILE);
 });
+
+Route::group([
+    'prefix' => 'question'
+], function() {
+    Route::get('/ask', 'QuestionController@getAsk')
+        ->name(RouteConstants::QUESTION_GET_ASK);
+    Route::post('/ask', 'QuestionController@postAsk')
+        ->name(RouteConstants::QUESTION_POST_ASK);
+});

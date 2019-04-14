@@ -4,7 +4,7 @@ $(document).ready(function (){
        $(this).addClass('active');
    });
 
-   $('#KCNavbar .btnLogin').click(function () {
+   $('#KCNavbar .btnLogin, #KCNavbar .btnAsk').click(function () {
         window.location.href = $(this).attr('data-url');
    });
 

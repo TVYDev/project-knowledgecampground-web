@@ -21159,3 +21159,52 @@ button:focus {
   padding-left: 50px;
 }
 
+.askQuestionContent {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 10px;
+}
+
+.askQuestionContent .questionCreation .headAskQuestion {
+  display: grid;
+  grid-template-columns: 8% 92%;
+}
+
+.askQuestionContent .questionCreation .headAskQuestion div:first-child {
+  text-align: center;
+  background-color: #0A5748;
+  color: white;
+  border-radius: 30px 30px 0 0;
+  padding: 8px;
+}
+
+.askQuestionContent .questionCreation .headAskQuestion div:last-child {
+  font-weight: bold;
+  color: #424242;
+  font-size: 1.5em;
+  border-bottom: 3px solid #0A5748;
+}
+
+.askQuestionContent .questionCreation .headAskQuestion div:last-child span {
+  margin-left: 10px;
+}
+
+.askQuestionContent .questionCreation .questionTips {
+  margin-top: 10px;
+  border: 1px solid #0A5748;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.askQuestionContent .questionCreation .questionTips .tipText {
+  padding-left: 20px;
+}
+
+.askQuestionContent .questionCreation .askQuestionForm {
+  margin-top: 10px;
+}
+
+.askQuestionContent .questionPreview {
+  border: 1px dashed red;
+}
+
