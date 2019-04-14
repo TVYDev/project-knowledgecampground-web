@@ -6,11 +6,7 @@
 
 <?php
 $ua = session(\App\Lib\UserConstants::KEY_TO_USER_AVATAR);
-$angle = $ua[\App\Lib\UserConstants::USER_AVATAR_ANGLE];
-$middleColorHex = $ua[\App\Lib\UserConstants::USER_AVATAR_MIDDLE_COLOR_HEX];
-$sideLgColorHex = $ua[\App\Lib\UserConstants::USER_AVATAR_SIDE_LG_COLOR_HEX];
-$sideSmColorHex = $ua[\App\Lib\UserConstants::USER_AVATAR_SIDE_SM_COLOR_HEX];
-$borderColorHex = $ua[\App\Lib\UserConstants::USER_AVATAR_BORDER_COLOR_HEX];
+$default_avatar_url = $ua[\App\Lib\UserConstants::USER_AVATAR_SVG_URL];
 $username = $ua[\App\Lib\UserConstants::USER_NAME];
 ?>
 
@@ -38,7 +34,7 @@ $username = $ua[\App\Lib\UserConstants::USER_NAME];
             </div>
         </div>
         <div class="avatarBlock">
-            @include('layouts.partials._profile_'.(empty($angle) ? 0 : $angle).'_degree')
+            <img class="avatar_img" src="{{$default_avatar_url}}" alt="avatar_image">
             <br>
             <button class="btnEditProfile">Edit Profile</button>
         </div>

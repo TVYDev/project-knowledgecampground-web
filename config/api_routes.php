@@ -28,6 +28,10 @@ return [
             'path'  => '/api/auth/logout',
             'url'   => $host.'/api/auth/logout'
         ],
+        'change_password' => [
+            'path'  => '/api/auth/change-password',
+            'url'   => $host.'/api/auth/change-password'
+        ],
         'get_user_avatar'   => [
             'path'  => '/api/user-avatar/user-avatar',
             'url'   => $host.'/api/user-avatar/user-avatar'

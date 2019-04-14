@@ -20,6 +20,44 @@ class UserController extends Controller
         $this->middleware('verify_access_token')->except(['getLogin','postLogin','postRegister']);
     }
 
+    public function getChangePassword () {return view('auth.change_password');}
+    public function postChangePassword (Request $request)
+    {
+        try
+        {
+            // --- validate inputs
+            $validator = Validator::make($request->all(), [
+                'currentPassword' => 'required|string',
+                'newPassword' => 'required|string|confirmed'
+            ]);
+
+            if($validator->fails()){
+                throw new KCValidationException(RouteConstants::USER_GET_CHANGE_PASSWORD,false,$validator);
+            }
+
+            // --- call API to change password of the user
+            $response = $this->post($this->getApiRequestUrl('user.change_password'), [
+                'old_password'              => $request->currentPassword,
+                'new_password'              => $request->newPassword,
+                'new_password_confirmation' => $request->newPassword_confirmation
+            ],$this->getAuthorizationHeader());
+
+
+            if($response->success == true)
+            {
+                // --- remove some data from session that used in nav_bar
+                \request()->session()->forget(HttpConstants::KEY_TO_KC_USER_AUTHENTICATED);
+                \request()->session()->forget(HttpConstants::KEY_TO_LAST_POST_ROUTE_STORED);
+
+                return $this->doResponseSuccess(RouteConstants::USER_GET_LOGIN, $response->message,false);
+            }
+        }
+        catch(\Exception $e)
+        {
+            return $this->doResponseError($e,RouteConstants::USER_GET_CHANGE_PASSWORD,false);
+        }
+    }
+
     /**-------------------------------------------------------------------------
      * User Login
      * [GET] [POST]
