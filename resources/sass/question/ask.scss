@@ -3,15 +3,16 @@
   grid-template-columns: repeat(2, 1fr);
   grid-column-gap: 10px;
   .questionCreation {
-    //border: 1px dashed red;
     .headAskQuestion {
       display: grid;
       grid-template-columns: 8% 92%;
       div:first-child {
         text-align: center;
-        background-color: $main-green;
-        color: white;
-        border-radius: 30px 30px 0 0;
+        color: $main-green;
+        background-color: $page-background;
+        color: $main-green;
+        border-radius: 30px 30px 0 30px;
+        border: 3px solid $main-green;
         padding: 8px;
       }
       div:last-child {
@@ -19,6 +20,7 @@
         color: $main-gray;
         font-size: 1.5em;
         border-bottom: 3px solid $main-green;
+        align-self: end;
         span {
           margin-left: 10px;
         }

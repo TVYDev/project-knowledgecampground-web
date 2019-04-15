@@ -21172,9 +21172,11 @@ button:focus {
 
 .askQuestionContent .questionCreation .headAskQuestion div:first-child {
   text-align: center;
-  background-color: #0A5748;
-  color: white;
-  border-radius: 30px 30px 0 0;
+  color: #0A5748;
+  background-color: #F3F3F3;
+  color: #0A5748;
+  border-radius: 30px 30px 0 30px;
+  border: 3px solid #0A5748;
   padding: 8px;
 }
 
@@ -21183,6 +21185,7 @@ button:focus {
   color: #424242;
   font-size: 1.5em;
   border-bottom: 3px solid #0A5748;
+  align-self: end;
 }
 
 .askQuestionContent .questionCreation .headAskQuestion div:last-child span {
