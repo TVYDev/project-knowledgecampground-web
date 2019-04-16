@@ -52172,6 +52172,8 @@ __webpack_require__(/*! ./noty_alert */ "./resources/js/noty_alert.js");
 
 __webpack_require__(/*! ./description_element */ "./resources/js/description_element.js");
 
+__webpack_require__(/*! ./content_editor */ "./resources/js/content_editor.js");
+
 /***/ }),
 
 /***/ "./resources/js/auth/login.js":
@@ -52334,6 +52336,37 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/content_editor.js":
+/*!****************************************!*\
+  !*** ./resources/js/content_editor.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  var contentEditor = $('.contentEditor');
+  var allTabs = contentEditor.children('.tabTypeContent').children('button');
+  var allEditorTypes = contentEditor.children('.editor');
+  allTabs.click(function (ele) {
+    var thisElement = $(this);
+    var dataType = thisElement.attr('data-type');
+    ele.preventDefault();
+    allTabs.removeClass('selected');
+    thisElement.addClass('selected');
+    allEditorTypes.children('div').attr('hidden', 'hidden');
+
+    if (dataType == 'text') {
+      allEditorTypes.children('.textEditor').removeAttr('hidden');
+    } else if (dataType == 'code') {
+      allEditorTypes.children('.codeEditor').removeAttr('hidden');
+    } else if (dataType == 'image') {
+      allEditorTypes.children('.imageSelector').removeAttr('hidden');
+    }
+  });
+});
+
+/***/ }),
+
 /***/ "./resources/js/description_element.js":
 /*!*********************************************!*\
   !*** ./resources/js/description_element.js ***!
@@ -52350,7 +52383,9 @@ $(document).ready(function () {
 
     if (position == 1) {
       thisElement.children('.descTools').children('.toolArrowUp').addClass('inactive');
-    } else if (position == totalElement) {
+    }
+
+    if (position == totalElement) {
       thisElement.children('.descTools').children('.toolArrowDown').addClass('inactive');
     }
   });

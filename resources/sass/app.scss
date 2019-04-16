@@ -233,6 +233,59 @@ button:focus {
   }
 }
 
+// --- Content Editor
+.contentEditor {
+  margin: 5px 0;
+  padding: 0;
+  border: 1px solid $secondary-gray;
+  border-radius: 5px;
+  .tabTypeContent {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 2px;
+    align-items: stretch;
+    button {
+      margin: 1px;
+      margin: 0;
+      border-radius: 5px;
+      background: none;
+      border: none;
+      background-color: white;
+      color: $secondary-gray
+    }
+    button:hover, button:focus {
+      font-weight: bold;
+      background-color: $page-background;
+    }
+    button.selected {
+      background-color: $secondary-blue;
+      color: white;
+    }
+  }
+  .editor {
+    border-top: 1px dashed $thirdly-gray;
+    border-bottom: 1px dashed $thirdly-gray;
+  }
+  .actionContentEditor {
+    border-radius: 5px;
+    text-align: right;
+    background-color: white;
+    padding: 5px;
+    .btnAddContent {
+      border: 2px solid $secondary-blue;
+      background: none;
+      background-color: $secondary-blue;
+      border-radius: 10px;
+      color: white;
+      padding: 2px 15px;
+    }
+    .btnAddContent:hover, .btnAddContent:focus {
+      background-color: white;
+      color: $secondary-blue;
+    }
+  }
+}
+
 //***********************
 // KC Navbar
 //***********************

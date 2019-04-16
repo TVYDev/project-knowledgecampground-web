@@ -20709,6 +20709,68 @@ button:focus {
   border-radius: 5px;
 }
 
+.contentEditor {
+  margin: 5px 0;
+  padding: 0;
+  border: 1px solid #707070;
+  border-radius: 5px;
+}
+
+.contentEditor .tabTypeContent {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 2px;
+  align-items: stretch;
+}
+
+.contentEditor .tabTypeContent button {
+  margin: 1px;
+  margin: 0;
+  border-radius: 5px;
+  background: none;
+  border: none;
+  background-color: white;
+  color: #707070;
+}
+
+.contentEditor .tabTypeContent button:hover,
+.contentEditor .tabTypeContent button:focus {
+  font-weight: bold;
+  background-color: #F3F3F3;
+}
+
+.contentEditor .tabTypeContent button.selected {
+  background-color: #54D0E6;
+  color: white;
+}
+
+.contentEditor .editor {
+  border-top: 1px dashed #D8D8D8;
+  border-bottom: 1px dashed #D8D8D8;
+}
+
+.contentEditor .actionContentEditor {
+  border-radius: 5px;
+  text-align: right;
+  background-color: white;
+  padding: 5px;
+}
+
+.contentEditor .actionContentEditor .btnAddContent {
+  border: 2px solid #54D0E6;
+  background: none;
+  background-color: #54D0E6;
+  border-radius: 10px;
+  color: white;
+  padding: 2px 15px;
+}
+
+.contentEditor .actionContentEditor .btnAddContent:hover,
+.contentEditor .actionContentEditor .btnAddContent:focus {
+  background-color: white;
+  color: #54D0E6;
+}
+
 #KCNavbar {
   width: 100%;
   position: fixed;

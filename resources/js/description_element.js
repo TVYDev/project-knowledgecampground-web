@@ -7,7 +7,7 @@ $(document).ready(function () {
         if(position == 1){
             thisElement.children('.descTools').children('.toolArrowUp').addClass('inactive');
         }
-        else if(position == totalElement) {
+        if(position == totalElement) {
             thisElement.children('.descTools').children('.toolArrowDown').addClass('inactive');
         }
     });

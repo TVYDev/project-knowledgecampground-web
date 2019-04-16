@@ -1,4 +1,4 @@
-<div class="descElement col-md-12" data-type="plainText" data-position="2" data-total-element="2">
+<div class="descElement col-md-12" data-type="plainText" data-position="1" data-total-element="1">
     <div class="descTools">
         <button class="toolArrowUp"><i class="fas fa-arrow-up"></i></button>
         <button class="toolArrowDown"><i class="fas fa-arrow-down"></i></button>

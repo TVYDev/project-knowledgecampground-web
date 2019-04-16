@@ -40,3 +40,4 @@ require('./navbar');
 require('./auth/login');
 require('./noty_alert');
 require('./description_element');
+require('./content_editor');
