@@ -39,3 +39,4 @@ const app = new Vue({
 require('./navbar');
 require('./auth/login');
 require('./noty_alert');
+require('./description_element');

@@ -52170,6 +52170,8 @@ __webpack_require__(/*! ./auth/login */ "./resources/js/auth/login.js");
 
 __webpack_require__(/*! ./noty_alert */ "./resources/js/noty_alert.js");
 
+__webpack_require__(/*! ./description_element */ "./resources/js/description_element.js");
+
 /***/ }),
 
 /***/ "./resources/js/auth/login.js":
@@ -52329,6 +52331,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/description_element.js":
+/*!*********************************************!*\
+  !*** ./resources/js/description_element.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  var descElementArray = $('.descElement').toArray();
+  $.each(descElementArray, function (index, value) {
+    var thisElement = $(this);
+    var totalElement = thisElement.attr('data-total-element');
+    var position = thisElement.attr('data-position');
+
+    if (position == 1) {
+      thisElement.children('.descTools').children('.toolArrowUp').addClass('inactive');
+    } else if (position == totalElement) {
+      thisElement.children('.descTools').children('.toolArrowDown').addClass('inactive');
+    }
+  });
+});
 
 /***/ }),
 

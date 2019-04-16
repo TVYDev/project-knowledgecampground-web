@@ -200,6 +200,39 @@ button:focus {
   font-weight: bold;
 }
 
+// ---- Description Element
+.descElement {
+  padding: 0;
+  margin: 3px 0;
+  .descTools {
+    text-align: right;
+    margin-bottom: 2px;
+    button {
+      border: none;
+      background: none;
+      padding: 0;
+      margin: 0 5px;
+      color: $main-gray;
+      i {
+        font-size: 0.9rem;
+      }
+    }
+    button:hover, button:focus {
+      color: $secondary-green;
+    }
+    button.inactive {
+      color: $thirdly-gray;
+      cursor: not-allowed;
+    }
+  }
+  .descContent {
+    background-color: white;
+    padding: 10px;
+    border: 1.5px dashed $thirdly-gray;
+    border-radius: 5px;
+  }
+}
+
 //***********************
 // KC Navbar
 //***********************

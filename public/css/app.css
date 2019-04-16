@@ -20670,6 +20670,45 @@ button:focus {
   font-weight: bold;
 }
 
+.descElement {
+  padding: 0;
+  margin: 3px 0;
+}
+
+.descElement .descTools {
+  text-align: right;
+  margin-bottom: 2px;
+}
+
+.descElement .descTools button {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0 5px;
+  color: #424242;
+}
+
+.descElement .descTools button i {
+  font-size: 0.9rem;
+}
+
+.descElement .descTools button:hover,
+.descElement .descTools button:focus {
+  color: #17CCA9;
+}
+
+.descElement .descTools button.inactive {
+  color: #D8D8D8;
+  cursor: not-allowed;
+}
+
+.descElement .descContent {
+  background-color: white;
+  padding: 10px;
+  border: 1.5px dashed #D8D8D8;
+  border-radius: 5px;
+}
+
 #KCNavbar {
   width: 100%;
   position: fixed;

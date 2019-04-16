@@ -36,7 +36,8 @@
                     </div>
                     <div class="form-group row">
                         <label for="description"><strong>Description</strong></label>
-
+                        @include('layouts.partials._description_element')
+                        @include('layouts.partials._description_element')
                     </div>
                 </form>
             </div>
