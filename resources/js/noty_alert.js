@@ -1,4 +1,4 @@
-$(document).ready(function() {
+    $(document).ready(function() {
     const divError = $('.kcAlertMessages');
     const hasError = divError.attr('data-has-error');
     const errorRegister = divError.attr('data-error-register');

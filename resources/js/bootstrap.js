@@ -59,3 +59,7 @@ if (token) {
  * Noty
  */
 window.Noty = require('noty');
+/**
+ * Quill Rich Text Editor
+ */
+window.Quill = require('quill');

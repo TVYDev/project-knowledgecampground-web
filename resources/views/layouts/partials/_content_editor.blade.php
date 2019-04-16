@@ -5,9 +5,7 @@
        <button class="btnAddImage" data-type="image">Add image</button>
     </div>
     <div class="editor">
-        <div class="textEditor">
-            I am text editor
-        </div>
+        <div class="textEditor"></div>
         <div class="codeEditor" hidden="hidden">
             I am code editor
         </div>

@@ -7,7 +7,10 @@
 @import url('https://fonts.googleapis.com/css?family=Sniglet');
 @import url('https://fonts.googleapis.com/css?family=Pacifico');
 @import url('https://fonts.googleapis.com/css?family=Patrick+Hand');
-
+// Khmer Fonts
+@import url('https://fonts.googleapis.com/css?family=Angkor');
+@import url('https://fonts.googleapis.com/css?family=Hanuman');
+@import url('https://fonts.googleapis.com/css?family=Kdam+Thmor');
 
 // Variables
 @import 'variables';
@@ -24,6 +27,11 @@
 @import '~@fortawesome/fontawesome-free/scss/solid.scss';
 @import '~@fortawesome/fontawesome-free/scss/regular.scss';
 @import '~@fortawesome/fontawesome-free/scss/brands.scss';
+
+// Quill Rich Text Editor
+@import '~quill/dist/quill.core.css';
+@import '~quill/dist/quill.snow.css';
+@import '~quill/dist/quill.bubble.css';
 
 //***************************************
 // Global Style
