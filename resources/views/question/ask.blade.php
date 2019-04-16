@@ -38,7 +38,7 @@
                         <label for="description"><strong>Description</strong></label>
                         @include('layouts.partials._description_element')
                         @include('layouts.partials._content_editor')
-                    </div>
+                        </div>
                 </form>
             </div>
         </div>

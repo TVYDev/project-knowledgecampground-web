@@ -65956,6 +65956,14 @@ function renderQuillTextEditor() {
     'indent': '-1'
   }, {
     'indent': '+1'
+  }], [{
+    'header': [1, 2, 3, 4, 5, 6, false]
+  }], [{
+    'color': []
+  }, {
+    'background': []
+  }], [{
+    'align': []
   }], ['clean']];
   new Quill('.contentEditor .textEditor', {
     modules: {
