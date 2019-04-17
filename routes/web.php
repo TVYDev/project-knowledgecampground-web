@@ -54,3 +54,10 @@ Route::group([
     Route::post('/ask', 'QuestionController@postAsk')
         ->name(RouteConstants::QUESTION_POST_ASK);
 });
+
+Route::group([
+    'prefix' => 'description'
+], function() {
+    Route::post('/save', 'DescriptionController@save')
+        ->name(RouteConstants::DESCRIPTION_POST_SAVE);
+});

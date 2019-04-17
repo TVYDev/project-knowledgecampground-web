@@ -65923,7 +65923,8 @@ $(document).ready(function () {
   var contentEditor = $('.contentEditor');
   var allTabs = contentEditor.children('.tabTypeContent').children('button');
   var allEditorTypes = contentEditor.children('.editor');
-  renderQuillTextEditor();
+  var btnAddContent = contentEditor.children('.actionContentEditor').children('.btnAddContent');
+  var quillObj = quillEditor.render();
   allTabs.click(function (ele) {
     var thisElement = $(this);
     var dataType = thisElement.attr('data-type');
@@ -65934,44 +65935,110 @@ $(document).ready(function () {
 
     if (dataType == 'text') {
       allEditorTypes.children('.textEditor').removeAttr('hidden');
-      renderQuillTextEditor();
+      quillObj = quillEditor.render();
     } else if (dataType == 'code') {
       allEditorTypes.children('.codeEditor').removeAttr('hidden');
+      var toolbarOptions = [['bold', 'italic', 'underline', 'strike', 'blockquote'], [{
+        'list': 'ordered'
+      }, {
+        'list': 'bullet'
+      }], [{
+        'script': 'sub'
+      }, {
+        'script': 'super'
+      }], [{
+        'indent': '-1'
+      }, {
+        'indent': '+1'
+      }], [{
+        'header': [1, 2, 3, 4, 5, 6, false]
+      }], [{
+        'color': []
+      }, {
+        'background': []
+      }], [{
+        'align': []
+      }], ['clean']];
+      quill222 = new Quill('.contentEditor .codeEditor', {
+        modules: {
+          toolbar: toolbarOptions
+        },
+        theme: 'snow'
+      });
     } else if (dataType == 'image') {
       allEditorTypes.children('.imageSelector').removeAttr('hidden');
     }
   });
-});
-
-function renderQuillTextEditor() {
-  var toolbarOptions = [['bold', 'italic', 'underline', 'strike', 'blockquote'], [{
-    'list': 'ordered'
-  }, {
-    'list': 'bullet'
-  }], [{
-    'script': 'sub'
-  }, {
-    'script': 'super'
-  }], [{
-    'indent': '-1'
-  }, {
-    'indent': '+1'
-  }], [{
-    'header': [1, 2, 3, 4, 5, 6, false]
-  }], [{
-    'color': []
-  }, {
-    'background': []
-  }], [{
-    'align': []
-  }], ['clean']];
-  new Quill('.contentEditor .textEditor', {
-    modules: {
-      toolbar: toolbarOptions
-    },
-    theme: 'snow'
+  btnAddContent.click(function (e) {
+    e.preventDefault();
+    var quillContent = quillObj.getContents();
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    $.ajax({
+      method: 'POST',
+      url: '/description/save',
+      data: JSON.stringify(quillContent),
+      success: function success(data) {
+        console.log('success');
+        var ops = data['{"ops":'];
+        var opsContent = Object.keys(ops)[0];
+        var arrayOps = opsContent.split(/,(?=\{)/);
+        var arrayOpsJson = [];
+        $.each(arrayOps, function (index, value) {
+          arrayOpsJson.push(JSON.parse(value));
+        });
+        quill222.setContents(arrayOpsJson);
+      },
+      error: function error(xhr) {
+        console.log('error');
+        console.log(xhr);
+      }
+    });
   });
-}
+});
+/**
+ *  Quill Text Editor
+ */
+
+var quillEditor = new function quillTextEditor() {
+  function QuillTextEditor() {}
+
+  QuillTextEditor.prototype.render = function () {
+    var toolbarOptions = [['bold', 'italic', 'underline', 'strike', 'blockquote'], [{
+      'list': 'ordered'
+    }, {
+      'list': 'bullet'
+    }], [{
+      'script': 'sub'
+    }, {
+      'script': 'super'
+    }], [{
+      'indent': '-1'
+    }, {
+      'indent': '+1'
+    }], [{
+      'header': [1, 2, 3, 4, 5, 6, false]
+    }], [{
+      'color': []
+    }, {
+      'background': []
+    }], [{
+      'align': []
+    }], ['clean']];
+    var quill = new Quill('.contentEditor .textEditor', {
+      modules: {
+        toolbar: toolbarOptions
+      },
+      theme: 'snow'
+    });
+    return quill;
+  };
+
+  return new QuillTextEditor();
+}();
 
 /***/ }),
 

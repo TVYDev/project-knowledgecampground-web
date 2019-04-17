@@ -7,7 +7,6 @@
     <div class="editor">
         <div class="textEditor"></div>
         <div class="codeEditor" hidden="hidden">
-            I am code editor
         </div>
         <div class="imageSelector" hidden="hidden">
             I am image selector

@@ -30,4 +30,10 @@ class RouteConstants
     const QUESTION_GET_ASK  = 'question.getAsk';
     const QUESTION_POST_ASK = 'question.postAsk';
     /***********************************************************/
+
+    /************************************************************
+     * Route for DescriptionController
+     ***********************************************************/
+    const DESCRIPTION_POST_SAVE = 'description.postSave';
+    /***********************************************************/
 }
