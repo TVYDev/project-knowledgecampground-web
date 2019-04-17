@@ -23014,7 +23014,6 @@ button:focus {
 .contentEditor {
   margin: 5px 0;
   padding: 0;
-  border: 1px solid #707070;
   border-radius: 5px;
 }
 
@@ -23028,9 +23027,9 @@ button:focus {
 .contentEditor .tabTypeContent button {
   margin: 1px;
   margin: 0;
-  border-radius: 5px;
-  background: none;
-  border: none;
+  border-radius: 10px 10px 0 0;
+  border: 1px solid #D8D8D8;
+  border-bottom: none;
   background-color: white;
   color: #707070;
 }
@@ -23047,12 +23046,15 @@ button:focus {
 }
 
 .contentEditor .editor {
-  border-top: 1px dashed #D8D8D8;
-  border-bottom: 1px dashed #D8D8D8;
+  border: 1px solid #D8D8D8;
+  border-top: none;
+  border-bottom: none;
 }
 
 .contentEditor .actionContentEditor {
-  border-radius: 5px;
+  border: 1px solid #D8D8D8;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
   text-align: right;
   background-color: white;
   padding: 5px;
@@ -23060,7 +23062,6 @@ button:focus {
 
 .contentEditor .actionContentEditor .btnAddContent {
   border: 2px solid #54D0E6;
-  background: none;
   background-color: #54D0E6;
   border-radius: 10px;
   color: white;
