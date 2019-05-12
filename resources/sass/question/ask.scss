@@ -8,7 +8,6 @@
       grid-template-columns: 8% 92%;
       div:first-child {
         text-align: center;
-        color: $main-green;
         background-color: $page-background;
         color: $main-green;
         border-radius: 30px 30px 0 30px;
@@ -37,6 +36,9 @@
     }
     .askQuestionForm {
       margin-top: 10px;
+        tvy-content-editor {
+            padding: 0;
+        }
     }
   }
   .questionPreview {

@@ -23011,21 +23011,20 @@ button:focus {
   border-radius: 5px;
 }
 
-.contentEditor {
+.TVYContentEditor {
   margin: 5px 0;
   padding: 0;
   border-radius: 5px;
 }
 
-.contentEditor .tabTypeContent {
+.TVYContentEditor .tabTypeContent {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 2px;
   align-items: stretch;
 }
 
-.contentEditor .tabTypeContent button {
-  margin: 1px;
+.TVYContentEditor .tabTypeContent button {
   margin: 0;
   border-radius: 10px 10px 0 0;
   border: 1px solid #D8D8D8;
@@ -23034,24 +23033,24 @@ button:focus {
   color: #707070;
 }
 
-.contentEditor .tabTypeContent button:hover,
-.contentEditor .tabTypeContent button:focus {
+.TVYContentEditor .tabTypeContent button:hover,
+.TVYContentEditor .tabTypeContent button:focus {
   font-weight: bold;
   background-color: #F3F3F3;
 }
 
-.contentEditor .tabTypeContent button.selected {
+.TVYContentEditor .tabTypeContent button.selected {
   background-color: #54D0E6;
   color: white;
 }
 
-.contentEditor .editor {
+.TVYContentEditor .editor {
   border: 1px solid #D8D8D8;
   border-top: none;
   border-bottom: none;
 }
 
-.contentEditor .actionContentEditor {
+.TVYContentEditor .actionContentEditor {
   border: 1px solid #D8D8D8;
   border-top: none;
   border-radius: 0 0 5px 5px;
@@ -23060,7 +23059,7 @@ button:focus {
   padding: 5px;
 }
 
-.contentEditor .actionContentEditor .btnAddContent {
+.TVYContentEditor .actionContentEditor .btnAddContent {
   border: 2px solid #54D0E6;
   background-color: #54D0E6;
   border-radius: 10px;
@@ -23068,8 +23067,8 @@ button:focus {
   padding: 2px 15px;
 }
 
-.contentEditor .actionContentEditor .btnAddContent:hover,
-.contentEditor .actionContentEditor .btnAddContent:focus {
+.TVYContentEditor .actionContentEditor .btnAddContent:hover,
+.TVYContentEditor .actionContentEditor .btnAddContent:focus {
   background-color: white;
   color: #54D0E6;
 }
@@ -23576,7 +23575,6 @@ button:focus {
 
 .askQuestionContent .questionCreation .headAskQuestion div:first-child {
   text-align: center;
-  color: #0A5748;
   background-color: #F3F3F3;
   color: #0A5748;
   border-radius: 30px 30px 0 30px;
@@ -23609,6 +23607,10 @@ button:focus {
 
 .askQuestionContent .questionCreation .askQuestionForm {
   margin-top: 10px;
+}
+
+.askQuestionContent .questionCreation .askQuestionForm tvy-content-editor {
+  padding: 0;
 }
 
 .askQuestionContent .questionPreview {

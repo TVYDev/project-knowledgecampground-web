@@ -36,9 +36,10 @@
                     </div>
                     <div class="form-group row">
                         <label for="description"><strong>Description</strong></label>
-                        @include('layouts.partials._description_element')
-                        @include('layouts.partials._content_editor')
-                        </div>
+                        <div class="descriptionBlock col-md-12 m-0 p-0"></div>
+                        {{--@include('layouts.partials._content_editor')--}}
+                        <tvy-content-editor class="col-md-12"></tvy-content-editor>
+                    </div>
                 </form>
             </div>
         </div>

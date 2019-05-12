@@ -65741,9 +65741,7 @@ __webpack_require__(/*! ./auth/login */ "./resources/js/auth/login.js");
 
 __webpack_require__(/*! ./noty_alert */ "./resources/js/noty_alert.js");
 
-__webpack_require__(/*! ./description_element */ "./resources/js/description_element.js");
-
-__webpack_require__(/*! ./content_editor */ "./resources/js/content_editor.js");
+__webpack_require__(/*! ./reusable_components/content_editor */ "./resources/js/reusable_components/content_editor.js");
 
 /***/ }),
 
@@ -65912,162 +65910,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/content_editor.js":
-/*!****************************************!*\
-  !*** ./resources/js/content_editor.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-$(document).ready(function () {
-  var contentEditor = $('.contentEditor');
-  var allTabs = contentEditor.children('.tabTypeContent').children('button');
-  var allEditorTypes = contentEditor.children('.editor');
-  var btnAddContent = contentEditor.children('.actionContentEditor').children('.btnAddContent');
-  var quillObj = quillEditor.render();
-  allTabs.click(function (ele) {
-    var thisElement = $(this);
-    var dataType = thisElement.attr('data-type');
-    ele.preventDefault();
-    allTabs.removeClass('selected');
-    thisElement.addClass('selected');
-    allEditorTypes.children('div').attr('hidden', 'hidden');
-
-    if (dataType == 'text') {
-      allEditorTypes.children('.textEditor').removeAttr('hidden');
-      quillObj = quillEditor.render();
-    } else if (dataType == 'code') {
-      allEditorTypes.children('.codeEditor').removeAttr('hidden');
-      var toolbarOptions = [['bold', 'italic', 'underline', 'strike', 'blockquote'], [{
-        'list': 'ordered'
-      }, {
-        'list': 'bullet'
-      }], [{
-        'script': 'sub'
-      }, {
-        'script': 'super'
-      }], [{
-        'indent': '-1'
-      }, {
-        'indent': '+1'
-      }], [{
-        'header': [1, 2, 3, 4, 5, 6, false]
-      }], [{
-        'color': []
-      }, {
-        'background': []
-      }], [{
-        'align': []
-      }], ['clean']];
-      quill222 = new Quill('.contentEditor .codeEditor', {
-        modules: {
-          toolbar: toolbarOptions
-        },
-        theme: 'snow'
-      });
-    } else if (dataType == 'image') {
-      allEditorTypes.children('.imageSelector').removeAttr('hidden');
-    }
-  });
-  btnAddContent.click(function (e) {
-    e.preventDefault();
-    var quillContent = quillObj.getContents();
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
-    });
-    $.ajax({
-      method: 'POST',
-      url: '/description/save',
-      data: JSON.stringify(quillContent),
-      success: function success(data) {
-        console.log('success');
-        var ops = data['{"ops":'];
-        var opsContent = Object.keys(ops)[0];
-        var arrayOps = opsContent.split(/,(?=\{)/);
-        var arrayOpsJson = [];
-        $.each(arrayOps, function (index, value) {
-          arrayOpsJson.push(JSON.parse(value));
-        });
-        quill222.setContents(arrayOpsJson);
-      },
-      error: function error(xhr) {
-        console.log('error');
-        console.log(xhr);
-      }
-    });
-  });
-});
-/**
- *  Quill Text Editor
- */
-
-var quillEditor = new function quillTextEditor() {
-  function QuillTextEditor() {}
-
-  QuillTextEditor.prototype.render = function () {
-    var toolbarOptions = [['bold', 'italic', 'underline', 'strike', 'blockquote'], [{
-      'list': 'ordered'
-    }, {
-      'list': 'bullet'
-    }], [{
-      'script': 'sub'
-    }, {
-      'script': 'super'
-    }], [{
-      'indent': '-1'
-    }, {
-      'indent': '+1'
-    }], [{
-      'header': [1, 2, 3, 4, 5, 6, false]
-    }], [{
-      'color': []
-    }, {
-      'background': []
-    }], [{
-      'align': []
-    }], ['clean']];
-    var quill = new Quill('.contentEditor .textEditor', {
-      modules: {
-        toolbar: toolbarOptions
-      },
-      theme: 'snow'
-    });
-    return quill;
-  };
-
-  return new QuillTextEditor();
-}();
-
-/***/ }),
-
-/***/ "./resources/js/description_element.js":
-/*!*********************************************!*\
-  !*** ./resources/js/description_element.js ***!
-  \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-$(document).ready(function () {
-  var descElementArray = $('.descElement').toArray();
-  $.each(descElementArray, function (index, value) {
-    var thisElement = $(this);
-    var totalElement = thisElement.attr('data-total-element');
-    var position = thisElement.attr('data-position');
-
-    if (position == 1) {
-      thisElement.children('.descTools').children('.toolArrowUp').addClass('inactive');
-    }
-
-    if (position == totalElement) {
-      thisElement.children('.descTools').children('.toolArrowDown').addClass('inactive');
-    }
-  });
-});
-
-/***/ }),
-
 /***/ "./resources/js/navbar.js":
 /*!********************************!*\
   !*** ./resources/js/navbar.js ***!
@@ -66184,6 +66026,143 @@ $(document).ready(function () {
     }
   }
 });
+
+/***/ }),
+
+/***/ "./resources/js/reusable_components/content_editor.js":
+/*!************************************************************!*\
+  !*** ./resources/js/reusable_components/content_editor.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _wrapNativeSuper(Class) { var _cache = typeof Map === "function" ? new Map() : undefined; _wrapNativeSuper = function _wrapNativeSuper(Class) { if (Class === null || !_isNativeFunction(Class)) return Class; if (typeof Class !== "function") { throw new TypeError("Super expression must either be null or a function"); } if (typeof _cache !== "undefined") { if (_cache.has(Class)) return _cache.get(Class); _cache.set(Class, Wrapper); } function Wrapper() { return _construct(Class, arguments, _getPrototypeOf(this).constructor); } Wrapper.prototype = Object.create(Class.prototype, { constructor: { value: Wrapper, enumerable: false, writable: true, configurable: true } }); return _setPrototypeOf(Wrapper, Class); }; return _wrapNativeSuper(Class); }
+
+function isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _construct(Parent, args, Class) { if (isNativeReflectConstruct()) { _construct = Reflect.construct; } else { _construct = function _construct(Parent, args, Class) { var a = [null]; a.push.apply(a, args); var Constructor = Function.bind.apply(Parent, a); var instance = new Constructor(); if (Class) _setPrototypeOf(instance, Class.prototype); return instance; }; } return _construct.apply(null, arguments); }
+
+function _isNativeFunction(fn) { return Function.toString.call(fn).indexOf("[native code]") !== -1; }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+var html = "\n    <div class=\"TVYContentEditor col-md-12\">\n        <div class=\"tabTypeContent\">\n           <button type=\"button\" class=\"btnAddPlainText selected\" data-type=\"text\">Add plain text</button>\n           <button type=\"button\" class=\"btnAddCodingBlock\" data-type=\"code\">Add coding block</button>\n           <button type=\"button\" class=\"btnAddImage\" data-type=\"image\">Add image</button>\n        </div>\n        <div class=\"editor\">\n            <div id=\"TVYTextEditor\">\n                <div class=\"actualTextEditor\">\n                    I am text editor\n                </div>\n            </div>\n            <div id=\"TVYCodeEditor\" hidden=\"hidden\">\n                I am code editor\n            </div>\n            <div id=\"TVYImageEditor\" hidden=\"hidden\">\n                I am image selector\n            </div>\n        </div>\n        <div class=\"actionContentEditor\">\n            <button type=\"button\" class=\"btnAddContent\">Add</button>\n        </div>\n    </div>\n";
+
+var TVYContentEditor =
+/*#__PURE__*/
+function (_HTMLElement) {
+  _inherits(TVYContentEditor, _HTMLElement);
+
+  function TVYContentEditor() {
+    var _this;
+
+    _classCallCheck(this, TVYContentEditor);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(TVYContentEditor).call(this));
+    _this.innerHTML = html;
+    _this.allTabs = _this.querySelectorAll('.tabTypeContent button');
+    _this.allEditors = _this.querySelectorAll('.editor > div');
+    _this.textEditor = _this.querySelector('.editor #TVYTextEditor');
+    _this.actualTextEditor = _this.querySelector('#TVYTextEditor .actualTextEditor');
+    _this.codeEditor = _this.querySelector('.editor #TVYCodeEditor');
+    _this.imageEditor = _this.querySelector('.editor #TVYImageEditor');
+
+    _this.tapEditorMovement();
+
+    _this.renderQuillTextEditor();
+
+    return _this;
+  }
+
+  _createClass(TVYContentEditor, [{
+    key: "tapEditorMovement",
+    value: function tapEditorMovement() {
+      var _this2 = this;
+
+      this.allTabs.forEach(function (ele) {
+        ele.addEventListener('click', function () {
+          // tap changed on click
+          _this2.allTabs.forEach(function (e) {
+            e.classList.remove('selected');
+          });
+
+          ele.classList.add('selected');
+          var dataType = ele.getAttribute('data-type');
+          console.log(_this2.allEditors); // editor changed on click
+
+          _this2.allEditors.forEach(function (e) {
+            e.setAttribute('hidden', 'hidden');
+          });
+
+          var tempEditorToShow = null;
+
+          if (dataType === 'text') {
+            tempEditorToShow = _this2.textEditor;
+          } else if (dataType === 'code') {
+            tempEditorToShow = _this2.codeEditor;
+          } else if (dataType === 'image') {
+            tempEditorToShow = _this2.imageEditor;
+          }
+
+          tempEditorToShow.removeAttribute('hidden');
+        });
+      });
+    }
+  }, {
+    key: "renderQuillTextEditor",
+    value: function renderQuillTextEditor() {
+      var toolbarOptions = [['bold', 'italic', 'underline', 'strike', 'blockquote'], [{
+        'list': 'ordered'
+      }, {
+        'list': 'bullet'
+      }], [{
+        'script': 'sub'
+      }, {
+        'script': 'super'
+      }], [{
+        'indent': '-1'
+      }, {
+        'indent': '+1'
+      }], [{
+        'header': [1, 2, 3, 4, 5, 6, false]
+      }], [{
+        'color': []
+      }, {
+        'background': []
+      }], [{
+        'align': []
+      }], ['clean']];
+      return new Quill(this.actualTextEditor, {
+        theme: 'snow'
+      });
+    }
+  }, {
+    key: "connectedCallback",
+    value: function connectedCallback() {
+      console.log('TVYContentEditor is rendered');
+    }
+  }]);
+
+  return TVYContentEditor;
+}(_wrapNativeSuper(HTMLElement));
+
+window.customElements.define('tvy-content-editor', TVYContentEditor);
 
 /***/ }),
 
