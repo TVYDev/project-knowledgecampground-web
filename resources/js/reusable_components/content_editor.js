@@ -39,7 +39,11 @@ class TVYContentEditor extends HTMLElement
         this.imageEditor = this.querySelector('.editor #TVYImageEditor');
 
         this.tapEditorMovement();
-        this.renderQuillTextEditor();
+        this.quillTextObj = this.renderQuillTextEditor();
+    }
+
+    get quillTextContent() {
+        return this.quillTextObj.getContents();
     }
 
     tapEditorMovement() {

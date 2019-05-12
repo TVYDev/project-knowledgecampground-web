@@ -65741,6 +65741,8 @@ __webpack_require__(/*! ./auth/login */ "./resources/js/auth/login.js");
 
 __webpack_require__(/*! ./noty_alert */ "./resources/js/noty_alert.js");
 
+__webpack_require__(/*! ./question/ask */ "./resources/js/question/ask.js");
+
 __webpack_require__(/*! ./reusable_components/content_editor */ "./resources/js/reusable_components/content_editor.js");
 
 /***/ }),
@@ -66029,6 +66031,19 @@ $(document).ready(function () {
 
 /***/ }),
 
+/***/ "./resources/js/question/ask.js":
+/*!**************************************!*\
+  !*** ./resources/js/question/ask.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  console.log(document.querySelector('tvy-content-editor').quillTextContent);
+});
+
+/***/ }),
+
 /***/ "./resources/js/reusable_components/content_editor.js":
 /*!************************************************************!*\
   !*** ./resources/js/reusable_components/content_editor.js ***!
@@ -66085,8 +66100,7 @@ function (_HTMLElement) {
 
     _this.tapEditorMovement();
 
-    _this.renderQuillTextEditor();
-
+    _this.quillTextObj = _this.renderQuillTextEditor();
     return _this;
   }
 
@@ -66156,6 +66170,11 @@ function (_HTMLElement) {
     key: "connectedCallback",
     value: function connectedCallback() {
       console.log('TVYContentEditor is rendered');
+    }
+  }, {
+    key: "quillTextContent",
+    get: function get() {
+      return this.quillTextObj.getContents();
     }
   }]);
 
