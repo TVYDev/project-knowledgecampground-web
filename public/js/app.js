@@ -66077,7 +66077,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var html = "\n    <div class=\"TVYContentEditor col-md-12\">\n        <div class=\"tabTypeContent\">\n           <button type=\"button\" class=\"btnAddPlainText selected\" data-type=\"text\">Add plain text</button>\n           <button type=\"button\" class=\"btnAddCodingBlock\" data-type=\"code\">Add coding block</button>\n           <button type=\"button\" class=\"btnAddImage\" data-type=\"image\">Add image</button>\n        </div>\n        <div class=\"editor\">\n            <div id=\"TVYTextEditor\">\n                <div class=\"actualTextEditor\">\n                    I am text editor\n                </div>\n            </div>\n            <div id=\"TVYCodeEditor\" hidden=\"hidden\">\n                I am code editor\n            </div>\n            <div id=\"TVYImageEditor\" hidden=\"hidden\">\n                I am image selector\n            </div>\n        </div>\n        <div class=\"actionContentEditor\">\n            <button type=\"button\" class=\"btnAddContent\">Add</button>\n        </div>\n    </div>\n";
+var html = "\n    <div class=\"TVYContentProduction\">\n        <div class=\"TVYContentOrder col-md-12\"></div>\n        <div class=\"TVYContentEditor col-md-12\">\n            <div class=\"tabTypeContent\">\n               <button type=\"button\" class=\"btnAddPlainText selected\" data-type=\"text\">Add plain text</button>\n               <button type=\"button\" class=\"btnAddCodingBlock\" data-type=\"code\">Add coding block</button>\n               <button type=\"button\" class=\"btnAddImage\" data-type=\"image\">Add image</button>\n            </div>\n            <div class=\"editor\">\n                <div id=\"TVYTextEditor\">\n                    <div class=\"actualTextEditor\">\n                        I am text editor\n                    </div>\n                </div>\n                <div id=\"TVYCodeEditor\" hidden=\"hidden\">\n                    I am code editor\n                </div>\n                <div id=\"TVYImageEditor\" hidden=\"hidden\">\n                    I am image selector\n                </div>\n            </div>\n            <div class=\"actionContentEditor\">\n                <button type=\"button\" class=\"btnAddContent\" data-type=\"text\">Add</button>\n            </div>\n        </div>\n    </div>\n";
 
 var TVYContentEditor =
 /*#__PURE__*/
@@ -66097,14 +66097,45 @@ function (_HTMLElement) {
     _this.actualTextEditor = _this.querySelector('#TVYTextEditor .actualTextEditor');
     _this.codeEditor = _this.querySelector('.editor #TVYCodeEditor');
     _this.imageEditor = _this.querySelector('.editor #TVYImageEditor');
+    _this.btnAddContent = _this.querySelector('.actionContentEditor .btnAddContent');
+    _this.contentOrder = _this.querySelector('.TVYContentOrder');
+    console.log(_this.contentOrder);
 
     _this.tapEditorMovement();
 
     _this.quillTextObj = _this.renderQuillTextEditor();
+
+    _this.btnAddContent.addEventListener('click', _this.addContentListener);
+
     return _this;
   }
 
   _createClass(TVYContentEditor, [{
+    key: "addContentListener",
+    value: function addContentListener() {
+      var thisBtn = this;
+      var dataType = thisBtn.getAttribute('data-type');
+      var descHTML = "\n            <div class=\"descElement col-md-12\" data-type=\"type\" data-position=\"position\" data-total-element=\"total\" data-desc-id=\"0001\">\n                <div class=\"descTools\">\n                    <button class=\"toolArrowUp\"><i class=\"fas fa-arrow-up\"></i></button>\n                    <button class=\"toolArrowDown\"><i class=\"fas fa-arrow-down\"></i></button>\n                    <button class=\"toolEdit\"><i class=\"fas fa-pen\"></i></button>\n                    <button class=\"toolDelete\"><i class=\"fas fa-trash-alt\"></i></button>\n                </div>\n                <div class=\"descContent\">\n                    Hello I am here\n                </div>\n            </div>\n        ";
+
+      switch (dataType) {
+        case 'text':
+          console.log('text111');
+          console.log(this);
+          break;
+
+        case 'code':
+          console.log('code111');
+          break;
+
+        case 'image':
+          console.log('image111');
+          break;
+
+        default:
+          break;
+      }
+    }
+  }, {
     key: "tapEditorMovement",
     value: function tapEditorMovement() {
       var _this2 = this;
@@ -66135,6 +66166,8 @@ function (_HTMLElement) {
           }
 
           tempEditorToShow.removeAttribute('hidden');
+
+          _this2.btnAddContent.setAttribute('data-type', dataType);
         });
       });
     }
