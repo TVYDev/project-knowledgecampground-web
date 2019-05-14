@@ -66099,13 +66099,12 @@ function (_HTMLElement) {
     _this.imageEditor = _this.querySelector('.editor #TVYImageEditor');
     _this.btnAddContent = _this.querySelector('.actionContentEditor .btnAddContent');
     _this.contentOrder = _this.querySelector('.TVYContentOrder');
-    console.log(_this.contentOrder);
 
     _this.tapEditorMovement();
 
     _this.quillTextObj = _this.renderQuillTextEditor();
 
-    _this.btnAddContent.addEventListener('click', _this.addContentListener);
+    _this.btnAddContent.addEventListener('click', _this.addContentListener.bind(_assertThisInitialized(_this)));
 
     return _this;
   }
@@ -66113,14 +66112,36 @@ function (_HTMLElement) {
   _createClass(TVYContentEditor, [{
     key: "addContentListener",
     value: function addContentListener() {
-      var thisBtn = this;
+      console.log('sdfs', this);
+      var thisBtn = this.querySelector('.btnAddContent');
+      console.log(thisBtn);
       var dataType = thisBtn.getAttribute('data-type');
-      var descHTML = "\n            <div class=\"descElement col-md-12\" data-type=\"type\" data-position=\"position\" data-total-element=\"total\" data-desc-id=\"0001\">\n                <div class=\"descTools\">\n                    <button class=\"toolArrowUp\"><i class=\"fas fa-arrow-up\"></i></button>\n                    <button class=\"toolArrowDown\"><i class=\"fas fa-arrow-down\"></i></button>\n                    <button class=\"toolEdit\"><i class=\"fas fa-pen\"></i></button>\n                    <button class=\"toolDelete\"><i class=\"fas fa-trash-alt\"></i></button>\n                </div>\n                <div class=\"descContent\">\n                    Hello I am here\n                </div>\n            </div>\n        ";
+      var descHTML = "\n            <div class=\"descTools\">\n                <button class=\"toolArrowUp\"><i class=\"fas fa-arrow-up\"></i></button>\n                <button class=\"toolArrowDown\"><i class=\"fas fa-arrow-down\"></i></button>\n                <button class=\"toolEdit\"><i class=\"fas fa-pen\"></i></button>\n                <button class=\"toolDelete\"><i class=\"fas fa-trash-alt\"></i></button>\n            </div>\n            <div class=\"descContent\">\n                Hello I am here\n            </div>\n        "; // let contentOrder = this.parentElement.parentElement.parentElement.querySelector('.TVYContentOrder');
+
+      var contentOrder = this.querySelector('.TVYContentOrder');
+      console.log(contentOrder);
 
       switch (dataType) {
         case 'text':
-          console.log('text111');
-          console.log(this);
+          console.log('text111'); // contentOrder.insertAdjacentHTML('beforeend', descHTML);
+
+          var textElement = document.createElement('div');
+          textElement.className = 'descElement col-md-12';
+          textElement.setAttribute('data-type', 'type');
+          textElement.setAttribute('data-position', 'position');
+          textElement.setAttribute('data-total-element', 'total');
+          textElement.setAttribute('data-desc-id', '0001');
+          textElement.innerHTML = descHTML;
+          contentOrder.appendChild(textElement);
+          var descContent = textElement.querySelector('.descContent');
+          var q = new Quill(descContent, {
+            theme: 'snow',
+            modules: {
+              toolbar: false
+            },
+            readOnly: true
+          });
+          q.setContents(this.quillTextContent);
           break;
 
         case 'code':
@@ -66196,7 +66217,10 @@ function (_HTMLElement) {
         'align': []
       }], ['clean']];
       return new Quill(this.actualTextEditor, {
-        theme: 'snow'
+        theme: 'snow',
+        modules: {
+          toolbar: toolbarOptions
+        }
       });
     }
   }, {

@@ -42,37 +42,58 @@ class TVYContentEditor extends HTMLElement
         this.imageEditor = this.querySelector('.editor #TVYImageEditor');
         this.btnAddContent = this.querySelector('.actionContentEditor .btnAddContent');
         this.contentOrder = this.querySelector('.TVYContentOrder');
-        console.log(this.contentOrder);
 
         this.tapEditorMovement();
         this.quillTextObj = this.renderQuillTextEditor();
 
-        this.btnAddContent.addEventListener('click', this.addContentListener);
+        this.btnAddContent.addEventListener('click', this.addContentListener.bind(this));
     }
 
-    addContentListener() {
-        let thisBtn = this;
+    addContentListener () {
+        console.log('sdfs',this);
+        let thisBtn = this.querySelector('.btnAddContent');
+        console.log(thisBtn);
         let dataType = thisBtn.getAttribute('data-type');
 
         let descHTML = `
-            <div class="descElement col-md-12" data-type="type" data-position="position" data-total-element="total" data-desc-id="0001">
-                <div class="descTools">
-                    <button class="toolArrowUp"><i class="fas fa-arrow-up"></i></button>
-                    <button class="toolArrowDown"><i class="fas fa-arrow-down"></i></button>
-                    <button class="toolEdit"><i class="fas fa-pen"></i></button>
-                    <button class="toolDelete"><i class="fas fa-trash-alt"></i></button>
-                </div>
-                <div class="descContent">
-                    Hello I am here
-                </div>
+            <div class="descTools">
+                <button class="toolArrowUp"><i class="fas fa-arrow-up"></i></button>
+                <button class="toolArrowDown"><i class="fas fa-arrow-down"></i></button>
+                <button class="toolEdit"><i class="fas fa-pen"></i></button>
+                <button class="toolDelete"><i class="fas fa-trash-alt"></i></button>
+            </div>
+            <div class="descContent">
+                Hello I am here
             </div>
         `;
+
+        // let contentOrder = this.parentElement.parentElement.parentElement.querySelector('.TVYContentOrder');
+        let contentOrder = this.querySelector('.TVYContentOrder');
+        console.log(contentOrder);
 
         switch(dataType)
         {
             case 'text':
                 console.log('text111');
-                console.log(this);
+                // contentOrder.insertAdjacentHTML('beforeend', descHTML);
+                let textElement = document.createElement('div');
+                textElement.className = 'descElement col-md-12';
+                textElement.setAttribute('data-type', 'type');
+                textElement.setAttribute('data-position', 'position');
+                textElement.setAttribute('data-total-element', 'total');
+                textElement.setAttribute('data-desc-id', '0001');
+                textElement.innerHTML = descHTML;
+                contentOrder.appendChild(textElement);
+                let descContent = textElement.querySelector('.descContent');
+
+                let q = new Quill(descContent, {
+                    theme: 'snow',
+                    modules: {
+                        toolbar: false
+                    },
+                    readOnly: true
+                });
+                q.setContents(this.quillTextContent);
                 break;
             case 'code':
                 console.log('code111');
@@ -132,7 +153,10 @@ class TVYContentEditor extends HTMLElement
         ];
 
         return new Quill(this.actualTextEditor, {
-            theme: 'snow'
+            theme: 'snow',
+            modules: {
+                toolbar: toolbarOptions
+            }
         });
     }
 
