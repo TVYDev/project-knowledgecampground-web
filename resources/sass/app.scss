@@ -212,36 +212,76 @@ button:focus {
 .descElement {
   padding: 0;
   margin: 3px 0;
-  .descTools {
-    text-align: right;
-    margin-bottom: 2px;
-    button {
-      border: none;
-      background: none;
-      padding: 0;
-      margin: 0 5px;
-      color: $main-gray;
-      i {
-        font-size: 0.9rem;
-      }
+  position: relative;
+  z-index: 10;
+    .descTools {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 11;
+        height: 100%;
+        width: 100%;
+        text-align: right;
+        border-radius: 5px;
+        border: 1.5px dashed transparent;
+        background-color: transparent;
+        button {
+            visibility: hidden;
+            border: none;
+            background: none;
+            padding: 0;
+            margin: 0 5px;
+            height: 100%;
+            color: $main-gray;
+            i {
+              font-size: 0.9rem;
+            }
+        }
+        button:hover, button:focus {
+            color: $secondary-green;
+        }
     }
-    button:hover, button:focus {
-      color: $secondary-green;
+    .descTools:hover, .descTools:focus, .descContent .ql-editor:hover .descTools {
+        transition: 0.8s;
+        background-color: rgba($secondary-gray, 0.3);
+        cursor: pointer;
+        border-color: white;
     }
-    button.inactive {
-      color: $thirdly-gray;
-      cursor: not-allowed;
+    .descTools:hover button {
+        visibility: visible;
     }
-  }
+  //.descTools {
+  //  text-align: right;
+  //  margin-bottom: 2px;
+  //  button {
+  //    border: none;
+  //    background: none;
+  //    padding: 0;
+  //    margin: 0 5px;
+  //    color: $main-gray;
+  //    i {
+  //      font-size: 0.9rem;
+  //    }
+  //  }
+  //  button:hover, button:focus {
+  //    color: $secondary-green;
+  //  }
+  //  button.inactive {
+  //    color: $thirdly-gray;
+  //    cursor: not-allowed;
+  //  }
+  //}
   .descContent {
     background-color: white;
-    //padding: 10px;
     border: 1.5px dashed $thirdly-gray;
     border-radius: 5px;
   }
 }
 
 // --- TVY Content Editor
+.TVYContentOrder {
+    padding: 0;
+}
 .TVYContentEditor {
   margin: 5px 0;
   padding: 0;
@@ -264,7 +304,7 @@ button:focus {
       background-color: $page-background;
     }
     button.selected {
-      background-color: $secondary-blue;
+      background-color: $secondary-green;
       color: white;
     }
   }
@@ -281,15 +321,15 @@ button:focus {
     background-color: white;
     padding: 5px;
     .btnAddContent {
-      border: 2px solid $secondary-blue;
-      background-color: $secondary-blue;
+      border: 2px solid $secondary-green;
+      background-color: $secondary-green;
       border-radius: 10px;
       color: white;
       padding: 2px 15px;
     }
     .btnAddContent:hover, .btnAddContent:focus {
       background-color: white;
-      color: $secondary-blue;
+      color: $secondary-green;
     }
   }
 }

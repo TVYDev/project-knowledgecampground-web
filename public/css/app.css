@@ -22975,18 +22975,30 @@ button:focus {
 .descElement {
   padding: 0;
   margin: 3px 0;
+  position: relative;
+  z-index: 10;
 }
 
 .descElement .descTools {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 11;
+  height: 100%;
+  width: 100%;
   text-align: right;
-  margin-bottom: 2px;
+  border-radius: 5px;
+  border: 1.5px dashed transparent;
+  background-color: transparent;
 }
 
 .descElement .descTools button {
+  visibility: hidden;
   border: none;
   background: none;
   padding: 0;
   margin: 0 5px;
+  height: 100%;
   color: #424242;
 }
 
@@ -22999,15 +23011,27 @@ button:focus {
   color: #17CCA9;
 }
 
-.descElement .descTools button.inactive {
-  color: #D8D8D8;
-  cursor: not-allowed;
+.descElement .descTools:hover,
+.descElement .descTools:focus,
+.descElement .descContent .ql-editor:hover .descTools {
+  transition: 0.8s;
+  background-color: rgba(112, 112, 112, 0.3);
+  cursor: pointer;
+  border-color: white;
+}
+
+.descElement .descTools:hover button {
+  visibility: visible;
 }
 
 .descElement .descContent {
   background-color: white;
   border: 1.5px dashed #D8D8D8;
   border-radius: 5px;
+}
+
+.TVYContentOrder {
+  padding: 0;
 }
 
 .TVYContentEditor {
@@ -23039,7 +23063,7 @@ button:focus {
 }
 
 .TVYContentEditor .tabTypeContent button.selected {
-  background-color: #54D0E6;
+  background-color: #17CCA9;
   color: white;
 }
 
@@ -23059,8 +23083,8 @@ button:focus {
 }
 
 .TVYContentEditor .actionContentEditor .btnAddContent {
-  border: 2px solid #54D0E6;
-  background-color: #54D0E6;
+  border: 2px solid #17CCA9;
+  background-color: #17CCA9;
   border-radius: 10px;
   color: white;
   padding: 2px 15px;
@@ -23069,7 +23093,7 @@ button:focus {
 .TVYContentEditor .actionContentEditor .btnAddContent:hover,
 .TVYContentEditor .actionContentEditor .btnAddContent:focus {
   background-color: white;
-  color: #54D0E6;
+  color: #17CCA9;
 }
 
 #KCNavbar {
