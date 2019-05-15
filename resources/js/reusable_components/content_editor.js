@@ -10,7 +10,6 @@ const html = `
             <div class="editor">
                 <div id="TVYTextEditor">
                     <div class="actualTextEditor">
-                        I am text editor
                     </div>
                 </div>
                 <div id="TVYCodeEditor" hidden="hidden">
@@ -43,48 +42,77 @@ class TVYContentEditor extends HTMLElement
         this.btnAddContent = this.querySelector('.actionContentEditor .btnAddContent');
         this.contentOrder = this.querySelector('.TVYContentOrder');
 
+        this.allDataContents = [];
+        this.dataPosition = 0;
+
         this.tapEditorMovement();
         this.quillTextObj = this.renderQuillTextEditor();
 
         this.btnAddContent.addEventListener('click', this.addContentListener.bind(this));
     }
 
+    static get textType() {return 'text';}
+    static get codeType() {return 'code';}
+    static get imageType() {return 'image';}
+
     addContentListener () {
-        console.log('sdfs',this);
         let thisBtn = this.querySelector('.btnAddContent');
-        console.log(thisBtn);
         let dataType = thisBtn.getAttribute('data-type');
 
         let descHTML = `
-            <div class="descTools">
-                <button class="toolArrowUp"><i class="fas fa-arrow-up"></i></button>
-                <button class="toolArrowDown"><i class="fas fa-arrow-down"></i></button>
-                <button class="toolEdit"><i class="fas fa-pen"></i></button>
-                <button class="toolDelete"><i class="fas fa-trash-alt"></i></button>
+            <div class="descTools" draggable="true">
+                <span>
+                    <button type="button" class="toolArrowUp"><i class="fas fa-arrow-up"></i></button>
+                    <button type="button" class="toolArrowDown"><i class="fas fa-arrow-down"></i></button>
+                    <button type="button" class="toolEdit"><i class="fas fa-pen"></i></button>
+                    <button type="button" class="toolDelete"><i class="fas fa-trash-alt"></i></button>
+                </span>
             </div>
             <div class="descContent">
                 Hello I am here
             </div>
         `;
 
-        // let contentOrder = this.parentElement.parentElement.parentElement.querySelector('.TVYContentOrder');
         let contentOrder = this.querySelector('.TVYContentOrder');
-        console.log(contentOrder);
+
+        let randomDescId = Math.random().toString(36).replace('0.', '');
 
         switch(dataType)
         {
             case 'text':
-                console.log('text111');
-                // contentOrder.insertAdjacentHTML('beforeend', descHTML);
+                if(this.quillTextObj.getLength() === 1)
+                {
+                    new Noty({
+                        type: 'warning',
+                        theme: 'nest',
+                        layout: 'topRight',
+                        text: '⚠️You cannot add empty plain text.',
+                        timeout: '6000',
+                        progressBar: true,
+                        closeWith: ['click'],
+                        animation: {
+                            open: 'animated flipInY', // Animate.css class names
+                            close: 'animated flipOutY' // Animate.css class names
+                        }
+                    }).show();
+                    break;
+                }
+
                 let textElement = document.createElement('div');
                 textElement.className = 'descElement col-md-12';
                 textElement.setAttribute('data-type', 'type');
                 textElement.setAttribute('data-position', 'position');
                 textElement.setAttribute('data-total-element', 'total');
-                textElement.setAttribute('data-desc-id', '0001');
+                textElement.setAttribute('data-desc-id', randomDescId);
                 textElement.innerHTML = descHTML;
                 contentOrder.appendChild(textElement);
                 let descContent = textElement.querySelector('.descContent');
+
+                let editBtn = textElement.querySelector('.toolEdit');
+                editBtn.addEventListener('click', () => {
+                    this.quillTextObj.setContents(this.getDataContentByDescId(randomDescId));
+                    console.log(this.getDataContentByDescId(randomDescId));
+                });
 
                 let q = new Quill(descContent, {
                     theme: 'snow',
@@ -94,6 +122,10 @@ class TVYContentEditor extends HTMLElement
                     readOnly: true
                 });
                 q.setContents(this.quillTextContent);
+
+                this.storeDataContent(this.quillTextContent, TVYContentEditor.textType, randomDescId);
+                console.log(this.allDataContents);
+                this.quillTextObj.setContents(null);
                 break;
             case 'code':
                 console.log('code111');
@@ -107,6 +139,30 @@ class TVYContentEditor extends HTMLElement
 
     get quillTextContent() {
         return this.quillTextObj.getContents();
+    }
+
+    get quillTextObject() {
+        return this.quillTextObj;
+    }
+
+    storeDataContent(dataContent, type, descId) {
+        let position = ++(this.dataPosition);
+        switch(type) {
+            case TVYContentEditor.textType:
+                this.allDataContents.push({pos: position, type: TVYContentEditor.textType, data: dataContent, descId: descId});
+                break;
+            case TVYContentEditor.codeType:
+                break;
+            case TVYContentEditor.imageType:
+                break;
+            default:
+                break;
+        }
+    }
+
+    getDataContentByDescId(descId) {
+        let descFiltered = this.allDataContents.filter(desc => desc.descId === descId);
+        return descFiltered[0].data;
     }
 
     tapEditorMovement() {

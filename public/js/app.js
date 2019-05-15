@@ -66077,7 +66077,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var html = "\n    <div class=\"TVYContentProduction\">\n        <div class=\"TVYContentOrder col-md-12\"></div>\n        <div class=\"TVYContentEditor col-md-12\">\n            <div class=\"tabTypeContent\">\n               <button type=\"button\" class=\"btnAddPlainText selected\" data-type=\"text\">Add plain text</button>\n               <button type=\"button\" class=\"btnAddCodingBlock\" data-type=\"code\">Add coding block</button>\n               <button type=\"button\" class=\"btnAddImage\" data-type=\"image\">Add image</button>\n            </div>\n            <div class=\"editor\">\n                <div id=\"TVYTextEditor\">\n                    <div class=\"actualTextEditor\">\n                        I am text editor\n                    </div>\n                </div>\n                <div id=\"TVYCodeEditor\" hidden=\"hidden\">\n                    I am code editor\n                </div>\n                <div id=\"TVYImageEditor\" hidden=\"hidden\">\n                    I am image selector\n                </div>\n            </div>\n            <div class=\"actionContentEditor\">\n                <button type=\"button\" class=\"btnAddContent\" data-type=\"text\">Add</button>\n            </div>\n        </div>\n    </div>\n";
+var html = "\n    <div class=\"TVYContentProduction\">\n        <div class=\"TVYContentOrder col-md-12\"></div>\n        <div class=\"TVYContentEditor col-md-12\">\n            <div class=\"tabTypeContent\">\n               <button type=\"button\" class=\"btnAddPlainText selected\" data-type=\"text\">Add plain text</button>\n               <button type=\"button\" class=\"btnAddCodingBlock\" data-type=\"code\">Add coding block</button>\n               <button type=\"button\" class=\"btnAddImage\" data-type=\"image\">Add image</button>\n            </div>\n            <div class=\"editor\">\n                <div id=\"TVYTextEditor\">\n                    <div class=\"actualTextEditor\">\n                    </div>\n                </div>\n                <div id=\"TVYCodeEditor\" hidden=\"hidden\">\n                    I am code editor\n                </div>\n                <div id=\"TVYImageEditor\" hidden=\"hidden\">\n                    I am image selector\n                </div>\n            </div>\n            <div class=\"actionContentEditor\">\n                <button type=\"button\" class=\"btnAddContent\" data-type=\"text\">Add</button>\n            </div>\n        </div>\n    </div>\n";
 
 var TVYContentEditor =
 /*#__PURE__*/
@@ -66099,6 +66099,8 @@ function (_HTMLElement) {
     _this.imageEditor = _this.querySelector('.editor #TVYImageEditor');
     _this.btnAddContent = _this.querySelector('.actionContentEditor .btnAddContent');
     _this.contentOrder = _this.querySelector('.TVYContentOrder');
+    _this.allDataContents = [];
+    _this.dataPosition = 0;
 
     _this.tapEditorMovement();
 
@@ -66112,28 +66114,50 @@ function (_HTMLElement) {
   _createClass(TVYContentEditor, [{
     key: "addContentListener",
     value: function addContentListener() {
-      console.log('sdfs', this);
-      var thisBtn = this.querySelector('.btnAddContent');
-      console.log(thisBtn);
-      var dataType = thisBtn.getAttribute('data-type');
-      var descHTML = "\n            <div class=\"descTools\">\n                <button class=\"toolArrowUp\"><i class=\"fas fa-arrow-up\"></i></button>\n                <button class=\"toolArrowDown\"><i class=\"fas fa-arrow-down\"></i></button>\n                <button class=\"toolEdit\"><i class=\"fas fa-pen\"></i></button>\n                <button class=\"toolDelete\"><i class=\"fas fa-trash-alt\"></i></button>\n            </div>\n            <div class=\"descContent\">\n                Hello I am here\n            </div>\n        "; // let contentOrder = this.parentElement.parentElement.parentElement.querySelector('.TVYContentOrder');
+      var _this2 = this;
 
+      var thisBtn = this.querySelector('.btnAddContent');
+      var dataType = thisBtn.getAttribute('data-type');
+      var descHTML = "\n            <div class=\"descTools\" draggable=\"true\">\n                <span>\n                    <button type=\"button\" class=\"toolArrowUp\"><i class=\"fas fa-arrow-up\"></i></button>\n                    <button type=\"button\" class=\"toolArrowDown\"><i class=\"fas fa-arrow-down\"></i></button>\n                    <button type=\"button\" class=\"toolEdit\"><i class=\"fas fa-pen\"></i></button>\n                    <button type=\"button\" class=\"toolDelete\"><i class=\"fas fa-trash-alt\"></i></button>\n                </span>\n            </div>\n            <div class=\"descContent\">\n                Hello I am here\n            </div>\n        ";
       var contentOrder = this.querySelector('.TVYContentOrder');
-      console.log(contentOrder);
+      var randomDescId = Math.random().toString(36).replace('0.', '');
 
       switch (dataType) {
         case 'text':
-          console.log('text111'); // contentOrder.insertAdjacentHTML('beforeend', descHTML);
+          if (this.quillTextObj.getLength() === 1) {
+            new Noty({
+              type: 'warning',
+              theme: 'nest',
+              layout: 'topRight',
+              text: '⚠️You cannot add empty plain text.',
+              timeout: '6000',
+              progressBar: true,
+              closeWith: ['click'],
+              animation: {
+                open: 'animated flipInY',
+                // Animate.css class names
+                close: 'animated flipOutY' // Animate.css class names
+
+              }
+            }).show();
+            break;
+          }
 
           var textElement = document.createElement('div');
           textElement.className = 'descElement col-md-12';
           textElement.setAttribute('data-type', 'type');
           textElement.setAttribute('data-position', 'position');
           textElement.setAttribute('data-total-element', 'total');
-          textElement.setAttribute('data-desc-id', '0001');
+          textElement.setAttribute('data-desc-id', randomDescId);
           textElement.innerHTML = descHTML;
           contentOrder.appendChild(textElement);
           var descContent = textElement.querySelector('.descContent');
+          var editBtn = textElement.querySelector('.toolEdit');
+          editBtn.addEventListener('click', function () {
+            _this2.quillTextObj.setContents(_this2.getDataContentByDescId(randomDescId));
+
+            console.log(_this2.getDataContentByDescId(randomDescId));
+          });
           var q = new Quill(descContent, {
             theme: 'snow',
             modules: {
@@ -66142,6 +66166,9 @@ function (_HTMLElement) {
             readOnly: true
           });
           q.setContents(this.quillTextContent);
+          this.storeDataContent(this.quillTextContent, TVYContentEditor.textType, randomDescId);
+          console.log(this.allDataContents);
+          this.quillTextObj.setContents(null);
           break;
 
         case 'code':
@@ -66157,38 +66184,71 @@ function (_HTMLElement) {
       }
     }
   }, {
+    key: "storeDataContent",
+    value: function storeDataContent(dataContent, type, descId) {
+      var position = ++this.dataPosition;
+
+      switch (type) {
+        case TVYContentEditor.textType:
+          this.allDataContents.push({
+            pos: position,
+            type: TVYContentEditor.textType,
+            data: dataContent,
+            descId: descId
+          });
+          break;
+
+        case TVYContentEditor.codeType:
+          break;
+
+        case TVYContentEditor.imageType:
+          break;
+
+        default:
+          break;
+      }
+    }
+  }, {
+    key: "getDataContentByDescId",
+    value: function getDataContentByDescId(descId) {
+      var descFiltered = this.allDataContents.filter(function (desc) {
+        return desc.descId === descId;
+      });
+      return descFiltered[0].data;
+    }
+  }, {
     key: "tapEditorMovement",
     value: function tapEditorMovement() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.allTabs.forEach(function (ele) {
         ele.addEventListener('click', function () {
           // tap changed on click
-          _this2.allTabs.forEach(function (e) {
+          _this3.allTabs.forEach(function (e) {
             e.classList.remove('selected');
           });
 
           ele.classList.add('selected');
           var dataType = ele.getAttribute('data-type');
-          console.log(_this2.allEditors); // editor changed on click
+          console.log(_this3.allEditors); // editor changed on click
 
-          _this2.allEditors.forEach(function (e) {
+          _this3.allEditors.forEach(function (e) {
             e.setAttribute('hidden', 'hidden');
           });
 
           var tempEditorToShow = null;
 
           if (dataType === 'text') {
-            tempEditorToShow = _this2.textEditor;
+            tempEditorToShow = _this3.textEditor;
           } else if (dataType === 'code') {
-            tempEditorToShow = _this2.codeEditor;
+            tempEditorToShow = _this3.codeEditor;
           } else if (dataType === 'image') {
-            tempEditorToShow = _this2.imageEditor;
+            tempEditorToShow = _this3.imageEditor;
           }
 
           tempEditorToShow.removeAttribute('hidden');
 
-          _this2.btnAddContent.setAttribute('data-type', dataType);
+          _this3.btnAddContent.setAttribute('data-type', dataType);
         });
       });
     }
@@ -66232,6 +66292,26 @@ function (_HTMLElement) {
     key: "quillTextContent",
     get: function get() {
       return this.quillTextObj.getContents();
+    }
+  }, {
+    key: "quillTextObject",
+    get: function get() {
+      return this.quillTextObj;
+    }
+  }], [{
+    key: "textType",
+    get: function get() {
+      return 'text';
+    }
+  }, {
+    key: "codeType",
+    get: function get() {
+      return 'code';
+    }
+  }, {
+    key: "imageType",
+    get: function get() {
+      return 'image';
     }
   }]);
 

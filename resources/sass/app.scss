@@ -242,35 +242,27 @@ button:focus {
         }
     }
     .descTools:hover, .descTools:focus, .descContent .ql-editor:hover .descTools {
-        transition: 0.8s;
-        background-color: rgba($secondary-gray, 0.3);
+        transition: 0.5s;
+        background-color: rgba($secondary-green, 0.3);
         cursor: pointer;
         border-color: white;
+    }
+    span {
+        position: relative;
+        right: -50px;
+        visibility: hidden;
+    }
+    .descTools:hover span {
+        border-radius: 10px 0 0 10px;
+        padding: 10px;
+        background-color: rgba($white, 0.8);
+        visibility: visible;
+        right: 0;
+        transition: 0.5s;
     }
     .descTools:hover button {
         visibility: visible;
     }
-  //.descTools {
-  //  text-align: right;
-  //  margin-bottom: 2px;
-  //  button {
-  //    border: none;
-  //    background: none;
-  //    padding: 0;
-  //    margin: 0 5px;
-  //    color: $main-gray;
-  //    i {
-  //      font-size: 0.9rem;
-  //    }
-  //  }
-  //  button:hover, button:focus {
-  //    color: $secondary-green;
-  //  }
-  //  button.inactive {
-  //    color: $thirdly-gray;
-  //    cursor: not-allowed;
-  //  }
-  //}
   .descContent {
     background-color: white;
     border: 1.5px dashed $thirdly-gray;

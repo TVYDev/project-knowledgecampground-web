@@ -23014,10 +23014,25 @@ button:focus {
 .descElement .descTools:hover,
 .descElement .descTools:focus,
 .descElement .descContent .ql-editor:hover .descTools {
-  transition: 0.8s;
-  background-color: rgba(112, 112, 112, 0.3);
+  transition: 0.5s;
+  background-color: rgba(23, 204, 169, 0.3);
   cursor: pointer;
   border-color: white;
+}
+
+.descElement span {
+  position: relative;
+  right: -50px;
+  visibility: hidden;
+}
+
+.descElement .descTools:hover span {
+  border-radius: 10px 0 0 10px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  visibility: visible;
+  right: 0;
+  transition: 0.5s;
 }
 
 .descElement .descTools:hover button {
