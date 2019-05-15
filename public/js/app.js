@@ -66146,7 +66146,7 @@ function (_HTMLElement) {
           var dataEditing = textEditor.getAttribute('data-editing');
 
           if (dataEditing != null) {
-            var editingDescEle = this.getBeingEditedDescElement(dataEditing);
+            var editingDescEle = this.getDescElementByDescId(dataEditing);
             var descTools = editingDescEle.querySelector('.descTools');
             var q = new Quill(editingDescEle.querySelector('.descContent'), {
               theme: 'snow',
@@ -66174,6 +66174,7 @@ function (_HTMLElement) {
             var _descTools = textElement.querySelector('.descTools');
 
             var editBtn = textElement.querySelector('.toolEdit');
+            var deleteBtn = textElement.querySelector('.toolDelete');
             editBtn.addEventListener('click', function () {
               _this2.quillTextObj.setContents(_this2.getDataContentByDescId(randomDescId));
 
@@ -66186,6 +66187,13 @@ function (_HTMLElement) {
               });
 
               _descTools.classList.add('editing');
+            });
+            deleteBtn.addEventListener('click', function () {
+              var selectedElement = _this2.getDescElementByDescId(randomDescId);
+
+              selectedElement.parentNode.removeChild(selectedElement);
+
+              _this2.updatePositionsAfterElementDeleted(randomDescId);
             });
 
             var _q = new Quill(descContent, {
@@ -66255,6 +66263,18 @@ function (_HTMLElement) {
       });
     }
   }, {
+    key: "updatePositionsAfterElementDeleted",
+    value: function updatePositionsAfterElementDeleted(descId) {
+      var prePos = 1;
+      var filteredDataContents = this.allDataContents.filter(function (ele) {
+        return ele.descId !== descId;
+      });
+      filteredDataContents.forEach(function (ele) {
+        ele.pos = prePos++;
+      });
+      this.allDataContents = filteredDataContents;
+    }
+  }, {
     key: "getDataContentByDescId",
     value: function getDataContentByDescId(descId) {
       var descFiltered = this.allDataContents.filter(function (desc) {
@@ -66263,8 +66283,8 @@ function (_HTMLElement) {
       return descFiltered[0].data;
     }
   }, {
-    key: "getBeingEditedDescElement",
-    value: function getBeingEditedDescElement(descId) {
+    key: "getDescElementByDescId",
+    value: function getDescElementByDescId(descId) {
       var allDescElements = this.querySelectorAll('.TVYContentOrder .descElement');
       var wantedElement = null;
       allDescElements.forEach(function (ele) {

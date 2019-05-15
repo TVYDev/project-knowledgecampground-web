@@ -100,7 +100,7 @@ class TVYContentEditor extends HTMLElement
                 let textEditor = this.querySelector('#TVYTextEditor');
                 let dataEditing = textEditor.getAttribute('data-editing');
                 if(dataEditing != null){
-                    let editingDescEle = this.getBeingEditedDescElement(dataEditing);
+                    let editingDescEle = this.getDescElementByDescId(dataEditing);
                     let descTools = editingDescEle.querySelector('.descTools');
                     let q = new Quill(editingDescEle.querySelector('.descContent'), {
                         theme: 'snow',
@@ -130,6 +130,7 @@ class TVYContentEditor extends HTMLElement
                     let descTools = textElement.querySelector('.descTools');
 
                     let editBtn = textElement.querySelector('.toolEdit');
+                    let deleteBtn = textElement.querySelector('.toolDelete');
                     editBtn.addEventListener('click', () => {
                         this.quillTextObj.setContents(this.getDataContentByDescId(randomDescId));
                         let allDescTools = this.querySelectorAll('.descTools');
@@ -139,6 +140,11 @@ class TVYContentEditor extends HTMLElement
                            ele.classList.remove('edited');
                         });
                         descTools.classList.add('editing');
+                    });
+                    deleteBtn.addEventListener('click', () => {
+                       let selectedElement = this.getDescElementByDescId(randomDescId);
+                       selectedElement.parentNode.removeChild(selectedElement);
+                       this.updatePositionsAfterElementDeleted(randomDescId);
                     });
 
                     let q = new Quill(descContent, {
@@ -198,12 +204,21 @@ class TVYContentEditor extends HTMLElement
         });
     }
 
+    updatePositionsAfterElementDeleted (descId) {
+        let prePos = 1;
+        let filteredDataContents = this.allDataContents.filter(ele => {return ele.descId !== descId;});
+        filteredDataContents.forEach(ele => {
+            ele.pos = prePos++;
+        });
+        this.allDataContents = filteredDataContents;
+    }
+
     getDataContentByDescId(descId) {
         let descFiltered = this.allDataContents.filter(desc => desc.descId === descId);
         return descFiltered[0].data;
     }
 
-    getBeingEditedDescElement(descId) {
+    getDescElementByDescId(descId) {
         let allDescElements = this.querySelectorAll('.TVYContentOrder .descElement');
         let wantedElement = null;
         allDescElements.forEach(ele => {

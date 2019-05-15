@@ -23166,6 +23166,7 @@ button:focus {
   background: transparent;
   font-family: "Patrick Hand", sans-serif;
   font-size: 1.1rem;
+  z-index: 9999;
 }
 
 #KCNavbar #navLogo {
