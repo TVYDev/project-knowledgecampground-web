@@ -20,7 +20,7 @@ const html = `
                 </div>
             </div>
             <div class="actionContentEditor">
-                <button type="button" class="btnAddContent" data-type="text">Add</button>
+                <button type="button" class="btnAddContent" data-type="text">Save</button>
             </div>
         </div>
     </div>
@@ -51,9 +51,9 @@ class TVYContentEditor extends HTMLElement
         this.btnAddContent.addEventListener('click', this.addContentListener.bind(this));
     }
 
-    static get textType() {return 'text';}
-    static get codeType() {return 'code';}
-    static get imageType() {return 'image';}
+    static get textType()   {return 'text';}
+    static get codeType()   {return 'code';}
+    static get imageType()  {return 'image';}
 
     addContentListener () {
         let thisBtn = this.querySelector('.btnAddContent');
@@ -74,7 +74,6 @@ class TVYContentEditor extends HTMLElement
         `;
 
         let contentOrder = this.querySelector('.TVYContentOrder');
-
         let randomDescId = Math.random().toString(36).replace('0.', '');
 
         switch(dataType)
@@ -98,33 +97,61 @@ class TVYContentEditor extends HTMLElement
                     break;
                 }
 
-                let textElement = document.createElement('div');
-                textElement.className = 'descElement col-md-12';
-                textElement.setAttribute('data-type', 'type');
-                textElement.setAttribute('data-position', 'position');
-                textElement.setAttribute('data-total-element', 'total');
-                textElement.setAttribute('data-desc-id', randomDescId);
-                textElement.innerHTML = descHTML;
-                contentOrder.appendChild(textElement);
-                let descContent = textElement.querySelector('.descContent');
+                let textEditor = this.querySelector('#TVYTextEditor');
+                let dataEditing = textEditor.getAttribute('data-editing');
+                if(dataEditing != null){
+                    let editingDescEle = this.getBeingEditedDescElement(dataEditing);
+                    let descTools = editingDescEle.querySelector('.descTools');
+                    let q = new Quill(editingDescEle.querySelector('.descContent'), {
+                        theme: 'snow',
+                        modules: {
+                            toolbar: false
+                        },
+                        readOnly: true
+                    });
+                    q.setContents(this.quillTextContent);
 
-                let editBtn = textElement.querySelector('.toolEdit');
-                editBtn.addEventListener('click', () => {
-                    this.quillTextObj.setContents(this.getDataContentByDescId(randomDescId));
-                    console.log(this.getDataContentByDescId(randomDescId));
-                });
+                    this.updateDataContent(this.quillTextContent, dataEditing);
 
-                let q = new Quill(descContent, {
-                    theme: 'snow',
-                    modules: {
-                        toolbar: false
-                    },
-                    readOnly: true
-                });
-                q.setContents(this.quillTextContent);
+                    descTools.classList.remove('editing');
+                    descTools.classList.add('edited');
+                    textEditor.removeAttribute('data-editing');
+                }
+                else{
+                    let textElement = document.createElement('div');
+                    textElement.className = 'descElement col-md-12';
+                    textElement.setAttribute('data-type', 'type');
+                    textElement.setAttribute('data-position', 'position');
+                    textElement.setAttribute('data-total-element', 'total');
+                    textElement.setAttribute('data-desc-id', randomDescId);
+                    textElement.innerHTML = descHTML;
+                    contentOrder.appendChild(textElement);
+                    let descContent = textElement.querySelector('.descContent');
+                    let descTools = textElement.querySelector('.descTools');
 
-                this.storeDataContent(this.quillTextContent, TVYContentEditor.textType, randomDescId);
-                console.log(this.allDataContents);
+                    let editBtn = textElement.querySelector('.toolEdit');
+                    editBtn.addEventListener('click', () => {
+                        this.quillTextObj.setContents(this.getDataContentByDescId(randomDescId));
+                        let allDescTools = this.querySelectorAll('.descTools');
+                        textEditor.setAttribute('data-editing', randomDescId);
+                        allDescTools.forEach(ele => {
+                           ele.classList.remove('editing');
+                           ele.classList.remove('edited');
+                        });
+                        descTools.classList.add('editing');
+                    });
+
+                    let q = new Quill(descContent, {
+                        theme: 'snow',
+                        modules: {
+                            toolbar: false
+                        },
+                        readOnly: true
+                    });
+                    q.setContents(this.quillTextContent);
+
+                    this.storeDataContent(this.quillTextContent, TVYContentEditor.textType, randomDescId);
+                }
                 this.quillTextObj.setContents(null);
                 break;
             case 'code':
@@ -158,11 +185,33 @@ class TVYContentEditor extends HTMLElement
             default:
                 break;
         }
+        console.log('Data saved----------');
+        console.log(this.allDataContents);
+        console.log('Data saved----------End');
+    }
+
+    updateDataContent(dataContent, descId) {
+        this.allDataContents.forEach(ele => {
+           if(ele.descId === descId){
+               ele.data = dataContent;
+           }
+        });
     }
 
     getDataContentByDescId(descId) {
         let descFiltered = this.allDataContents.filter(desc => desc.descId === descId);
         return descFiltered[0].data;
+    }
+
+    getBeingEditedDescElement(descId) {
+        let allDescElements = this.querySelectorAll('.TVYContentOrder .descElement');
+        let wantedElement = null;
+        allDescElements.forEach(ele => {
+           if(ele.getAttribute('data-desc-id') === descId){
+               wantedElement = ele;
+           }
+        });
+        return wantedElement;
     }
 
     tapEditorMovement() {
@@ -175,7 +224,6 @@ class TVYContentEditor extends HTMLElement
                 ele.classList.add('selected');
 
                 let dataType = ele.getAttribute('data-type');
-                console.log(this.allEditors);
 
                 // editor changed on click
                 this.allEditors.forEach( e => {

@@ -23011,6 +23011,50 @@ button:focus {
   color: #17CCA9;
 }
 
+.descElement .descTools.editing {
+  background-color: rgba(112, 112, 112, 0.3);
+  border-color: #424242;
+}
+
+.descElement .descTools.edited {
+  -webkit-animation: blink 1.5s;
+          animation: blink 1.5s;
+}
+
+@-webkit-keyframes blink {
+  0% {
+    opacity: 0;
+    background-color: #54D0E6;
+  }
+
+  50% {
+    opacity: 0.4;
+    background-color: #54D0E6;
+  }
+
+  100% {
+    opacity: 0.6;
+    background-color: #54D0E6;
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+    background-color: #54D0E6;
+  }
+
+  50% {
+    opacity: 0.4;
+    background-color: #54D0E6;
+  }
+
+  100% {
+    opacity: 0.6;
+    background-color: #54D0E6;
+  }
+}
+
 .descElement .descTools:hover,
 .descElement .descTools:focus,
 .descElement .descContent .ql-editor:hover .descTools {

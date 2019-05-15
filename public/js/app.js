@@ -66038,8 +66038,7 @@ $(document).ready(function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-$(document).ready(function () {
-  console.log(document.querySelector('tvy-content-editor').quillTextContent);
+$(document).ready(function () {// console.log(document.querySelector('tvy-content-editor').quillTextContent);
 });
 
 /***/ }),
@@ -66077,7 +66076,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var html = "\n    <div class=\"TVYContentProduction\">\n        <div class=\"TVYContentOrder col-md-12\"></div>\n        <div class=\"TVYContentEditor col-md-12\">\n            <div class=\"tabTypeContent\">\n               <button type=\"button\" class=\"btnAddPlainText selected\" data-type=\"text\">Add plain text</button>\n               <button type=\"button\" class=\"btnAddCodingBlock\" data-type=\"code\">Add coding block</button>\n               <button type=\"button\" class=\"btnAddImage\" data-type=\"image\">Add image</button>\n            </div>\n            <div class=\"editor\">\n                <div id=\"TVYTextEditor\">\n                    <div class=\"actualTextEditor\">\n                    </div>\n                </div>\n                <div id=\"TVYCodeEditor\" hidden=\"hidden\">\n                    I am code editor\n                </div>\n                <div id=\"TVYImageEditor\" hidden=\"hidden\">\n                    I am image selector\n                </div>\n            </div>\n            <div class=\"actionContentEditor\">\n                <button type=\"button\" class=\"btnAddContent\" data-type=\"text\">Add</button>\n            </div>\n        </div>\n    </div>\n";
+var html = "\n    <div class=\"TVYContentProduction\">\n        <div class=\"TVYContentOrder col-md-12\"></div>\n        <div class=\"TVYContentEditor col-md-12\">\n            <div class=\"tabTypeContent\">\n               <button type=\"button\" class=\"btnAddPlainText selected\" data-type=\"text\">Add plain text</button>\n               <button type=\"button\" class=\"btnAddCodingBlock\" data-type=\"code\">Add coding block</button>\n               <button type=\"button\" class=\"btnAddImage\" data-type=\"image\">Add image</button>\n            </div>\n            <div class=\"editor\">\n                <div id=\"TVYTextEditor\">\n                    <div class=\"actualTextEditor\">\n                    </div>\n                </div>\n                <div id=\"TVYCodeEditor\" hidden=\"hidden\">\n                    I am code editor\n                </div>\n                <div id=\"TVYImageEditor\" hidden=\"hidden\">\n                    I am image selector\n                </div>\n            </div>\n            <div class=\"actionContentEditor\">\n                <button type=\"button\" class=\"btnAddContent\" data-type=\"text\">Save</button>\n            </div>\n        </div>\n    </div>\n";
 
 var TVYContentEditor =
 /*#__PURE__*/
@@ -66143,31 +66142,65 @@ function (_HTMLElement) {
             break;
           }
 
-          var textElement = document.createElement('div');
-          textElement.className = 'descElement col-md-12';
-          textElement.setAttribute('data-type', 'type');
-          textElement.setAttribute('data-position', 'position');
-          textElement.setAttribute('data-total-element', 'total');
-          textElement.setAttribute('data-desc-id', randomDescId);
-          textElement.innerHTML = descHTML;
-          contentOrder.appendChild(textElement);
-          var descContent = textElement.querySelector('.descContent');
-          var editBtn = textElement.querySelector('.toolEdit');
-          editBtn.addEventListener('click', function () {
-            _this2.quillTextObj.setContents(_this2.getDataContentByDescId(randomDescId));
+          var textEditor = this.querySelector('#TVYTextEditor');
+          var dataEditing = textEditor.getAttribute('data-editing');
 
-            console.log(_this2.getDataContentByDescId(randomDescId));
-          });
-          var q = new Quill(descContent, {
-            theme: 'snow',
-            modules: {
-              toolbar: false
-            },
-            readOnly: true
-          });
-          q.setContents(this.quillTextContent);
-          this.storeDataContent(this.quillTextContent, TVYContentEditor.textType, randomDescId);
-          console.log(this.allDataContents);
+          if (dataEditing != null) {
+            var editingDescEle = this.getBeingEditedDescElement(dataEditing);
+            var descTools = editingDescEle.querySelector('.descTools');
+            var q = new Quill(editingDescEle.querySelector('.descContent'), {
+              theme: 'snow',
+              modules: {
+                toolbar: false
+              },
+              readOnly: true
+            });
+            q.setContents(this.quillTextContent);
+            this.updateDataContent(this.quillTextContent, dataEditing);
+            descTools.classList.remove('editing');
+            descTools.classList.add('edited');
+            textEditor.removeAttribute('data-editing');
+          } else {
+            var textElement = document.createElement('div');
+            textElement.className = 'descElement col-md-12';
+            textElement.setAttribute('data-type', 'type');
+            textElement.setAttribute('data-position', 'position');
+            textElement.setAttribute('data-total-element', 'total');
+            textElement.setAttribute('data-desc-id', randomDescId);
+            textElement.innerHTML = descHTML;
+            contentOrder.appendChild(textElement);
+            var descContent = textElement.querySelector('.descContent');
+
+            var _descTools = textElement.querySelector('.descTools');
+
+            var editBtn = textElement.querySelector('.toolEdit');
+            editBtn.addEventListener('click', function () {
+              _this2.quillTextObj.setContents(_this2.getDataContentByDescId(randomDescId));
+
+              var allDescTools = _this2.querySelectorAll('.descTools');
+
+              textEditor.setAttribute('data-editing', randomDescId);
+              allDescTools.forEach(function (ele) {
+                ele.classList.remove('editing');
+                ele.classList.remove('edited');
+              });
+
+              _descTools.classList.add('editing');
+            });
+
+            var _q = new Quill(descContent, {
+              theme: 'snow',
+              modules: {
+                toolbar: false
+              },
+              readOnly: true
+            });
+
+            _q.setContents(this.quillTextContent);
+
+            this.storeDataContent(this.quillTextContent, TVYContentEditor.textType, randomDescId);
+          }
+
           this.quillTextObj.setContents(null);
           break;
 
@@ -66207,6 +66240,19 @@ function (_HTMLElement) {
         default:
           break;
       }
+
+      console.log('Data saved----------');
+      console.log(this.allDataContents);
+      console.log('Data saved----------End');
+    }
+  }, {
+    key: "updateDataContent",
+    value: function updateDataContent(dataContent, descId) {
+      this.allDataContents.forEach(function (ele) {
+        if (ele.descId === descId) {
+          ele.data = dataContent;
+        }
+      });
     }
   }, {
     key: "getDataContentByDescId",
@@ -66215,6 +66261,18 @@ function (_HTMLElement) {
         return desc.descId === descId;
       });
       return descFiltered[0].data;
+    }
+  }, {
+    key: "getBeingEditedDescElement",
+    value: function getBeingEditedDescElement(descId) {
+      var allDescElements = this.querySelectorAll('.TVYContentOrder .descElement');
+      var wantedElement = null;
+      allDescElements.forEach(function (ele) {
+        if (ele.getAttribute('data-desc-id') === descId) {
+          wantedElement = ele;
+        }
+      });
+      return wantedElement;
     }
   }, {
     key: "tapEditorMovement",
@@ -66229,8 +66287,7 @@ function (_HTMLElement) {
           });
 
           ele.classList.add('selected');
-          var dataType = ele.getAttribute('data-type');
-          console.log(_this3.allEditors); // editor changed on click
+          var dataType = ele.getAttribute('data-type'); // editor changed on click
 
           _this3.allEditors.forEach(function (e) {
             e.setAttribute('hidden', 'hidden');
