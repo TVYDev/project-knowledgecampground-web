@@ -66173,6 +66173,7 @@ function (_HTMLElement) {
             var editBtn = textElement.querySelector('.toolEdit');
             var deleteBtn = textElement.querySelector('.toolDelete');
             var arrowUpBtn = textElement.querySelector('.toolArrowUp');
+            var arrowDownBtn = textElement.querySelector('.toolArrowDown');
             editBtn.addEventListener('click', function () {
               _this2.quillTextObj.setContents(_this2.getDataContentByDescId(randomDescId));
 
@@ -66248,6 +66249,63 @@ function (_HTMLElement) {
                 _this2.updateDataContent(currentElementDataContent, preElementData.descId);
 
                 _this2.updateDataContent(preElementDataContent, currentElementData.descId);
+              }
+            });
+            arrowDownBtn.addEventListener('click', function () {
+              var currentElementData = _this2.getDataByDescId(randomDescId);
+
+              var currentElementDataPos = currentElementData.pos;
+
+              if (currentElementDataPos === _this2.dataPosition) {
+                new Noty({
+                  type: 'warning',
+                  theme: 'nest',
+                  layout: 'topRight',
+                  text: '⚠️It is already at the bottom. Cannot move down anymore.',
+                  timeout: '6000',
+                  progressBar: true,
+                  closeWith: ['click'],
+                  animation: {
+                    open: 'animated flipInY',
+                    // Animate.css class names
+                    close: 'animated flipOutY' // Animate.css class names
+
+                  }
+                }).show();
+              } else {
+                var nextElementPos = currentElementDataPos + 1;
+
+                var nextElementData = _this2.getDataByPos(nextElementPos); // Data content
+
+
+                var currentElementDataContent = currentElementData.data;
+                var nextElementDataContent = nextElementData.data; // Desc element
+
+                var currentElementInDOM = _this2.getDescElementByDescId(randomDescId);
+
+                var nextElementInDOM = _this2.getDescElementByDescId(nextElementData.descId); // Exchange data content
+
+
+                var currentQ = new Quill(currentElementInDOM.querySelector('.descContent'), {
+                  theme: 'snow',
+                  modules: {
+                    toolbar: false
+                  },
+                  readOnly: true
+                });
+                currentQ.setContents(nextElementDataContent);
+                var nextQ = new Quill(nextElementInDOM.querySelector('.descContent'), {
+                  theme: 'snow',
+                  modules: {
+                    toolbar: false
+                  },
+                  readOnly: true
+                });
+                nextQ.setContents(currentElementDataContent); // Update data content
+
+                _this2.updateDataContent(currentElementDataContent, nextElementData.descId);
+
+                _this2.updateDataContent(nextElementDataContent, currentElementData.descId);
               }
             });
 

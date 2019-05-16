@@ -129,6 +129,7 @@ class TVYContentEditor extends HTMLElement
                     let editBtn = textElement.querySelector('.toolEdit');
                     let deleteBtn = textElement.querySelector('.toolDelete');
                     let arrowUpBtn = textElement.querySelector('.toolArrowUp');
+                    let arrowDownBtn = textElement.querySelector('.toolArrowDown');
                     editBtn.addEventListener('click', () => {
                         this.quillTextObj.setContents(this.getDataContentByDescId(randomDescId));
                         let allDescTools = this.querySelectorAll('.descTools');
@@ -195,6 +196,59 @@ class TVYContentEditor extends HTMLElement
                             // Update data content
                             this.updateDataContent(currentElementDataContent, preElementData.descId);
                             this.updateDataContent(preElementDataContent, currentElementData.descId);
+                        }
+                    });
+                    arrowDownBtn.addEventListener('click', () => {
+                        let currentElementData = this.getDataByDescId(randomDescId);
+                        let currentElementDataPos = currentElementData.pos;
+                        if(currentElementDataPos === this.dataPosition){
+                            new Noty({
+                                type: 'warning',
+                                theme: 'nest',
+                                layout: 'topRight',
+                                text: '⚠️It is already at the bottom. Cannot move down anymore.',
+                                timeout: '6000',
+                                progressBar: true,
+                                closeWith: ['click'],
+                                animation: {
+                                    open: 'animated flipInY', // Animate.css class names
+                                    close: 'animated flipOutY' // Animate.css class names
+                                }
+                            }).show();
+                        }else{
+                            let nextElementPos = currentElementDataPos + 1;
+                            let nextElementData = this.getDataByPos(nextElementPos);
+
+                            // Data content
+                            let currentElementDataContent = currentElementData.data;
+                            let nextElementDataContent = nextElementData.data;
+
+                            // Desc element
+                            let currentElementInDOM = this.getDescElementByDescId(randomDescId);
+                            let nextElementInDOM = this.getDescElementByDescId(nextElementData.descId);
+
+                            // Exchange data content
+                            let currentQ = new Quill(currentElementInDOM.querySelector('.descContent'), {
+                                theme: 'snow',
+                                modules: {
+                                    toolbar: false
+                                },
+                                readOnly: true
+                            });
+                            currentQ.setContents(nextElementDataContent);
+
+                            let nextQ = new Quill(nextElementInDOM.querySelector('.descContent'), {
+                                theme: 'snow',
+                                modules: {
+                                    toolbar: false
+                                },
+                                readOnly: true
+                            });
+                            nextQ.setContents(currentElementDataContent);
+
+                            // Update data content
+                            this.updateDataContent(currentElementDataContent, nextElementData.descId);
+                            this.updateDataContent(nextElementDataContent, currentElementData.descId);
                         }
                     });
 
