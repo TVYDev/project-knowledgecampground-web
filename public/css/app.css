@@ -23024,34 +23024,34 @@ button:focus {
 @-webkit-keyframes blink {
   0% {
     opacity: 0;
-    background-color: #54D0E6;
+    background-color: #fff;
   }
 
   50% {
     opacity: 0.4;
-    background-color: #54D0E6;
+    background-color: #fff;
   }
 
   100% {
     opacity: 0.6;
-    background-color: #54D0E6;
+    background-color: #fff;
   }
 }
 
 @keyframes blink {
   0% {
     opacity: 0;
-    background-color: #54D0E6;
+    background-color: #fff;
   }
 
   50% {
     opacity: 0.4;
-    background-color: #54D0E6;
+    background-color: #fff;
   }
 
   100% {
     opacity: 0.6;
-    background-color: #54D0E6;
+    background-color: #fff;
   }
 }
 

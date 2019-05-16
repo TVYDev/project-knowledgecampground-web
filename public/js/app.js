@@ -66163,9 +66163,6 @@ function (_HTMLElement) {
           } else {
             var textElement = document.createElement('div');
             textElement.className = 'descElement col-md-12';
-            textElement.setAttribute('data-type', 'type');
-            textElement.setAttribute('data-position', 'position');
-            textElement.setAttribute('data-total-element', 'total');
             textElement.setAttribute('data-desc-id', randomDescId);
             textElement.innerHTML = descHTML;
             contentOrder.appendChild(textElement);
@@ -66175,6 +66172,7 @@ function (_HTMLElement) {
 
             var editBtn = textElement.querySelector('.toolEdit');
             var deleteBtn = textElement.querySelector('.toolDelete');
+            var arrowUpBtn = textElement.querySelector('.toolArrowUp');
             editBtn.addEventListener('click', function () {
               _this2.quillTextObj.setContents(_this2.getDataContentByDescId(randomDescId));
 
@@ -66194,6 +66192,63 @@ function (_HTMLElement) {
               selectedElement.parentNode.removeChild(selectedElement);
 
               _this2.updatePositionsAfterElementDeleted(randomDescId);
+            });
+            arrowUpBtn.addEventListener('click', function () {
+              var currentElementData = _this2.getDataByDescId(randomDescId);
+
+              var currentElementDataPos = currentElementData.pos;
+
+              if (currentElementDataPos === 1) {
+                new Noty({
+                  type: 'warning',
+                  theme: 'nest',
+                  layout: 'topRight',
+                  text: '⚠️It is already at the top. Cannot move up anymore.',
+                  timeout: '6000',
+                  progressBar: true,
+                  closeWith: ['click'],
+                  animation: {
+                    open: 'animated flipInY',
+                    // Animate.css class names
+                    close: 'animated flipOutY' // Animate.css class names
+
+                  }
+                }).show();
+              } else {
+                var preElementPos = currentElementDataPos - 1;
+
+                var preElementData = _this2.getDataByPos(preElementPos); // Data content
+
+
+                var currentElementDataContent = currentElementData.data;
+                var preElementDataContent = preElementData.data; // Desc element
+
+                var currentElementInDOM = _this2.getDescElementByDescId(randomDescId);
+
+                var preElementInDOM = _this2.getDescElementByDescId(preElementData.descId); // Exchange data content
+
+
+                var currentQ = new Quill(currentElementInDOM.querySelector('.descContent'), {
+                  theme: 'snow',
+                  modules: {
+                    toolbar: false
+                  },
+                  readOnly: true
+                });
+                currentQ.setContents(preElementDataContent);
+                var preQ = new Quill(preElementInDOM.querySelector('.descContent'), {
+                  theme: 'snow',
+                  modules: {
+                    toolbar: false
+                  },
+                  readOnly: true
+                });
+                preQ.setContents(currentElementDataContent); // Update data content
+
+                _this2.updateDataContent(currentElementDataContent, preElementData.descId);
+
+                _this2.updateDataContent(preElementDataContent, currentElementData.descId);
+              }
             });
 
             var _q = new Quill(descContent, {
@@ -66265,6 +66320,7 @@ function (_HTMLElement) {
   }, {
     key: "updatePositionsAfterElementDeleted",
     value: function updatePositionsAfterElementDeleted(descId) {
+      this.dataPosition--;
       var prePos = 1;
       var filteredDataContents = this.allDataContents.filter(function (ele) {
         return ele.descId !== descId;
@@ -66275,12 +66331,36 @@ function (_HTMLElement) {
       this.allDataContents = filteredDataContents;
     }
   }, {
+    key: "getDataByDescId",
+    value: function getDataByDescId(descId) {
+      var descFiltered = this.allDataContents.filter(function (desc) {
+        return desc.descId === descId;
+      });
+      return descFiltered[0];
+    }
+  }, {
+    key: "getDataByPos",
+    value: function getDataByPos(pos) {
+      var descFiltered = this.allDataContents.filter(function (desc) {
+        return desc.pos === pos;
+      });
+      return descFiltered[0];
+    }
+  }, {
     key: "getDataContentByDescId",
     value: function getDataContentByDescId(descId) {
       var descFiltered = this.allDataContents.filter(function (desc) {
         return desc.descId === descId;
       });
       return descFiltered[0].data;
+    }
+  }, {
+    key: "getDataPositionByDescId",
+    value: function getDataPositionByDescId(descId) {
+      var desFiltered = this.allDataContents.filter(function (desc) {
+        return desc.descId === descId;
+      });
+      return desFiltered[0].pos;
     }
   }, {
     key: "getDescElementByDescId",

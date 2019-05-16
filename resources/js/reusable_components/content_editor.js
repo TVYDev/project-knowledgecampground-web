@@ -120,9 +120,6 @@ class TVYContentEditor extends HTMLElement
                 else{
                     let textElement = document.createElement('div');
                     textElement.className = 'descElement col-md-12';
-                    textElement.setAttribute('data-type', 'type');
-                    textElement.setAttribute('data-position', 'position');
-                    textElement.setAttribute('data-total-element', 'total');
                     textElement.setAttribute('data-desc-id', randomDescId);
                     textElement.innerHTML = descHTML;
                     contentOrder.appendChild(textElement);
@@ -131,6 +128,7 @@ class TVYContentEditor extends HTMLElement
 
                     let editBtn = textElement.querySelector('.toolEdit');
                     let deleteBtn = textElement.querySelector('.toolDelete');
+                    let arrowUpBtn = textElement.querySelector('.toolArrowUp');
                     editBtn.addEventListener('click', () => {
                         this.quillTextObj.setContents(this.getDataContentByDescId(randomDescId));
                         let allDescTools = this.querySelectorAll('.descTools');
@@ -145,6 +143,59 @@ class TVYContentEditor extends HTMLElement
                        let selectedElement = this.getDescElementByDescId(randomDescId);
                        selectedElement.parentNode.removeChild(selectedElement);
                        this.updatePositionsAfterElementDeleted(randomDescId);
+                    });
+                    arrowUpBtn.addEventListener('click', () => {
+                        let currentElementData = this.getDataByDescId(randomDescId);
+                        let currentElementDataPos = currentElementData.pos;
+                        if(currentElementDataPos === 1){
+                            new Noty({
+                                type: 'warning',
+                                theme: 'nest',
+                                layout: 'topRight',
+                                text: '⚠️It is already at the top. Cannot move up anymore.',
+                                timeout: '6000',
+                                progressBar: true,
+                                closeWith: ['click'],
+                                animation: {
+                                    open: 'animated flipInY', // Animate.css class names
+                                    close: 'animated flipOutY' // Animate.css class names
+                                }
+                            }).show();
+                        }else{
+                            let preElementPos = currentElementDataPos - 1;
+                            let preElementData = this.getDataByPos(preElementPos);
+
+                            // Data content
+                            let currentElementDataContent = currentElementData.data;
+                            let preElementDataContent = preElementData.data;
+
+                            // Desc element
+                            let currentElementInDOM = this.getDescElementByDescId(randomDescId);
+                            let preElementInDOM = this.getDescElementByDescId(preElementData.descId);
+
+                            // Exchange data content
+                            let currentQ = new Quill(currentElementInDOM.querySelector('.descContent'), {
+                                theme: 'snow',
+                                modules: {
+                                    toolbar: false
+                                },
+                                readOnly: true
+                            });
+                            currentQ.setContents(preElementDataContent);
+
+                            let preQ = new Quill(preElementInDOM.querySelector('.descContent'), {
+                                theme: 'snow',
+                                modules: {
+                                    toolbar: false
+                                },
+                                readOnly: true
+                            });
+                            preQ.setContents(currentElementDataContent);
+
+                            // Update data content
+                            this.updateDataContent(currentElementDataContent, preElementData.descId);
+                            this.updateDataContent(preElementDataContent, currentElementData.descId);
+                        }
                     });
 
                     let q = new Quill(descContent, {
@@ -205,6 +256,7 @@ class TVYContentEditor extends HTMLElement
     }
 
     updatePositionsAfterElementDeleted (descId) {
+        this.dataPosition--;
         let prePos = 1;
         let filteredDataContents = this.allDataContents.filter(ele => {return ele.descId !== descId;});
         filteredDataContents.forEach(ele => {
@@ -213,12 +265,27 @@ class TVYContentEditor extends HTMLElement
         this.allDataContents = filteredDataContents;
     }
 
-    getDataContentByDescId(descId) {
+    getDataByDescId (descId) {
+        let descFiltered = this.allDataContents.filter(desc => desc.descId === descId);
+        return descFiltered[0];
+    }
+
+    getDataByPos (pos) {
+        let descFiltered = this.allDataContents.filter(desc => desc.pos === pos);
+        return descFiltered[0];
+    }
+
+    getDataContentByDescId (descId) {
         let descFiltered = this.allDataContents.filter(desc => desc.descId === descId);
         return descFiltered[0].data;
     }
 
-    getDescElementByDescId(descId) {
+    getDataPositionByDescId (descId) {
+        let desFiltered = this.allDataContents.filter(desc => desc.descId === descId);
+        return desFiltered[0].pos;
+    }
+
+    getDescElementByDescId (descId) {
         let allDescElements = this.querySelectorAll('.TVYContentOrder .descElement');
         let wantedElement = null;
         allDescElements.forEach(ele => {

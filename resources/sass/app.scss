@@ -249,9 +249,9 @@ button:focus {
         animation: blink 1.5s;
     }
     @keyframes blink{
-        0%{opacity: 0; background-color: $secondary-blue;}
-        50%{opacity: .4; background-color: $secondary-blue;}
-        100%{opacity: .6; background-color: $secondary-blue;}
+        0%{opacity: 0; background-color: $white;}
+        50%{opacity: .4; background-color: $white}
+        100%{opacity: .6; background-color: $white;}
     }
     .descTools:hover, .descTools:focus, .descContent .ql-editor:hover .descTools {
         transition: 0.5s;
