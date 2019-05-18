@@ -66223,10 +66223,10 @@ function (_HTMLElement) {
     _this.imageEditor = _this.querySelector('.editor #TVYImageEditor');
     _this.btnAddContent = _this.querySelector('.actionContentEditor .btnAddContent');
     _this.contentOrder = _this.querySelector('.TVYContentOrder');
-    _this.allDataContents = [];
-    _this.dataPosition = 0;
+    _this.allDescData = [];
+    _this.descPosition = 0;
 
-    _this.tapEditorMovement();
+    _this.tabEditorMovement();
 
     _this.quillTextObj = new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](_this.actualTextEditor).getQuill();
 
@@ -66242,7 +66242,7 @@ function (_HTMLElement) {
 
       var thisBtn = this.querySelector('.btnAddContent');
       var dataType = thisBtn.getAttribute('data-type');
-      var descHTML = "\n            <div class=\"descTools\" draggable=\"true\">\n                <span>\n                    <button type=\"button\" class=\"toolArrowUp\"><i class=\"fas fa-arrow-up\"></i></button>\n                    <button type=\"button\" class=\"toolArrowDown\"><i class=\"fas fa-arrow-down\"></i></button>\n                    <button type=\"button\" class=\"toolEdit\"><i class=\"fas fa-pen\"></i></button>\n                    <button type=\"button\" class=\"toolDelete\"><i class=\"fas fa-trash-alt\"></i></button>\n                </span>\n            </div>\n            <div class=\"descContent\">\n                Hello I am here\n            </div>\n        ";
+      var descHTML = "\n            <div class=\"descTools\" draggable=\"true\">\n                <span>\n                    <button type=\"button\" class=\"toolArrowUp\"><i class=\"fas fa-arrow-up\"></i></button>\n                    <button type=\"button\" class=\"toolArrowDown\"><i class=\"fas fa-arrow-down\"></i></button>\n                    <button type=\"button\" class=\"toolEdit\"><i class=\"fas fa-pen\"></i></button>\n                    <button type=\"button\" class=\"toolDelete\"><i class=\"fas fa-trash-alt\"></i></button>\n                </span>\n            </div>\n            <div class=\"descContent\"></div>\n        ";
       var contentOrder = this.querySelector('.TVYContentOrder');
       var randomDescId = Math.random().toString(36).replace('0.', '');
 
@@ -66260,7 +66260,7 @@ function (_HTMLElement) {
             var editingDescEle = this.getDescElementByDescId(dataEditing);
             var descTools = editingDescEle.querySelector('.descTools');
             new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](editingDescEle.querySelector('.descContent'), false, true, this.quillTextContent);
-            this.updateDataContent(this.quillTextContent, dataEditing);
+            this.updateDataOfADesc(this.quillTextContent, dataEditing);
             descTools.classList.remove('editing');
             descTools.classList.add('edited');
             textEditor.removeAttribute('data-editing');
@@ -66279,7 +66279,7 @@ function (_HTMLElement) {
             var arrowUpBtn = textElement.querySelector('.toolArrowUp');
             var arrowDownBtn = textElement.querySelector('.toolArrowDown');
             editBtn.addEventListener('click', function () {
-              _this2.quillTextObj.setContents(_this2.getDataContentByDescId(randomDescId));
+              _this2.quillTextObj.setContents(_this2.getDescObjectByDescId(randomDescId).data);
 
               var allDescTools = _this2.querySelectorAll('.descTools');
 
@@ -66296,64 +66296,64 @@ function (_HTMLElement) {
 
               selectedElement.parentNode.removeChild(selectedElement);
 
-              _this2.updatePositionsAfterElementDeleted(randomDescId);
+              _this2.updatePositionsAfterADescElementDeleted(randomDescId);
             });
             arrowUpBtn.addEventListener('click', function () {
-              var currentElementData = _this2.getDataByDescId(randomDescId);
+              var currentDescObj = _this2.getDescObjectByDescId(randomDescId);
 
-              var currentElementDataPos = currentElementData.pos;
+              var currentDescObjPos = currentDescObj.pos;
 
-              if (currentElementDataPos === 1) {
+              if (currentDescObjPos === 1) {
                 new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, '⚠️It is already at the top. Cannot move up anymore.').show();
               } else {
-                var preElementPos = currentElementDataPos - 1;
+                var preDescObjPos = currentDescObjPos - 1;
 
-                var preElementData = _this2.getDataByPos(preElementPos); // Data content
-
-
-                var currentElementDataContent = currentElementData.data;
-                var preElementDataContent = preElementData.data; // Desc element
-
-                var currentElementInDOM = _this2.getDescElementByDescId(randomDescId);
-
-                var preElementInDOM = _this2.getDescElementByDescId(preElementData.descId); // Exchange data content
+                var preDescObj = _this2.getDescObjectByPosition(preDescObjPos); // Data content
 
 
-                new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](currentElementInDOM.querySelector('.descContent'), false, true, preElementDataContent);
-                new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](preElementInDOM.querySelector('.descContent'), false, true, currentElementDataContent); // Update data content
+                var currentDescObjData = currentDescObj.data;
+                var preDescObjData = preDescObj.data; // Desc element
 
-                _this2.updateDataContent(currentElementDataContent, preElementData.descId);
+                var currentDescElement = _this2.getDescElementByDescId(randomDescId);
 
-                _this2.updateDataContent(preElementDataContent, currentElementData.descId);
+                var preDescElement = _this2.getDescElementByDescId(preDescObj.descId); // Exchange data content
+
+
+                new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](currentDescElement.querySelector('.descContent'), false, true, preDescObjData);
+                new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](preDescElement.querySelector('.descContent'), false, true, currentDescObjData); // Update data content
+
+                _this2.updateDataOfADesc(currentDescObjData, preDescObj.descId);
+
+                _this2.updateDataOfADesc(preDescObjData, currentDescObj.descId);
               }
             });
             arrowDownBtn.addEventListener('click', function () {
-              var currentElementData = _this2.getDataByDescId(randomDescId);
+              var currentDescObj = _this2.getDescObjectByDescId(randomDescId);
 
-              var currentElementDataPos = currentElementData.pos;
+              var currentDesObjPos = currentDescObj.pos;
 
-              if (currentElementDataPos === _this2.dataPosition) {
+              if (currentDesObjPos === _this2.descPosition) {
                 new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, '⚠️It is already at the bottom. Cannot move down anymore.').show();
               } else {
-                var nextElementPos = currentElementDataPos + 1;
+                var nextDescObjPos = currentDesObjPos + 1;
 
-                var nextElementData = _this2.getDataByPos(nextElementPos); // Data content
-
-
-                var currentElementDataContent = currentElementData.data;
-                var nextElementDataContent = nextElementData.data; // Desc element
-
-                var currentElementInDOM = _this2.getDescElementByDescId(randomDescId);
-
-                var nextElementInDOM = _this2.getDescElementByDescId(nextElementData.descId); // Exchange data content
+                var newDescObj = _this2.getDescObjectByPosition(nextDescObjPos); // Data content
 
 
-                new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](currentElementInDOM.querySelector('.descContent'), false, true, nextElementDataContent);
-                new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](nextElementInDOM.querySelector('.descContent'), false, true, currentElementDataContent); // Update data content
+                var currentDescObjData = currentDescObj.data;
+                var nextDescObjData = newDescObj.data; // Desc element
 
-                _this2.updateDataContent(currentElementDataContent, nextElementData.descId);
+                var currentDescElement = _this2.getDescElementByDescId(randomDescId);
 
-                _this2.updateDataContent(nextElementDataContent, currentElementData.descId);
+                var nextDescElement = _this2.getDescElementByDescId(newDescObj.descId); // Exchange data content
+
+
+                new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](currentDescElement.querySelector('.descContent'), false, true, nextDescObjData);
+                new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](nextDescElement.querySelector('.descContent'), false, true, currentDescObjData); // Update data content
+
+                _this2.updateDataOfADesc(currentDescObjData, newDescObj.descId);
+
+                _this2.updateDataOfADesc(nextDescObjData, currentDescObj.descId);
               }
             });
             new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](descContent, false, true, this.quillTextContent);
@@ -66378,11 +66378,11 @@ function (_HTMLElement) {
   }, {
     key: "storeDataContent",
     value: function storeDataContent(dataContent, type, descId) {
-      var position = ++this.dataPosition;
+      var position = ++this.descPosition;
 
       switch (type) {
         case TVYContentEditor.textType:
-          this.allDataContents.push({
+          this.allDescData.push({
             pos: position,
             type: TVYContentEditor.textType,
             data: dataContent,
@@ -66401,62 +66401,46 @@ function (_HTMLElement) {
       }
 
       console.log('Data saved----------');
-      console.log(this.allDataContents);
+      console.log(this.allDescData);
       console.log('Data saved----------End');
     }
   }, {
-    key: "updateDataContent",
-    value: function updateDataContent(dataContent, descId) {
-      this.allDataContents.forEach(function (ele) {
+    key: "updateDataOfADesc",
+    value: function updateDataOfADesc(data, descId) {
+      this.allDescData.forEach(function (ele) {
         if (ele.descId === descId) {
-          ele.data = dataContent;
+          ele.data = data;
         }
       });
     }
   }, {
-    key: "updatePositionsAfterElementDeleted",
-    value: function updatePositionsAfterElementDeleted(descId) {
-      this.dataPosition--;
+    key: "updatePositionsAfterADescElementDeleted",
+    value: function updatePositionsAfterADescElementDeleted(descId) {
+      this.descPosition--;
       var prePos = 1;
-      var filteredDataContents = this.allDataContents.filter(function (ele) {
+      var filteredDataContents = this.allDescData.filter(function (ele) {
         return ele.descId !== descId;
       });
       filteredDataContents.forEach(function (ele) {
         ele.pos = prePos++;
       });
-      this.allDataContents = filteredDataContents;
+      this.allDescData = filteredDataContents;
     }
   }, {
-    key: "getDataByDescId",
-    value: function getDataByDescId(descId) {
-      var descFiltered = this.allDataContents.filter(function (desc) {
+    key: "getDescObjectByDescId",
+    value: function getDescObjectByDescId(descId) {
+      var descFiltered = this.allDescData.filter(function (desc) {
         return desc.descId === descId;
       });
       return descFiltered[0];
     }
   }, {
-    key: "getDataByPos",
-    value: function getDataByPos(pos) {
-      var descFiltered = this.allDataContents.filter(function (desc) {
+    key: "getDescObjectByPosition",
+    value: function getDescObjectByPosition(pos) {
+      var descFiltered = this.allDescData.filter(function (desc) {
         return desc.pos === pos;
       });
       return descFiltered[0];
-    }
-  }, {
-    key: "getDataContentByDescId",
-    value: function getDataContentByDescId(descId) {
-      var descFiltered = this.allDataContents.filter(function (desc) {
-        return desc.descId === descId;
-      });
-      return descFiltered[0].data;
-    }
-  }, {
-    key: "getDataPositionByDescId",
-    value: function getDataPositionByDescId(descId) {
-      var desFiltered = this.allDataContents.filter(function (desc) {
-        return desc.descId === descId;
-      });
-      return desFiltered[0].pos;
     }
   }, {
     key: "getDescElementByDescId",
@@ -66471,8 +66455,8 @@ function (_HTMLElement) {
       return wantedElement;
     }
   }, {
-    key: "tapEditorMovement",
-    value: function tapEditorMovement() {
+    key: "tabEditorMovement",
+    value: function tabEditorMovement() {
       var _this3 = this;
 
       this.allTabs.forEach(function (ele) {

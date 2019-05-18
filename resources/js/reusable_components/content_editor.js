@@ -45,10 +45,10 @@ class TVYContentEditor extends HTMLElement
         this.btnAddContent = this.querySelector('.actionContentEditor .btnAddContent');
         this.contentOrder = this.querySelector('.TVYContentOrder');
 
-        this.allDataContents = [];
-        this.dataPosition = 0;
+        this.allDescData = [];
+        this.descPosition = 0;
 
-        this.tapEditorMovement();
+        this.tabEditorMovement();
         this.quillTextObj = new QuillEditor(this.actualTextEditor).getQuill();
 
         this.btnAddContent.addEventListener('click', this.addContentListener.bind(this));
@@ -71,9 +71,7 @@ class TVYContentEditor extends HTMLElement
                     <button type="button" class="toolDelete"><i class="fas fa-trash-alt"></i></button>
                 </span>
             </div>
-            <div class="descContent">
-                Hello I am here
-            </div>
+            <div class="descContent"></div>
         `;
 
         let contentOrder = this.querySelector('.TVYContentOrder');
@@ -95,7 +93,7 @@ class TVYContentEditor extends HTMLElement
                     let descTools = editingDescEle.querySelector('.descTools');
                     new QuillEditor(editingDescEle.querySelector('.descContent'), false, true, this.quillTextContent);
 
-                    this.updateDataContent(this.quillTextContent, dataEditing);
+                    this.updateDataOfADesc(this.quillTextContent, dataEditing);
 
                     descTools.classList.remove('editing');
                     descTools.classList.add('edited');
@@ -115,7 +113,7 @@ class TVYContentEditor extends HTMLElement
                     let arrowUpBtn = textElement.querySelector('.toolArrowUp');
                     let arrowDownBtn = textElement.querySelector('.toolArrowDown');
                     editBtn.addEventListener('click', () => {
-                        this.quillTextObj.setContents(this.getDataContentByDescId(randomDescId));
+                        this.quillTextObj.setContents(this.getDescObjectByDescId(randomDescId).data);
                         let allDescTools = this.querySelectorAll('.descTools');
                         textEditor.setAttribute('data-editing', randomDescId);
                         allDescTools.forEach(ele => {
@@ -127,61 +125,61 @@ class TVYContentEditor extends HTMLElement
                     deleteBtn.addEventListener('click', () => {
                        let selectedElement = this.getDescElementByDescId(randomDescId);
                        selectedElement.parentNode.removeChild(selectedElement);
-                       this.updatePositionsAfterElementDeleted(randomDescId);
+                       this.updatePositionsAfterADescElementDeleted(randomDescId);
                     });
                     arrowUpBtn.addEventListener('click', () => {
-                        let currentElementData = this.getDataByDescId(randomDescId);
-                        let currentElementDataPos = currentElementData.pos;
-                        if(currentElementDataPos === 1){
+                        let currentDescObj = this.getDescObjectByDescId(randomDescId);
+                        let currentDescObjPos = currentDescObj.pos;
+                        if(currentDescObjPos === 1){
                             new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️It is already at the top. Cannot move up anymore.').show();
                         }else{
-                            let preElementPos = currentElementDataPos - 1;
-                            let preElementData = this.getDataByPos(preElementPos);
+                            let preDescObjPos = currentDescObjPos - 1;
+                            let preDescObj = this.getDescObjectByPosition(preDescObjPos);
 
                             // Data content
-                            let currentElementDataContent = currentElementData.data;
-                            let preElementDataContent = preElementData.data;
+                            let currentDescObjData = currentDescObj.data;
+                            let preDescObjData = preDescObj.data;
 
                             // Desc element
-                            let currentElementInDOM = this.getDescElementByDescId(randomDescId);
-                            let preElementInDOM = this.getDescElementByDescId(preElementData.descId);
+                            let currentDescElement = this.getDescElementByDescId(randomDescId);
+                            let preDescElement = this.getDescElementByDescId(preDescObj.descId);
 
                             // Exchange data content
-                            new QuillEditor(currentElementInDOM.querySelector('.descContent'), false, true, preElementDataContent);
-                            new QuillEditor(preElementInDOM.querySelector('.descContent'), false, true, currentElementDataContent);
+                            new QuillEditor(currentDescElement.querySelector('.descContent'), false, true, preDescObjData);
+                            new QuillEditor(preDescElement.querySelector('.descContent'), false, true, currentDescObjData);
 
                             // Update data content
-                            this.updateDataContent(currentElementDataContent, preElementData.descId);
-                            this.updateDataContent(preElementDataContent, currentElementData.descId);
+                            this.updateDataOfADesc(currentDescObjData, preDescObj.descId);
+                            this.updateDataOfADesc(preDescObjData, currentDescObj.descId);
                         }
                     });
                     arrowDownBtn.addEventListener('click', () => {
-                        let currentElementData = this.getDataByDescId(randomDescId);
-                        let currentElementDataPos = currentElementData.pos;
-                        if(currentElementDataPos === this.dataPosition){
+                        let currentDescObj = this.getDescObjectByDescId(randomDescId);
+                        let currentDesObjPos = currentDescObj.pos;
+                        if(currentDesObjPos === this.descPosition){
                             new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️It is already at the bottom. Cannot move down anymore.').show();
                         }else{
-                            let nextElementPos = currentElementDataPos + 1;
-                            let nextElementData = this.getDataByPos(nextElementPos);
+                            let nextDescObjPos = currentDesObjPos + 1;
+                            let newDescObj = this.getDescObjectByPosition(nextDescObjPos);
 
                             // Data content
-                            let currentElementDataContent = currentElementData.data;
-                            let nextElementDataContent = nextElementData.data;
+                            let currentDescObjData = currentDescObj.data;
+                            let nextDescObjData = newDescObj.data;
 
                             // Desc element
-                            let currentElementInDOM = this.getDescElementByDescId(randomDescId);
-                            let nextElementInDOM = this.getDescElementByDescId(nextElementData.descId);
+                            let currentDescElement = this.getDescElementByDescId(randomDescId);
+                            let nextDescElement = this.getDescElementByDescId(newDescObj.descId);
 
                             // Exchange data content
-                            new QuillEditor(currentElementInDOM.querySelector('.descContent'), false, true, nextElementDataContent);
-                            new QuillEditor(nextElementInDOM.querySelector('.descContent'), false, true, currentElementDataContent);
+                            new QuillEditor(currentDescElement.querySelector('.descContent'), false, true, nextDescObjData);
+                            new QuillEditor(nextDescElement.querySelector('.descContent'), false, true, currentDescObjData);
 
                             // Update data content
-                            this.updateDataContent(currentElementDataContent, nextElementData.descId);
-                            this.updateDataContent(nextElementDataContent, currentElementData.descId);
+                            this.updateDataOfADesc(currentDescObjData, newDescObj.descId);
+                            this.updateDataOfADesc(nextDescObjData, currentDescObj.descId);
                         }
                     });
-                    
+
                     new QuillEditor(descContent, false, true, this.quillTextContent);
 
                     this.storeDataContent(this.quillTextContent, TVYContentEditor.textType, randomDescId);
@@ -207,10 +205,10 @@ class TVYContentEditor extends HTMLElement
     }
 
     storeDataContent(dataContent, type, descId) {
-        let position = ++(this.dataPosition);
+        let position = ++(this.descPosition);
         switch(type) {
             case TVYContentEditor.textType:
-                this.allDataContents.push({pos: position, type: TVYContentEditor.textType, data: dataContent, descId: descId});
+                this.allDescData.push({pos: position, type: TVYContentEditor.textType, data: dataContent, descId: descId});
                 break;
             case TVYContentEditor.codeType:
                 break;
@@ -220,46 +218,36 @@ class TVYContentEditor extends HTMLElement
                 break;
         }
         console.log('Data saved----------');
-        console.log(this.allDataContents);
+        console.log(this.allDescData);
         console.log('Data saved----------End');
     }
 
-    updateDataContent(dataContent, descId) {
-        this.allDataContents.forEach(ele => {
+    updateDataOfADesc(data, descId) {
+        this.allDescData.forEach(ele => {
            if(ele.descId === descId){
-               ele.data = dataContent;
+               ele.data = data;
            }
         });
     }
 
-    updatePositionsAfterElementDeleted (descId) {
-        this.dataPosition--;
+    updatePositionsAfterADescElementDeleted (descId) {
+        this.descPosition--;
         let prePos = 1;
-        let filteredDataContents = this.allDataContents.filter(ele => {return ele.descId !== descId;});
+        let filteredDataContents = this.allDescData.filter(ele => {return ele.descId !== descId;});
         filteredDataContents.forEach(ele => {
             ele.pos = prePos++;
         });
-        this.allDataContents = filteredDataContents;
+        this.allDescData = filteredDataContents;
     }
 
-    getDataByDescId (descId) {
-        let descFiltered = this.allDataContents.filter(desc => desc.descId === descId);
+    getDescObjectByDescId (descId) {
+        let descFiltered = this.allDescData.filter(desc => desc.descId === descId);
         return descFiltered[0];
     }
 
-    getDataByPos (pos) {
-        let descFiltered = this.allDataContents.filter(desc => desc.pos === pos);
+    getDescObjectByPosition (pos) {
+        let descFiltered = this.allDescData.filter(desc => desc.pos === pos);
         return descFiltered[0];
-    }
-
-    getDataContentByDescId (descId) {
-        let descFiltered = this.allDataContents.filter(desc => desc.descId === descId);
-        return descFiltered[0].data;
-    }
-
-    getDataPositionByDescId (descId) {
-        let desFiltered = this.allDataContents.filter(desc => desc.descId === descId);
-        return desFiltered[0].pos;
     }
 
     getDescElementByDescId (descId) {
@@ -273,7 +261,7 @@ class TVYContentEditor extends HTMLElement
         return wantedElement;
     }
 
-    tapEditorMovement() {
+    tabEditorMovement() {
         this.allTabs.forEach( ele => {
             ele.addEventListener('click', () => {
                 // tap changed on click
