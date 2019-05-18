@@ -65696,6 +65696,163 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/js/NotyAlertMessage.js":
+/*!******************************************!*\
+  !*** ./resources/js/NotyAlertMessage.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return NotyAlertMessage; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var NotyAlertMessage =
+/*#__PURE__*/
+function () {
+  _createClass(NotyAlertMessage, null, [{
+    key: "ERROR",
+    get: function get() {
+      return 'error';
+    }
+  }, {
+    key: "SUCCESS",
+    get: function get() {
+      return 'success';
+    }
+  }, {
+    key: "WARNING",
+    get: function get() {
+      return 'warning';
+    }
+  }, {
+    key: "INFO",
+    get: function get() {
+      return 'info';
+    }
+  }]);
+
+  function NotyAlertMessage(type, msg) {
+    _classCallCheck(this, NotyAlertMessage);
+
+    this.type = type;
+    this.msg = msg;
+  }
+
+  _createClass(NotyAlertMessage, [{
+    key: "show",
+    value: function show() {
+      new Noty({
+        type: this.type,
+        theme: 'nest',
+        layout: 'topRight',
+        text: this.msg,
+        timeout: '2000',
+        progressBar: true,
+        closeWith: ['click'],
+        animation: {
+          open: 'animated flipInY',
+          // Animate.css class names
+          close: 'animated flipOutY' // Animate.css class names
+
+        }
+      }).show();
+    }
+  }]);
+
+  return NotyAlertMessage;
+}();
+
+
+
+/***/ }),
+
+/***/ "./resources/js/QuillEditor.js":
+/*!*************************************!*\
+  !*** ./resources/js/QuillEditor.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return QuillEditor; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var QuillEditor =
+/*#__PURE__*/
+function () {
+  _createClass(QuillEditor, [{
+    key: "toolbarOptions",
+    get: function get() {
+      return [['bold', 'italic', 'underline', 'strike', 'blockquote'], [{
+        'list': 'ordered'
+      }, {
+        'list': 'bullet'
+      }], [{
+        'script': 'sub'
+      }, {
+        'script': 'super'
+      }], [{
+        'indent': '-1'
+      }, {
+        'indent': '+1'
+      }], [{
+        'header': [1, 2, 3, 4, 5, 6, false]
+      }], [{
+        'color': []
+      }, {
+        'background': []
+      }], [{
+        'align': []
+      }], ['clean']];
+    }
+  }]);
+
+  function QuillEditor(selector) {
+    var hasToolbar = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+    var isReadOnly = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+    var dataContent = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+
+    _classCallCheck(this, QuillEditor);
+
+    this.selector = selector;
+    this.hasToolbar = hasToolbar;
+    this.isReadOnly = isReadOnly;
+    this.dataContent = dataContent;
+    this.quill = new Quill(this.selector, {
+      theme: 'snow',
+      modules: {
+        toolbar: this.hasToolbar === true ? this.toolbarOptions : false
+      },
+      readOnly: this.isReadOnly
+    });
+    this.quill.setContents(this.dataContent);
+  }
+
+  _createClass(QuillEditor, [{
+    key: "getQuill",
+    value: function getQuill() {
+      return this.quill;
+    }
+  }]);
+
+  return QuillEditor;
+}();
+
+
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -65739,7 +65896,7 @@ __webpack_require__(/*! ./navbar */ "./resources/js/navbar.js");
 
 __webpack_require__(/*! ./auth/login */ "./resources/js/auth/login.js");
 
-__webpack_require__(/*! ./noty_alert */ "./resources/js/noty_alert.js");
+__webpack_require__(/*! ./form_alert_message */ "./resources/js/form_alert_message.js");
 
 __webpack_require__(/*! ./question/ask */ "./resources/js/question/ask.js");
 
@@ -65912,6 +66069,52 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/form_alert_message.js":
+/*!********************************************!*\
+  !*** ./resources/js/form_alert_message.js ***!
+  \********************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NotyAlertMessage */ "./resources/js/NotyAlertMessage.js");
+
+$(document).ready(function () {
+  var divError = $('.kcAlertMessages');
+  var hasError = divError.attr('data-has-error');
+  var errorRegister = divError.attr('data-error-register');
+  var hasInfo = divError.attr('data-has-info');
+
+  if (hasError == 'true') {
+    if (errorRegister == 'true') {
+      $('.loginContent .formSide .kcCard .frontCard').css('visibility', 'hidden');
+      $('.loginContent .formSide .kcCard .backCard').css('visibility', 'visible');
+      $('.loginContent .formSide .kcCard').css('transform', 'rotateY(180deg)');
+    }
+
+    var errorMsg = '';
+    var listErrors = document.querySelectorAll('.kcAlertMessages ul li');
+
+    for (var i = 0; i < listErrors.length; i++) {
+      errorMsg += '🚩 ' + listErrors[i].textContent + '<br>';
+    }
+
+    new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].ERROR, errorMsg).show();
+  } else if (hasError == 'false') {
+    var msg = document.querySelector('.kcAlertMessages ul li');
+    var msgContent = '😃 ' + msg.textContent;
+
+    if (hasInfo == 'false') {
+      new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].SUCCESS, msgContent).show();
+    } else {
+      new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].INFO, msgContent).show();
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./resources/js/navbar.js":
 /*!********************************!*\
   !*** ./resources/js/navbar.js ***!
@@ -65947,90 +66150,6 @@ $(document).ready(function () {
 
 /***/ }),
 
-/***/ "./resources/js/noty_alert.js":
-/*!************************************!*\
-  !*** ./resources/js/noty_alert.js ***!
-  \************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-$(document).ready(function () {
-  var divError = $('.kcAlertMessages');
-  var hasError = divError.attr('data-has-error');
-  var errorRegister = divError.attr('data-error-register');
-  var hasInfo = divError.attr('data-has-info');
-
-  if (hasError == 'true') {
-    if (errorRegister == 'true') {
-      $('.loginContent .formSide .kcCard .frontCard').css('visibility', 'hidden');
-      $('.loginContent .formSide .kcCard .backCard').css('visibility', 'visible');
-      $('.loginContent .formSide .kcCard').css('transform', 'rotateY(180deg)');
-    }
-
-    var errorMsg = '';
-    var listErrors = document.querySelectorAll('.kcAlertMessages ul li');
-
-    for (var i = 0; i < listErrors.length; i++) {
-      errorMsg += '🚩 ' + listErrors[i].textContent + '<br>';
-    }
-
-    new Noty({
-      type: 'error',
-      theme: 'nest',
-      layout: 'topRight',
-      text: errorMsg,
-      timeout: '6000',
-      progressBar: true,
-      closeWith: ['click'],
-      animation: {
-        open: 'animated flipInY',
-        // Animate.css class names
-        close: 'animated flipOutY' // Animate.css class names
-
-      }
-    }).show();
-  } else if (hasError == 'false') {
-    var msg = document.querySelector('.kcAlertMessages ul li');
-    var msgContent = '😃 ' + msg.textContent;
-
-    if (hasInfo == 'false') {
-      new Noty({
-        type: 'success',
-        theme: 'nest',
-        layout: 'topRight',
-        text: msgContent,
-        timeout: '6000',
-        progressBar: true,
-        closeWith: ['click'],
-        animation: {
-          open: 'animated flipInY',
-          // Animate.css class names
-          close: 'animated flipOutY' // Animate.css class names
-
-        }
-      }).show();
-    } else {
-      new Noty({
-        type: 'info',
-        theme: 'nest',
-        layout: 'topRight',
-        text: msgContent,
-        timeout: '6000',
-        progressBar: true,
-        closeWith: ['click'],
-        animation: {
-          open: 'animated flipInY',
-          // Animate.css class names
-          close: 'animated flipOutY' // Animate.css class names
-
-        }
-      }).show();
-    }
-  }
-});
-
-/***/ }),
-
 /***/ "./resources/js/question/ask.js":
 /*!**************************************!*\
   !*** ./resources/js/question/ask.js ***!
@@ -66047,9 +66166,13 @@ $(document).ready(function () {// console.log(document.querySelector('tvy-conten
 /*!************************************************************!*\
   !*** ./resources/js/reusable_components/content_editor.js ***!
   \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../NotyAlertMessage */ "./resources/js/NotyAlertMessage.js");
+/* harmony import */ var _QuillEditor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../QuillEditor */ "./resources/js/QuillEditor.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -66075,6 +66198,8 @@ function _isNativeFunction(fn) { return Function.toString.call(fn).indexOf("[nat
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
 
 var html = "\n    <div class=\"TVYContentProduction\">\n        <div class=\"TVYContentOrder col-md-12\"></div>\n        <div class=\"TVYContentEditor col-md-12\">\n            <div class=\"tabTypeContent\">\n               <button type=\"button\" class=\"btnAddPlainText selected\" data-type=\"text\">Add plain text</button>\n               <button type=\"button\" class=\"btnAddCodingBlock\" data-type=\"code\">Add coding block</button>\n               <button type=\"button\" class=\"btnAddImage\" data-type=\"image\">Add image</button>\n            </div>\n            <div class=\"editor\">\n                <div id=\"TVYTextEditor\">\n                    <div class=\"actualTextEditor\">\n                    </div>\n                </div>\n                <div id=\"TVYCodeEditor\" hidden=\"hidden\">\n                    I am code editor\n                </div>\n                <div id=\"TVYImageEditor\" hidden=\"hidden\">\n                    I am image selector\n                </div>\n            </div>\n            <div class=\"actionContentEditor\">\n                <button type=\"button\" class=\"btnAddContent\" data-type=\"text\">Save</button>\n            </div>\n        </div>\n    </div>\n";
 
@@ -66103,7 +66228,7 @@ function (_HTMLElement) {
 
     _this.tapEditorMovement();
 
-    _this.quillTextObj = _this.renderQuillTextEditor();
+    _this.quillTextObj = new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](_this.actualTextEditor).getQuill();
 
     _this.btnAddContent.addEventListener('click', _this.addContentListener.bind(_assertThisInitialized(_this)));
 
@@ -66124,21 +66249,7 @@ function (_HTMLElement) {
       switch (dataType) {
         case 'text':
           if (this.quillTextObj.getLength() === 1) {
-            new Noty({
-              type: 'warning',
-              theme: 'nest',
-              layout: 'topRight',
-              text: '⚠️You cannot add empty plain text.',
-              timeout: '6000',
-              progressBar: true,
-              closeWith: ['click'],
-              animation: {
-                open: 'animated flipInY',
-                // Animate.css class names
-                close: 'animated flipOutY' // Animate.css class names
-
-              }
-            }).show();
+            new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, '⚠️You cannot add empty plain text.').show();
             break;
           }
 
@@ -66148,14 +66259,7 @@ function (_HTMLElement) {
           if (dataEditing != null) {
             var editingDescEle = this.getDescElementByDescId(dataEditing);
             var descTools = editingDescEle.querySelector('.descTools');
-            var q = new Quill(editingDescEle.querySelector('.descContent'), {
-              theme: 'snow',
-              modules: {
-                toolbar: false
-              },
-              readOnly: true
-            });
-            q.setContents(this.quillTextContent);
+            new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](editingDescEle.querySelector('.descContent'), false, true, this.quillTextContent);
             this.updateDataContent(this.quillTextContent, dataEditing);
             descTools.classList.remove('editing');
             descTools.classList.add('edited');
@@ -66200,21 +66304,7 @@ function (_HTMLElement) {
               var currentElementDataPos = currentElementData.pos;
 
               if (currentElementDataPos === 1) {
-                new Noty({
-                  type: 'warning',
-                  theme: 'nest',
-                  layout: 'topRight',
-                  text: '⚠️It is already at the top. Cannot move up anymore.',
-                  timeout: '6000',
-                  progressBar: true,
-                  closeWith: ['click'],
-                  animation: {
-                    open: 'animated flipInY',
-                    // Animate.css class names
-                    close: 'animated flipOutY' // Animate.css class names
-
-                  }
-                }).show();
+                new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, '⚠️It is already at the top. Cannot move up anymore.').show();
               } else {
                 var preElementPos = currentElementDataPos - 1;
 
@@ -66229,22 +66319,8 @@ function (_HTMLElement) {
                 var preElementInDOM = _this2.getDescElementByDescId(preElementData.descId); // Exchange data content
 
 
-                var currentQ = new Quill(currentElementInDOM.querySelector('.descContent'), {
-                  theme: 'snow',
-                  modules: {
-                    toolbar: false
-                  },
-                  readOnly: true
-                });
-                currentQ.setContents(preElementDataContent);
-                var preQ = new Quill(preElementInDOM.querySelector('.descContent'), {
-                  theme: 'snow',
-                  modules: {
-                    toolbar: false
-                  },
-                  readOnly: true
-                });
-                preQ.setContents(currentElementDataContent); // Update data content
+                new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](currentElementInDOM.querySelector('.descContent'), false, true, preElementDataContent);
+                new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](preElementInDOM.querySelector('.descContent'), false, true, currentElementDataContent); // Update data content
 
                 _this2.updateDataContent(currentElementDataContent, preElementData.descId);
 
@@ -66257,21 +66333,7 @@ function (_HTMLElement) {
               var currentElementDataPos = currentElementData.pos;
 
               if (currentElementDataPos === _this2.dataPosition) {
-                new Noty({
-                  type: 'warning',
-                  theme: 'nest',
-                  layout: 'topRight',
-                  text: '⚠️It is already at the bottom. Cannot move down anymore.',
-                  timeout: '6000',
-                  progressBar: true,
-                  closeWith: ['click'],
-                  animation: {
-                    open: 'animated flipInY',
-                    // Animate.css class names
-                    close: 'animated flipOutY' // Animate.css class names
-
-                  }
-                }).show();
+                new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, '⚠️It is already at the bottom. Cannot move down anymore.').show();
               } else {
                 var nextElementPos = currentElementDataPos + 1;
 
@@ -66286,39 +66348,15 @@ function (_HTMLElement) {
                 var nextElementInDOM = _this2.getDescElementByDescId(nextElementData.descId); // Exchange data content
 
 
-                var currentQ = new Quill(currentElementInDOM.querySelector('.descContent'), {
-                  theme: 'snow',
-                  modules: {
-                    toolbar: false
-                  },
-                  readOnly: true
-                });
-                currentQ.setContents(nextElementDataContent);
-                var nextQ = new Quill(nextElementInDOM.querySelector('.descContent'), {
-                  theme: 'snow',
-                  modules: {
-                    toolbar: false
-                  },
-                  readOnly: true
-                });
-                nextQ.setContents(currentElementDataContent); // Update data content
+                new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](currentElementInDOM.querySelector('.descContent'), false, true, nextElementDataContent);
+                new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](nextElementInDOM.querySelector('.descContent'), false, true, currentElementDataContent); // Update data content
 
                 _this2.updateDataContent(currentElementDataContent, nextElementData.descId);
 
                 _this2.updateDataContent(nextElementDataContent, currentElementData.descId);
               }
             });
-
-            var _q = new Quill(descContent, {
-              theme: 'snow',
-              modules: {
-                toolbar: false
-              },
-              readOnly: true
-            });
-
-            _q.setContents(this.quillTextContent);
-
+            new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](descContent, false, true, this.quillTextContent);
             this.storeDataContent(this.quillTextContent, TVYContentEditor.textType, randomDescId);
           }
 
@@ -66465,37 +66503,6 @@ function (_HTMLElement) {
 
           _this3.btnAddContent.setAttribute('data-type', dataType);
         });
-      });
-    }
-  }, {
-    key: "renderQuillTextEditor",
-    value: function renderQuillTextEditor() {
-      var toolbarOptions = [['bold', 'italic', 'underline', 'strike', 'blockquote'], [{
-        'list': 'ordered'
-      }, {
-        'list': 'bullet'
-      }], [{
-        'script': 'sub'
-      }, {
-        'script': 'super'
-      }], [{
-        'indent': '-1'
-      }, {
-        'indent': '+1'
-      }], [{
-        'header': [1, 2, 3, 4, 5, 6, false]
-      }], [{
-        'color': []
-      }, {
-        'background': []
-      }], [{
-        'align': []
-      }], ['clean']];
-      return new Quill(this.actualTextEditor, {
-        theme: 'snow',
-        modules: {
-          toolbar: toolbarOptions
-        }
       });
     }
   }, {

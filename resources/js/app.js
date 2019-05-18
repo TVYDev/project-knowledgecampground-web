@@ -38,6 +38,6 @@ const app = new Vue({
  */
 require('./navbar');
 require('./auth/login');
-require('./noty_alert');
+require('./form_alert_message');
 require('./question/ask');
 require('./reusable_components/content_editor');

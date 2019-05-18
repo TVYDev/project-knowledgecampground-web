@@ -1,3 +1,6 @@
+import NotyAlertMessage from "../NotyAlertMessage";
+import QuillEditor from "../QuillEditor";
+
 const html = `
     <div class="TVYContentProduction">
         <div class="TVYContentOrder col-md-12"></div>
@@ -46,7 +49,7 @@ class TVYContentEditor extends HTMLElement
         this.dataPosition = 0;
 
         this.tapEditorMovement();
-        this.quillTextObj = this.renderQuillTextEditor();
+        this.quillTextObj = new QuillEditor(this.actualTextEditor).getQuill();
 
         this.btnAddContent.addEventListener('click', this.addContentListener.bind(this));
     }
@@ -81,19 +84,7 @@ class TVYContentEditor extends HTMLElement
             case 'text':
                 if(this.quillTextObj.getLength() === 1)
                 {
-                    new Noty({
-                        type: 'warning',
-                        theme: 'nest',
-                        layout: 'topRight',
-                        text: '⚠️You cannot add empty plain text.',
-                        timeout: '6000',
-                        progressBar: true,
-                        closeWith: ['click'],
-                        animation: {
-                            open: 'animated flipInY', // Animate.css class names
-                            close: 'animated flipOutY' // Animate.css class names
-                        }
-                    }).show();
+                    new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️You cannot add empty plain text.').show();
                     break;
                 }
 
@@ -102,14 +93,7 @@ class TVYContentEditor extends HTMLElement
                 if(dataEditing != null){
                     let editingDescEle = this.getDescElementByDescId(dataEditing);
                     let descTools = editingDescEle.querySelector('.descTools');
-                    let q = new Quill(editingDescEle.querySelector('.descContent'), {
-                        theme: 'snow',
-                        modules: {
-                            toolbar: false
-                        },
-                        readOnly: true
-                    });
-                    q.setContents(this.quillTextContent);
+                    new QuillEditor(editingDescEle.querySelector('.descContent'), false, true, this.quillTextContent);
 
                     this.updateDataContent(this.quillTextContent, dataEditing);
 
@@ -149,19 +133,7 @@ class TVYContentEditor extends HTMLElement
                         let currentElementData = this.getDataByDescId(randomDescId);
                         let currentElementDataPos = currentElementData.pos;
                         if(currentElementDataPos === 1){
-                            new Noty({
-                                type: 'warning',
-                                theme: 'nest',
-                                layout: 'topRight',
-                                text: '⚠️It is already at the top. Cannot move up anymore.',
-                                timeout: '6000',
-                                progressBar: true,
-                                closeWith: ['click'],
-                                animation: {
-                                    open: 'animated flipInY', // Animate.css class names
-                                    close: 'animated flipOutY' // Animate.css class names
-                                }
-                            }).show();
+                            new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️It is already at the top. Cannot move up anymore.').show();
                         }else{
                             let preElementPos = currentElementDataPos - 1;
                             let preElementData = this.getDataByPos(preElementPos);
@@ -175,23 +147,8 @@ class TVYContentEditor extends HTMLElement
                             let preElementInDOM = this.getDescElementByDescId(preElementData.descId);
 
                             // Exchange data content
-                            let currentQ = new Quill(currentElementInDOM.querySelector('.descContent'), {
-                                theme: 'snow',
-                                modules: {
-                                    toolbar: false
-                                },
-                                readOnly: true
-                            });
-                            currentQ.setContents(preElementDataContent);
-
-                            let preQ = new Quill(preElementInDOM.querySelector('.descContent'), {
-                                theme: 'snow',
-                                modules: {
-                                    toolbar: false
-                                },
-                                readOnly: true
-                            });
-                            preQ.setContents(currentElementDataContent);
+                            new QuillEditor(currentElementInDOM.querySelector('.descContent'), false, true, preElementDataContent);
+                            new QuillEditor(preElementInDOM.querySelector('.descContent'), false, true, currentElementDataContent);
 
                             // Update data content
                             this.updateDataContent(currentElementDataContent, preElementData.descId);
@@ -202,19 +159,7 @@ class TVYContentEditor extends HTMLElement
                         let currentElementData = this.getDataByDescId(randomDescId);
                         let currentElementDataPos = currentElementData.pos;
                         if(currentElementDataPos === this.dataPosition){
-                            new Noty({
-                                type: 'warning',
-                                theme: 'nest',
-                                layout: 'topRight',
-                                text: '⚠️It is already at the bottom. Cannot move down anymore.',
-                                timeout: '6000',
-                                progressBar: true,
-                                closeWith: ['click'],
-                                animation: {
-                                    open: 'animated flipInY', // Animate.css class names
-                                    close: 'animated flipOutY' // Animate.css class names
-                                }
-                            }).show();
+                            new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️It is already at the bottom. Cannot move down anymore.').show();
                         }else{
                             let nextElementPos = currentElementDataPos + 1;
                             let nextElementData = this.getDataByPos(nextElementPos);
@@ -228,38 +173,16 @@ class TVYContentEditor extends HTMLElement
                             let nextElementInDOM = this.getDescElementByDescId(nextElementData.descId);
 
                             // Exchange data content
-                            let currentQ = new Quill(currentElementInDOM.querySelector('.descContent'), {
-                                theme: 'snow',
-                                modules: {
-                                    toolbar: false
-                                },
-                                readOnly: true
-                            });
-                            currentQ.setContents(nextElementDataContent);
-
-                            let nextQ = new Quill(nextElementInDOM.querySelector('.descContent'), {
-                                theme: 'snow',
-                                modules: {
-                                    toolbar: false
-                                },
-                                readOnly: true
-                            });
-                            nextQ.setContents(currentElementDataContent);
+                            new QuillEditor(currentElementInDOM.querySelector('.descContent'), false, true, nextElementDataContent);
+                            new QuillEditor(nextElementInDOM.querySelector('.descContent'), false, true, currentElementDataContent);
 
                             // Update data content
                             this.updateDataContent(currentElementDataContent, nextElementData.descId);
                             this.updateDataContent(nextElementDataContent, currentElementData.descId);
                         }
                     });
-
-                    let q = new Quill(descContent, {
-                        theme: 'snow',
-                        modules: {
-                            toolbar: false
-                        },
-                        readOnly: true
-                    });
-                    q.setContents(this.quillTextContent);
+                    
+                    new QuillEditor(descContent, false, true, this.quillTextContent);
 
                     this.storeDataContent(this.quillTextContent, TVYContentEditor.textType, randomDescId);
                 }
@@ -376,27 +299,6 @@ class TVYContentEditor extends HTMLElement
                 tempEditorToShow.removeAttribute('hidden');
                 this.btnAddContent.setAttribute('data-type', dataType);
             });
-        });
-    }
-
-    renderQuillTextEditor()
-    {
-        let toolbarOptions = [
-            ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-            [{ 'script': 'sub'}, { 'script': 'super' }],
-            [{ 'indent': '-1'}, { 'indent': '+1' }],
-            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-            [{ 'color': [] }, { 'background': [] }],
-            [{ 'align': [] }],
-            ['clean']
-        ];
-
-        return new Quill(this.actualTextEditor, {
-            theme: 'snow',
-            modules: {
-                toolbar: toolbarOptions
-            }
         });
     }
 
