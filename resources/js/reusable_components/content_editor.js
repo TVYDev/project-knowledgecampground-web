@@ -11,11 +11,27 @@ const html = `
             </div>
             <div class="editor">
                 <div id="TVYTextEditor">
-                    <div class="actualTextEditor">
-                    </div>
+                    <div class="actualTextEditor"></div>
                 </div>
                 <div id="TVYCodeEditor" hidden="hidden">
-                    I am code editor
+                    <div class="codeEditorTools col-md-12">
+                        <div>
+                            <label class="col-md-4">Language</label>
+                            <select class="codeEditorMode form-control-sm col-md-7">
+                                <option>JavaScript</option>
+                                <option>HTML</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="col-md-4">Theme</label>
+                            <select class="codeEditorTheme form-control-sm col-md-7">
+                                <option>Light Theme</option>
+                                <option>Dark Theme</option>
+                            </select>
+                            <i class="far fa-question-circle"></i>
+                        </div>
+                    </div>
+                    <div class="actualCodeEditor"></div>
                 </div>
                 <div id="TVYImageEditor" hidden="hidden">
                     I am image selector
@@ -41,6 +57,7 @@ class TVYContentEditor extends HTMLElement
         this.textEditor = this.querySelector('.editor #TVYTextEditor');
         this.actualTextEditor = this.querySelector('#TVYTextEditor .actualTextEditor');
         this.codeEditor = this.querySelector('.editor #TVYCodeEditor');
+        this.actualCodeEditor = this.querySelector('#TVYCodeEditor .actualCodeEditor');
         this.imageEditor = this.querySelector('.editor #TVYImageEditor');
         this.btnAddContent = this.querySelector('.actionContentEditor .btnAddContent');
         this.contentOrder = this.querySelector('.TVYContentOrder');
@@ -50,6 +67,23 @@ class TVYContentEditor extends HTMLElement
 
         this.tabEditorMovement();
         this.quillTextObj = new QuillEditor(this.actualTextEditor).getQuill();
+        this.codeMirrorObj = CodeMirror(this.actualCodeEditor, {
+            value: "",
+            theme: 'monokai',
+            mode:  "javascript",
+            autoFocus: true,
+            lineNumbers: true,
+            autoRefresh: true,
+            styleActiveLine: true,
+            styleSelectedText: true,
+            showCursorWhenSelecting: true,
+            autoCloseBrackets: true,
+            matchBrackets: true,
+            extraKeys: {
+                "Ctrl-Space": "autocomplete",
+            },
+        });
+        this.codeMirrorObj.focus();
 
         this.btnAddContent.addEventListener('click', this.addContentListener.bind(this));
     }

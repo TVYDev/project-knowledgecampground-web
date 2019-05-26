@@ -34,6 +34,24 @@ const app = new Vue({
 });
 
 /**
+ * CodeMirror scripts
+ */
+require('codemirror/mode/javascript/javascript');
+
+require('codemirror/addon/display/autorefresh');
+
+require('codemirror/addon/hint/show-hint');
+require('codemirror/addon/hint/javascript-hint');
+
+require('codemirror/addon/selection/mark-selection');
+require('codemirror/addon/selection/active-line');
+
+require('codemirror/addon/edit/closebrackets');
+require('codemirror/addon/edit/matchbrackets');
+require('codemirror/addon/edit/closetag');
+require('codemirror/addon/edit/matchtags');
+
+/**
  * KC Scripts
  */
 require('./navbar');

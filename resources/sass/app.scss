@@ -33,6 +33,12 @@
 @import '~quill/dist/quill.snow.css';
 @import '~quill/dist/quill.bubble.css';
 
+// CodeMirror
+@import '~codemirror/lib/codemirror.css';
+@import '~codemirror/theme/dracula.css';
+@import '~codemirror/theme/monokai.css';
+@import '~codemirror/addon/hint/show-hint.css';
+
 //***************************************
 // Global Style
 //***************************************
@@ -321,6 +327,25 @@ button:focus {
     border-bottom: none;
       .ql-container {
           height: 200px;
+      }
+      #TVYCodeEditor {
+        .codeEditorTools {
+            padding: 5px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            align-items: center;
+            label {
+                margin: 0;
+                text-align: right;
+            }
+            i {
+                font-size: 0.9em;
+                color: $secondary-gray;
+            }
+            i:hover {
+                cursor: pointer;
+            }
+        }
       }
   }
   .actionContentEditor {
