@@ -3,12 +3,11 @@ import QuillEditor from "../QuillEditor";
 
 const html = `
     <div class="TVYContentProduction">
-        <div class="TVYContentOrder col-md-12"></div>
         <div class="TVYContentEditor col-md-12">
             <div class="tabTypeContent">
-               <button type="button" class="btnAddPlainText selected" data-type="text">Add plain text</button>
-               <button type="button" class="btnAddCodingBlock" data-type="code">Add coding block</button>
-               <button type="button" class="btnAddImage" data-type="image">Add image</button>
+               <button type="button" class="btnAddPlainText selected" data-type="text">Plain Text</button>
+               <button type="button" class="btnAddCodingBlock" data-type="code">Coding Block</button>
+               <button type="button" class="btnAddImage" data-type="image">Media File</button>
             </div>
             <div class="editor">
                 <div id="TVYTextEditor">
@@ -23,9 +22,10 @@ const html = `
                 </div>
             </div>
             <div class="actionContentEditor">
-                <button type="button" class="btnAddContent" data-type="text">Save</button>
+                <button type="button" class="btnAddContent" data-type="text">Add to description</button>
             </div>
         </div>
+        <div class="TVYContentOrder col-md-12"></div>
     </div>
 `;
 

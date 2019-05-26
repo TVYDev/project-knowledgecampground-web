@@ -285,8 +285,11 @@ button:focus {
 // --- TVY Content Editor
 .TVYContentOrder {
     padding: 0;
+    z-index: 333;
 }
+// TODO: set static width & height of content editor
 .TVYContentEditor {
+  z-index: 334;
   margin: 5px 0;
   padding: 0;
   border-radius: 5px;
@@ -316,12 +319,15 @@ button:focus {
     border: 1px solid $thirdly-gray;
     border-top: none;
     border-bottom: none;
+      .ql-container {
+          height: 200px;
+      }
   }
   .actionContentEditor {
     border: 1px solid $thirdly-gray;
     border-top: none;
-    border-radius: 0 0 5px 5px;
-    text-align: right;
+    border-radius: 0 0 10px 10px;
+    text-align: center;
     background-color: white;
     padding: 5px;
     .btnAddContent {
