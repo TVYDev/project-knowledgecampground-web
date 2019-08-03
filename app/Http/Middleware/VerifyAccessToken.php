@@ -20,10 +20,9 @@ class VerifyAccessToken
     {
         try
         {
-            $response = $this->get($this->getApiRequestUrl('user.get_user'),null, [
+            $response = $this->get($this->getApiRequestUrl('user.verify_authentication'),null, [
                 'Authorization' => $this->getAccessToken($request)
             ]);
-
 
             // Use as condition in navbar, to show profile or login button
             if($response->success == true){
