@@ -23,4 +23,17 @@ class RouteConstants
     const USER_POST_CHANGE_PASSWORD = 'user.postChangePassword';
     const USER_GET_VIEW_USER_PROFILE = 'user.getViewUserProfile';
     /***********************************************************/
+
+    /************************************************************
+     * Route for QuestionController
+     ***********************************************************/
+    const QUESTION_GET_ASK  = 'question.getAsk';
+    const QUESTION_POST_ASK = 'question.postAsk';
+    /***********************************************************/
+
+    /************************************************************
+     * Route for DescriptionController
+     ***********************************************************/
+    const DESCRIPTION_POST_SAVE = 'description.postSave';
+    /***********************************************************/
 }

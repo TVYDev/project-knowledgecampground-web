@@ -8,7 +8,7 @@ $username = $ua[\App\Lib\UserConstants::USER_NAME];
         <i class="fab fa-servicestack fa-1-5x"></i>&nbsp;&nbsp;KnowledgeCommunity
     </button>
     <div id="navContent">
-        <button type="button" class="btnAsk btn-primary">
+        <button type="button" class="btnAsk btn-primary" data-url="{{ route(\App\Lib\RouteConstants::QUESTION_GET_ASK) }}">
             Ask Question&nbsp;&nbsp;&nbsp;<i class="fas fa-pencil-alt"></i>
         </button>
         <div class="navMenu">
@@ -40,7 +40,7 @@ $username = $ua[\App\Lib\UserConstants::USER_NAME];
         @if(session(\App\Lib\HttpConstants::KEY_TO_KC_USER_AUTHENTICATED) === \App\Lib\HttpConstants::KC_USER_VALID)
             @include('layouts.partials._user_avatar')
         @else
-            <button type="button" class="btnLogin btn-primary" data-url="{{ route('user.getLogin') }}">
+            <button type="button" class="btnLogin btn-primary" data-url="{{ route(\App\Lib\RouteConstants::USER_GET_LOGIN) }}">
                 LOG IN&nbsp;&nbsp;&nbsp;<i class="fas fa-sign-in-alt"></i>
             </button>
         @endif
