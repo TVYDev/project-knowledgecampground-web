@@ -19,7 +19,7 @@ class PreventLoginOrRegisterAfterAuthenticated
     {
         try
         {
-            $response = $this->get($this->getApiRequestUrl('user.get_user'),null, [
+            $response = $this->get($this->getApiRequestUrl('user.verify_authentication'),null, [
                 'Authorization' => $this->getAccessToken($request)
             ]);
 

@@ -12,13 +12,13 @@
 */
 use App\Lib\RouteConstants;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware('verify_access_token')->get('/', function () {
+    return view('home');
 });
 
 Route::middleware('verify_access_token')->get('/home', function () {
     return view('home');
-})->name('home');
+})->name(RouteConstants::HOME);
 
 Route::group([
     'prefix' => 'auth'

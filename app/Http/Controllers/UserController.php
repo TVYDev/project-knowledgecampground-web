@@ -53,7 +53,7 @@ class UserController extends Controller
                 \request()->session()->forget(HttpConstants::KEY_TO_KC_USER_AUTHENTICATED);
                 \request()->session()->forget(HttpConstants::KEY_TO_LAST_POST_ROUTE_STORED);
 
-                return $this->doResponseSuccess(RouteConstants::USER_GET_LOGIN, $response->message,false);
+                return $this->doResponseSuccess(RouteConstants::USER_GET_LOGIN, $response->message_en,false);
             }
         }
         catch(\Exception $e)
@@ -96,7 +96,7 @@ class UserController extends Controller
             $userAvatar = new UserAvatarViewModel();
             $this->saveUserAvatarToSession($userAvatar->getUserAvatar());
 
-            return $this->doResponseSuccess(RouteConstants::HOME, $response->message, false);
+            return $this->doResponseSuccess(RouteConstants::HOME, $response->message_en, false);
         }
         catch(\Exception $e)
         {
@@ -140,7 +140,7 @@ class UserController extends Controller
             $userAvatar = new UserAvatarViewModel();
             $this->saveUserAvatarToSession($userAvatar->getUserAvatar());
 
-            return $this->doResponseSuccess(RouteConstants::HOME, $response->message, false);
+            return $this->doResponseSuccess(RouteConstants::HOME, $response->message_en, false);
         }
         catch(\Exception $e)
         {

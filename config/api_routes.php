@@ -35,6 +35,10 @@ return [
         'get_user_avatar'   => [
             'path'  => '/api/user-avatar/user-avatar',
             'url'   => $host.'/api/user-avatar/user-avatar'
+        ],
+        'verify_authentication' => [
+            'path'  => '/api/auth/verify-authentication',
+            'url'   => $host.'/api/auth/verify-authentication'
         ]
     ]
 ];
