@@ -1,217 +1,228 @@
 #KCNavbar{
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-  grid-auto-rows: 2.7rem;
-  background: transparent;
-  font-family: 'Taprom','Patrick Hand', sans-serif;
-  font-size: 1.1rem;
-  z-index: 999;
-  #navLogo {
-    border: none;
-    background-color: $main-green;
-    border-bottom-right-radius: 40px;
-    border-bottom-left-radius: 40px;
-    border-top: 0.2rem solid $main-green;
-    border-bottom: 0.2rem solid $main-green;
-    font-family: 'Pacifico', sans-serif;
-    color: $white;
-    font-size: 1.2rem;
-    .fab {
-      vertical-align: baseline;
-    }
-  }
-  #navContent {
-    background-color: rgba($page-background, 0.9);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
     display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
-    font-size: 0.9rem;
-    .navMenu{
-      display: grid;
-      grid-template-columns: 2fr 2fr 2fr 2fr 1fr;
-      .btnNavMenu {
-        margin: 0px;
-        border: none;
-        background-color: rgba($page-background, 0.9);
-        color: $main-gray;
-        text-transform: uppercase;
-        border-bottom: 0.2rem solid $main-green;
-        i {
-          transition: all 0.5s ease-in-out;
+    grid-template-columns: 1fr 5fr;
+    grid-template-rows: 45px;
+    background: transparent;
+    font-family: 'Taprom','Patrick Hand', sans-serif;
+    z-index: 999;
+    @media only screen and (max-width: $tablet){
+        #navLogo {
+            display: none;
         }
-      }
-      .btnNavMenu.active {
-        cursor: pointer;
-        border-top-right-radius: 50px;
-        border-top-left-radius: 50px;
-        border-bottom: none;
-        border-top: 0.2rem solid $main-green;
-      }
-      .btnNavMenu:hover {
-        border-bottom: 0.1rem dotted $main-green;
-        cursor: pointer;
-        font-weight: bold;
-        i {
-          transform: rotate(360deg);
+    }
+    @media only screen and (min-width: $laptop){
+        #navLogo {
+            border: none;
+            background-color: $main-green;
+            border-bottom-right-radius: 40px;
+            border-top: 0.2rem solid $main-green;
+            border-bottom: 0.2rem solid $main-green;
+            font-family: 'Pacifico', sans-serif;
+            color: $white;
+            font-size: 1.2rem;
         }
-      }
-      .navTools{
+    }
+    #navContent {
+        background-color: transparent;
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        border-bottom: 0.2rem solid $main-green;
-        > button {
-          margin: 0px;
-          border: none;
-          background-color: rgba($page-background, 0.9);
-          color: $main-green;
-          cursor: pointer;
+        grid-template-columns: 1fr 4fr 1fr;
+        grid-template-rows: minmax(45px, 45px);
+        font-size: 0.9rem;
+        .navMenu{
+            display: grid;
+            grid-template-columns: 2fr 2fr 2fr 2fr 1fr;
+            .btnNavMenu {
+                margin: 0px;
+                border: none;
+                background-color: transparent;
+                color: $main-gray;
+                text-transform: uppercase;
+                border-bottom: 0.2rem solid $main-green;
+                i {
+                    transition: all 0.5s ease-in-out;
+                }
+            }
+            .btnNavMenu.active {
+                cursor: pointer;
+                border-top-right-radius: 50px;
+                border-top-left-radius: 50px;
+                border-bottom: none;
+                border-top: 0.2rem solid $main-green;
+                background-color: rgba($page-background, 0.8);
+            }
+            .btnNavMenu:hover {
+                border-bottom: 0.1rem dotted $main-green;
+                cursor: pointer;
+                font-weight: bold;
+                i {
+                    transform: rotate(360deg);
+                }
+            }
+            .navTools{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                border-bottom: 0.2rem solid $main-green;
+                > button {
+                    margin: 0px;
+                    border: none;
+                    background-color: transparent;
+                    color: $main-green;
+                    cursor: pointer;
+                }
+                .btnSearch {
+                    justify-self: center;
+                    align-self: center;
+                    border-radius: 5px;
+                    border: 2px solid transparent;
+                    padding: 2px 7px;
+                    transition: all 0.5s ease-in-out;
+                }
+                .btnSearch:hover, .btnSearch:focus {
+                    border-color: $main-green;
+                    background-color: $main-green;
+                    color: white;
+                    transform: rotate(360deg);
+                }
+                .btnLang {
+                    align-self: center;
+                    justify-self: center;
+                    border: 2px solid $main-green;
+                    padding: 1px 7px;
+                    border-radius: 5px;
+                    display: block;
+                    transition: all 0.5s ease-in-out;
+                }
+                .btnLang:hover, .btnLang:focus {
+                    background-color: $main-green;
+                    color: white;
+                    transform: rotate(360deg);
+                }
+            }
         }
-        .btnSearch {
-          justify-self: center;
-          align-self: center;
-          padding: 0;
-          transition: all 0.5s ease-in-out;
+        .btnAsk {
+            background: transparent;
+            border-top: 0.2rem solid $main-green;
+            border-bottom: 0.2rem solid $main-green;
+            text-transform: uppercase;
+            border-bottom-left-radius: 40px;
+            border-top-right-radius: 40px;
+        }
+        .btnAsk:hover, .btnAsk:focus {
+            border-bottom: 0.2rem solid $main-green;
+            background-color: $main-green;
+        }
+        .btnLogin {
+            background: transparent;
+            text-transform: uppercase;
+            border-top: 0.2rem solid $main-green;
+            border-bottom: 0.2rem solid $main-green;
+            border-top-left-radius: 40px;
+        }
 
+        .btnLogin:hover, .btnLogin:focus {
+            background-color: $main-green;
         }
-        .btnSearch:hover, .btnSearch:focus {
-          border: 2px solid $main-green;
-          padding: 2px 7px;
-          border-radius: 5px;
-          background-color: $main-green;
-          color: white;
-          transform: rotate(360deg);
-        }
-        .btnLang {
-          align-self: center;
-          justify-self: center;
-          border: 2px solid $main-green;
-          padding: 1px 7px;
-          border-radius: 5px;
-          display: block;
-          transition: all 0.5s ease-in-out;
-        }
-        .btnLang:hover, .btnLang:focus {
-          background-color: $main-green;
-          color: white;
-          transform: rotate(360deg);
-        }
-      }
-    }
-    .btnAsk {
-      border-top: 0.2rem solid $main-green;
-      border-bottom: 0.2rem solid $main-green;
-      text-transform: uppercase;
-      border-bottom-left-radius: 40px;
-      border-top-right-radius: 40px;
-    }
-    .btnAsk:hover, .btnAsk:focus {
-      border-bottom: 0.2rem solid $main-green;
-    }
-    .btnLogin {
-      text-transform: uppercase;
-      border-top: 0.2rem solid $main-green;
-      border-bottom: 0.2rem solid $main-green;
-      border-top-left-radius: 40px;
-      border-bottom-right-radius: 40px;
-    }
-    .btnAsk:hover i, .btnAsk:focus i, .btnLogin:hover i, .btnLogin:focus i {
-      transform: rotate(360deg);
-    }
 
-    .userProfileBtn {
-      background: none;
-      border: none;
-      padding: 0;
-      position: relative;
-      .blockProfile {
-        border-bottom: 0.2rem solid $main-green;
-        border-top-left-radius: 40px;
-        border-bottom-right-radius: 40px;
-        display: grid;
-        grid-template-columns: repeat(13, 1fr);
-        padding: 0.4rem 1.5rem;
-        .avatar_img_block {
-          z-index: 6;
-          cursor: pointer;
-          grid-column-start: 1;
-          grid-column-end: 4;
-          grid-row-start: 1;
-          .avatar_img {
-            background-color: $page-background;
-            border: 1.5px solid $main-green;
-            border-radius: 20px;
-            padding: 1px;
-            height: 30px;
-          }
+        .btnAsk:hover i, .btnAsk:focus i, .btnLogin:hover i, .btnLogin:focus i {
+            transform: rotate(360deg);
         }
-        .avatar_name {
-          z-index: 5;
-          cursor: pointer;
-          grid-column-start: 3;
-          grid-column-end: 14;
-          grid-row-start: 1;
-          text-align: center;
-          font-family: 'Sniglet', cursive;
-          border: 1.5px solid $main-green;
-          font-weight: bold;
-          border-radius: 15px;
-          align-self: center;
-        }
-      }
-      .profileMenuList {
-        position: absolute;
-        top: 70%;
-        left: 0;
-        z-index: 999;
-        width: 100%;
-        div {
-          position: relative;
-          width: 100%;
-          i {
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 52%;
-            color: $main-gray;
-          }
-          ul {
-            position: absolute;
-            top: 7px;
-            left: 20%;
-            font-family: 'Taprom','Montserrat', sans-serif;
-            font-size: 0.8em;
-            border: 2px solid $main-gray;
-            background-color: white;
-            padding: 5px;
-            border-radius: 10px;
+
+        .userProfileBtn {
+            background: none;
+            border: none;
             padding: 0;
-            margin: 0;
-            li {
-              margin: 2px;
-              text-align: center;
-              padding: 8px 8px;
-              list-style: none;
-              width: auto;
-              cursor: pointer;
-              border-radius: 8px;
+            position: relative;
+            display: block;
+            border-bottom: 0.2rem solid $main-green;
+            .blockProfile {
+                border-top-left-radius: 40px;
+                border-bottom-right-radius: 40px;
+                display: grid;
+                grid-template-columns: repeat(13, 1fr);
+                padding: 0.2rem 1.5rem;
+                .avatar_img_block {
+                    z-index: 6;
+                    cursor: pointer;
+                    grid-column-start: 1;
+                    grid-column-end: 4;
+                    grid-row-start: 1;
+                    .avatar_img {
+                        background-color: $page-background;
+                        border: 1.5px solid $main-green;
+                        border-radius: 20px;
+                        padding: 1px;
+                        height: 30px;
+                    }
+                }
+                .avatar_name {
+                    z-index: 5;
+                    cursor: pointer;
+                    grid-column-start: 3;
+                    grid-column-end: 14;
+                    grid-row-start: 1;
+                    text-align: center;
+                    font-family: 'Sniglet', cursive;
+                    border: 1.5px solid $main-green;
+                    font-weight: bold;
+                    border-radius: 15px;
+                    align-self: center;
+                }
             }
-            li:nth-child(2) {
-              border-top: 1px solid $thirdly-gray;
-              border-bottom: 1px solid $thirdly-gray;
+            .profileMenuList {
+                position: absolute;
+                top: 70%;
+                left: 0;
+                z-index: 999;
+                width: 100%;
+                div {
+                    position: relative;
+                    width: 100%;
+                    i {
+                        display: block;
+                        position: absolute;
+                        top: 0;
+                        left: 52%;
+                        color: $main-gray;
+                    }
+                    ul {
+                        position: absolute;
+                        top: 7px;
+                        left: 20%;
+                        font-family: 'Taprom','Montserrat', sans-serif;
+                        font-size: 0.8em;
+                        border: 2px solid $main-gray;
+                        background-color: white;
+                        padding: 5px;
+                        border-radius: 10px;
+                        padding: 0;
+                        margin: 0;
+                        li {
+                            margin: 2px;
+                            text-align: center;
+                            padding: 8px 8px;
+                            list-style: none;
+                            width: auto;
+                            cursor: pointer;
+                            border-radius: 8px;
+                        }
+                        li:nth-child(2) {
+                            border-top: 1px solid $thirdly-gray;
+                            border-bottom: 1px solid $thirdly-gray;
+                        }
+                        li:hover, li:focus {
+                            background-color: $secondary-green;
+                            color: white;
+                        }
+                        li.btnLogout:hover, li.btnLogout:focus {
+                            background-color: $main-red;
+                        }
+                    }
+                }
             }
-            li:hover, li:focus {
-              background-color: $secondary-green;
-              color: white;
-            }
-            li.btnLogout:hover, li.btnLogout:focus {
-              background-color: $main-red;
-            }
-          }
         }
-      }
     }
-  }
 }

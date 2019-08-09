@@ -23643,34 +23643,37 @@ button:focus {
   top: 0;
   left: 0;
   display: grid;
-  grid-template-columns: 1fr 4fr;
-  grid-auto-rows: 2.7rem;
+  grid-template-columns: 1fr 5fr;
+  grid-template-rows: 45px;
   background: transparent;
   font-family: "Taprom", "Patrick Hand", sans-serif;
-  font-size: 1.1rem;
   z-index: 999;
 }
 
-#KCNavbar #navLogo {
-  border: none;
-  background-color: #0A5748;
-  border-bottom-right-radius: 40px;
-  border-bottom-left-radius: 40px;
-  border-top: 0.2rem solid #0A5748;
-  border-bottom: 0.2rem solid #0A5748;
-  font-family: "Pacifico", sans-serif;
-  color: #fff;
-  font-size: 1.2rem;
+@media only screen and (max-width: 768px) {
+  #KCNavbar #navLogo {
+    display: none;
+  }
 }
 
-#KCNavbar #navLogo .fab {
-  vertical-align: baseline;
+@media only screen and (min-width: 1024px) {
+  #KCNavbar #navLogo {
+    border: none;
+    background-color: #0A5748;
+    border-bottom-right-radius: 40px;
+    border-top: 0.2rem solid #0A5748;
+    border-bottom: 0.2rem solid #0A5748;
+    font-family: "Pacifico", sans-serif;
+    color: #fff;
+    font-size: 1.2rem;
+  }
 }
 
 #KCNavbar #navContent {
-  background-color: rgba(243, 243, 243, 0.9);
+  background-color: transparent;
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
+  grid-template-rows: minmax(45px, 45px);
   font-size: 0.9rem;
 }
 
@@ -23682,7 +23685,7 @@ button:focus {
 #KCNavbar #navContent .navMenu .btnNavMenu {
   margin: 0px;
   border: none;
-  background-color: rgba(243, 243, 243, 0.9);
+  background-color: transparent;
   color: #424242;
   text-transform: uppercase;
   border-bottom: 0.2rem solid #0A5748;
@@ -23698,6 +23701,7 @@ button:focus {
   border-top-left-radius: 50px;
   border-bottom: none;
   border-top: 0.2rem solid #0A5748;
+  background-color: rgba(243, 243, 243, 0.8);
 }
 
 #KCNavbar #navContent .navMenu .btnNavMenu:hover {
@@ -23720,7 +23724,7 @@ button:focus {
 #KCNavbar #navContent .navMenu .navTools > button {
   margin: 0px;
   border: none;
-  background-color: rgba(243, 243, 243, 0.9);
+  background-color: transparent;
   color: #0A5748;
   cursor: pointer;
 }
@@ -23728,15 +23732,15 @@ button:focus {
 #KCNavbar #navContent .navMenu .navTools .btnSearch {
   justify-self: center;
   align-self: center;
-  padding: 0;
+  border-radius: 5px;
+  border: 2px solid transparent;
+  padding: 2px 7px;
   transition: all 0.5s ease-in-out;
 }
 
 #KCNavbar #navContent .navMenu .navTools .btnSearch:hover,
 #KCNavbar #navContent .navMenu .navTools .btnSearch:focus {
-  border: 2px solid #0A5748;
-  padding: 2px 7px;
-  border-radius: 5px;
+  border-color: #0A5748;
   background-color: #0A5748;
   color: white;
   -webkit-transform: rotate(360deg);
@@ -23762,6 +23766,7 @@ button:focus {
 }
 
 #KCNavbar #navContent .btnAsk {
+  background: transparent;
   border-top: 0.2rem solid #0A5748;
   border-bottom: 0.2rem solid #0A5748;
   text-transform: uppercase;
@@ -23772,14 +23777,20 @@ button:focus {
 #KCNavbar #navContent .btnAsk:hover,
 #KCNavbar #navContent .btnAsk:focus {
   border-bottom: 0.2rem solid #0A5748;
+  background-color: #0A5748;
 }
 
 #KCNavbar #navContent .btnLogin {
+  background: transparent;
   text-transform: uppercase;
   border-top: 0.2rem solid #0A5748;
   border-bottom: 0.2rem solid #0A5748;
   border-top-left-radius: 40px;
-  border-bottom-right-radius: 40px;
+}
+
+#KCNavbar #navContent .btnLogin:hover,
+#KCNavbar #navContent .btnLogin:focus {
+  background-color: #0A5748;
 }
 
 #KCNavbar #navContent .btnAsk:hover i,
@@ -23795,15 +23806,16 @@ button:focus {
   border: none;
   padding: 0;
   position: relative;
+  display: block;
+  border-bottom: 0.2rem solid #0A5748;
 }
 
 #KCNavbar #navContent .userProfileBtn .blockProfile {
-  border-bottom: 0.2rem solid #0A5748;
   border-top-left-radius: 40px;
   border-bottom-right-radius: 40px;
   display: grid;
   grid-template-columns: repeat(13, 1fr);
-  padding: 0.4rem 1.5rem;
+  padding: 0.2rem 1.5rem;
 }
 
 #KCNavbar #navContent .userProfileBtn .blockProfile .avatar_img_block {

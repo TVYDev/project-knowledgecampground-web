@@ -1,109 +1,109 @@
 .userProfileContent {
-  width: 90%;
-  margin: auto;
-  .topPartData {
-    margin-top: 50px;
-    display: grid;
-    grid-template-columns: 2fr 1fr 2fr;
-    .personalDescription {
-      display: grid;
-      grid-template-columns: 1fr;
-      grid-template-rows: 5fr 1fr 5fr;
-      align-items: center;
-      .fullName, .username, .country {
-        text-align: right;
-      }
-      .country {
-        .countryFlag {
-          height: 30px;
-        }
-      }
-      .fullName {
-        font-weight: bold;
-        color: $main-black;
-      }
-      .username {
-        font-weight: bold;
-        color: $secondary-gray;
-      }
-      .description {
-        align-self: baseline;
-        text-align: center;
-        margin: 0;
-        padding: 0px 20px;
-      }
-    }
-    .avatarBlock {
-      justify-self: center;
-      text-align: center;
-      .avatar_img {
-        border: 2px solid $main-green;
-        border-radius: 100px;
-        padding: 5px;
-        width: 200px;
-        height: 200px;
-      }
-      .btnEditProfile {
-        margin-top: 10px;
-        background-color: $page-background;
-        border: 1.5px solid $main-green;
-        border-radius: 20px;
-        padding-left: 20px;
-        padding-right: 20px;
-      }
-      .btnEditProfile:hover, .btnEditProfile:focus {
-        font-weight: bold;
-        background-color: $secondary-green;
-        color: white;
-        cursor: pointer;
-      }
-    }
-    .statistics {
-      display: grid;
-      grid-template-columns: 1fr;
-      grid-template-rows: 5fr 1fr 5fr;
-      align-items: center;
-      .geekLevel {
-        .geekLevelImg {
-          width: 40px;
-          height: 40px;
-        }
-        .geekLevelName {
-          font-size: $secondary-title;
-          font-weight: bold;
-          color: $secondary-gray;
-        }
-      }
-      .participationData {
-        .score {
-          font-weight: bold;
-        }
-        .partialParticipationData {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          div:nth-child(2) {
-            justify-self: right;
-          }
-          .percent {
-            font-weight: bold;
-          }
-        }
-      }
-      .activityData {
-        align-self: baseline;
+    width: 90%;
+    margin: auto;
+    .topPartData {
+        margin-top: 50px;
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        div {
-          div {
-            text-align: center;
-          }
-          div:first-child {
-            font-weight: bold;
-            margin-bottom: 10px;
-            font-size: 1.2em;
-          }
+        grid-template-columns: 2fr 1fr 2fr;
+        .personalDescription {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 5fr 1fr 5fr;
+            align-items: center;
+            .fullName, .username, .country {
+                text-align: right;
+            }
+            .country {
+                .countryFlag {
+                    height: 30px;
+                }
+            }
+            .fullName {
+                font-weight: bold;
+                color: $main-black;
+            }
+            .username {
+                font-weight: bold;
+                color: $secondary-gray;
+            }
+            .description {
+                align-self: baseline;
+                text-align: center;
+                margin: 0;
+                padding: 0px 20px;
+            }
         }
-      }
+        .avatarBlock {
+            justify-self: center;
+            text-align: center;
+            .avatar_img {
+                border: 2px solid $main-green;
+                border-radius: 100px;
+                padding: 5px;
+                width: 200px;
+                height: 200px;
+            }
+            .btnEditProfile {
+                margin-top: 10px;
+                background-color: $page-background;
+                border: 1.5px solid $main-green;
+                border-radius: 20px;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            .btnEditProfile:hover, .btnEditProfile:focus {
+                font-weight: bold;
+                background-color: $secondary-green;
+                color: white;
+                cursor: pointer;
+            }
+        }
+        .statistics {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 5fr 1fr 5fr;
+            align-items: center;
+            .geekLevel {
+                .geekLevelImg {
+                    width: 40px;
+                    height: 40px;
+                }
+                .geekLevelName {
+                    font-size: $secondary-title;
+                    font-weight: bold;
+                    color: $secondary-gray;
+                }
+            }
+            .participationData {
+                .score {
+                    font-weight: bold;
+                }
+                .partialParticipationData {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    div:nth-child(2) {
+                        justify-self: right;
+                    }
+                    .percent {
+                        font-weight: bold;
+                    }
+                }
+            }
+            .activityData {
+                align-self: baseline;
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                div {
+                    div {
+                        text-align: center;
+                    }
+                    div:first-child {
+                        font-weight: bold;
+                        margin-bottom: 10px;
+                        font-size: 1.2em;
+                    }
+                }
+            }
+        }
     }
-  }
 }

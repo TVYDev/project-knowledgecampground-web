@@ -4,9 +4,7 @@ $default_avatar_url = $ua[\App\Lib\UserConstants::USER_AVATAR_SVG_URL];
 $username = $ua[\App\Lib\UserConstants::USER_NAME];
 ?>
 <div id="KCNavbar">
-    <button id="navLogo">
-        Knowledge Campground
-    </button>
+    <button id="navLogo"></button>
     <div id="navContent">
         <button type="button" class="btnAsk btn-primary" data-url="{{ route(\App\Lib\RouteConstants::QUESTION_GET_ASK) }}">
             {{ __('ask question') }}&nbsp;&nbsp;&nbsp;<i class="fas fa-pencil-alt"></i>
