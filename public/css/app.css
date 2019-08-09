@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.googleapis.com/css?family=Happy+Monkey);@import url(https://fonts.googleapis.com/css?family=Barlow+Condensed);@import url(https://fonts.googleapis.com/css?family=Montserrat);@import url(https://fonts.googleapis.com/css?family=Sniglet);@import url(https://fonts.googleapis.com/css?family=Pacifico);@import url(https://fonts.googleapis.com/css?family=Patrick+Hand);@import url(https://fonts.googleapis.com/css?family=Angkor);@import url(https://fonts.googleapis.com/css?family=Hanuman);@import url(https://fonts.googleapis.com/css?family=Kdam+Thmor);/*!
+@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.googleapis.com/css?family=Happy+Monkey);@import url(https://fonts.googleapis.com/css?family=Barlow+Condensed);@import url(https://fonts.googleapis.com/css?family=Montserrat);@import url(https://fonts.googleapis.com/css?family=Sniglet);@import url(https://fonts.googleapis.com/css?family=Pacifico);@import url(https://fonts.googleapis.com/css?family=Patrick+Hand);@import url(https://fonts.googleapis.com/css?family=Angkor);@import url(https://fonts.googleapis.com/css?family=Hanuman);@import url(https://fonts.googleapis.com/css?family=Kdam+Thmor);@import url(https://fonts.googleapis.com/css?family=Taprom&display=swap);/*!
  * Quill Editor v1.3.6
  * https://quilljs.com/
  * Copyright (c) 2014, Jason Chen
@@ -23646,9 +23646,9 @@ button:focus {
   grid-template-columns: 1fr 4fr;
   grid-auto-rows: 2.7rem;
   background: transparent;
-  font-family: "Patrick Hand", sans-serif;
+  font-family: "Taprom", "Patrick Hand", sans-serif;
   font-size: 1.1rem;
-  z-index: 9999;
+  z-index: 999;
 }
 
 #KCNavbar #navLogo {
@@ -23670,13 +23670,13 @@ button:focus {
 #KCNavbar #navContent {
   background-color: rgba(243, 243, 243, 0.9);
   display: grid;
-  grid-template-columns: 1fr 5fr 1fr;
+  grid-template-columns: 1fr 4fr 1fr;
   font-size: 0.9rem;
 }
 
 #KCNavbar #navContent .navMenu {
   display: grid;
-  grid-template-columns: 2fr 2fr 2fr 2fr 2fr 1fr;
+  grid-template-columns: 2fr 2fr 2fr 2fr 1fr;
 }
 
 #KCNavbar #navContent .navMenu .btnNavMenu {
@@ -23819,6 +23819,7 @@ button:focus {
   border: 1.5px solid #0A5748;
   border-radius: 20px;
   padding: 1px;
+  height: 30px;
 }
 
 #KCNavbar #navContent .userProfileBtn .blockProfile .avatar_name {
@@ -23860,7 +23861,7 @@ button:focus {
   position: absolute;
   top: 7px;
   left: 20%;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Taprom", "Montserrat", sans-serif;
   font-size: 0.8em;
   border: 2px solid #424242;
   background-color: white;

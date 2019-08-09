@@ -9,9 +9,9 @@
         <div>
             <i class="fas fa-sort-up"></i>
             <ul class="menuBtns">
-                <li class="btnViewProfile" data-url="{{ route(\App\Lib\RouteConstants::USER_GET_VIEW_USER_PROFILE) }}">View Profile</li>
-                <li class="btnChangePassword" data-url="{{ route(\App\Lib\RouteConstants::USER_GET_CHANGE_PASSWORD) }}">Change Password</li>
-                <li class="btnLogout" data-url="{{ route(\App\Lib\RouteConstants::USER_GET_LOGOUT) }}">Log Out</li>
+                <li class="btnViewProfile" data-url="{{ route(\App\Lib\RouteConstants::USER_GET_VIEW_USER_PROFILE) }}">{{ __('View Profile') }}</li>
+                <li class="btnChangePassword" data-url="{{ route(\App\Lib\RouteConstants::USER_GET_CHANGE_PASSWORD) }}">{{ __('Change Password') }}</li>
+                <li class="btnLogout" data-url="{{ route(\App\Lib\RouteConstants::USER_GET_LOGOUT) }}">{{ __('Log Out') }}</li>
             </ul>
         </div>
     </div>

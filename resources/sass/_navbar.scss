@@ -7,9 +7,9 @@
   grid-template-columns: 1fr 4fr;
   grid-auto-rows: 2.7rem;
   background: transparent;
-  font-family: 'Patrick Hand', sans-serif;
+  font-family: 'Taprom','Patrick Hand', sans-serif;
   font-size: 1.1rem;
-  z-index: 9999;
+  z-index: 999;
   #navLogo {
     border: none;
     background-color: $main-green;
@@ -27,11 +27,11 @@
   #navContent {
     background-color: rgba($page-background, 0.9);
     display: grid;
-    grid-template-columns: 1fr 5fr 1fr;
+    grid-template-columns: 1fr 4fr 1fr;
     font-size: 0.9rem;
     .navMenu{
       display: grid;
-      grid-template-columns: 2fr 2fr 2fr 2fr 2fr 1fr;
+      grid-template-columns: 2fr 2fr 2fr 2fr 1fr;
       .btnNavMenu {
         margin: 0px;
         border: none;
@@ -144,6 +144,7 @@
             border: 1.5px solid $main-green;
             border-radius: 20px;
             padding: 1px;
+            height: 30px;
           }
         }
         .avatar_name {
@@ -180,7 +181,7 @@
             position: absolute;
             top: 7px;
             left: 20%;
-            font-family: "Montserrat", sans-serif;
+            font-family: 'Taprom','Montserrat', sans-serif;
             font-size: 0.8em;
             border: 2px solid $main-gray;
             background-color: white;

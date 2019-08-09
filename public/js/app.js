@@ -78577,6 +78577,16 @@ $(document).ready(function () {
   $('#KCNavbar .menuBtns li').click(function (e) {
     window.location.href = $(this).attr('data-url');
   });
+  $('#KCNavbar .btnLang').click(function (e) {
+    var langAttr = $('html').attr('lang');
+    var lang = 'en';
+
+    if (langAttr === 'en') {
+      lang = 'kh';
+    }
+
+    window.location.href = '/locale/' + lang;
+  });
 });
 
 /***/ }),

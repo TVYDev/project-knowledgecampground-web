@@ -5,35 +5,38 @@ $username = $ua[\App\Lib\UserConstants::USER_NAME];
 ?>
 <div id="KCNavbar">
     <button id="navLogo">
-        <i class="fab fa-servicestack fa-1-5x"></i>&nbsp;&nbsp;KnowledgeCommunity
+        Knowledge Campground
     </button>
     <div id="navContent">
         <button type="button" class="btnAsk btn-primary" data-url="{{ route(\App\Lib\RouteConstants::QUESTION_GET_ASK) }}">
-            Ask Question&nbsp;&nbsp;&nbsp;<i class="fas fa-pencil-alt"></i>
+            {{ __('ask question') }}&nbsp;&nbsp;&nbsp;<i class="fas fa-pencil-alt"></i>
         </button>
         <div class="navMenu">
-            <button class="btnHome btnNavMenu active">
-                Home&nbsp;&nbsp;&nbsp;<i class="fas fa-home"></i>
-            </button>
-            <button class="btnSubjects btnNavMenu">
-                Subjects&nbsp;&nbsp;&nbsp;<i class="fas fa-graduation-cap"></i>
+            <button class="btnSubjects btnNavMenu active">
+                {{ __('subjects') }}&nbsp;&nbsp;&nbsp;<i class="fas fa-graduation-cap"></i>
             </button>
             <button class="btnQuestions btnNavMenu">
-                Questions&nbsp;&nbsp;&nbsp;<i class="fas fa-book"></i>
+                {{ __('questions') }}&nbsp;&nbsp;&nbsp;<i class="fas fa-book"></i>
             </button>
             <button class="btnNotifications btnNavMenu">
-                Notifications&nbsp;&nbsp;&nbsp;<i class="fas fa-bell"></i>
+                {{ __('notifications') }}&nbsp;&nbsp;&nbsp;<i class="fas fa-bell"></i>
                 <span class="badge badge-pill badge-danger" hidden>23</span>
             </button>
-            <button class="btnHelp btnNavMenu">
-                Help&nbsp;&nbsp;&nbsp;<i class="fas fa-question-circle"></i>
+            <button class="btnGuide btnNavMenu">
+                {{ __('guide') }}&nbsp;&nbsp;&nbsp;<i class="fas fa-question-circle"></i>
             </button>
             <div class="navTools">
                 <button class="btnSearch">
                     <i class="fas fa-search"></i>
                 </button>
                 <button class="btnLang">
-                    <span class="KCLang">ENG</span>
+                    <span class="KCLange">
+                        @if(app()->getLocale() === 'en')
+                            ENG
+                        @else
+                            ខ្មែរ
+                        @endif
+                    </span>
                 </button>
             </div>
         </div>
@@ -41,7 +44,7 @@ $username = $ua[\App\Lib\UserConstants::USER_NAME];
             @include('layouts.partials._user_avatar')
         @else
             <button type="button" class="btnLogin btn-primary" data-url="{{ route(\App\Lib\RouteConstants::USER_GET_LOGIN) }}">
-                LOG IN&nbsp;&nbsp;&nbsp;<i class="fas fa-sign-in-alt"></i>
+                {{ __('log in') }}&nbsp;&nbsp;&nbsp;<i class="fas fa-sign-in-alt"></i>
             </button>
         @endif
 

@@ -25,4 +25,13 @@ $(document).ready(function (){
    $('#KCNavbar .menuBtns li').click(function(e){
         window.location.href = $(this).attr('data-url');
    });
+
+   $('#KCNavbar .btnLang').click(function(e){
+       let langAttr = $('html').attr('lang');
+       let lang = 'en';
+       if(langAttr === 'en'){
+           lang = 'kh';
+       }
+       window.location.href = '/locale/' + lang;
+   });
 });
