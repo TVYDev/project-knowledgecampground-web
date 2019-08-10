@@ -4,24 +4,31 @@ $default_avatar_url = $ua[\App\Lib\UserConstants::USER_AVATAR_SVG_URL];
 $username = $ua[\App\Lib\UserConstants::USER_NAME];
 ?>
 <div id="KCNavbar">
-    <button id="navLogo"></button>
+    <button id="navLogo">
+        <div>
+            <div><i class="fas fa-bars"></i></div>
+            <div>kkkk</div>
+        </div>
+    </button>
     <div id="navContent">
         <button type="button" class="btnAsk btn-primary" data-url="{{ route(\App\Lib\RouteConstants::QUESTION_GET_ASK) }}">
-            {{ __('ask question') }}&nbsp;&nbsp;&nbsp;<i class="fas fa-pencil-alt"></i>
+            <span>{{ __('ask question') }}</span><i class="fas fa-pencil-alt"></i>
         </button>
         <div class="navMenu">
             <button class="btnSubjects btnNavMenu active">
-                {{ __('subjects') }}&nbsp;&nbsp;&nbsp;<i class="fas fa-graduation-cap"></i>
+                <span>{{ __('subjects') }}</span><i class="fas fa-graduation-cap"></i>
             </button>
             <button class="btnQuestions btnNavMenu">
-                {{ __('questions') }}&nbsp;&nbsp;&nbsp;<i class="fas fa-book"></i>
+                <span>{{ __('questions') }}</span><i class="fas fa-book"></i>
             </button>
             <button class="btnNotifications btnNavMenu">
-                {{ __('notifications') }}&nbsp;&nbsp;&nbsp;<i class="fas fa-bell"></i>
-                <span class="badge badge-pill badge-danger" hidden>23</span>
+                <span>{{ __('notifications') }}</span><i class="fas fa-bell"></i>
             </button>
             <button class="btnGuide btnNavMenu">
-                {{ __('guide') }}&nbsp;&nbsp;&nbsp;<i class="fas fa-question-circle"></i>
+                <span>{{ __('guide') }}</span><i class="fas fa-question-circle"></i>
+            </button>
+            <button class="btnLogo btnNavMenu">
+                <span>Knowledge Campground</span>
             </button>
             <div class="navTools">
                 <button class="btnSearch">
@@ -42,9 +49,8 @@ $username = $ua[\App\Lib\UserConstants::USER_NAME];
             @include('layouts.partials._user_avatar')
         @else
             <button type="button" class="btnLogin btn-primary" data-url="{{ route(\App\Lib\RouteConstants::USER_GET_LOGIN) }}">
-                {{ __('log in') }}&nbsp;&nbsp;&nbsp;<i class="fas fa-sign-in-alt"></i>
+                <span>{{ __('log in') }}</span><i class="fas fa-sign-in-alt"></i>
             </button>
         @endif
-
     </div>
 </div>
