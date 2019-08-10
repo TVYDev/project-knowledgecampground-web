@@ -184,26 +184,21 @@
                 }
                 .profileMenuList {
                     position: absolute;
-                    top: 70%;
-                    left: 0;
+                    top: 30px;
+                    left: 5px;
                     z-index: 999;
-                    width: 100%;
+                    right: 5px;
                     div {
-                        position: relative;
-                        width: 100%;
                         i {
-                            display: block;
-                            position: absolute;
-                            top: 0;
-                            left: 52%;
+                            margin: 0;
+                            padding: 0;
+                            height: 0;
                             color: $main-gray;
                         }
                         ul {
-                            position: absolute;
-                            top: 7px;
-                            left: 20%;
+                            margin: 0;
                             font-family: 'Taprom','Montserrat', sans-serif;
-                            font-size: 0.8em;
+                            font-size: 10px;
                             border: 2px solid $main-gray;
                             background-color: white;
                             padding: 5px;
@@ -417,26 +412,20 @@
                 }
                 .profileMenuList {
                     position: absolute;
-                    top: 70%;
-                    left: 0;
+                    top: 30px;
                     z-index: 999;
-                    width: 100%;
+                    right: 5px;
                     div {
-                        position: relative;
-                        width: 100%;
                         i {
-                            display: block;
-                            position: absolute;
-                            top: 0;
-                            left: 52%;
+                            margin: 0;
+                            padding: 0;
+                            height: 0;
                             color: $main-gray;
                         }
                         ul {
-                            position: absolute;
-                            top: 7px;
-                            left: 20%;
+                            margin: 0;
                             font-family: 'Taprom','Montserrat', sans-serif;
-                            font-size: 0.8em;
+                            font-size: 10px;
                             border: 2px solid $main-gray;
                             background-color: white;
                             padding: 5px;
@@ -609,92 +598,66 @@
             }
 
             .userProfileBtn {
-                background: none;
+                background-color: transparent;
                 border: none;
                 padding: 0;
                 position: relative;
                 display: block;
                 border-bottom: 0.2rem solid $main-green;
                 .blockProfile {
-                    border-top-left-radius: 40px;
-                    border-bottom-right-radius: 40px;
-                    display: grid;
-                    grid-template-columns: repeat(13, 1fr);
-                    padding: 0.2rem 1.5rem;
+                    display: block;
                     .avatar_img_block {
                         z-index: 6;
                         cursor: pointer;
-                        grid-column-start: 1;
-                        grid-column-end: 4;
-                        grid-row-start: 1;
                         .avatar_img {
                             background-color: $page-background;
                             border: 1.5px solid $main-green;
                             border-radius: 20px;
-                            padding: 1px;
                             height: 30px;
                         }
                     }
                     .avatar_name {
-                        z-index: 5;
-                        cursor: pointer;
-                        grid-column-start: 3;
-                        grid-column-end: 14;
-                        grid-row-start: 1;
-                        text-align: center;
-                        font-family: 'Sniglet', cursive;
-                        border: 1.5px solid $main-green;
-                        font-weight: bold;
-                        border-radius: 15px;
-                        align-self: center;
+                        display: none;
                     }
-                }
-                .profileMenuList {
-                    position: absolute;
-                    top: 70%;
-                    left: 0;
-                    z-index: 999;
-                    width: 100%;
-                    div {
-                        position: relative;
-                        width: 100%;
-                        i {
-                            display: block;
-                            position: absolute;
-                            top: 0;
-                            left: 52%;
-                            color: $main-gray;
-                        }
-                        ul {
-                            position: absolute;
-                            top: 7px;
-                            left: 20%;
-                            font-family: 'Taprom','Montserrat', sans-serif;
-                            border: 2px solid $main-gray;
-                            background-color: white;
-                            padding: 5px;
-                            border-radius: 10px;
-                            padding: 0;
-                            margin: 0;
-                            li {
-                                margin: 2px;
-                                text-align: center;
-                                padding: 8px 8px;
-                                list-style: none;
-                                width: auto;
-                                cursor: pointer;
-                                border-radius: 8px;
+                    .profileMenuList {
+                        position: absolute;
+                        z-index: 999;
+                        div {
+                            i {
+                                margin: 0;
+                                padding: 0;
+                                height: 0;
+                                color: $main-gray;
                             }
-                            li:nth-child(2) {
-                                border-top: 1px solid $thirdly-gray;
-                                border-bottom: 1px solid $thirdly-gray;
-                            }
-                            li:hover, li:focus {
-                                background-color: $secondary-green;
-                                color: white;
-                            }
-                            li.btnLogout:hover, li.btnLogout:focus {
-                                background-color: $main-red;
+                            ul {
+                                margin: 0;
+                                font-family: 'Taprom','Montserrat', sans-serif;
+                                border: 2px solid $main-gray;
+                                background-color: white;
+                                padding: 5px;
+                                border-radius: 10px;
+                                padding: 0;
+                                margin: 0;
+                                li {
+                                    margin: 2px;
+                                    text-align: center;
+                                    padding: 8px 8px;
+                                    list-style: none;
+                                    width: auto;
+                                    cursor: pointer;
+                                    border-radius: 8px;
+                                }
+                                li:nth-child(2) {
+                                    border-top: 1px solid $thirdly-gray;
+                                    border-bottom: 1px solid $thirdly-gray;
+                                }
+                                li:hover, li:focus {
+                                    background-color: $secondary-green;
+                                    color: white;
+                                }
+                                li.btnLogout:hover, li.btnLogout:focus {
+                                    background-color: $main-red;
+                                }
                             }
                         }
                     }
@@ -714,7 +677,7 @@
         grid-template-rows: 45px;
         background: transparent;
         font-family: 'Taprom','Patrick Hand', sans-serif;
-        font-size: 10px;
+        font-size: 9px;
         z-index: 999;
         #navLogo {
             border: none;
@@ -773,8 +736,8 @@
                 text-transform: uppercase;
                 border-bottom-left-radius: 40px;
                 border-top-right-radius: 40px;
-                span::after {
-                    content: '  ';
+                i {
+                    display: none;
                 }
             }
             .btnAsk:hover, .btnAsk:focus {
@@ -807,61 +770,40 @@
                 position: relative;
                 display: block;
                 border-bottom: 0.2rem solid $main-green;
+                border-top: 0.2rem solid $main-green;
+                border-top-left-radius: 40px;
                 .blockProfile {
-                    border-top-left-radius: 40px;
-                    border-bottom-right-radius: 40px;
-                    display: grid;
-                    grid-template-columns: repeat(13, 1fr);
-                    padding: 0.2rem 1.5rem;
+                    display: block;
                     .avatar_img_block {
                         z-index: 6;
                         cursor: pointer;
-                        grid-column-start: 1;
-                        grid-column-end: 4;
-                        grid-row-start: 1;
                         .avatar_img {
                             background-color: $page-background;
                             border: 1.5px solid $main-green;
                             border-radius: 20px;
                             padding: 1px;
-                            height: 30px;
+                            height: 25px;
                         }
                     }
                     .avatar_name {
-                        z-index: 5;
-                        cursor: pointer;
-                        grid-column-start: 3;
-                        grid-column-end: 14;
-                        grid-row-start: 1;
-                        text-align: center;
-                        font-family: 'Sniglet', cursive;
-                        border: 1.5px solid $main-green;
-                        font-weight: bold;
-                        border-radius: 15px;
-                        align-self: center;
+                        display: none;
                     }
                 }
                 .profileMenuList {
                     position: absolute;
-                    top: 70%;
-                    left: 0;
                     z-index: 999;
-                    width: 100%;
+                    left: 15px;
                     div {
-                        position: relative;
-                        width: 100%;
                         i {
-                            display: block;
-                            position: absolute;
-                            top: 0;
-                            left: 52%;
+                            margin: 0;
+                            padding: 0;
+                            height: 0;
                             color: $main-gray;
                         }
                         ul {
-                            position: absolute;
-                            top: 7px;
-                            left: 20%;
+                            margin: 0;
                             font-family: 'Taprom','Montserrat', sans-serif;
+                            font-size: 8px;
                             border: 2px solid $main-gray;
                             background-color: white;
                             padding: 5px;
