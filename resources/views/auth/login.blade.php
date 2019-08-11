@@ -23,14 +23,14 @@
                         <form method="POST" id="formLogin" action="{{ route('user.postLogin') }}">
                             @csrf
                             <div class="form-group row">
-                                    <label for="emailLogin" class="col-md-3 col-form-label">{{ __('Email') }}</label>
-                                <div class="col-md-9 p-0">
+                                    <label for="emailLogin" class="col-md-4 col-form-label">{{ __('Email') }}</label>
+                                <div class="col-md-8 p-0">
                                     <input type="text" name="emailLogin" class="form-control" required="required" value="{{ old('emailLogin') }}">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="passwordLogin" class="col-md-3 col-form-label">{{ __('Password') }}</label>
-                                <div class="col-md-9 p-0">
+                                <label for="passwordLogin" class="col-md-4 col-form-label">{{ __('Password') }}</label>
+                                <div class="col-md-8 p-0">
                                     <input type="password" name="passwordLogin" class="form-control" required="required">
                                 </div>
                             </div>
@@ -55,20 +55,20 @@
                         <form method="POST" id="formRegister" action="{{ route('user.postRegister') }}">
                             @csrf
                             <div class="form-group row">
-                                <label for="username" class="col-md-3 col-form-label">{{ __('Username') }}</label>
-                                <div class="col-md-9 p-0">
+                                <label for="username" class="col-md-4 col-form-label">{{ __('Username') }}</label>
+                                <div class="col-md-8 p-0">
                                     <input type="text" name="username" class="form-control" required="required" value="{{ old('username') }}">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="emailRegister" class="col-md-3 col-form-label">{{ __('Email') }}</label>
-                                <div class="col-md-9 p-0">
+                                <label for="emailRegister" class="col-md-4 col-form-label">{{ __('Email') }}</label>
+                                <div class="col-md-8 p-0">
                                     <input type="text" name="emailRegister" class="form-control" required="required" value="{{ old('emailRegister') }}">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="passwordRegister" class="col-md-3 col-form-label">{{ __('Password') }}</label>
-                                <div class="col-md-9 p-0">
+                                <label for="passwordRegister" class="col-md-4 col-form-label">{{ __('Password') }}</label>
+                                <div class="col-md-8 p-0">
                                     <input type="password" name="passwordRegister" class="form-control" required="required">
                                 </div>
                             </div>

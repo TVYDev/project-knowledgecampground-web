@@ -23246,6 +23246,12 @@ body {
   padding: 0 4rem;
 }
 
+@media screen and (max-width: 426px) {
+  .container {
+    padding: 0 2em;
+  }
+}
+
 hr.greenLine {
   margin: 1.5rem 0;
   background-color: #17CCA9;
@@ -23647,7 +23653,7 @@ button:focus {
     grid-template-columns: 1fr 5fr;
     grid-template-rows: 45px;
     background: transparent;
-    font-family: "Taprom", "Sniglet", sans-serif;
+    font-family: "Taprom", "Patrick Hand", sans-serif;
     z-index: 999;
   }
 
@@ -24637,85 +24643,315 @@ button:focus {
   }
 }
 
-.loginContent {
-  margin-top: 3rem;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-auto-rows: minmax(540px, 540px);
+@media screen and (min-width: 1440px) {
+  .loginContent {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-auto-rows: minmax(540px, 540px);
+  }
+
+  .loginContent .quoteSide {
+    justify-self: center;
+    align-self: center;
+  }
+
+  .loginContent .quoteSide .quoteContent {
+    font-size: 3rem;
+    font-family: "Pacifico", cursive;
+    color: #424242;
+  }
+
+  .loginContent .quoteSide .quoteAuthor {
+    font-size: 1rem;
+    font-family: "Happy Monkey", cursive;
+    font-weight: bold;
+    color: #424242;
+  }
+
+  .loginContent .formSide {
+    font-family: "Taprom", "Montserrat", sans-serif;
+    font-size: 0.9em;
+    padding-right: 60px;
+  }
+
+  .loginContent .formSide .cardContainer {
+    position: relative;
+    -webkit-perspective: 3500px;
+            perspective: 3500px;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+    transition: all 1s ease;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard div.frontCard .content {
+    border: 2px solid #0A5748;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #F3F3F3;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard div.backCard .content {
+    border: 2px solid #0A5748;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #F3F3F3;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard div.frontCard,
+  .loginContent .formSide .cardContainer .kcCard div.backCard {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+    transition: all 1s ease;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard div.backCard {
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+    visibility: hidden;
+  }
+
+  .loginContent .formSide .cardContainer #formLogin .btnSubmit,
+  .loginContent .formSide .cardContainer #formRegister .btnSubmit {
+    width: 100%;
+  }
 }
 
-.loginContent .quoteSide {
-  justify-self: center;
-  align-self: center;
+@media screen and (max-width: 1439px) and (min-width: 769px) {
+  .loginContent {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 20px;
+    grid-auto-rows: minmax(540px, 540px);
+  }
+
+  .loginContent .quoteSide {
+    justify-self: center;
+    align-self: center;
+  }
+
+  .loginContent .quoteSide .quoteContent {
+    font-size: 2rem;
+    font-family: "Pacifico", cursive;
+    color: #424242;
+  }
+
+  .loginContent .quoteSide .quoteAuthor {
+    font-size: 1rem;
+    font-family: "Happy Monkey", cursive;
+    font-weight: bold;
+    color: #424242;
+  }
+
+  .loginContent .formSide {
+    font-family: "Taprom", "Montserrat", sans-serif;
+    font-size: 0.8em;
+    padding-right: 60px;
+  }
+
+  .loginContent .formSide .cardContainer {
+    position: relative;
+    -webkit-perspective: 3500px;
+            perspective: 3500px;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+    transition: all 1s ease;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard div.frontCard .content {
+    border: 2px solid #0A5748;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #F3F3F3;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard div.backCard .content {
+    border: 2px solid #0A5748;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #F3F3F3;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard div.frontCard,
+  .loginContent .formSide .cardContainer .kcCard div.backCard {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+    transition: all 1s ease;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard div.backCard {
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+    visibility: hidden;
+  }
+
+  .loginContent .formSide .cardContainer #formLogin .btnSubmit,
+  .loginContent .formSide .cardContainer #formRegister .btnSubmit {
+    width: 100%;
+  }
 }
 
-.loginContent .quoteSide .quoteContent {
-  font-size: 3rem;
-  font-family: "Pacifico", cursive;
-  color: #424242;
+@media screen and (max-width: 768px) and (min-width: 426px) {
+  .loginContent {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: minmax(540px, 540px);
+    justify-items: center;
+  }
+
+  .loginContent .quoteSide {
+    display: none;
+  }
+
+  .loginContent .formSide {
+    width: 70%;
+    font-family: "Taprom", "Montserrat", sans-serif;
+    font-size: 0.8em;
+  }
+
+  .loginContent .formSide .cardContainer {
+    position: relative;
+    -webkit-perspective: 3500px;
+            perspective: 3500px;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+    transition: all 1s ease;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard div.frontCard .content {
+    border: 2px solid #0A5748;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #F3F3F3;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard div.backCard .content {
+    border: 2px solid #0A5748;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #F3F3F3;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard div.frontCard,
+  .loginContent .formSide .cardContainer .kcCard div.backCard {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+    transition: all 1s ease;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard div.backCard {
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+    visibility: hidden;
+  }
+
+  .loginContent .formSide .cardContainer #formLogin .btnSubmit,
+  .loginContent .formSide .cardContainer #formRegister .btnSubmit {
+    width: 100%;
+  }
 }
 
-.loginContent .quoteSide .quoteAuthor {
-  font-size: 1rem;
-  font-family: "Happy Monkey", cursive;
-  font-weight: bold;
-  color: #424242;
-}
+@media screen and (max-width: 426px) {
+  .loginContent {
+    margin-top: 5px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: minmax(540px, 540px);
+    justify-items: center;
+  }
 
-.loginContent .formSide {
-  font-family: "Taprom", "Montserrat", sans-serif;
-  font-size: 0.9em;
-  padding-right: 60px;
-}
+  .loginContent .quoteSide {
+    display: none;
+  }
 
-.loginContent .formSide .cardContainer {
-  position: relative;
-  -webkit-perspective: 3500px;
-          perspective: 3500px;
-}
+  .loginContent .formSide {
+    width: 100%;
+    font-family: "Taprom", "Montserrat", sans-serif;
+    font-size: 0.7em;
+  }
 
-.loginContent .formSide .cardContainer .kcCard {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
-  transition: all 1s ease;
-}
+  .loginContent .formSide .cardContainer {
+    position: relative;
+    -webkit-perspective: 3500px;
+            perspective: 3500px;
+  }
 
-.loginContent .formSide .cardContainer .kcCard div.frontCard .content {
-  border: 2px solid #0A5748;
-  padding: 20px;
-  border-radius: 10px;
-  background-color: #F3F3F3;
-}
+  .loginContent .formSide .cardContainer .kcCard {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+    transition: all 1s ease;
+  }
 
-.loginContent .formSide .cardContainer .kcCard div.backCard .content {
-  border: 2px solid #0A5748;
-  padding: 20px;
-  border-radius: 10px;
-  background-color: #F3F3F3;
-}
+  .loginContent .formSide .cardContainer .kcCard .formTitle {
+    margin-bottom: 0;
+  }
 
-.loginContent .formSide .cardContainer .kcCard div.frontCard,
-.loginContent .formSide .cardContainer .kcCard div.backCard {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
-  transition: all 1s ease;
-}
+  .loginContent .formSide .cardContainer .kcCard div.frontCard .content {
+    border: 2px solid #0A5748;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #F3F3F3;
+  }
 
-.loginContent .formSide .cardContainer .kcCard div.backCard {
-  -webkit-transform: rotateY(180deg);
-          transform: rotateY(180deg);
-  visibility: hidden;
-}
+  .loginContent .formSide .cardContainer .kcCard div.backCard .content {
+    border: 2px solid #0A5748;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #F3F3F3;
+  }
 
-.loginContent .formSide .cardContainer #formLogin .btnSubmit,
-.loginContent .formSide .cardContainer #formRegister .btnSubmit {
-  width: 100%;
+  .loginContent .formSide .cardContainer .kcCard div.frontCard,
+  .loginContent .formSide .cardContainer .kcCard div.backCard {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+    transition: all 1s ease;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard div.backCard {
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+    visibility: hidden;
+  }
+
+  .loginContent .formSide .cardContainer #formLogin .btnSubmit,
+  .loginContent .formSide .cardContainer #formRegister .btnSubmit {
+    width: 100%;
+  }
 }
 
 .userProfileContent {
