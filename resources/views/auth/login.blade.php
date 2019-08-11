@@ -19,66 +19,66 @@
             <div class="kcCard">
                 <div class="frontCard">
                     <div class="content">
-                        <h3 class="text-center formTitle">Log In</h3>
+                        <h3 class="text-center formTitle">{{ __('log in') }}</h3>
                         <form method="POST" id="formLogin" action="{{ route('user.postLogin') }}">
                             @csrf
                             <div class="form-group row">
-                                <label for="emailLogin" class="col-md-3 col-form-label">Email</label>
+                                    <label for="emailLogin" class="col-md-3 col-form-label">{{ __('Email') }}</label>
                                 <div class="col-md-9 p-0">
                                     <input type="text" name="emailLogin" class="form-control" required="required" value="{{ old('emailLogin') }}">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="passwordLogin" class="col-md-3 col-form-label">Password</label>
+                                <label for="passwordLogin" class="col-md-3 col-form-label">{{ __('Password') }}</label>
                                 <div class="col-md-9 p-0">
                                     <input type="password" name="passwordLogin" class="form-control" required="required">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <input type="submit" class="btn btnSubmit" value="Log In">
+                                <input type="submit" class="btn btnSubmit" value="{{ __('Log In') }}">
                             </div>
                         </form>
                         <div class="text-center">
-                            <span>Forgot Password?</span>&nbsp;
-                            <a href="#" class="btnLink">Reset it now!</a>
+                            <span>{{ __('Forgot Password?') }}</span>&nbsp;
+                            <a href="#" class="btnLink">{{ __('Reset now!') }}</a>
                         </div>
                         <div class="text-center">
-                            <span>Don't have an account?</span>&nbsp;
-                            <button class="btnLink btnGoToRegister">Register now!</button>
+                            <span>{{ __('Haven\'t you had an account yet?') }}</span>&nbsp;
+                            <button class="btnLink btnGoToRegister">{{ __('Register now!') }}</button>
                         </div>
                         @include('layouts.partials._social_login')
                     </div>
                 </div>
                 <div class="backCard">
                     <div class="content">
-                        <h3 class="text-center formTitle">Register</h3>
+                        <h3 class="text-center formTitle">{{ __('Register') }}</h3>
                         <form method="POST" id="formRegister" action="{{ route('user.postRegister') }}">
                             @csrf
                             <div class="form-group row">
-                                <label for="username" class="col-md-3 col-form-label">Username</label>
+                                <label for="username" class="col-md-3 col-form-label">{{ __('Username') }}</label>
                                 <div class="col-md-9 p-0">
                                     <input type="text" name="username" class="form-control" required="required" value="{{ old('username') }}">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="emailRegister" class="col-md-3 col-form-label">Email</label>
+                                <label for="emailRegister" class="col-md-3 col-form-label">{{ __('Email') }}</label>
                                 <div class="col-md-9 p-0">
                                     <input type="text" name="emailRegister" class="form-control" required="required" value="{{ old('emailRegister') }}">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label for="passwordRegister" class="col-md-3 col-form-label">Password</label>
+                                <label for="passwordRegister" class="col-md-3 col-form-label">{{ __('Password') }}</label>
                                 <div class="col-md-9 p-0">
                                     <input type="password" name="passwordRegister" class="form-control" required="required">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <input type="submit" value="Register" class="btn btnSubmit">
+                                <input type="submit" value="{{ __('Register') }}" class="btn btnSubmit">
                             </div>
                         </form>
                         <div class="text-center">
-                            <span>Already have an account?</span>&nbsp;
-                            <button class="btnLink btnGoToLogin">Log in now!</button>
+                            <span>{{ __('Have you already had an account?') }}</span>&nbsp;
+                            <button class="btnLink btnGoToLogin">{{ __('Log in now!') }}</button>
                         </div>
                         @include('layouts.partials._social_login')
                     </div>

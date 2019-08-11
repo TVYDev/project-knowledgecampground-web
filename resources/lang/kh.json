@@ -1,11 +1,23 @@
 {
    "ask question": "សួរសំណួរ",
    "log in": "ចូលកម្មវិធី",
+   "Log In": "ចូលកម្មវិធី",
    "subjects": "មុខវិជ្ជា",
    "questions": "កម្រងសំណួរ",
    "notifications": "ដំណឹង",
    "guide": "ជំនួយ",
    "View Profile": "ព័ត៌មានផ្ទាល់ខ្លួន",
    "Change Password": "ប្តូរពាក្យសម្ងាត់",
-   "Log Out": "ចាកចេញ"
+   "Log Out": "ចាកចេញ",
+   "Email": "អុីមែល",
+   "Password": "ពាក្យសម្ងាត់",
+   "Forgot Password?": "ភ្លេចពាក្យសម្ងាត់មែនទេ?",
+   "Reset now!": "កំណត់ឡើងវិញឥឡូវនេះ!",
+   "Haven't you had an account yet?": "អ្នកមិនទាន់មានគណនីនៅឡើយទេ?",
+   "Register now!": "ចុះឈ្មោះឥឡូវនេះ!",
+   "Register": "ចុះឈ្មោះគណនី",
+   "Username": "ឈ្មោះ",
+   "Have you already had an account?": "អ្នកមានគណនីរួចហើយឬ?",
+   "Log in now!": "ចូលកម្មវិធីឥឡូវនេះ!",
+   "Or continue signing with": "ឬក៏បន្តភ្ជាប់ជាមួយគណនី"
 }
