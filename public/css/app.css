@@ -23657,6 +23657,10 @@ button:focus {
     z-index: 999;
   }
 
+  #KCNavbar #sideMenu {
+    display: none;
+  }
+
   #KCNavbar #navLogo {
     border: none;
     background-color: #0A5748;
@@ -23670,6 +23674,10 @@ button:focus {
 
   #KCNavbar #navLogo div div:nth-child(1) {
     display: none;
+  }
+
+  #KCNavbar #navLogo .KCLogo {
+    height: 40px;
   }
 
   #KCNavbar #navContent {
@@ -23936,6 +23944,10 @@ button:focus {
     z-index: 999;
   }
 
+  #KCNavbar #sideMenu {
+    display: none;
+  }
+
   #KCNavbar #navLogo {
     border: none;
     background-color: #0A5748;
@@ -23948,6 +23960,10 @@ button:focus {
 
   #KCNavbar #navLogo div div:nth-child(1) {
     display: none;
+  }
+
+  #KCNavbar #navLogo .KCLogo {
+    height: 40px;
   }
 
   #KCNavbar #navContent {
@@ -24204,6 +24220,10 @@ button:focus {
     z-index: 999;
   }
 
+  #KCNavbar #sideMenu {
+    display: none;
+  }
+
   #KCNavbar #navLogo {
     border: none;
     background-color: #0A5748;
@@ -24216,6 +24236,10 @@ button:focus {
 
   #KCNavbar #navLogo div div:nth-child(1) {
     display: none;
+  }
+
+  #KCNavbar #navLogo .KCLogo {
+    height: 35px;
   }
 
   #KCNavbar #navContent {
@@ -24450,6 +24474,7 @@ button:focus {
     font-family: "Taprom", "Patrick Hand", sans-serif;
     font-size: 9px;
     z-index: 999;
+    transition: margin-left 0.5s;
   }
 
   #KCNavbar #navLogo {
@@ -24468,6 +24493,10 @@ button:focus {
   }
 
   #KCNavbar #navLogo div div:nth-child(2) {
+    display: none;
+  }
+
+  #KCNavbar #navLogo .KCLogo {
     display: none;
   }
 
@@ -24513,6 +24542,10 @@ button:focus {
 
   #KCNavbar #navContent .navMenu .navTools .btnLang {
     display: none;
+  }
+
+  #KCNavbar #navContent .navMenu .KCLogo {
+    height: 30px;
   }
 
   #KCNavbar #navContent .btnAsk {
@@ -24640,6 +24673,63 @@ button:focus {
   #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li.btnLogout:hover,
   #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li.btnLogout:focus {
     background-color: #FF5654;
+  }
+
+  #KCNavbar #sideMenu {
+    position: fixed;
+    width: 0;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: #0A5748;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding: 0;
+  }
+
+  #KCNavbar #sideMenu .logo {
+    text-align: center;
+  }
+
+  #KCNavbar #sideMenu .logo .KCLogo {
+    height: 50px;
+  }
+
+  #KCNavbar #sideMenu .menuTitle {
+    font-size: 1.2em;
+    margin-top: 20px;
+  }
+
+  #KCNavbar #sideMenu .menuList {
+    padding-left: 20px;
+    margin-top: 10px;
+  }
+
+  #KCNavbar #sideMenu .menuList button {
+    cursor: pointer;
+    font-size: 1.4em;
+    color: white;
+    margin: 15px 0;
+    text-align: left;
+    background: transparent;
+    display: block;
+    width: 100%;
+    border: none;
+    border-radius: 20px;
+  }
+
+  #KCNavbar #sideMenu .menuList button:focus {
+    background: white;
+    color: #0A5748;
+  }
+
+  #KCNavbar #sideMenu .menuList .languageSetting label {
+    color: white;
+    font-size: 1.4em;
+  }
+
+  #KCNavbar #sideMenu .menuList .languageSetting select {
+    display: block;
   }
 }
 
