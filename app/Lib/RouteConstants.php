@@ -12,6 +12,7 @@ namespace App\Lib;
 class RouteConstants
 {
     const HOME = 'home';
+    const LOCALIZATION = 'localization';
     /************************************************************
      * Route for UserController
      ***********************************************************/

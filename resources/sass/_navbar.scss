@@ -1,216 +1,915 @@
-#KCNavbar{
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-  grid-auto-rows: 2.7rem;
-  background: transparent;
-  font-family: 'Patrick Hand', sans-serif;
-  font-size: 1.1rem;
-  z-index: 9999;
-  #navLogo {
-    border: none;
-    background-color: $main-green;
-    border-bottom-right-radius: 40px;
-    border-bottom-left-radius: 40px;
-    border-top: 0.2rem solid $main-green;
-    border-bottom: 0.2rem solid $main-green;
-    font-family: 'Pacifico', sans-serif;
-    color: $white;
-    font-size: 1.2rem;
-    .fab {
-      vertical-align: baseline;
-    }
-  }
-  #navContent {
-    background-color: rgba($page-background, 0.9);
-    display: grid;
-    grid-template-columns: 1fr 5fr 1fr;
-    font-size: 0.9rem;
-    .navMenu{
-      display: grid;
-      grid-template-columns: 2fr 2fr 2fr 2fr 2fr 1fr;
-      .btnNavMenu {
-        margin: 0px;
-        border: none;
-        background-color: rgba($page-background, 0.9);
-        color: $main-gray;
-        text-transform: uppercase;
-        border-bottom: 0.2rem solid $main-green;
-        i {
-          transition: all 0.5s ease-in-out;
-        }
-      }
-      .btnNavMenu.active {
-        cursor: pointer;
-        border-top-right-radius: 50px;
-        border-top-left-radius: 50px;
-        border-bottom: none;
-        border-top: 0.2rem solid $main-green;
-      }
-      .btnNavMenu:hover {
-        border-bottom: 0.1rem dotted $main-green;
-        cursor: pointer;
-        font-weight: bold;
-        i {
-          transform: rotate(360deg);
-        }
-      }
-      .navTools{
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        border-bottom: 0.2rem solid $main-green;
-        > button {
-          margin: 0px;
-          border: none;
-          background-color: rgba($page-background, 0.9);
-          color: $main-green;
-          cursor: pointer;
-        }
-        .btnSearch {
-          justify-self: center;
-          align-self: center;
-          padding: 0;
-          transition: all 0.5s ease-in-out;
-
-        }
-        .btnSearch:hover, .btnSearch:focus {
-          border: 2px solid $main-green;
-          padding: 2px 7px;
-          border-radius: 5px;
-          background-color: $main-green;
-          color: white;
-          transform: rotate(360deg);
-        }
-        .btnLang {
-          align-self: center;
-          justify-self: center;
-          border: 2px solid $main-green;
-          padding: 1px 7px;
-          border-radius: 5px;
-          display: block;
-          transition: all 0.5s ease-in-out;
-        }
-        .btnLang:hover, .btnLang:focus {
-          background-color: $main-green;
-          color: white;
-          transform: rotate(360deg);
-        }
-      }
-    }
-    .btnAsk {
-      border-top: 0.2rem solid $main-green;
-      border-bottom: 0.2rem solid $main-green;
-      text-transform: uppercase;
-      border-bottom-left-radius: 40px;
-      border-top-right-radius: 40px;
-    }
-    .btnAsk:hover, .btnAsk:focus {
-      border-bottom: 0.2rem solid $main-green;
-    }
-    .btnLogin {
-      text-transform: uppercase;
-      border-top: 0.2rem solid $main-green;
-      border-bottom: 0.2rem solid $main-green;
-      border-top-left-radius: 40px;
-      border-bottom-right-radius: 40px;
-    }
-    .btnAsk:hover i, .btnAsk:focus i, .btnLogin:hover i, .btnLogin:focus i {
-      transform: rotate(360deg);
-    }
-
-    .userProfileBtn {
-      background: none;
-      border: none;
-      padding: 0;
-      position: relative;
-      .blockProfile {
-        border-bottom: 0.2rem solid $main-green;
-        border-top-left-radius: 40px;
-        border-bottom-right-radius: 40px;
-        display: grid;
-        grid-template-columns: repeat(13, 1fr);
-        padding: 0.4rem 1.5rem;
-        .avatar_img_block {
-          z-index: 6;
-          cursor: pointer;
-          grid-column-start: 1;
-          grid-column-end: 4;
-          grid-row-start: 1;
-          .avatar_img {
-            background-color: $page-background;
-            border: 1.5px solid $main-green;
-            border-radius: 20px;
-            padding: 1px;
-          }
-        }
-        .avatar_name {
-          z-index: 5;
-          cursor: pointer;
-          grid-column-start: 3;
-          grid-column-end: 14;
-          grid-row-start: 1;
-          text-align: center;
-          font-family: 'Sniglet', cursive;
-          border: 1.5px solid $main-green;
-          font-weight: bold;
-          border-radius: 15px;
-          align-self: center;
-        }
-      }
-      .profileMenuList {
-        position: absolute;
-        top: 70%;
-        left: 0;
-        z-index: 999;
+@media screen and (min-width: $laptop-L){
+    #KCNavbar{
         width: 100%;
-        div {
-          position: relative;
-          width: 100%;
-          i {
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 52%;
-            color: $main-gray;
-          }
-          ul {
-            position: absolute;
-            top: 7px;
-            left: 20%;
-            font-family: "Montserrat", sans-serif;
-            font-size: 0.8em;
-            border: 2px solid $main-gray;
-            background-color: white;
-            padding: 5px;
-            border-radius: 10px;
-            padding: 0;
-            margin: 0;
-            li {
-              margin: 2px;
-              text-align: center;
-              padding: 8px 8px;
-              list-style: none;
-              width: auto;
-              cursor: pointer;
-              border-radius: 8px;
-            }
-            li:nth-child(2) {
-              border-top: 1px solid $thirdly-gray;
-              border-bottom: 1px solid $thirdly-gray;
-            }
-            li:hover, li:focus {
-              background-color: $secondary-green;
-              color: white;
-            }
-            li.btnLogout:hover, li.btnLogout:focus {
-              background-color: $main-red;
-            }
-          }
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: grid;
+        grid-template-columns: 1fr 5fr;
+        grid-template-rows: 45px;
+        background: transparent;
+        font-family: 'Taprom','Patrick Hand', sans-serif;
+        z-index: 999;
+        #sideMenu {
+            display: none;
         }
-      }
+        #navLogo {
+            border: none;
+            background-color: $main-green;
+            border-bottom-right-radius: 40px;
+            border-top: 0.2rem solid $main-green;
+            border-bottom: 0.2rem solid $main-green;
+            font-family: 'Pacifico', sans-serif;
+            color: $white;
+            font-size: 1.2rem;
+            div div:nth-child(1) {
+                display: none;
+            }
+            .KCLogo {
+                height: 40px;
+            }
+        }
+
+        #navContent {
+            background-color: transparent;
+            display: grid;
+            grid-template-columns: 1fr 4fr 1fr;
+            grid-template-rows: minmax(45px, 45px);
+            font-size: 0.9rem;
+            .navMenu{
+                display: grid;
+                grid-template-columns: 2fr 2fr 2fr 2fr 1fr;
+                .btnNavMenu {
+                    margin: 0px;
+                    border: none;
+                    background-color: transparent;
+                    color: $main-gray;
+                    text-transform: uppercase;
+                    border-bottom: 0.2rem solid $main-green;
+                    span::after {
+                        content: '  ';
+                    }
+                    i {
+                        transition: all 0.5s ease-in-out;
+                    }
+                }
+                .btnNavMenu.active {
+                    cursor: pointer;
+                    border-top-right-radius: 50px;
+                    border-top-left-radius: 50px;
+                    border-bottom: none;
+                    border-top: 0.2rem solid $main-green;
+                    background-color: rgba($page-background, 0.8);
+                }
+                .btnNavMenu:hover {
+                    border-bottom: 0.1rem dotted $main-green;
+                    cursor: pointer;
+                    font-weight: bold;
+                    i {
+                        transform: rotate(360deg);
+                    }
+                }
+                .btnLogo {
+                    display: none;
+                }
+                .navTools{
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    border-bottom: 0.2rem solid $main-green;
+                    > button {
+                        margin: 0px;
+                        border: none;
+                        background-color: transparent;
+                        color: $main-green;
+                        cursor: pointer;
+                    }
+                    .btnSearch {
+                        justify-self: center;
+                        align-self: center;
+                        border-radius: 5px;
+                        border: 2px solid transparent;
+                        padding: 2px 7px;
+                        transition: all 0.5s ease-in-out;
+                    }
+                    .btnSearch:hover, .btnSearch:focus {
+                        border-color: $main-green;
+                        background-color: $main-green;
+                        color: white;
+                        transform: rotate(360deg);
+                    }
+                    .btnLang {
+                        align-self: center;
+                        justify-self: center;
+                        border: 2px solid $main-green;
+                        padding: 1px 7px;
+                        border-radius: 5px;
+                        display: block;
+                        transition: all 0.5s ease-in-out;
+                    }
+                    .btnLang:hover, .btnLang:focus {
+                        background-color: $main-green;
+                        color: white;
+                        transform: rotate(360deg);
+                    }
+                }
+            }
+            .btnAsk {
+                background: transparent;
+                border-top: 0.2rem solid $main-green;
+                border-bottom: 0.2rem solid $main-green;
+                text-transform: uppercase;
+                border-bottom-left-radius: 40px;
+                border-top-right-radius: 40px;
+                span::after {
+                    content: '  ';
+                }
+            }
+            .btnAsk:hover, .btnAsk:focus {
+                border-bottom: 0.2rem solid $main-green;
+                background-color: $main-green;
+            }
+            .btnLogin {
+                background: transparent;
+                text-transform: uppercase;
+                border-top: 0.2rem solid $main-green;
+                border-bottom: 0.2rem solid $main-green;
+                border-top-left-radius: 40px;
+                span::after {
+                    content: '  ';
+                }
+            }
+
+            .btnLogin:hover, .btnLogin:focus {
+                background-color: $main-green;
+            }
+
+            .btnAsk:hover i, .btnAsk:focus i, .btnLogin:hover i, .btnLogin:focus i {
+                transform: rotate(360deg);
+            }
+
+            .userProfileBtn {
+                background: none;
+                border: none;
+                padding: 0;
+                position: relative;
+                display: block;
+                border-bottom: 0.2rem solid $main-green;
+                .blockProfile {
+                    border-top-left-radius: 40px;
+                    border-bottom-right-radius: 40px;
+                    display: grid;
+                    grid-template-columns: repeat(13, 1fr);
+                    padding: 0.2rem 1.5rem;
+                    .avatar_img_block {
+                        z-index: 6;
+                        cursor: pointer;
+                        grid-column-start: 1;
+                        grid-column-end: 4;
+                        grid-row-start: 1;
+                        .avatar_img {
+                            background-color: $page-background;
+                            border: 1.5px solid $main-green;
+                            border-radius: 20px;
+                            padding: 1px;
+                            height: 30px;
+                        }
+                    }
+                    .avatar_name {
+                        z-index: 5;
+                        cursor: pointer;
+                        grid-column-start: 3;
+                        grid-column-end: 14;
+                        grid-row-start: 1;
+                        text-align: center;
+                        font-family: 'Sniglet', cursive;
+                        border: 1.5px solid $main-green;
+                        font-weight: bold;
+                        border-radius: 15px;
+                        align-self: center;
+                    }
+                }
+                .profileMenuList {
+                    position: absolute;
+                    top: 30px;
+                    left: 5px;
+                    z-index: 999;
+                    right: 5px;
+                    div {
+                        i {
+                            margin: 0;
+                            padding: 0;
+                            height: 0;
+                            color: $main-gray;
+                        }
+                        ul {
+                            margin: 0;
+                            font-family: 'Taprom','Montserrat', sans-serif;
+                            font-size: 10px;
+                            border: 2px solid $main-gray;
+                            background-color: white;
+                            padding: 5px;
+                            border-radius: 10px;
+                            padding: 0;
+                            margin: 0;
+                            li {
+                                margin: 2px;
+                                text-align: center;
+                                padding: 8px 8px;
+                                list-style: none;
+                                width: auto;
+                                cursor: pointer;
+                                border-radius: 8px;
+                            }
+                            li:nth-child(2) {
+                                border-top: 1px solid $thirdly-gray;
+                                border-bottom: 1px solid $thirdly-gray;
+                            }
+                            li:hover, li:focus {
+                                background-color: $secondary-green;
+                                color: white;
+                            }
+                            li.btnLogout:hover, li.btnLogout:focus {
+                                background-color: $main-red;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
-  }
+}
+@media screen and (max-width: $below-laptop-L) and (min-width: $above-tablet){
+    #KCNavbar{
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: grid;
+        grid-template-columns: 1fr 5fr;
+        grid-template-rows: 45px;
+        background: transparent;
+        font-family: 'Taprom','Patrick Hand', sans-serif;
+        font-size: 12px;
+        z-index: 999;
+        #sideMenu {
+            display: none;
+        }
+        #navLogo {
+            border: none;
+            background-color: $main-green;
+            border-bottom-right-radius: 40px;
+            border-top: 0.2rem solid $main-green;
+            border-bottom: 0.2rem solid $main-green;
+            font-family: 'Pacifico', sans-serif;
+            color: $white;
+            div div:nth-child(1){
+                display: none;
+            }
+            .KCLogo {
+                height: 40px;
+            }
+        }
+
+        #navContent {
+            background-color: transparent;
+            display: grid;
+            grid-template-columns: 1fr 4fr 1fr;
+            grid-template-rows: minmax(45px, 45px);
+            .navMenu{
+                display: grid;
+                grid-template-columns: 2fr 2fr 2fr 2fr 1fr;
+                .btnNavMenu {
+                    margin: 0px;
+                    border: none;
+                    background-color: transparent;
+                    color: $main-gray;
+                    text-transform: uppercase;
+                    border-bottom: 0.2rem solid $main-green;
+                    i {
+                        display: none;
+                    }
+                }
+                .btnNavMenu.active {
+                    cursor: pointer;
+                    border-top-right-radius: 50px;
+                    border-top-left-radius: 50px;
+                    border-bottom: none;
+                    border-top: 0.2rem solid $main-green;
+                    background-color: rgba($page-background, 0.8);
+                }
+                .btnNavMenu:hover {
+                    border-bottom: 0.1rem dotted $main-green;
+                    cursor: pointer;
+                    font-weight: bold;
+                }
+                .btnLogo {
+                    display: none;
+                }
+                .navTools{
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    border-bottom: 0.2rem solid $main-green;
+                    > button {
+                        margin: 0px;
+                        border: none;
+                        background-color: transparent;
+                        color: $main-green;
+                        cursor: pointer;
+                    }
+                    .btnSearch {
+                        justify-self: center;
+                        align-self: center;
+                        border-radius: 5px;
+                        border: 2px solid transparent;
+                        padding: 2px 7px;
+                        transition: all 0.5s ease-in-out;
+                    }
+                    .btnSearch:hover, .btnSearch:focus {
+                        border-color: $main-green;
+                        background-color: $main-green;
+                        color: white;
+                        transform: rotate(360deg);
+                    }
+                    .btnLang {
+                        font-size: 0.8em;
+                        align-self: center;
+                        justify-self: center;
+                        border: 2px solid $main-green;
+                        padding: 4px 7px;
+                        border-radius: 5px;
+                        display: block;
+                        transition: all 0.5s ease-in-out;
+                    }
+                    .btnLang:hover, .btnLang:focus {
+                        background-color: $main-green;
+                        color: white;
+                        transform: rotate(360deg);
+                    }
+                }
+            }
+            .btnAsk {
+                background: transparent;
+                border-top: 0.2rem solid $main-green;
+                border-bottom: 0.2rem solid $main-green;
+                text-transform: uppercase;
+                border-bottom-left-radius: 40px;
+                border-top-right-radius: 40px;
+                span::after {
+                    content: '  ';
+                }
+            }
+            .btnAsk:hover, .btnAsk:focus {
+                border-bottom: 0.2rem solid $main-green;
+                background-color: $main-green;
+            }
+            .btnLogin {
+                background: transparent;
+                text-transform: uppercase;
+                border-top: 0.2rem solid $main-green;
+                border-bottom: 0.2rem solid $main-green;
+                border-top-left-radius: 40px;
+                span::after {
+                    content: '  ';
+                }
+            }
+
+            .btnLogin:hover, .btnLogin:focus {
+                background-color: $main-green;
+            }
+
+            .btnAsk:hover i, .btnAsk:focus i, .btnLogin:hover i, .btnLogin:focus i {
+                transform: rotate(360deg);
+            }
+
+            .userProfileBtn {
+                background: none;
+                border: none;
+                padding: 0;
+                position: relative;
+                display: block;
+                border-bottom: 0.2rem solid $main-green;
+                .blockProfile {
+                    border-top-left-radius: 40px;
+                    border-bottom-right-radius: 40px;
+                    display: grid;
+                    grid-template-columns: repeat(13, 1fr);
+                    padding: 0.2rem 1.5rem;
+                    .avatar_img_block {
+                        z-index: 6;
+                        cursor: pointer;
+                        grid-column-start: 1;
+                        grid-column-end: 4;
+                        grid-row-start: 1;
+                        .avatar_img {
+                            background-color: $page-background;
+                            border: 1.5px solid $main-green;
+                            border-radius: 20px;
+                            padding: 1px;
+                            height: 30px;
+                        }
+                    }
+                    .avatar_name {
+                        z-index: 5;
+                        cursor: pointer;
+                        grid-column-start: 3;
+                        grid-column-end: 14;
+                        grid-row-start: 1;
+                        text-align: center;
+                        font-family: 'Sniglet', cursive;
+                        border: 1.5px solid $main-green;
+                        font-weight: bold;
+                        border-radius: 15px;
+                        align-self: center;
+                    }
+                }
+                .profileMenuList {
+                    position: absolute;
+                    top: 30px;
+                    z-index: 999;
+                    right: 5px;
+                    div {
+                        i {
+                            margin: 0;
+                            padding: 0;
+                            height: 0;
+                            color: $main-gray;
+                        }
+                        ul {
+                            margin: 0;
+                            font-family: 'Taprom','Montserrat', sans-serif;
+                            font-size: 10px;
+                            border: 2px solid $main-gray;
+                            background-color: white;
+                            padding: 5px;
+                            border-radius: 10px;
+                            padding: 0;
+                            margin: 0;
+                            li {
+                                margin: 2px;
+                                text-align: center;
+                                padding: 8px 8px;
+                                list-style: none;
+                                width: auto;
+                                cursor: pointer;
+                                border-radius: 8px;
+                            }
+                            li:nth-child(2) {
+                                border-top: 1px solid $thirdly-gray;
+                                border-bottom: 1px solid $thirdly-gray;
+                            }
+                            li:hover, li:focus {
+                                background-color: $secondary-green;
+                                color: white;
+                            }
+                            li.btnLogout:hover, li.btnLogout:focus {
+                                background-color: $main-red;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: $tablet) and (min-width: $above-mobile-L){
+    #KCNavbar{
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: grid;
+        grid-template-columns: 1fr 5fr;
+        grid-template-rows: 45px;
+        background: transparent;
+        font-family: 'Taprom','Patrick Hand', sans-serif;
+        font-size: 10px;
+        z-index: 999;
+        #sideMenu {
+            display: none;
+        }
+        #navLogo {
+            border: none;
+            background-color: $main-green;
+            border-bottom-right-radius: 40px;
+            border-top: 0.2rem solid $main-green;
+            border-bottom: 0.2rem solid $main-green;
+            font-family: 'Pacifico', sans-serif;
+            color: $white;
+            div div:nth-child(1) {
+                display: none;
+            }
+            .KCLogo {
+                height: 35px;
+            }
+        }
+
+        #navContent {
+            background-color: transparent;
+            display: grid;
+            grid-template-columns: 1fr 4fr 1fr;
+            grid-template-rows: minmax(45px, 45px);
+            .navMenu{
+                display: grid;
+                grid-template-columns: 2fr 2fr 2fr 2fr 1fr;
+                .btnNavMenu {
+                    margin: 0px;
+                    border: none;
+                    background-color: transparent;
+                    color: $main-gray;
+                    text-transform: uppercase;
+                    border-bottom: 0.2rem solid $main-green;
+                    span {
+                        display: none;
+                    }
+                }
+                .btnNavMenu.active {
+                    cursor: pointer;
+                    border-top-right-radius: 50px;
+                    border-top-left-radius: 50px;
+                    border-bottom: none;
+                    border-top: 0.2rem solid $main-green;
+                    background-color: rgba($page-background, 0.8);
+                }
+                .btnNavMenu:hover {
+                    border-bottom: 0.1rem dotted $main-green;
+                    cursor: pointer;
+                    font-weight: bold;
+                }
+                .btnLogo {
+                    display: none;
+                }
+                .navTools{
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    border-bottom: 0.2rem solid $main-green;
+                    > button {
+                        margin: 0px;
+                        border: none;
+                        background-color: transparent;
+                        color: $main-green;
+                        cursor: pointer;
+                    }
+                    .btnSearch {
+                        font-size: 0.8em;
+                        justify-self: center;
+                        align-self: center;
+                        border-radius: 5px;
+                        border: 2px solid transparent;
+                        padding: 2px 7px;
+                        transition: all 0.5s ease-in-out;
+                    }
+                    .btnSearch:hover, .btnSearch:focus {
+                        border-color: $main-green;
+                        background-color: $main-green;
+                        color: white;
+                        transform: rotate(360deg);
+                    }
+                    .btnLang {
+                        font-size: 0.8em;
+                        align-self: center;
+                        justify-self: center;
+                        border: 2px solid $main-green;
+                        padding: 4px 7px;
+                        border-radius: 5px;
+                        display: block;
+                        transition: all 0.5s ease-in-out;
+                    }
+                    .btnLang:hover, .btnLang:focus {
+                        background-color: $main-green;
+                        color: white;
+                        transform: rotate(360deg);
+                    }
+                }
+            }
+            .btnAsk {
+                background: transparent;
+                border-top: 0.2rem solid $main-green;
+                border-bottom: 0.2rem solid $main-green;
+                text-transform: uppercase;
+                border-bottom-left-radius: 40px;
+                border-top-right-radius: 40px;
+                i {
+                    display: none;
+                }
+            }
+            .btnAsk:hover, .btnAsk:focus {
+                border-bottom: 0.2rem solid $main-green;
+                background-color: $main-green;
+            }
+            .btnLogin {
+                background: transparent;
+                text-transform: uppercase;
+                border-top: 0.2rem solid $main-green;
+                border-bottom: 0.2rem solid $main-green;
+                border-top-left-radius: 40px;
+                i {
+                    display: none;
+                }
+            }
+
+            .btnLogin:hover, .btnLogin:focus {
+                background-color: $main-green;
+            }
+
+            .btnAsk:hover i, .btnAsk:focus i, .btnLogin:hover i, .btnLogin:focus i {
+                transform: rotate(360deg);
+            }
+
+            .userProfileBtn {
+                background-color: transparent;
+                border: none;
+                padding: 0;
+                position: relative;
+                display: block;
+                border-bottom: 0.2rem solid $main-green;
+                .blockProfile {
+                    display: block;
+                    .avatar_img_block {
+                        z-index: 6;
+                        cursor: pointer;
+                        .avatar_img {
+                            background-color: $page-background;
+                            border: 1.5px solid $main-green;
+                            border-radius: 20px;
+                            height: 30px;
+                        }
+                    }
+                    .avatar_name {
+                        display: none;
+                    }
+                    .profileMenuList {
+                        position: absolute;
+                        z-index: 999;
+                        div {
+                            i {
+                                margin: 0;
+                                padding: 0;
+                                height: 0;
+                                color: $main-gray;
+                            }
+                            ul {
+                                margin: 0;
+                                font-family: 'Taprom','Montserrat', sans-serif;
+                                border: 2px solid $main-gray;
+                                background-color: white;
+                                padding: 5px;
+                                border-radius: 10px;
+                                padding: 0;
+                                margin: 0;
+                                li {
+                                    margin: 2px;
+                                    text-align: center;
+                                    padding: 8px 8px;
+                                    list-style: none;
+                                    width: auto;
+                                    cursor: pointer;
+                                    border-radius: 8px;
+                                }
+                                li:nth-child(2) {
+                                    border-top: 1px solid $thirdly-gray;
+                                    border-bottom: 1px solid $thirdly-gray;
+                                }
+                                li:hover, li:focus {
+                                    background-color: $secondary-green;
+                                    color: white;
+                                }
+                                li.btnLogout:hover, li.btnLogout:focus {
+                                    background-color: $main-red;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: $above-mobile-L){
+    #KCNavbar{
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: grid;
+        grid-template-columns: 1fr 5fr;
+        grid-template-rows: 45px;
+        background: transparent;
+        font-family: 'Taprom','Patrick Hand', sans-serif;
+        font-size: 9px;
+        z-index: 999;
+        transition: margin-left 0.5s;
+        #navLogo {
+            border: none;
+            background-color: $main-green;
+            border-bottom-right-radius: 40px;
+            border-top: 0.2rem solid $main-green;
+            border-bottom: 0.2rem solid $main-green;
+            font-family: 'Pacifico', sans-serif;
+            color: $white;
+            div {
+                display: grid;
+                grid-template-columns: 1fr;
+                div:nth-child(2) {
+                    display: none;
+                }
+            }
+            .KCLogo {
+                display: none;
+            }
+        }
+
+        #navContent {
+            background-color: transparent;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: minmax(45px, 45px);
+            .navMenu{
+                display: block;
+                margin: 0;
+                text-align: center;
+                .btnLogo {
+                    font-size: 1.2em;
+                    font-weight: bold;
+                    height: 45px;
+                    padding: 0;
+                    margin: 0px;
+                    border: none;
+                    background-color: transparent;
+                    color: $main-gray;
+                    text-transform: uppercase;
+                }
+                .btnSubjects, .btnQuestions, .btnNotifications, .btnGuide {
+                    display: none;
+                }
+                .navTools{
+                    border-bottom: 0.2rem solid $main-green;
+                    .btnSearch {
+                        display: none;
+                    }
+                    .btnLang {
+                        display: none;
+                    }
+                }
+                .KCLogo {
+                    height: 30px;
+                }
+            }
+            .btnAsk {
+                background: transparent;
+                border-top: 0.2rem solid $main-green;
+                border-bottom: 0.2rem solid $main-green;
+                text-transform: uppercase;
+                border-bottom-left-radius: 40px;
+                border-top-right-radius: 40px;
+                i {
+                    display: none;
+                }
+            }
+            .btnAsk:hover, .btnAsk:focus {
+                border-bottom: 0.2rem solid $main-green;
+                background-color: $main-green;
+            }
+            .btnLogin {
+                background: transparent;
+                text-transform: uppercase;
+                border-top: 0.2rem solid $main-green;
+                border-bottom: 0.2rem solid $main-green;
+                border-top-left-radius: 40px;
+                span::after {
+                    content: '  ';
+                }
+            }
+
+            .btnLogin:hover, .btnLogin:focus {
+                background-color: $main-green;
+            }
+
+            .btnAsk:hover i, .btnAsk:focus i, .btnLogin:hover i, .btnLogin:focus i {
+                transform: rotate(360deg);
+            }
+
+            .userProfileBtn {
+                background: none;
+                border: none;
+                padding: 0;
+                position: relative;
+                display: block;
+                border-bottom: 0.2rem solid $main-green;
+                border-top: 0.2rem solid $main-green;
+                border-top-left-radius: 40px;
+                .blockProfile {
+                    display: block;
+                    .avatar_img_block {
+                        z-index: 6;
+                        cursor: pointer;
+                        .avatar_img {
+                            background-color: $page-background;
+                            border: 1.5px solid $main-green;
+                            border-radius: 20px;
+                            padding: 1px;
+                            height: 25px;
+                        }
+                    }
+                    .avatar_name {
+                        display: none;
+                    }
+                }
+                .profileMenuList {
+                    position: absolute;
+                    z-index: 999;
+                    left: 15px;
+                    div {
+                        i {
+                            margin: 0;
+                            padding: 0;
+                            height: 0;
+                            color: $main-gray;
+                        }
+                        ul {
+                            margin: 0;
+                            font-family: 'Taprom','Montserrat', sans-serif;
+                            font-size: 8px;
+                            border: 2px solid $main-gray;
+                            background-color: white;
+                            padding: 5px;
+                            border-radius: 10px;
+                            padding: 0;
+                            margin: 0;
+                            li {
+                                margin: 2px;
+                                text-align: center;
+                                padding: 8px 8px;
+                                list-style: none;
+                                width: auto;
+                                cursor: pointer;
+                                border-radius: 8px;
+                            }
+                            li:nth-child(2) {
+                                border-top: 1px solid $thirdly-gray;
+                                border-bottom: 1px solid $thirdly-gray;
+                            }
+                            li:hover, li:focus {
+                                background-color: $secondary-green;
+                                color: white;
+                            }
+                            li.btnLogout:hover, li.btnLogout:focus {
+                                background-color: $main-red;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        #sideMenu {
+            position: fixed;
+            width: 0;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background-color: $main-green;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding: 0;
+            .logo {
+                text-align: center;
+                .KCLogo {
+                    height: 50px;
+                }
+            }
+            .menuTitle {
+                font-size: 1.2em;
+                margin-top: 20px;
+            }
+            .menuList {
+                padding-left: 20px;
+                margin-top: 10px;
+                button {
+                    cursor: pointer;
+                    font-size: 1.4em;
+                    color: white;
+                    margin: 15px 0;
+                    text-align: left;
+                    background: transparent;
+                    display: block;
+                    width: 100%;
+                    border: none;
+                    border-radius: 20px;
+                }
+                button:focus {
+                    background: white;
+                    color: $main-green;
+                }
+                .languageSetting {
+                    label {
+                        color: white;
+                        font-size: 1.4em;
+                    }
+                    select {
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
 }
