@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.googleapis.com/css?family=Happy+Monkey);@import url(https://fonts.googleapis.com/css?family=Barlow+Condensed);@import url(https://fonts.googleapis.com/css?family=Montserrat);@import url(https://fonts.googleapis.com/css?family=Sniglet);@import url(https://fonts.googleapis.com/css?family=Pacifico);@import url(https://fonts.googleapis.com/css?family=Patrick+Hand);@import url(https://fonts.googleapis.com/css?family=Angkor);@import url(https://fonts.googleapis.com/css?family=Hanuman);@import url(https://fonts.googleapis.com/css?family=Kdam+Thmor);/*!
+@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.googleapis.com/css?family=Happy+Monkey);@import url(https://fonts.googleapis.com/css?family=Barlow+Condensed);@import url(https://fonts.googleapis.com/css?family=Montserrat);@import url(https://fonts.googleapis.com/css?family=Sniglet);@import url(https://fonts.googleapis.com/css?family=Pacifico);@import url(https://fonts.googleapis.com/css?family=Patrick+Hand);@import url(https://fonts.googleapis.com/css?family=Angkor);@import url(https://fonts.googleapis.com/css?family=Hanuman);@import url(https://fonts.googleapis.com/css?family=Kdam+Thmor);@import url(https://fonts.googleapis.com/css?family=Taprom&display=swap);/*!
  * Quill Editor v1.3.6
  * https://quilljs.com/
  * Copyright (c) 2014, Jason Chen
@@ -23246,6 +23246,12 @@ body {
   padding: 0 4rem;
 }
 
+@media screen and (max-width: 426px) {
+  .container {
+    padding: 0 2em;
+  }
+}
+
 hr.greenLine {
   margin: 1.5rem 0;
   background-color: #17CCA9;
@@ -23637,342 +23643,1405 @@ button:focus {
   color: #17CCA9;
 }
 
-#KCNavbar {
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-  grid-auto-rows: 2.7rem;
-  background: transparent;
-  font-family: "Patrick Hand", sans-serif;
-  font-size: 1.1rem;
-  z-index: 9999;
+@media screen and (min-width: 1440px) {
+  #KCNavbar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    grid-template-rows: 45px;
+    background: transparent;
+    font-family: "Taprom", "Patrick Hand", sans-serif;
+    z-index: 999;
+  }
+
+  #KCNavbar #sideMenu {
+    display: none;
+  }
+
+  #KCNavbar #navLogo {
+    border: none;
+    background-color: #0A5748;
+    border-bottom-right-radius: 40px;
+    border-top: 0.2rem solid #0A5748;
+    border-bottom: 0.2rem solid #0A5748;
+    font-family: "Pacifico", sans-serif;
+    color: #fff;
+    font-size: 1.2rem;
+  }
+
+  #KCNavbar #navLogo div div:nth-child(1) {
+    display: none;
+  }
+
+  #KCNavbar #navLogo .KCLogo {
+    height: 40px;
+  }
+
+  #KCNavbar #navContent {
+    background-color: transparent;
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-rows: minmax(45px, 45px);
+    font-size: 0.9rem;
+  }
+
+  #KCNavbar #navContent .navMenu {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr 2fr 1fr;
+  }
+
+  #KCNavbar #navContent .navMenu .btnNavMenu {
+    margin: 0px;
+    border: none;
+    background-color: transparent;
+    color: #424242;
+    text-transform: uppercase;
+    border-bottom: 0.2rem solid #0A5748;
+  }
+
+  #KCNavbar #navContent .navMenu .btnNavMenu span::after {
+    content: "  ";
+  }
+
+  #KCNavbar #navContent .navMenu .btnNavMenu i {
+    transition: all 0.5s ease-in-out;
+  }
+
+  #KCNavbar #navContent .navMenu .btnNavMenu.active {
+    cursor: pointer;
+    border-top-right-radius: 50px;
+    border-top-left-radius: 50px;
+    border-bottom: none;
+    border-top: 0.2rem solid #0A5748;
+    background-color: rgba(243, 243, 243, 0.8);
+  }
+
+  #KCNavbar #navContent .navMenu .btnNavMenu:hover {
+    border-bottom: 0.1rem dotted #0A5748;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  #KCNavbar #navContent .navMenu .btnNavMenu:hover i {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+
+  #KCNavbar #navContent .navMenu .btnLogo {
+    display: none;
+  }
+
+  #KCNavbar #navContent .navMenu .navTools {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 0.2rem solid #0A5748;
+  }
+
+  #KCNavbar #navContent .navMenu .navTools > button {
+    margin: 0px;
+    border: none;
+    background-color: transparent;
+    color: #0A5748;
+    cursor: pointer;
+  }
+
+  #KCNavbar #navContent .navMenu .navTools .btnSearch {
+    justify-self: center;
+    align-self: center;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    padding: 2px 7px;
+    transition: all 0.5s ease-in-out;
+  }
+
+  #KCNavbar #navContent .navMenu .navTools .btnSearch:hover,
+  #KCNavbar #navContent .navMenu .navTools .btnSearch:focus {
+    border-color: #0A5748;
+    background-color: #0A5748;
+    color: white;
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+
+  #KCNavbar #navContent .navMenu .navTools .btnLang {
+    align-self: center;
+    justify-self: center;
+    border: 2px solid #0A5748;
+    padding: 1px 7px;
+    border-radius: 5px;
+    display: block;
+    transition: all 0.5s ease-in-out;
+  }
+
+  #KCNavbar #navContent .navMenu .navTools .btnLang:hover,
+  #KCNavbar #navContent .navMenu .navTools .btnLang:focus {
+    background-color: #0A5748;
+    color: white;
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+
+  #KCNavbar #navContent .btnAsk {
+    background: transparent;
+    border-top: 0.2rem solid #0A5748;
+    border-bottom: 0.2rem solid #0A5748;
+    text-transform: uppercase;
+    border-bottom-left-radius: 40px;
+    border-top-right-radius: 40px;
+  }
+
+  #KCNavbar #navContent .btnAsk span::after {
+    content: "  ";
+  }
+
+  #KCNavbar #navContent .btnAsk:hover,
+  #KCNavbar #navContent .btnAsk:focus {
+    border-bottom: 0.2rem solid #0A5748;
+    background-color: #0A5748;
+  }
+
+  #KCNavbar #navContent .btnLogin {
+    background: transparent;
+    text-transform: uppercase;
+    border-top: 0.2rem solid #0A5748;
+    border-bottom: 0.2rem solid #0A5748;
+    border-top-left-radius: 40px;
+  }
+
+  #KCNavbar #navContent .btnLogin span::after {
+    content: "  ";
+  }
+
+  #KCNavbar #navContent .btnLogin:hover,
+  #KCNavbar #navContent .btnLogin:focus {
+    background-color: #0A5748;
+  }
+
+  #KCNavbar #navContent .btnAsk:hover i,
+  #KCNavbar #navContent .btnAsk:focus i,
+  #KCNavbar #navContent .btnLogin:hover i,
+  #KCNavbar #navContent .btnLogin:focus i {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+
+  #KCNavbar #navContent .userProfileBtn {
+    background: none;
+    border: none;
+    padding: 0;
+    position: relative;
+    display: block;
+    border-bottom: 0.2rem solid #0A5748;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .blockProfile {
+    border-top-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    display: grid;
+    grid-template-columns: repeat(13, 1fr);
+    padding: 0.2rem 1.5rem;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .blockProfile .avatar_img_block {
+    z-index: 6;
+    cursor: pointer;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 1;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .blockProfile .avatar_img_block .avatar_img {
+    background-color: #F3F3F3;
+    border: 1.5px solid #0A5748;
+    border-radius: 20px;
+    padding: 1px;
+    height: 30px;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .blockProfile .avatar_name {
+    z-index: 5;
+    cursor: pointer;
+    grid-column-start: 3;
+    grid-column-end: 14;
+    grid-row-start: 1;
+    text-align: center;
+    font-family: "Sniglet", cursive;
+    border: 1.5px solid #0A5748;
+    font-weight: bold;
+    border-radius: 15px;
+    align-self: center;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .profileMenuList {
+    position: absolute;
+    top: 30px;
+    left: 5px;
+    z-index: 999;
+    right: 5px;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .profileMenuList div i {
+    margin: 0;
+    padding: 0;
+    height: 0;
+    color: #424242;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul {
+    margin: 0;
+    font-family: "Taprom", "Montserrat", sans-serif;
+    font-size: 10px;
+    border: 2px solid #424242;
+    background-color: white;
+    padding: 5px;
+    border-radius: 10px;
+    padding: 0;
+    margin: 0;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li {
+    margin: 2px;
+    text-align: center;
+    padding: 8px 8px;
+    list-style: none;
+    width: auto;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:nth-child(2) {
+    border-top: 1px solid #D8D8D8;
+    border-bottom: 1px solid #D8D8D8;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:hover,
+  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:focus {
+    background-color: #17CCA9;
+    color: white;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li.btnLogout:hover,
+  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li.btnLogout:focus {
+    background-color: #FF5654;
+  }
 }
 
-#KCNavbar #navLogo {
-  border: none;
-  background-color: #0A5748;
-  border-bottom-right-radius: 40px;
-  border-bottom-left-radius: 40px;
-  border-top: 0.2rem solid #0A5748;
-  border-bottom: 0.2rem solid #0A5748;
-  font-family: "Pacifico", sans-serif;
-  color: #fff;
-  font-size: 1.2rem;
+@media screen and (max-width: 1439px) and (min-width: 769px) {
+  #KCNavbar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    grid-template-rows: 45px;
+    background: transparent;
+    font-family: "Taprom", "Patrick Hand", sans-serif;
+    font-size: 12px;
+    z-index: 999;
+  }
+
+  #KCNavbar #sideMenu {
+    display: none;
+  }
+
+  #KCNavbar #navLogo {
+    border: none;
+    background-color: #0A5748;
+    border-bottom-right-radius: 40px;
+    border-top: 0.2rem solid #0A5748;
+    border-bottom: 0.2rem solid #0A5748;
+    font-family: "Pacifico", sans-serif;
+    color: #fff;
+  }
+
+  #KCNavbar #navLogo div div:nth-child(1) {
+    display: none;
+  }
+
+  #KCNavbar #navLogo .KCLogo {
+    height: 40px;
+  }
+
+  #KCNavbar #navContent {
+    background-color: transparent;
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-rows: minmax(45px, 45px);
+  }
+
+  #KCNavbar #navContent .navMenu {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr 2fr 1fr;
+  }
+
+  #KCNavbar #navContent .navMenu .btnNavMenu {
+    margin: 0px;
+    border: none;
+    background-color: transparent;
+    color: #424242;
+    text-transform: uppercase;
+    border-bottom: 0.2rem solid #0A5748;
+  }
+
+  #KCNavbar #navContent .navMenu .btnNavMenu i {
+    display: none;
+  }
+
+  #KCNavbar #navContent .navMenu .btnNavMenu.active {
+    cursor: pointer;
+    border-top-right-radius: 50px;
+    border-top-left-radius: 50px;
+    border-bottom: none;
+    border-top: 0.2rem solid #0A5748;
+    background-color: rgba(243, 243, 243, 0.8);
+  }
+
+  #KCNavbar #navContent .navMenu .btnNavMenu:hover {
+    border-bottom: 0.1rem dotted #0A5748;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  #KCNavbar #navContent .navMenu .btnLogo {
+    display: none;
+  }
+
+  #KCNavbar #navContent .navMenu .navTools {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 0.2rem solid #0A5748;
+  }
+
+  #KCNavbar #navContent .navMenu .navTools > button {
+    margin: 0px;
+    border: none;
+    background-color: transparent;
+    color: #0A5748;
+    cursor: pointer;
+  }
+
+  #KCNavbar #navContent .navMenu .navTools .btnSearch {
+    justify-self: center;
+    align-self: center;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    padding: 2px 7px;
+    transition: all 0.5s ease-in-out;
+  }
+
+  #KCNavbar #navContent .navMenu .navTools .btnSearch:hover,
+  #KCNavbar #navContent .navMenu .navTools .btnSearch:focus {
+    border-color: #0A5748;
+    background-color: #0A5748;
+    color: white;
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+
+  #KCNavbar #navContent .navMenu .navTools .btnLang {
+    font-size: 0.8em;
+    align-self: center;
+    justify-self: center;
+    border: 2px solid #0A5748;
+    padding: 4px 7px;
+    border-radius: 5px;
+    display: block;
+    transition: all 0.5s ease-in-out;
+  }
+
+  #KCNavbar #navContent .navMenu .navTools .btnLang:hover,
+  #KCNavbar #navContent .navMenu .navTools .btnLang:focus {
+    background-color: #0A5748;
+    color: white;
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+
+  #KCNavbar #navContent .btnAsk {
+    background: transparent;
+    border-top: 0.2rem solid #0A5748;
+    border-bottom: 0.2rem solid #0A5748;
+    text-transform: uppercase;
+    border-bottom-left-radius: 40px;
+    border-top-right-radius: 40px;
+  }
+
+  #KCNavbar #navContent .btnAsk span::after {
+    content: "  ";
+  }
+
+  #KCNavbar #navContent .btnAsk:hover,
+  #KCNavbar #navContent .btnAsk:focus {
+    border-bottom: 0.2rem solid #0A5748;
+    background-color: #0A5748;
+  }
+
+  #KCNavbar #navContent .btnLogin {
+    background: transparent;
+    text-transform: uppercase;
+    border-top: 0.2rem solid #0A5748;
+    border-bottom: 0.2rem solid #0A5748;
+    border-top-left-radius: 40px;
+  }
+
+  #KCNavbar #navContent .btnLogin span::after {
+    content: "  ";
+  }
+
+  #KCNavbar #navContent .btnLogin:hover,
+  #KCNavbar #navContent .btnLogin:focus {
+    background-color: #0A5748;
+  }
+
+  #KCNavbar #navContent .btnAsk:hover i,
+  #KCNavbar #navContent .btnAsk:focus i,
+  #KCNavbar #navContent .btnLogin:hover i,
+  #KCNavbar #navContent .btnLogin:focus i {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+
+  #KCNavbar #navContent .userProfileBtn {
+    background: none;
+    border: none;
+    padding: 0;
+    position: relative;
+    display: block;
+    border-bottom: 0.2rem solid #0A5748;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .blockProfile {
+    border-top-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    display: grid;
+    grid-template-columns: repeat(13, 1fr);
+    padding: 0.2rem 1.5rem;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .blockProfile .avatar_img_block {
+    z-index: 6;
+    cursor: pointer;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 1;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .blockProfile .avatar_img_block .avatar_img {
+    background-color: #F3F3F3;
+    border: 1.5px solid #0A5748;
+    border-radius: 20px;
+    padding: 1px;
+    height: 30px;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .blockProfile .avatar_name {
+    z-index: 5;
+    cursor: pointer;
+    grid-column-start: 3;
+    grid-column-end: 14;
+    grid-row-start: 1;
+    text-align: center;
+    font-family: "Sniglet", cursive;
+    border: 1.5px solid #0A5748;
+    font-weight: bold;
+    border-radius: 15px;
+    align-self: center;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .profileMenuList {
+    position: absolute;
+    top: 30px;
+    z-index: 999;
+    right: 5px;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .profileMenuList div i {
+    margin: 0;
+    padding: 0;
+    height: 0;
+    color: #424242;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul {
+    margin: 0;
+    font-family: "Taprom", "Montserrat", sans-serif;
+    font-size: 10px;
+    border: 2px solid #424242;
+    background-color: white;
+    padding: 5px;
+    border-radius: 10px;
+    padding: 0;
+    margin: 0;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li {
+    margin: 2px;
+    text-align: center;
+    padding: 8px 8px;
+    list-style: none;
+    width: auto;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:nth-child(2) {
+    border-top: 1px solid #D8D8D8;
+    border-bottom: 1px solid #D8D8D8;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:hover,
+  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:focus {
+    background-color: #17CCA9;
+    color: white;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li.btnLogout:hover,
+  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li.btnLogout:focus {
+    background-color: #FF5654;
+  }
 }
 
-#KCNavbar #navLogo .fab {
-  vertical-align: baseline;
+@media screen and (max-width: 768px) and (min-width: 426px) {
+  #KCNavbar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    grid-template-rows: 45px;
+    background: transparent;
+    font-family: "Taprom", "Patrick Hand", sans-serif;
+    font-size: 10px;
+    z-index: 999;
+  }
+
+  #KCNavbar #sideMenu {
+    display: none;
+  }
+
+  #KCNavbar #navLogo {
+    border: none;
+    background-color: #0A5748;
+    border-bottom-right-radius: 40px;
+    border-top: 0.2rem solid #0A5748;
+    border-bottom: 0.2rem solid #0A5748;
+    font-family: "Pacifico", sans-serif;
+    color: #fff;
+  }
+
+  #KCNavbar #navLogo div div:nth-child(1) {
+    display: none;
+  }
+
+  #KCNavbar #navLogo .KCLogo {
+    height: 35px;
+  }
+
+  #KCNavbar #navContent {
+    background-color: transparent;
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-rows: minmax(45px, 45px);
+  }
+
+  #KCNavbar #navContent .navMenu {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr 2fr 1fr;
+  }
+
+  #KCNavbar #navContent .navMenu .btnNavMenu {
+    margin: 0px;
+    border: none;
+    background-color: transparent;
+    color: #424242;
+    text-transform: uppercase;
+    border-bottom: 0.2rem solid #0A5748;
+  }
+
+  #KCNavbar #navContent .navMenu .btnNavMenu span {
+    display: none;
+  }
+
+  #KCNavbar #navContent .navMenu .btnNavMenu.active {
+    cursor: pointer;
+    border-top-right-radius: 50px;
+    border-top-left-radius: 50px;
+    border-bottom: none;
+    border-top: 0.2rem solid #0A5748;
+    background-color: rgba(243, 243, 243, 0.8);
+  }
+
+  #KCNavbar #navContent .navMenu .btnNavMenu:hover {
+    border-bottom: 0.1rem dotted #0A5748;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  #KCNavbar #navContent .navMenu .btnLogo {
+    display: none;
+  }
+
+  #KCNavbar #navContent .navMenu .navTools {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 0.2rem solid #0A5748;
+  }
+
+  #KCNavbar #navContent .navMenu .navTools > button {
+    margin: 0px;
+    border: none;
+    background-color: transparent;
+    color: #0A5748;
+    cursor: pointer;
+  }
+
+  #KCNavbar #navContent .navMenu .navTools .btnSearch {
+    font-size: 0.8em;
+    justify-self: center;
+    align-self: center;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    padding: 2px 7px;
+    transition: all 0.5s ease-in-out;
+  }
+
+  #KCNavbar #navContent .navMenu .navTools .btnSearch:hover,
+  #KCNavbar #navContent .navMenu .navTools .btnSearch:focus {
+    border-color: #0A5748;
+    background-color: #0A5748;
+    color: white;
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+
+  #KCNavbar #navContent .navMenu .navTools .btnLang {
+    font-size: 0.8em;
+    align-self: center;
+    justify-self: center;
+    border: 2px solid #0A5748;
+    padding: 4px 7px;
+    border-radius: 5px;
+    display: block;
+    transition: all 0.5s ease-in-out;
+  }
+
+  #KCNavbar #navContent .navMenu .navTools .btnLang:hover,
+  #KCNavbar #navContent .navMenu .navTools .btnLang:focus {
+    background-color: #0A5748;
+    color: white;
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+
+  #KCNavbar #navContent .btnAsk {
+    background: transparent;
+    border-top: 0.2rem solid #0A5748;
+    border-bottom: 0.2rem solid #0A5748;
+    text-transform: uppercase;
+    border-bottom-left-radius: 40px;
+    border-top-right-radius: 40px;
+  }
+
+  #KCNavbar #navContent .btnAsk i {
+    display: none;
+  }
+
+  #KCNavbar #navContent .btnAsk:hover,
+  #KCNavbar #navContent .btnAsk:focus {
+    border-bottom: 0.2rem solid #0A5748;
+    background-color: #0A5748;
+  }
+
+  #KCNavbar #navContent .btnLogin {
+    background: transparent;
+    text-transform: uppercase;
+    border-top: 0.2rem solid #0A5748;
+    border-bottom: 0.2rem solid #0A5748;
+    border-top-left-radius: 40px;
+  }
+
+  #KCNavbar #navContent .btnLogin i {
+    display: none;
+  }
+
+  #KCNavbar #navContent .btnLogin:hover,
+  #KCNavbar #navContent .btnLogin:focus {
+    background-color: #0A5748;
+  }
+
+  #KCNavbar #navContent .btnAsk:hover i,
+  #KCNavbar #navContent .btnAsk:focus i,
+  #KCNavbar #navContent .btnLogin:hover i,
+  #KCNavbar #navContent .btnLogin:focus i {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+
+  #KCNavbar #navContent .userProfileBtn {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    position: relative;
+    display: block;
+    border-bottom: 0.2rem solid #0A5748;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .blockProfile {
+    display: block;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .blockProfile .avatar_img_block {
+    z-index: 6;
+    cursor: pointer;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .blockProfile .avatar_img_block .avatar_img {
+    background-color: #F3F3F3;
+    border: 1.5px solid #0A5748;
+    border-radius: 20px;
+    height: 30px;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .blockProfile .avatar_name {
+    display: none;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .blockProfile .profileMenuList {
+    position: absolute;
+    z-index: 999;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .blockProfile .profileMenuList div i {
+    margin: 0;
+    padding: 0;
+    height: 0;
+    color: #424242;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .blockProfile .profileMenuList div ul {
+    margin: 0;
+    font-family: "Taprom", "Montserrat", sans-serif;
+    border: 2px solid #424242;
+    background-color: white;
+    padding: 5px;
+    border-radius: 10px;
+    padding: 0;
+    margin: 0;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .blockProfile .profileMenuList div ul li {
+    margin: 2px;
+    text-align: center;
+    padding: 8px 8px;
+    list-style: none;
+    width: auto;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .blockProfile .profileMenuList div ul li:nth-child(2) {
+    border-top: 1px solid #D8D8D8;
+    border-bottom: 1px solid #D8D8D8;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .blockProfile .profileMenuList div ul li:hover,
+  #KCNavbar #navContent .userProfileBtn .blockProfile .profileMenuList div ul li:focus {
+    background-color: #17CCA9;
+    color: white;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .blockProfile .profileMenuList div ul li.btnLogout:hover,
+  #KCNavbar #navContent .userProfileBtn .blockProfile .profileMenuList div ul li.btnLogout:focus {
+    background-color: #FF5654;
+  }
 }
 
-#KCNavbar #navContent {
-  background-color: rgba(243, 243, 243, 0.9);
-  display: grid;
-  grid-template-columns: 1fr 5fr 1fr;
-  font-size: 0.9rem;
+@media screen and (max-width: 426px) {
+  #KCNavbar {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    grid-template-rows: 45px;
+    background: transparent;
+    font-family: "Taprom", "Patrick Hand", sans-serif;
+    font-size: 9px;
+    z-index: 999;
+    transition: margin-left 0.5s;
+  }
+
+  #KCNavbar #navLogo {
+    border: none;
+    background-color: #0A5748;
+    border-bottom-right-radius: 40px;
+    border-top: 0.2rem solid #0A5748;
+    border-bottom: 0.2rem solid #0A5748;
+    font-family: "Pacifico", sans-serif;
+    color: #fff;
+  }
+
+  #KCNavbar #navLogo div {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  #KCNavbar #navLogo div div:nth-child(2) {
+    display: none;
+  }
+
+  #KCNavbar #navLogo .KCLogo {
+    display: none;
+  }
+
+  #KCNavbar #navContent {
+    background-color: transparent;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: minmax(45px, 45px);
+  }
+
+  #KCNavbar #navContent .navMenu {
+    display: block;
+    margin: 0;
+    text-align: center;
+  }
+
+  #KCNavbar #navContent .navMenu .btnLogo {
+    font-size: 1.2em;
+    font-weight: bold;
+    height: 45px;
+    padding: 0;
+    margin: 0px;
+    border: none;
+    background-color: transparent;
+    color: #424242;
+    text-transform: uppercase;
+  }
+
+  #KCNavbar #navContent .navMenu .btnSubjects,
+  #KCNavbar #navContent .navMenu .btnQuestions,
+  #KCNavbar #navContent .navMenu .btnNotifications,
+  #KCNavbar #navContent .navMenu .btnGuide {
+    display: none;
+  }
+
+  #KCNavbar #navContent .navMenu .navTools {
+    border-bottom: 0.2rem solid #0A5748;
+  }
+
+  #KCNavbar #navContent .navMenu .navTools .btnSearch {
+    display: none;
+  }
+
+  #KCNavbar #navContent .navMenu .navTools .btnLang {
+    display: none;
+  }
+
+  #KCNavbar #navContent .navMenu .KCLogo {
+    height: 30px;
+  }
+
+  #KCNavbar #navContent .btnAsk {
+    background: transparent;
+    border-top: 0.2rem solid #0A5748;
+    border-bottom: 0.2rem solid #0A5748;
+    text-transform: uppercase;
+    border-bottom-left-radius: 40px;
+    border-top-right-radius: 40px;
+  }
+
+  #KCNavbar #navContent .btnAsk i {
+    display: none;
+  }
+
+  #KCNavbar #navContent .btnAsk:hover,
+  #KCNavbar #navContent .btnAsk:focus {
+    border-bottom: 0.2rem solid #0A5748;
+    background-color: #0A5748;
+  }
+
+  #KCNavbar #navContent .btnLogin {
+    background: transparent;
+    text-transform: uppercase;
+    border-top: 0.2rem solid #0A5748;
+    border-bottom: 0.2rem solid #0A5748;
+    border-top-left-radius: 40px;
+  }
+
+  #KCNavbar #navContent .btnLogin span::after {
+    content: "  ";
+  }
+
+  #KCNavbar #navContent .btnLogin:hover,
+  #KCNavbar #navContent .btnLogin:focus {
+    background-color: #0A5748;
+  }
+
+  #KCNavbar #navContent .btnAsk:hover i,
+  #KCNavbar #navContent .btnAsk:focus i,
+  #KCNavbar #navContent .btnLogin:hover i,
+  #KCNavbar #navContent .btnLogin:focus i {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+
+  #KCNavbar #navContent .userProfileBtn {
+    background: none;
+    border: none;
+    padding: 0;
+    position: relative;
+    display: block;
+    border-bottom: 0.2rem solid #0A5748;
+    border-top: 0.2rem solid #0A5748;
+    border-top-left-radius: 40px;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .blockProfile {
+    display: block;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .blockProfile .avatar_img_block {
+    z-index: 6;
+    cursor: pointer;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .blockProfile .avatar_img_block .avatar_img {
+    background-color: #F3F3F3;
+    border: 1.5px solid #0A5748;
+    border-radius: 20px;
+    padding: 1px;
+    height: 25px;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .blockProfile .avatar_name {
+    display: none;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .profileMenuList {
+    position: absolute;
+    z-index: 999;
+    left: 15px;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .profileMenuList div i {
+    margin: 0;
+    padding: 0;
+    height: 0;
+    color: #424242;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul {
+    margin: 0;
+    font-family: "Taprom", "Montserrat", sans-serif;
+    font-size: 8px;
+    border: 2px solid #424242;
+    background-color: white;
+    padding: 5px;
+    border-radius: 10px;
+    padding: 0;
+    margin: 0;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li {
+    margin: 2px;
+    text-align: center;
+    padding: 8px 8px;
+    list-style: none;
+    width: auto;
+    cursor: pointer;
+    border-radius: 8px;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:nth-child(2) {
+    border-top: 1px solid #D8D8D8;
+    border-bottom: 1px solid #D8D8D8;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:hover,
+  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:focus {
+    background-color: #17CCA9;
+    color: white;
+  }
+
+  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li.btnLogout:hover,
+  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li.btnLogout:focus {
+    background-color: #FF5654;
+  }
+
+  #KCNavbar #sideMenu {
+    position: fixed;
+    width: 0;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: #0A5748;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding: 0;
+  }
+
+  #KCNavbar #sideMenu .logo {
+    text-align: center;
+  }
+
+  #KCNavbar #sideMenu .logo .KCLogo {
+    height: 50px;
+  }
+
+  #KCNavbar #sideMenu .menuTitle {
+    font-size: 1.2em;
+    margin-top: 20px;
+  }
+
+  #KCNavbar #sideMenu .menuList {
+    padding-left: 20px;
+    margin-top: 10px;
+  }
+
+  #KCNavbar #sideMenu .menuList button {
+    cursor: pointer;
+    font-size: 1.4em;
+    color: white;
+    margin: 15px 0;
+    text-align: left;
+    background: transparent;
+    display: block;
+    width: 100%;
+    border: none;
+    border-radius: 20px;
+  }
+
+  #KCNavbar #sideMenu .menuList button:focus {
+    background: white;
+    color: #0A5748;
+  }
+
+  #KCNavbar #sideMenu .menuList .languageSetting label {
+    color: white;
+    font-size: 1.4em;
+  }
+
+  #KCNavbar #sideMenu .menuList .languageSetting select {
+    display: block;
+  }
 }
 
-#KCNavbar #navContent .navMenu {
-  display: grid;
-  grid-template-columns: 2fr 2fr 2fr 2fr 2fr 1fr;
+@media screen and (min-width: 1440px) {
+  .loginContent {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-auto-rows: minmax(540px, 540px);
+  }
+
+  .loginContent .quoteSide {
+    justify-self: center;
+    align-self: center;
+  }
+
+  .loginContent .quoteSide .quoteContent {
+    font-size: 3rem;
+    font-family: "Pacifico", cursive;
+    color: #424242;
+  }
+
+  .loginContent .quoteSide .quoteAuthor {
+    font-size: 1rem;
+    font-family: "Happy Monkey", cursive;
+    font-weight: bold;
+    color: #424242;
+  }
+
+  .loginContent .formSide {
+    font-family: "Taprom", "Montserrat", sans-serif;
+    font-size: 0.9em;
+    padding-right: 60px;
+  }
+
+  .loginContent .formSide .cardContainer {
+    position: relative;
+    -webkit-perspective: 3500px;
+            perspective: 3500px;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+    transition: all 1s ease;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard div.frontCard .content {
+    border: 2px solid #0A5748;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #F3F3F3;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard div.backCard .content {
+    border: 2px solid #0A5748;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #F3F3F3;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard div.frontCard,
+  .loginContent .formSide .cardContainer .kcCard div.backCard {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+    transition: all 1s ease;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard div.backCard {
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+    visibility: hidden;
+  }
+
+  .loginContent .formSide .cardContainer #formLogin .btnSubmit,
+  .loginContent .formSide .cardContainer #formRegister .btnSubmit {
+    width: 100%;
+  }
 }
 
-#KCNavbar #navContent .navMenu .btnNavMenu {
-  margin: 0px;
-  border: none;
-  background-color: rgba(243, 243, 243, 0.9);
-  color: #424242;
-  text-transform: uppercase;
-  border-bottom: 0.2rem solid #0A5748;
+@media screen and (max-width: 1439px) and (min-width: 769px) {
+  .loginContent {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 20px;
+    grid-auto-rows: minmax(540px, 540px);
+  }
+
+  .loginContent .quoteSide {
+    justify-self: center;
+    align-self: center;
+  }
+
+  .loginContent .quoteSide .quoteContent {
+    font-size: 2rem;
+    font-family: "Pacifico", cursive;
+    color: #424242;
+  }
+
+  .loginContent .quoteSide .quoteAuthor {
+    font-size: 1rem;
+    font-family: "Happy Monkey", cursive;
+    font-weight: bold;
+    color: #424242;
+  }
+
+  .loginContent .formSide {
+    font-family: "Taprom", "Montserrat", sans-serif;
+    font-size: 0.8em;
+    padding-right: 60px;
+  }
+
+  .loginContent .formSide .cardContainer {
+    position: relative;
+    -webkit-perspective: 3500px;
+            perspective: 3500px;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+    transition: all 1s ease;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard div.frontCard .content {
+    border: 2px solid #0A5748;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #F3F3F3;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard div.backCard .content {
+    border: 2px solid #0A5748;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #F3F3F3;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard div.frontCard,
+  .loginContent .formSide .cardContainer .kcCard div.backCard {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+    transition: all 1s ease;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard div.backCard {
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+    visibility: hidden;
+  }
+
+  .loginContent .formSide .cardContainer #formLogin .btnSubmit,
+  .loginContent .formSide .cardContainer #formRegister .btnSubmit {
+    width: 100%;
+  }
 }
 
-#KCNavbar #navContent .navMenu .btnNavMenu i {
-  transition: all 0.5s ease-in-out;
+@media screen and (max-width: 768px) and (min-width: 426px) {
+  .loginContent {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: minmax(540px, 540px);
+    justify-items: center;
+  }
+
+  .loginContent .quoteSide {
+    display: none;
+  }
+
+  .loginContent .formSide {
+    width: 70%;
+    font-family: "Taprom", "Montserrat", sans-serif;
+    font-size: 0.8em;
+  }
+
+  .loginContent .formSide .cardContainer {
+    position: relative;
+    -webkit-perspective: 3500px;
+            perspective: 3500px;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+    transition: all 1s ease;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard div.frontCard .content {
+    border: 2px solid #0A5748;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #F3F3F3;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard div.backCard .content {
+    border: 2px solid #0A5748;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #F3F3F3;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard div.frontCard,
+  .loginContent .formSide .cardContainer .kcCard div.backCard {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+    transition: all 1s ease;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard div.backCard {
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+    visibility: hidden;
+  }
+
+  .loginContent .formSide .cardContainer #formLogin .btnSubmit,
+  .loginContent .formSide .cardContainer #formRegister .btnSubmit {
+    width: 100%;
+  }
 }
 
-#KCNavbar #navContent .navMenu .btnNavMenu.active {
-  cursor: pointer;
-  border-top-right-radius: 50px;
-  border-top-left-radius: 50px;
-  border-bottom: none;
-  border-top: 0.2rem solid #0A5748;
-}
+@media screen and (max-width: 426px) {
+  .loginContent {
+    margin-top: 5px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: minmax(540px, 540px);
+    justify-items: center;
+  }
 
-#KCNavbar #navContent .navMenu .btnNavMenu:hover {
-  border-bottom: 0.1rem dotted #0A5748;
-  cursor: pointer;
-  font-weight: bold;
-}
+  .loginContent .quoteSide {
+    display: none;
+  }
 
-#KCNavbar #navContent .navMenu .btnNavMenu:hover i {
-  -webkit-transform: rotate(360deg);
-          transform: rotate(360deg);
-}
+  .loginContent .formSide {
+    width: 100%;
+    font-family: "Taprom", "Montserrat", sans-serif;
+    font-size: 0.7em;
+  }
 
-#KCNavbar #navContent .navMenu .navTools {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  border-bottom: 0.2rem solid #0A5748;
-}
+  .loginContent .formSide .cardContainer {
+    position: relative;
+    -webkit-perspective: 3500px;
+            perspective: 3500px;
+  }
 
-#KCNavbar #navContent .navMenu .navTools > button {
-  margin: 0px;
-  border: none;
-  background-color: rgba(243, 243, 243, 0.9);
-  color: #0A5748;
-  cursor: pointer;
-}
+  .loginContent .formSide .cardContainer .kcCard {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+    transition: all 1s ease;
+  }
 
-#KCNavbar #navContent .navMenu .navTools .btnSearch {
-  justify-self: center;
-  align-self: center;
-  padding: 0;
-  transition: all 0.5s ease-in-out;
-}
+  .loginContent .formSide .cardContainer .kcCard .formTitle {
+    margin-bottom: 0;
+  }
 
-#KCNavbar #navContent .navMenu .navTools .btnSearch:hover,
-#KCNavbar #navContent .navMenu .navTools .btnSearch:focus {
-  border: 2px solid #0A5748;
-  padding: 2px 7px;
-  border-radius: 5px;
-  background-color: #0A5748;
-  color: white;
-  -webkit-transform: rotate(360deg);
-          transform: rotate(360deg);
-}
+  .loginContent .formSide .cardContainer .kcCard div.frontCard .content {
+    border: 2px solid #0A5748;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #F3F3F3;
+  }
 
-#KCNavbar #navContent .navMenu .navTools .btnLang {
-  align-self: center;
-  justify-self: center;
-  border: 2px solid #0A5748;
-  padding: 1px 7px;
-  border-radius: 5px;
-  display: block;
-  transition: all 0.5s ease-in-out;
-}
+  .loginContent .formSide .cardContainer .kcCard div.backCard .content {
+    border: 2px solid #0A5748;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #F3F3F3;
+  }
 
-#KCNavbar #navContent .navMenu .navTools .btnLang:hover,
-#KCNavbar #navContent .navMenu .navTools .btnLang:focus {
-  background-color: #0A5748;
-  color: white;
-  -webkit-transform: rotate(360deg);
-          transform: rotate(360deg);
-}
+  .loginContent .formSide .cardContainer .kcCard div.frontCard,
+  .loginContent .formSide .cardContainer .kcCard div.backCard {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+    transition: all 1s ease;
+  }
 
-#KCNavbar #navContent .btnAsk {
-  border-top: 0.2rem solid #0A5748;
-  border-bottom: 0.2rem solid #0A5748;
-  text-transform: uppercase;
-  border-bottom-left-radius: 40px;
-  border-top-right-radius: 40px;
-}
+  .loginContent .formSide .cardContainer .kcCard div.backCard {
+    -webkit-transform: rotateY(180deg);
+            transform: rotateY(180deg);
+    visibility: hidden;
+  }
 
-#KCNavbar #navContent .btnAsk:hover,
-#KCNavbar #navContent .btnAsk:focus {
-  border-bottom: 0.2rem solid #0A5748;
-}
-
-#KCNavbar #navContent .btnLogin {
-  text-transform: uppercase;
-  border-top: 0.2rem solid #0A5748;
-  border-bottom: 0.2rem solid #0A5748;
-  border-top-left-radius: 40px;
-  border-bottom-right-radius: 40px;
-}
-
-#KCNavbar #navContent .btnAsk:hover i,
-#KCNavbar #navContent .btnAsk:focus i,
-#KCNavbar #navContent .btnLogin:hover i,
-#KCNavbar #navContent .btnLogin:focus i {
-  -webkit-transform: rotate(360deg);
-          transform: rotate(360deg);
-}
-
-#KCNavbar #navContent .userProfileBtn {
-  background: none;
-  border: none;
-  padding: 0;
-  position: relative;
-}
-
-#KCNavbar #navContent .userProfileBtn .blockProfile {
-  border-bottom: 0.2rem solid #0A5748;
-  border-top-left-radius: 40px;
-  border-bottom-right-radius: 40px;
-  display: grid;
-  grid-template-columns: repeat(13, 1fr);
-  padding: 0.4rem 1.5rem;
-}
-
-#KCNavbar #navContent .userProfileBtn .blockProfile .avatar_img_block {
-  z-index: 6;
-  cursor: pointer;
-  grid-column-start: 1;
-  grid-column-end: 4;
-  grid-row-start: 1;
-}
-
-#KCNavbar #navContent .userProfileBtn .blockProfile .avatar_img_block .avatar_img {
-  background-color: #F3F3F3;
-  border: 1.5px solid #0A5748;
-  border-radius: 20px;
-  padding: 1px;
-}
-
-#KCNavbar #navContent .userProfileBtn .blockProfile .avatar_name {
-  z-index: 5;
-  cursor: pointer;
-  grid-column-start: 3;
-  grid-column-end: 14;
-  grid-row-start: 1;
-  text-align: center;
-  font-family: "Sniglet", cursive;
-  border: 1.5px solid #0A5748;
-  font-weight: bold;
-  border-radius: 15px;
-  align-self: center;
-}
-
-#KCNavbar #navContent .userProfileBtn .profileMenuList {
-  position: absolute;
-  top: 70%;
-  left: 0;
-  z-index: 999;
-  width: 100%;
-}
-
-#KCNavbar #navContent .userProfileBtn .profileMenuList div {
-  position: relative;
-  width: 100%;
-}
-
-#KCNavbar #navContent .userProfileBtn .profileMenuList div i {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 52%;
-  color: #424242;
-}
-
-#KCNavbar #navContent .userProfileBtn .profileMenuList div ul {
-  position: absolute;
-  top: 7px;
-  left: 20%;
-  font-family: "Montserrat", sans-serif;
-  font-size: 0.8em;
-  border: 2px solid #424242;
-  background-color: white;
-  padding: 5px;
-  border-radius: 10px;
-  padding: 0;
-  margin: 0;
-}
-
-#KCNavbar #navContent .userProfileBtn .profileMenuList div ul li {
-  margin: 2px;
-  text-align: center;
-  padding: 8px 8px;
-  list-style: none;
-  width: auto;
-  cursor: pointer;
-  border-radius: 8px;
-}
-
-#KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:nth-child(2) {
-  border-top: 1px solid #D8D8D8;
-  border-bottom: 1px solid #D8D8D8;
-}
-
-#KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:hover,
-#KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:focus {
-  background-color: #17CCA9;
-  color: white;
-}
-
-#KCNavbar #navContent .userProfileBtn .profileMenuList div ul li.btnLogout:hover,
-#KCNavbar #navContent .userProfileBtn .profileMenuList div ul li.btnLogout:focus {
-  background-color: #FF5654;
-}
-
-.loginContent {
-  margin-top: 3rem;
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-auto-rows: minmax(540px, 540px);
-}
-
-.loginContent .quoteSide {
-  justify-self: center;
-  align-self: center;
-}
-
-.loginContent .quoteSide .quoteContent {
-  font-size: 3rem;
-  font-family: "Pacifico", cursive;
-  color: #424242;
-}
-
-.loginContent .quoteSide .quoteAuthor {
-  font-size: 1rem;
-  font-family: "Happy Monkey", cursive;
-  font-weight: bold;
-  color: #424242;
-}
-
-.loginContent .formSide {
-  padding-right: 60px;
-}
-
-.loginContent .formSide .cardContainer {
-  position: relative;
-  -webkit-perspective: 3500px;
-          perspective: 3500px;
-}
-
-.loginContent .formSide .cardContainer .kcCard {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-transform-style: preserve-3d;
-          transform-style: preserve-3d;
-  transition: all 1s ease;
-}
-
-.loginContent .formSide .cardContainer .kcCard div.frontCard .content {
-  border: 2px solid #0A5748;
-  padding: 20px;
-  border-radius: 10px;
-  background-color: #F3F3F3;
-}
-
-.loginContent .formSide .cardContainer .kcCard div.backCard .content {
-  border: 2px solid #0A5748;
-  padding: 20px;
-  border-radius: 10px;
-  background-color: #F3F3F3;
-}
-
-.loginContent .formSide .cardContainer .kcCard div.frontCard,
-.loginContent .formSide .cardContainer .kcCard div.backCard {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
-  transition: all 1s ease;
-}
-
-.loginContent .formSide .cardContainer .kcCard div.backCard {
-  -webkit-transform: rotateY(180deg);
-          transform: rotateY(180deg);
-  visibility: hidden;
-}
-
-.loginContent .formSide .cardContainer #formLogin .btnSubmit,
-.loginContent .formSide .cardContainer #formRegister .btnSubmit {
-  width: 100%;
+  .loginContent .formSide .cardContainer #formLogin .btnSubmit,
+  .loginContent .formSide .cardContainer #formRegister .btnSubmit {
+    width: 100%;
+  }
 }
 
 .userProfileContent {

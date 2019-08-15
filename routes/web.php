@@ -20,6 +20,9 @@ Route::middleware('verify_access_token')->get('/home', function () {
     return view('home');
 })->name(RouteConstants::HOME);
 
+Route::get('/locale/{locale}', 'LocalizationController@index')
+    ->name(RouteConstants::LOCALIZATION);
+
 Route::group([
     'prefix' => 'auth'
 ], function() {

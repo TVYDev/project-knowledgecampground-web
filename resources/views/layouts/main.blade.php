@@ -12,7 +12,7 @@
     @include('layouts.partials._navbar')
     @include('layouts.partials._alert_message')
 
-    <div class="container">
+    <div id="mainContent" class="container">
         @yield('content')
     </div>
     <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
