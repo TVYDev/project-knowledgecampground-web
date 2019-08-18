@@ -137,6 +137,20 @@ button:focus {
 .btnLink:hover::after {
     content: ' ⋙';
 }
+.btnFormPrimary {
+    color: $white;
+    background-color: $secondary-green;
+    border-radius: 10px;
+}
+.btnFormSecondary {
+    color: $white;
+    background-color: $main-gray;
+    border-radius: 10px;
+}
+.btnFormThirdly {
+    background-color: $thirdly-gray;
+    border-radius: 10px;
+}
 .btnSocialMedia {
     margin-top: 10px;
     -webkit-border-radius: 8px;

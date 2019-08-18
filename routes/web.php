@@ -61,6 +61,6 @@ Route::group([
 Route::group([
     'prefix' => 'description'
 ], function() {
-    Route::post('/save', 'DescriptionController@save')
+    Route::post('/save', 'DescriptionController@postSave')
         ->name(RouteConstants::DESCRIPTION_POST_SAVE);
 });

@@ -78699,6 +78699,7 @@ function (_HTMLElement) {
     _this.contentOrder = _this.querySelector('.TVYContentOrder');
     _this.allDescData = [];
     _this.descPosition = 0;
+    _this.groupDescId = Math.random().toString(36).replace('0.', '');
 
     _this.tabEditorMovement();
 
@@ -78878,7 +78879,8 @@ function (_HTMLElement) {
             pos: position,
             type: TVYContentEditor.textType,
             data: dataContent,
-            descId: descId
+            desc_id: descId,
+            group_desc_id: this.groupDescId
           });
           break;
 
@@ -78894,6 +78896,7 @@ function (_HTMLElement) {
 
       console.log('Data saved----------');
       console.log(this.allDescData);
+      this.saveDescDataToBackend();
       console.log('Data saved----------End');
     }
   }, {
@@ -78979,6 +78982,28 @@ function (_HTMLElement) {
 
           _this3.btnAddContent.setAttribute('data-type', dataType);
         });
+      });
+    }
+  }, {
+    key: "saveDescDataToBackend",
+    value: function saveDescDataToBackend() {
+      var url = window.location.origin + '/description/save';
+      $.ajax({
+        url: url,
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: JSON.stringify(this.allDescData),
+        contentType: 'application/json',
+        type: 'POST',
+        success: function success(result) {
+          console.log('---Success');
+          console.log(result);
+        },
+        error: function error(err) {
+          console.log('---Error');
+          console.log(err);
+        }
       });
     }
   }, {

@@ -23329,6 +23329,23 @@ button:focus {
   content: " \22D9";
 }
 
+.btnFormPrimary {
+  color: #fff;
+  background-color: #17CCA9;
+  border-radius: 10px;
+}
+
+.btnFormSecondary {
+  color: #fff;
+  background-color: #424242;
+  border-radius: 10px;
+}
+
+.btnFormThirdly {
+  background-color: #D8D8D8;
+  border-radius: 10px;
+}
+
 .btnSocialMedia {
   margin-top: 10px;
   border-radius: 8px;

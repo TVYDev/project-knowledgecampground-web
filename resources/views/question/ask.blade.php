@@ -41,6 +41,9 @@
                         {{--@include('layouts.partials._content_editor')--}}
                         <tvy-content-editor class="col-md-12"></tvy-content-editor>
                     </div>
+                    <button class="btn btnPostQuestion btnFormPrimary">Post my question</button>
+                    <button class="btn btnSaveDraftQuestion btnFormSecondary">Save as draft</button>
+                    <button class="btn btnDiscardQuestion btnFormThirdly">Discard</button>
                 </form>
             </div>
         </div>
