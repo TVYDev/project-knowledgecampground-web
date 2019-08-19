@@ -59,8 +59,8 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => 'description'
+    'prefix' => 'question-description'
 ], function() {
-    Route::post('/save', 'DescriptionController@postSave')
-        ->name(RouteConstants::DESCRIPTION_POST_SAVE);
+    Route::post('/save', 'QuestionDescriptionController@postSave')
+        ->name(RouteConstants::QUESTION_DESCRIPTION_POST_SAVE);
 });

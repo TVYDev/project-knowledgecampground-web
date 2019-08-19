@@ -78986,13 +78986,16 @@ function (_HTMLElement) {
   }, {
     key: "saveDescDataToBackend",
     value: function saveDescDataToBackend() {
-      var url = window.location.origin + '/description/save';
+      var url = window.location.origin + '/question-description/save';
+      console.log(JSON.stringify(this.allDescData));
       $.ajax({
         url: url,
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        data: JSON.stringify(this.allDescData),
+        data: JSON.stringify({
+          desc_data: JSON.stringify(this.allDescData)
+        }),
         contentType: 'application/json',
         type: 'POST',
         success: function success(result) {

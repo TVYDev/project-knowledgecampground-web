@@ -40,5 +40,11 @@ return [
             'path'  => '/api/auth/verify-authentication',
             'url'   => $host.'/api/auth/verify-authentication'
         ]
+    ],
+    'question_description' => [
+        'save'  =>  [
+            'path'  => '/api/question-description/save',
+            'url'   => $host.'/api/question-description/save'
+        ]
     ]
 ];

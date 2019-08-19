@@ -62,7 +62,10 @@ trait RequestAPI
 
     public function getAuthorizationHeader()
     {
-        return ['Authorization' => self::getAccessToken()];
+        return [
+            'Authorization' => self::getAccessToken(),
+            'Content-Type'  => 'application/json'
+        ];
     }
     /**********************************************************************************************
      * END (Make HTTP Request)

@@ -33,8 +33,8 @@ class RouteConstants
     /***********************************************************/
 
     /************************************************************
-     * Route for DescriptionController
+     * Route for QuestionDescriptionController
      ***********************************************************/
-    const DESCRIPTION_POST_SAVE = 'description.postSave';
+    const QUESTION_DESCRIPTION_POST_SAVE = 'question_description.postSave';
     /***********************************************************/
 }

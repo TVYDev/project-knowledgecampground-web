@@ -326,11 +326,14 @@ class TVYContentEditor extends HTMLElement
     }
 
     saveDescDataToBackend () {
-        let url = window.location.origin + '/description/save';
+        let url = window.location.origin + '/question-description/save';
+        console.log(JSON.stringify(this.allDescData));
         $.ajax({
             url: url,
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-            data: JSON.stringify(this.allDescData),
+            data: JSON.stringify({
+                desc_data: JSON.stringify(this.allDescData)
+            }),
             contentType: 'application/json',
             type: 'POST',
             success: function(result) {
