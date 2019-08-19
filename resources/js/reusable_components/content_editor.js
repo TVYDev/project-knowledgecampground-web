@@ -41,7 +41,6 @@ const html = `
                 <button type="button" class="btnAddContent" data-type="text">Add to description</button>
             </div>
         </div>
-        <div class="TVYContentOrder col-md-12"></div>
     </div>
 `;
 
@@ -60,7 +59,7 @@ class TVYContentEditor extends HTMLElement
         this.actualCodeEditor = this.querySelector('#TVYCodeEditor .actualCodeEditor');
         this.imageEditor = this.querySelector('.editor #TVYImageEditor');
         this.btnAddContent = this.querySelector('.actionContentEditor .btnAddContent');
-        this.contentOrder = this.querySelector('.TVYContentOrder');
+        this.contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
 
         this.allDescData = [];
         this.descPosition = 0;
@@ -110,7 +109,7 @@ class TVYContentEditor extends HTMLElement
             <div class="descContent"></div>
         `;
 
-        let contentOrder = this.querySelector('.TVYContentOrder');
+        let contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
         let randomDescId = Math.random().toString(36).replace('0.', '');
 
         switch(dataType)
@@ -178,15 +177,15 @@ class TVYContentEditor extends HTMLElement
 
                             // Desc element
                             let currentDescElement = this.getDescElementByDescId(randomDescId);
-                            let preDescElement = this.getDescElementByDescId(preDescObj.descId);
+                            let preDescElement = this.getDescElementByDescId(preDescObj.desc_id);
 
                             // Exchange data content
                             new QuillEditor(currentDescElement.querySelector('.descContent'), false, true, preDescObjData);
                             new QuillEditor(preDescElement.querySelector('.descContent'), false, true, currentDescObjData);
 
                             // Update data content
-                            this.updateDataOfADesc(currentDescObjData, preDescObj.descId);
-                            this.updateDataOfADesc(preDescObjData, currentDescObj.descId);
+                            this.updateDataOfADesc(currentDescObjData, preDescObj.desc_id);
+                            this.updateDataOfADesc(preDescObjData, currentDescObj.desc_id);
                         }
                     });
                     arrowDownBtn.addEventListener('click', () => {
@@ -204,15 +203,15 @@ class TVYContentEditor extends HTMLElement
 
                             // Desc element
                             let currentDescElement = this.getDescElementByDescId(randomDescId);
-                            let nextDescElement = this.getDescElementByDescId(newDescObj.descId);
+                            let nextDescElement = this.getDescElementByDescId(newDescObj.desc_id);
 
                             // Exchange data content
                             new QuillEditor(currentDescElement.querySelector('.descContent'), false, true, nextDescObjData);
                             new QuillEditor(nextDescElement.querySelector('.descContent'), false, true, currentDescObjData);
 
                             // Update data content
-                            this.updateDataOfADesc(currentDescObjData, newDescObj.descId);
-                            this.updateDataOfADesc(nextDescObjData, currentDescObj.descId);
+                            this.updateDataOfADesc(currentDescObjData, newDescObj.desc_id);
+                            this.updateDataOfADesc(nextDescObjData, currentDescObj.desc_id);
                         }
                     });
 
@@ -254,14 +253,13 @@ class TVYContentEditor extends HTMLElement
                 break;
         }
         console.log('Data saved----------');
-        console.log(this.allDescData);
         this.saveDescDataToBackend();
         console.log('Data saved----------End');
     }
 
     updateDataOfADesc(data, descId) {
         this.allDescData.forEach(ele => {
-           if(ele.descId === descId){
+           if(ele.desc_id === descId){
                ele.data = data;
            }
         });
@@ -270,7 +268,7 @@ class TVYContentEditor extends HTMLElement
     updatePositionsAfterADescElementDeleted (descId) {
         this.descPosition--;
         let prePos = 1;
-        let filteredDataContents = this.allDescData.filter(ele => {return ele.descId !== descId;});
+        let filteredDataContents = this.allDescData.filter(ele => {return ele.desc_id !== descId;});
         filteredDataContents.forEach(ele => {
             ele.pos = prePos++;
         });
@@ -278,7 +276,7 @@ class TVYContentEditor extends HTMLElement
     }
 
     getDescObjectByDescId (descId) {
-        let descFiltered = this.allDescData.filter(desc => desc.descId === descId);
+        let descFiltered = this.allDescData.filter(desc => desc.desc_id === descId);
         return descFiltered[0];
     }
 
@@ -288,7 +286,7 @@ class TVYContentEditor extends HTMLElement
     }
 
     getDescElementByDescId (descId) {
-        let allDescElements = this.querySelectorAll('.TVYContentOrder .descElement');
+        let allDescElements = document.querySelectorAll('.questionPreview .TVYContentOrder .descElement');
         let wantedElement = null;
         allDescElements.forEach(ele => {
            if(ele.getAttribute('data-desc-id') === descId){
@@ -344,6 +342,7 @@ class TVYContentEditor extends HTMLElement
                 console.log(err);
             }
         });
+        console.log(this.allDescData);
     }
 
     connectedCallback()

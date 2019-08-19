@@ -41,14 +41,20 @@
                         {{--@include('layouts.partials._content_editor')--}}
                         <tvy-content-editor class="col-md-12"></tvy-content-editor>
                     </div>
-                    <button class="btn btnPostQuestion btnFormPrimary">Post my question</button>
-                    <button class="btn btnSaveDraftQuestion btnFormSecondary">Save as draft</button>
-                    <button class="btn btnDiscardQuestion btnFormThirdly">Discard</button>
+                    <button class="btn btnPostQuestion btnFormPrimary">
+                        <span>{{ __('Post my question') }}</span>&nbsp;&nbsp;&nbsp;<i class="far fa-paper-plane"></i>
+                    </button>
+                    <button class="btn btnSaveDraftQuestion btnFormSecondary">
+                        <span>{{ __('Save as draft') }}</span>&nbsp;&nbsp;&nbsp;<i class="far fa-save"></i>
+                    </button>
+                    <button class="btn btnDiscardQuestion btnFormThirdly">
+                        <span>{{ __('Discard') }}</span>&nbsp;&nbsp;&nbsp;<i class="fas fa-ban"></i>
+                    </button>
                 </form>
             </div>
         </div>
         <div class="questionPreview">
-
+            <div class="TVYContentOrder col-md-12"></div>
         </div>
     </div>
 @endsection

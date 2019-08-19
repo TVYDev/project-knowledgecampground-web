@@ -78674,7 +78674,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-var html = "\n    <div class=\"TVYContentProduction\">\n        <div class=\"TVYContentEditor col-md-12\">\n            <div class=\"tabTypeContent\">\n               <button type=\"button\" class=\"btnAddPlainText selected\" data-type=\"text\">Plain Text</button>\n               <button type=\"button\" class=\"btnAddCodingBlock\" data-type=\"code\">Coding Block</button>\n               <button type=\"button\" class=\"btnAddImage\" data-type=\"image\">Media File</button>\n            </div>\n            <div class=\"editor\">\n                <div id=\"TVYTextEditor\">\n                    <div class=\"actualTextEditor\"></div>\n                </div>\n                <div id=\"TVYCodeEditor\" hidden=\"hidden\">\n                    <div class=\"codeEditorTools col-md-12\">\n                        <div>\n                            <label class=\"col-md-4\">Language</label>\n                            <select class=\"codeEditorMode form-control-sm col-md-7\">\n                                <option>JavaScript</option>\n                                <option>HTML</option>\n                            </select>\n                        </div>\n                        <div>\n                            <label class=\"col-md-4\">Theme</label>\n                            <select class=\"codeEditorTheme form-control-sm col-md-7\">\n                                <option>Light Theme</option>\n                                <option>Dark Theme</option>\n                            </select>\n                            <i class=\"far fa-question-circle\"></i>\n                        </div>\n                    </div>\n                    <div class=\"actualCodeEditor\"></div>\n                </div>\n                <div id=\"TVYImageEditor\" hidden=\"hidden\">\n                    I am image selector\n                </div>\n            </div>\n            <div class=\"actionContentEditor\">\n                <button type=\"button\" class=\"btnAddContent\" data-type=\"text\">Add to description</button>\n            </div>\n        </div>\n        <div class=\"TVYContentOrder col-md-12\"></div>\n    </div>\n";
+var html = "\n    <div class=\"TVYContentProduction\">\n        <div class=\"TVYContentEditor col-md-12\">\n            <div class=\"tabTypeContent\">\n               <button type=\"button\" class=\"btnAddPlainText selected\" data-type=\"text\">Plain Text</button>\n               <button type=\"button\" class=\"btnAddCodingBlock\" data-type=\"code\">Coding Block</button>\n               <button type=\"button\" class=\"btnAddImage\" data-type=\"image\">Media File</button>\n            </div>\n            <div class=\"editor\">\n                <div id=\"TVYTextEditor\">\n                    <div class=\"actualTextEditor\"></div>\n                </div>\n                <div id=\"TVYCodeEditor\" hidden=\"hidden\">\n                    <div class=\"codeEditorTools col-md-12\">\n                        <div>\n                            <label class=\"col-md-4\">Language</label>\n                            <select class=\"codeEditorMode form-control-sm col-md-7\">\n                                <option>JavaScript</option>\n                                <option>HTML</option>\n                            </select>\n                        </div>\n                        <div>\n                            <label class=\"col-md-4\">Theme</label>\n                            <select class=\"codeEditorTheme form-control-sm col-md-7\">\n                                <option>Light Theme</option>\n                                <option>Dark Theme</option>\n                            </select>\n                            <i class=\"far fa-question-circle\"></i>\n                        </div>\n                    </div>\n                    <div class=\"actualCodeEditor\"></div>\n                </div>\n                <div id=\"TVYImageEditor\" hidden=\"hidden\">\n                    I am image selector\n                </div>\n            </div>\n            <div class=\"actionContentEditor\">\n                <button type=\"button\" class=\"btnAddContent\" data-type=\"text\">Add to description</button>\n            </div>\n        </div>\n    </div>\n";
 
 var TVYContentEditor =
 /*#__PURE__*/
@@ -78696,7 +78696,7 @@ function (_HTMLElement) {
     _this.actualCodeEditor = _this.querySelector('#TVYCodeEditor .actualCodeEditor');
     _this.imageEditor = _this.querySelector('.editor #TVYImageEditor');
     _this.btnAddContent = _this.querySelector('.actionContentEditor .btnAddContent');
-    _this.contentOrder = _this.querySelector('.TVYContentOrder');
+    _this.contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
     _this.allDescData = [];
     _this.descPosition = 0;
     _this.groupDescId = Math.random().toString(36).replace('0.', '');
@@ -78736,7 +78736,7 @@ function (_HTMLElement) {
       var thisBtn = this.querySelector('.btnAddContent');
       var dataType = thisBtn.getAttribute('data-type');
       var descHTML = "\n            <div class=\"descTools\" draggable=\"true\">\n                <span>\n                    <button type=\"button\" class=\"toolArrowUp\"><i class=\"fas fa-arrow-up\"></i></button>\n                    <button type=\"button\" class=\"toolArrowDown\"><i class=\"fas fa-arrow-down\"></i></button>\n                    <button type=\"button\" class=\"toolEdit\"><i class=\"fas fa-pen\"></i></button>\n                    <button type=\"button\" class=\"toolDelete\"><i class=\"fas fa-trash-alt\"></i></button>\n                </span>\n            </div>\n            <div class=\"descContent\"></div>\n        ";
-      var contentOrder = this.querySelector('.TVYContentOrder');
+      var contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
       var randomDescId = Math.random().toString(36).replace('0.', '');
 
       switch (dataType) {
@@ -78809,15 +78809,15 @@ function (_HTMLElement) {
 
                 var currentDescElement = _this2.getDescElementByDescId(randomDescId);
 
-                var preDescElement = _this2.getDescElementByDescId(preDescObj.descId); // Exchange data content
+                var preDescElement = _this2.getDescElementByDescId(preDescObj.desc_id); // Exchange data content
 
 
                 new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](currentDescElement.querySelector('.descContent'), false, true, preDescObjData);
                 new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](preDescElement.querySelector('.descContent'), false, true, currentDescObjData); // Update data content
 
-                _this2.updateDataOfADesc(currentDescObjData, preDescObj.descId);
+                _this2.updateDataOfADesc(currentDescObjData, preDescObj.desc_id);
 
-                _this2.updateDataOfADesc(preDescObjData, currentDescObj.descId);
+                _this2.updateDataOfADesc(preDescObjData, currentDescObj.desc_id);
               }
             });
             arrowDownBtn.addEventListener('click', function () {
@@ -78838,15 +78838,15 @@ function (_HTMLElement) {
 
                 var currentDescElement = _this2.getDescElementByDescId(randomDescId);
 
-                var nextDescElement = _this2.getDescElementByDescId(newDescObj.descId); // Exchange data content
+                var nextDescElement = _this2.getDescElementByDescId(newDescObj.desc_id); // Exchange data content
 
 
                 new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](currentDescElement.querySelector('.descContent'), false, true, nextDescObjData);
                 new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](nextDescElement.querySelector('.descContent'), false, true, currentDescObjData); // Update data content
 
-                _this2.updateDataOfADesc(currentDescObjData, newDescObj.descId);
+                _this2.updateDataOfADesc(currentDescObjData, newDescObj.desc_id);
 
-                _this2.updateDataOfADesc(nextDescObjData, currentDescObj.descId);
+                _this2.updateDataOfADesc(nextDescObjData, currentDescObj.desc_id);
               }
             });
             new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](descContent, false, true, this.quillTextContent);
@@ -78895,7 +78895,6 @@ function (_HTMLElement) {
       }
 
       console.log('Data saved----------');
-      console.log(this.allDescData);
       this.saveDescDataToBackend();
       console.log('Data saved----------End');
     }
@@ -78903,7 +78902,7 @@ function (_HTMLElement) {
     key: "updateDataOfADesc",
     value: function updateDataOfADesc(data, descId) {
       this.allDescData.forEach(function (ele) {
-        if (ele.descId === descId) {
+        if (ele.desc_id === descId) {
           ele.data = data;
         }
       });
@@ -78914,7 +78913,7 @@ function (_HTMLElement) {
       this.descPosition--;
       var prePos = 1;
       var filteredDataContents = this.allDescData.filter(function (ele) {
-        return ele.descId !== descId;
+        return ele.desc_id !== descId;
       });
       filteredDataContents.forEach(function (ele) {
         ele.pos = prePos++;
@@ -78925,7 +78924,7 @@ function (_HTMLElement) {
     key: "getDescObjectByDescId",
     value: function getDescObjectByDescId(descId) {
       var descFiltered = this.allDescData.filter(function (desc) {
-        return desc.descId === descId;
+        return desc.desc_id === descId;
       });
       return descFiltered[0];
     }
@@ -78940,7 +78939,7 @@ function (_HTMLElement) {
   }, {
     key: "getDescElementByDescId",
     value: function getDescElementByDescId(descId) {
-      var allDescElements = this.querySelectorAll('.TVYContentOrder .descElement');
+      var allDescElements = document.querySelectorAll('.questionPreview .TVYContentOrder .descElement');
       var wantedElement = null;
       allDescElements.forEach(function (ele) {
         if (ele.getAttribute('data-desc-id') === descId) {
@@ -79005,6 +79004,7 @@ function (_HTMLElement) {
           console.log(err);
         }
       });
+      console.log(this.allDescData);
     }
   }, {
     key: "connectedCallback",

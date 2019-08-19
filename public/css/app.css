@@ -23332,18 +23332,39 @@ button:focus {
 .btnFormPrimary {
   color: #fff;
   background-color: #17CCA9;
+  border: 2px solid #17CCA9;
   border-radius: 10px;
 }
 
+.btnFormPrimary:hover,
+.btnFormPrimary:focus {
+  color: #262626;
+  background-color: white;
+}
+
 .btnFormSecondary {
-  color: #fff;
+  color: white;
   background-color: #424242;
+  border: 2px solid #424242;
   border-radius: 10px;
+}
+
+.btnFormSecondary:hover,
+.btnFormSecondary:focus {
+  color: #262626;
+  background-color: white;
 }
 
 .btnFormThirdly {
   background-color: #D8D8D8;
+  border: 2px solid #D8D8D8;
   border-radius: 10px;
+}
+
+.btnFormThirdly:hover,
+.btnFormThirdly:focus {
+  color: #262626;
+  background-color: white;
 }
 
 .btnSocialMedia {
