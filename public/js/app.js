@@ -78986,7 +78986,7 @@ function (_HTMLElement) {
   }, {
     key: "saveDescDataToBackend",
     value: function saveDescDataToBackend() {
-      var url = window.location.origin + '/question-description/save';
+      var url = window.location.origin + '/question/post';
       console.log(JSON.stringify(this.allDescData));
       $.ajax({
         url: url,

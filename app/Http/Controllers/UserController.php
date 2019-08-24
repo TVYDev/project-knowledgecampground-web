@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\KCValidationException;
-use App\Http\ViewModels\UserAvatarViewModel;
 use App\Lib\HttpConstants;
 use App\Lib\RequestAPI;
 use App\Lib\ResponseEndPoint;
 use App\Lib\RouteConstants;
+use App\Http\Support\UserAvatar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -93,7 +93,7 @@ class UserController extends Controller
             $this->saveAccessToken($response);
 
             // --- save user_avatar to session for displaying nav_bar
-            $userAvatar = new UserAvatarViewModel();
+            $userAvatar = new UserAvatar();
             $this->saveUserAvatarToSession($userAvatar->getUserAvatar());
 
             return $this->doResponseSuccess(RouteConstants::HOME, $response->message_en, false);
@@ -137,7 +137,7 @@ class UserController extends Controller
             $this->saveAccessToken($response);
 
             // --- save user_avatar to session for displaying nav_bar
-            $userAvatar = new UserAvatarViewModel();
+            $userAvatar = new UserAvatar();
             $this->saveUserAvatarToSession($userAvatar->getUserAvatar());
 
             return $this->doResponseSuccess(RouteConstants::HOME, $response->message_en, false);

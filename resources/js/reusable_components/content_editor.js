@@ -326,7 +326,7 @@ class TVYContentEditor extends HTMLElement
     }
 
     saveDescDataToBackend () {
-        let url = window.location.origin + '/question-description/save';
+        let url = window.location.origin + '/question/post';
         console.log(JSON.stringify(this.allDescData));
         $.ajax({
             url: url,

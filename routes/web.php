@@ -52,8 +52,8 @@ Route::group([
 Route::group([
     'prefix' => 'question'
 ], function() {
-    Route::get('/ask', 'QuestionController@getPost')
+    Route::get('/post', 'QuestionController@getPost')
         ->name(RouteConstants::QUESTION_GET_POST);
-    Route::post('/ask', 'QuestionController@postPost')
+    Route::post('/post', 'QuestionController@postPost')
         ->name(RouteConstants::QUESTION_POST_POST);
 });

@@ -22,6 +22,6 @@ class QuestionController extends Controller
     public function getPost () {return view('question.post_question');}
     public function postPost (Request $request)
     {
-
+        return $request;
     }
 }
