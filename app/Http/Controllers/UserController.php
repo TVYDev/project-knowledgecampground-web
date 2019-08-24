@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\KCValidationException;
-use App\Http\ViewModels\UserAvatarViewModel;
 use App\Lib\HttpConstants;
 use App\Lib\RequestAPI;
 use App\Lib\ResponseEndPoint;
 use App\Lib\RouteConstants;
+use App\Http\Support\UserAvatar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -58,7 +58,7 @@ class UserController extends Controller
         }
         catch(\Exception $e)
         {
-            return $this->doResponseError($e,RouteConstants::USER_GET_CHANGE_PASSWORD,false);
+            return $this->doResponseError($e, true, RouteConstants::USER_GET_CHANGE_PASSWORD,false);
         }
     }
 
@@ -93,14 +93,14 @@ class UserController extends Controller
             $this->saveAccessToken($response);
 
             // --- save user_avatar to session for displaying nav_bar
-            $userAvatar = new UserAvatarViewModel();
+            $userAvatar = new UserAvatar();
             $this->saveUserAvatarToSession($userAvatar->getUserAvatar());
 
             return $this->doResponseSuccess(RouteConstants::HOME, $response->message_en, false);
         }
         catch(\Exception $e)
         {
-            return $this->doResponseError($e,RouteConstants::USER_GET_LOGIN,true);
+            return $this->doResponseError($e, true, RouteConstants::USER_GET_LOGIN,true);
         }
     }
 
@@ -137,14 +137,14 @@ class UserController extends Controller
             $this->saveAccessToken($response);
 
             // --- save user_avatar to session for displaying nav_bar
-            $userAvatar = new UserAvatarViewModel();
+            $userAvatar = new UserAvatar();
             $this->saveUserAvatarToSession($userAvatar->getUserAvatar());
 
             return $this->doResponseSuccess(RouteConstants::HOME, $response->message_en, false);
         }
         catch(\Exception $e)
         {
-            return $this->doResponseError($e,RouteConstants::USER_GET_LOGIN,true);
+            return $this->doResponseError($e, true, RouteConstants::USER_GET_LOGIN,true);
         }
     }
 
@@ -170,7 +170,7 @@ class UserController extends Controller
         }
         catch(\Exception $e)
         {
-            return $this->doResponseError($e,RouteConstants::USER_GET_LOGIN,true);
+            return $this->doResponseError($e, true, RouteConstants::USER_GET_LOGIN,true);
         }
     }
 
@@ -189,7 +189,7 @@ class UserController extends Controller
         }
         catch(\Exception $e)
         {
-            return $this->doResponseError($e,RouteConstants::USER_GET_LOGIN,true);
+            return $this->doResponseError($e, true, RouteConstants::USER_GET_LOGIN,true);
         }
     }
 

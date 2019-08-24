@@ -14,10 +14,13 @@ use Illuminate\Support\Facades\Redirect;
 
 trait ResponseEndPoint
 {
-    public function doResponseError (\Exception $exception, $redirectRouteForGeneralException,
-                                     $isIncludedInputForGeneralException)
+    public function doResponseError (\Exception $exception,
+                                     $isRedirect = true,
+                                     $redirectRouteForGeneralException = null,
+                                     $isIncludedInputForGeneralException = true)
     {
         $redirectObj = null;
+        $errorMessage = null;
         if($exception instanceof KCValidationException)
         {
             $validatorObj = $exception->getValidatorObject();
@@ -25,11 +28,15 @@ trait ResponseEndPoint
 
             KCLog::error($errorMessage);
 
-            $redirectObj = Redirect::route($exception->getRedirectedRoute())
-                ->withErrors($validatorObj);
-            if($exception->isRedirectWithInput())
+            if($isRedirect)
             {
-                $redirectObj->withInput();
+                $redirectObj = Redirect::route($exception->getRedirectedRoute())
+                    ->withErrors($validatorObj);
+                if($exception->isRedirectWithInput())
+                {
+                    $redirectObj->withInput();
+                }
+                return $redirectObj;
             }
         }
         else
@@ -38,15 +45,18 @@ trait ResponseEndPoint
 
             KCLog::error($errorMessage);
 
-            $redirectObj = Redirect::route($redirectRouteForGeneralException)
-                ->withFailure($errorMessage);
-            if($isIncludedInputForGeneralException)
+            if($isRedirect)
             {
-                $redirectObj->withInput();
+                $redirectObj = Redirect::route($redirectRouteForGeneralException)
+                    ->withFailure($errorMessage);
+                if($isIncludedInputForGeneralException)
+                {
+                    $redirectObj->withInput();
+                }
+                return $redirectObj;
             }
         }
-
-        return $redirectObj;
+        throw  new \Exception($errorMessage);
     }
 
     public function doResponseSuccess ($redirectRoute, $message, $isIncludedInput)
