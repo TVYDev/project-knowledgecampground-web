@@ -78324,7 +78324,7 @@ __webpack_require__(/*! ./auth/login */ "./resources/js/auth/login.js");
 
 __webpack_require__(/*! ./form_alert_message */ "./resources/js/form_alert_message.js");
 
-__webpack_require__(/*! ./question/ask */ "./resources/js/question/ask.js");
+__webpack_require__(/*! ./question/post_question */ "./resources/js/question/post_question.js");
 
 __webpack_require__(/*! ./reusable_components/content_editor */ "./resources/js/reusable_components/content_editor.js");
 
@@ -78623,10 +78623,10 @@ function navigateSideMenuForMobileScreen() {
 
 /***/ }),
 
-/***/ "./resources/js/question/ask.js":
-/*!**************************************!*\
-  !*** ./resources/js/question/ask.js ***!
-  \**************************************/
+/***/ "./resources/js/question/post_question.js":
+/*!************************************************!*\
+  !*** ./resources/js/question/post_question.js ***!
+  \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 

@@ -52,15 +52,8 @@ Route::group([
 Route::group([
     'prefix' => 'question'
 ], function() {
-    Route::get('/ask', 'QuestionController@getAsk')
-        ->name(RouteConstants::QUESTION_GET_ASK);
-    Route::post('/ask', 'QuestionController@postAsk')
-        ->name(RouteConstants::QUESTION_POST_ASK);
-});
-
-Route::group([
-    'prefix' => 'question-description'
-], function() {
-    Route::post('/save', 'QuestionDescriptionController@postSave')
-        ->name(RouteConstants::QUESTION_DESCRIPTION_POST_SAVE);
+    Route::get('/ask', 'QuestionController@getPost')
+        ->name(RouteConstants::QUESTION_GET_POST);
+    Route::post('/ask', 'QuestionController@postPost')
+        ->name(RouteConstants::QUESTION_POST_POST);
 });

@@ -19,8 +19,8 @@ class QuestionController extends Controller
      * Question Ask (Create)
      * [GET] [POST]
      *------------------------------------------------------------------------*/
-    public function getAsk () {return view('question.ask');}
-    public function postAsk (Request $request)
+    public function getPost () {return view('question.post_question');}
+    public function postPost (Request $request)
     {
 
     }

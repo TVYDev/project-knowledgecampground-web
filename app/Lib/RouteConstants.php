@@ -28,13 +28,8 @@ class RouteConstants
     /************************************************************
      * Route for QuestionController
      ***********************************************************/
-    const QUESTION_GET_ASK  = 'question.getAsk';
-    const QUESTION_POST_ASK = 'question.postAsk';
+    const QUESTION_GET_POST  = 'question.getPost';
+    const QUESTION_POST_POST = 'question.postPost';
     /***********************************************************/
 
-    /************************************************************
-     * Route for QuestionDescriptionController
-     ***********************************************************/
-    const QUESTION_DESCRIPTION_POST_SAVE = 'question_description.postSave';
-    /***********************************************************/
 }
