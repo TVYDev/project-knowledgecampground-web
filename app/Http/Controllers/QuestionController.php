@@ -50,10 +50,16 @@ class QuestionController extends Controller
     {
         try
         {
+            $is_draft = false;
+            if($request->has('submit') && $request->submit == 'draft')
+            {
+                $is_draft = true;
+            }
+
             $publicId = $request->publicId;
             $response = $this->put($this->getApiRequestUrl('question.save'), $publicId, [
                 'title'     => $request->title,
-                'is_draft'  => false
+                'is_draft'  => $is_draft
             ], $this->getAuthorizationHeader());
 
             if($response->success == true)
