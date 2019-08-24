@@ -40,9 +40,9 @@ trait RequestAPI
         return $dataResponse;
     }
 
-    public function delete (string $url, $data = null, $headers = null)
+    public function delete (string $url, $keyCondition, $data = null, $headers = null)
     {
-        return self::call($url, HttpConstants::METHOD_DELETE, $data, $headers);
+        return self::call("$url/$keyCondition", HttpConstants::METHOD_DELETE, $data, $headers);
     }
 
     public function get (string $url, $data = null, $headers = null)
@@ -55,9 +55,9 @@ trait RequestAPI
         return self::call($url, HttpConstants::METHOD_POST, $data, $headers);
     }
 
-    public function put (string $url, $data = null, $headers = null)
+    public function put (string $url, $keyCondition, $data = null, $headers = null)
     {
-        return self::call($url, HttpConstants::METHOD_PUT, $data, $headers);
+        return self::call("$url/$keyCondition", HttpConstants::METHOD_PUT, $data, $headers);
     }
 
     public function getAuthorizationHeader()

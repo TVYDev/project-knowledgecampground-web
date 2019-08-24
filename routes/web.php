@@ -56,4 +56,6 @@ Route::group([
         ->name(RouteConstants::QUESTION_GET_POST);
     Route::post('/post', 'QuestionController@postPost')
         ->name(RouteConstants::QUESTION_POST_POST);
+    Route::post('/save-during-editing', 'QuestionController@postSaveDuringEditing')
+        ->name(RouteConstants::QUESTION_POST_SAVE_DURING_EDITING);
 });

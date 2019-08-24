@@ -58,7 +58,7 @@ class UserController extends Controller
         }
         catch(\Exception $e)
         {
-            return $this->doResponseError($e,RouteConstants::USER_GET_CHANGE_PASSWORD,false);
+            return $this->doResponseError($e, true, RouteConstants::USER_GET_CHANGE_PASSWORD,false);
         }
     }
 
@@ -100,7 +100,7 @@ class UserController extends Controller
         }
         catch(\Exception $e)
         {
-            return $this->doResponseError($e,RouteConstants::USER_GET_LOGIN,true);
+            return $this->doResponseError($e, true, RouteConstants::USER_GET_LOGIN,true);
         }
     }
 
@@ -144,7 +144,7 @@ class UserController extends Controller
         }
         catch(\Exception $e)
         {
-            return $this->doResponseError($e,RouteConstants::USER_GET_LOGIN,true);
+            return $this->doResponseError($e, true, RouteConstants::USER_GET_LOGIN,true);
         }
     }
 
@@ -170,7 +170,7 @@ class UserController extends Controller
         }
         catch(\Exception $e)
         {
-            return $this->doResponseError($e,RouteConstants::USER_GET_LOGIN,true);
+            return $this->doResponseError($e, true, RouteConstants::USER_GET_LOGIN,true);
         }
     }
 
@@ -189,7 +189,7 @@ class UserController extends Controller
         }
         catch(\Exception $e)
         {
-            return $this->doResponseError($e,RouteConstants::USER_GET_LOGIN,true);
+            return $this->doResponseError($e, true, RouteConstants::USER_GET_LOGIN,true);
         }
     }
 

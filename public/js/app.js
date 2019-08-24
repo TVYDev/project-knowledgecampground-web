@@ -78895,7 +78895,7 @@ function (_HTMLElement) {
       }
 
       console.log('Data saved----------');
-      this.saveDescDataToBackend();
+      this.saveDescDataToBackend(true);
       console.log('Data saved----------End');
     }
   }, {
@@ -78985,16 +78985,19 @@ function (_HTMLElement) {
     }
   }, {
     key: "saveDescDataToBackend",
-    value: function saveDescDataToBackend() {
-      var url = window.location.origin + '/question/post';
-      console.log(JSON.stringify(this.allDescData));
+    value: function saveDescDataToBackend(isDraft) {
+      var url = window.location.origin + '/question/save-during-editing';
+      var titleQuestion = $('#formAskQuestion .questionTitle').val();
       $.ajax({
         url: url,
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         data: JSON.stringify({
-          desc_data: JSON.stringify(this.allDescData)
+          title: titleQuestion != '' ? titleQuestion : 'sample title',
+          public_id: this.getAttribute('data-public-id'),
+          desc_data: JSON.stringify(this.allDescData),
+          is_draft: isDraft
         }),
         contentType: 'application/json',
         type: 'POST',

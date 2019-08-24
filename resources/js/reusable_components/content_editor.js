@@ -253,7 +253,7 @@ class TVYContentEditor extends HTMLElement
                 break;
         }
         console.log('Data saved----------');
-        this.saveDescDataToBackend();
+        this.saveDescDataToBackend(true);
         console.log('Data saved----------End');
     }
 
@@ -325,14 +325,17 @@ class TVYContentEditor extends HTMLElement
         });
     }
 
-    saveDescDataToBackend () {
-        let url = window.location.origin + '/question/post';
-        console.log(JSON.stringify(this.allDescData));
+    saveDescDataToBackend (isDraft) {
+        let url = window.location.origin + '/question/save-during-editing';
+        let titleQuestion = $('#formAskQuestion .questionTitle').val();
         $.ajax({
             url: url,
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             data: JSON.stringify({
-                desc_data: JSON.stringify(this.allDescData)
+                title: titleQuestion != '' ? titleQuestion : 'sample title',
+                public_id: this.getAttribute('data-public-id'),
+                desc_data: JSON.stringify(this.allDescData),
+                is_draft: isDraft
             }),
             contentType: 'application/json',
             type: 'POST',

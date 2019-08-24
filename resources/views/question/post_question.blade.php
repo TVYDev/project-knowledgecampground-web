@@ -21,7 +21,7 @@
                 {{--</p>--}}
             {{--</div>--}}
             <div class="askQuestionForm">
-                <form action="#" method="POST" id="formAskQuestion">
+                <form action="{{ route(\App\Lib\RouteConstants::QUESTION_POST_POST) }}" method="POST" id="formAskQuestion">
                     @csrf
                     <div class="form-group row">
                         <label for="subject"><strong>Choose subject</strong></label>
@@ -32,19 +32,19 @@
                     </div>
                     <div class="form-group row">
                         <label for="title"><strong>Title</strong></label>
-                        <input type="text" class="form-control" name="title"
+                        <input type="text" class="form-control questionTitle" name="title"
                                placeholder="Keep your title short and simple">
                     </div>
                     <div class="form-group row">
                         <label for="description"><strong>Description</strong></label>
                         <div class="descriptionBlock col-md-12 m-0 p-0"></div>
-                        {{--@include('layouts.partials._content_editor')--}}
-                        <tvy-content-editor class="col-md-12"></tvy-content-editor>
+                        <input type="hidden" name="publicId" value="{{ $publicId }}">
+                        <tvy-content-editor class="col-md-12" data-public-id="{{ $publicId }}"></tvy-content-editor>
                     </div>
-                    <button class="btn btnPostQuestion btnFormPrimary">
+                    <button type="submit" name="submit" value="post" class="btn btnPostQuestion btnFormPrimary">
                         <span>{{ __('Post my question') }}</span>&nbsp;&nbsp;&nbsp;<i class="far fa-paper-plane"></i>
                     </button>
-                    <button class="btn btnSaveDraftQuestion btnFormSecondary">
+                    <button type="submit" name="submit" value="draft" class="btn btnSaveDraftQuestion btnFormSecondary">
                         <span>{{ __('Save as draft') }}</span>&nbsp;&nbsp;&nbsp;<i class="far fa-save"></i>
                     </button>
                     <button class="btn btnDiscardQuestion btnFormThirdly">

@@ -2,26 +2,70 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Support\Supporter;
 use App\Lib\RequestAPI;
 use App\Lib\ResponseEndPoint;
+use App\Lib\RouteConstants;
 use Illuminate\Http\Request;
 
 class QuestionController extends Controller
 {
     use RequestAPI, ResponseEndPoint;
 
+    protected $supporter = null;
+
     public function __construct()
     {
         $this->middleware('verify_access_token');
+        $this->supporter = new Supporter();
     }
 
     /**-------------------------------------------------------------------------
      * Question Ask (Create)
      * [GET] [POST]
      *------------------------------------------------------------------------*/
-    public function getPost () {return view('question.post_question');}
+    public function getPost ()
+    {
+        $publicId = $this->supporter->doGeneratePublicId();
+        return view('question.post_question')->with('publicId', $publicId);
+    }
+    public function postSaveDuringEditing (Request $request)
+    {
+        try
+        {
+            $response = $this->post($this->getApiRequestUrl('question.save_during_editing'), [
+                'public_id'     => $request->public_id,
+                'title'         => $request->title,
+                'description'   => $request->desc_data,
+                'is_draft'      => true
+            ], $this->getAuthorizationHeader());
+        }
+        catch(\Exception $exception)
+        {
+
+        }
+    }
+
     public function postPost (Request $request)
     {
-        return $request;
+        try
+        {
+            $publicId = $request->publicId;
+            $response = $this->put($this->getApiRequestUrl('question.save'), $publicId, [
+                'title'     => $request->title,
+                'is_draft'  => false
+            ], $this->getAuthorizationHeader());
+
+            if($response->success == true)
+            {
+                return $this->doResponseSuccess(RouteConstants::HOME, $response->message_en, false);
+            }
+        }
+        catch(\Exception $exception)
+        {
+            dd($exception);
+            return $this->doResponseError($exception, true, RouteConstants::QUESTION_GET_POST, true);
+
+        }
     }
 }
