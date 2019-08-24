@@ -2,16 +2,16 @@
 /**
  * Created by PhpStorm.
  * User: vannyou.tan
- * Date: 06-Apr-19
- * Time: 6:45 AM
+ * Date: 24-Aug-19
+ * Time: 11:29 AM
  */
 
-namespace App\Http\ViewModels;
+namespace App\Http\Support;
 
 
 use App\Lib\RequestAPI;
 
-class UserAvatarViewModel
+class UserAvatar
 {
     use RequestAPI;
 

@@ -57,5 +57,5 @@ require('codemirror/addon/edit/matchtags');
 require('./navbar');
 require('./auth/login');
 require('./form_alert_message');
-require('./question/ask');
+require('./question/post_question');
 require('./reusable_components/content_editor');

@@ -137,6 +137,35 @@ button:focus {
 .btnLink:hover::after {
     content: ' ⋙';
 }
+.btnFormPrimary {
+    color: $white;
+    background-color: $secondary-green;
+    border: 2px solid $secondary-green;
+    border-radius: 10px;
+}
+.btnFormPrimary:hover, .btnFormPrimary:focus {
+    color: $main-black;
+    background-color: white;
+}
+.btnFormSecondary {
+    color: white;
+    background-color: $main-gray;
+    border: 2px solid $main-gray;
+    border-radius: 10px;
+}
+.btnFormSecondary:hover, .btnFormSecondary:focus {
+    color: $main-black;
+    background-color: white;
+}
+.btnFormThirdly {
+    background-color: $thirdly-gray;
+    border: 2px solid $thirdly-gray;
+    border-radius: 10px;
+}
+.btnFormThirdly:hover, .btnFormThirdly:focus {
+    color: $main-black;
+    background-color: white;
+}
 .btnSocialMedia {
     margin-top: 10px;
     -webkit-border-radius: 8px;
@@ -384,4 +413,4 @@ button:focus {
 @import '_animate.css';
 @import 'auth/user_profile';
 @import 'auth/change_password';
-@import 'question/ask';
+@import 'question/post_question';
