@@ -78674,7 +78674,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 
-var html = "\n<div class=\"TVYContentActionView\">\n    <div class=\"viewPart\">\n        View Part\n    </div>\n    <div class=\"actionPart\">\n        <div class=\"vote\">\n            <i class=\"far fa-thumbs-up selected\"></i>\n            <span class=\"numVote\">23</span>\n            <i class=\"far fa-thumbs-down\"></i>\n            <span class=\"askedOrEditedDate\">Asked seconds ago</span>\n        </div>\n        <div class=\"authorIdentity\">\n            <span class=\"authorInfo\">Vannyou Tang</span>\n            <img class=\"authorAvatar\" src=\"https://static.wixstatic.com/media/4a8176_6b644eece35c4e7588411663df2b1560~mv2.png/v1/fill/w_1000,h_1000,al_c,q_90/file.jpg\" alt=\"avatar\">    \n        </div>\n    </div>\n</div>\n";
+var html = "\n<div class=\"TVYContentActionView\">\n    <div class=\"viewPart\"></div>\n    <div class=\"actionPart\">\n        <div class=\"vote\">\n            <i class=\"far fa-thumbs-up selected\"></i>\n            <span class=\"numVote\">23</span>\n            <i class=\"far fa-thumbs-down\"></i>\n            <span class=\"askedOrEditedDate\">Asked seconds ago</span>\n        </div>\n        <div class=\"authorIdentity\">\n            <span class=\"authorInfo\">Vannyou Tang</span>\n            <img class=\"authorAvatar\" src=\"https://static.wixstatic.com/media/4a8176_6b644eece35c4e7588411663df2b1560~mv2.png/v1/fill/w_1000,h_1000,al_c,q_90/file.jpg\" alt=\"avatar\">    \n        </div>\n    </div>\n</div>\n";
 
 var TVYContentActionView =
 /*#__PURE__*/
@@ -78689,6 +78689,7 @@ function (_HTMLElement) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(TVYContentActionView).call(this));
     _this.innerHTML = html;
     _this.viewPart = _this.querySelector('.viewPart');
+    _this.descriptionContent = JSON.parse(_this.getDescriptionContent());
 
     _this.fillTheContent();
 
@@ -78696,17 +78697,50 @@ function (_HTMLElement) {
   }
 
   _createClass(TVYContentActionView, [{
+    key: "getDescriptionContent",
+    value: function getDescriptionContent() {
+      var url = window.location.origin + '/question/description-of/' + this.getAttribute('data-question-public-id');
+      var descriptionContent = null;
+      $.ajax({
+        async: false,
+        url: url,
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'GET',
+        success: function success(result) {
+          descriptionContent = result;
+        },
+        error: function error(err) {
+          console.log('---Error');
+          console.log(err);
+        }
+      });
+      return descriptionContent;
+    }
+  }, {
     key: "fillTheContent",
     value: function fillTheContent() {
-      this.addTextContent();
+      var descCount = this.descriptionContent.length;
+
+      for (var i = 0; i < descCount; i++) {
+        switch (this.descriptionContent[i].type) {
+          case 'text':
+            this.addTextContent(this.descriptionContent[i].data);
+            break;
+
+          default:
+            break;
+        }
+      }
     }
   }, {
     key: "addTextContent",
-    value: function addTextContent() {
+    value: function addTextContent(descData) {
       var textElement = document.createElement('div');
       textElement.className = 'textDescElement col-md-12';
       this.viewPart.appendChild(textElement);
-      new _QuillEditor__WEBPACK_IMPORTED_MODULE_0__["default"](textElement, false, true, null);
+      new _QuillEditor__WEBPACK_IMPORTED_MODULE_0__["default"](textElement, false, true, descData);
     }
   }]);
 

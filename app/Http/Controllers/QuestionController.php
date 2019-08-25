@@ -101,4 +101,26 @@ class QuestionController extends Controller
             );
         }
     }
+
+    public function getDescriptionOf ($publicId)
+    {
+        try
+        {
+            $response = $this->get(
+                $this->getApiRequestUrl('question.description'),
+                $publicId,
+                null,
+                $this->getAuthorizationHeader()
+            );
+
+            if($response->success == true){
+                return $response->data->data;
+            }
+            return null;
+        }
+        catch(\Exception $exception)
+        {
+            return null;
+        }
+    }
 }

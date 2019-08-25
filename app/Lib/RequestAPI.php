@@ -46,7 +46,7 @@ trait RequestAPI
         {
             $url .= "/$keyCondition";
         }
-        return self::call("$url/$keyCondition", HttpConstants::METHOD_DELETE, $data, $headers);
+        return self::call($url, HttpConstants::METHOD_DELETE, $data, $headers);
     }
 
     public function get (string $url, $keyCondition = null, $data = null, $headers = null)
@@ -69,7 +69,7 @@ trait RequestAPI
         {
             $url .= "/$keyCondition";
         }
-        return self::call("$url/$keyCondition", HttpConstants::METHOD_PUT, $data, $headers);
+        return self::call($url, HttpConstants::METHOD_PUT, $data, $headers);
     }
 
     public function getAuthorizationHeader()
@@ -118,6 +118,7 @@ trait RequestAPI
     {
         $message = $exception->getMessage() . $isIncludedTrace ? $exception->getTraceAsString() : '';
         if($exception instanceof ClientException){
+            dd($exception);
             $json = json_decode($exception->getResponse()->getBody()->getContents());
             $message = $json->message;
         }

@@ -23692,6 +23692,15 @@ button:focus {
   border: 1px dashed red;
 }
 
+.TVYContentActionView .viewPart .ql-container {
+  border: none;
+  padding: 0;
+}
+
+.TVYContentActionView .viewPart .ql-editor {
+  padding: 0;
+}
+
 .TVYContentActionView .actionPart {
   border: 1px dashed red;
   display: grid;

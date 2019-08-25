@@ -413,6 +413,13 @@ button:focus {
     padding: 5px;
     .viewPart {
         border: 1px dashed red;
+        .ql-container {
+            border: none;
+            padding: 0;
+        }
+        .ql-editor {
+            padding: 0;
+        }
     }
     .actionPart {
         border: 1px dashed red;

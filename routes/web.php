@@ -62,4 +62,7 @@ Route::group([
 
     Route::get('/view/{publicId}', 'QuestionController@getView')
         ->name(RouteConstants::QUESTION_GET_VIEW);
+
+    Route::get('/description-of/{publicId}', 'QuestionController@getDescriptionOf')
+        ->name(RouteConstants::QUESTION_GET_DESCRIPTION_OF);
 });
