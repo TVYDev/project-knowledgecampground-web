@@ -405,6 +405,58 @@ button:focus {
     }
 }
 
+// -------------- TVY Content Action View
+.TVYContentActionView {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-row-gap: 20px;
+    padding: 5px;
+    .viewPart {
+        border: 1px dashed red;
+    }
+    .actionPart {
+        border: 1px dashed red;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        .vote {
+            justify-self: left;
+            align-self: center;
+            border: 1px dashed yellowgreen;
+            color: $secondary-gray;
+            .numVote {
+                font-weight: bold;
+                margin: 0 10px;
+                padding: 0 10px;
+            }
+            .askedOrEditedDate {
+                margin: 0 10px;
+                padding: 0 10px;
+            }
+            i {
+                cursor: pointer;
+            }
+            i:focus, i:hover, i.selected {
+                color: $secondary-green;
+            }
+        }
+        .authorIdentity {
+            justify-self: right;
+            align-self: center;
+            border: 1px dashed yellowgreen;
+            .authorInfo {
+                font-weight: bold;
+                color: $main-green;
+            }
+            .authorAvatar {
+                height: 30px;
+                border-radius: 40px;
+                border: 1.5px solid $main-green;
+                padding: 1px;
+            }
+        }
+    }
+}
+
 //***********************
 // KC Navbar
 //***********************
@@ -414,3 +466,4 @@ button:focus {
 @import 'auth/user_profile';
 @import 'auth/change_password';
 @import 'question/post_question';
+@import 'question/view_question';

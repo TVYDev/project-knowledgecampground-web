@@ -1,0 +1,14 @@
+.pageViewQuestion {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-column-gap: 10px;
+    .leftExtraSpace {
+        border: 1px dashed yellowgreen;
+    }
+    .viewQuestionContent {
+        border: 1px dashed pink;
+    }
+    .rightExtraSpace {
+        border: 1px dashed mediumpurple;
+    }
+}

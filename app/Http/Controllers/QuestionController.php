@@ -69,9 +69,36 @@ class QuestionController extends Controller
         }
         catch(\Exception $exception)
         {
-            dd($exception);
-            return $this->doResponseError($exception, true, RouteConstants::QUESTION_GET_POST, true);
+            return $this->doResponseError(
+                $exception,
+                true,
+                RouteConstants::QUESTION_GET_POST,
+                true
+            );
+        }
+    }
 
+    /************************************************
+     * Question View
+     * [GET]
+     ***********************************************/
+    public function getView ($publicId)
+    {
+        try
+        {
+//            $response = $this->get($this->getApiRequestUrl('question.view'), $publicId, null, $this->getAuthorizationHeader());
+
+            return view('question.view_question')->with('publicId', $publicId);
+        }
+        catch(\Exception $exception)
+        {
+            dd($exception);
+            return $this->doResponseError(
+                $exception,
+                true,
+                RouteConstants::HOME,
+                false
+            );
         }
     }
 }

@@ -20,7 +20,7 @@ class VerifyAccessToken
     {
         try
         {
-            $response = $this->get($this->getApiRequestUrl('user.verify_authentication'),null, [
+            $response = $this->get($this->getApiRequestUrl('user.verify_authentication'),null,null, [
                 'Authorization' => $this->getAccessToken($request)
             ]);
 

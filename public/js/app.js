@@ -78328,6 +78328,8 @@ __webpack_require__(/*! ./question/post_question */ "./resources/js/question/pos
 
 __webpack_require__(/*! ./reusable_components/content_editor */ "./resources/js/reusable_components/content_editor.js");
 
+__webpack_require__(/*! ./reusable_components/content_action_view */ "./resources/js/reusable_components/content_action_view.js");
+
 /***/ }),
 
 /***/ "./resources/js/auth/login.js":
@@ -78632,6 +78634,86 @@ function navigateSideMenuForMobileScreen() {
 
 $(document).ready(function () {// console.log(document.querySelector('tvy-content-editor').quillTextContent);
 });
+
+/***/ }),
+
+/***/ "./resources/js/reusable_components/content_action_view.js":
+/*!*****************************************************************!*\
+  !*** ./resources/js/reusable_components/content_action_view.js ***!
+  \*****************************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _QuillEditor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../QuillEditor */ "./resources/js/QuillEditor.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _wrapNativeSuper(Class) { var _cache = typeof Map === "function" ? new Map() : undefined; _wrapNativeSuper = function _wrapNativeSuper(Class) { if (Class === null || !_isNativeFunction(Class)) return Class; if (typeof Class !== "function") { throw new TypeError("Super expression must either be null or a function"); } if (typeof _cache !== "undefined") { if (_cache.has(Class)) return _cache.get(Class); _cache.set(Class, Wrapper); } function Wrapper() { return _construct(Class, arguments, _getPrototypeOf(this).constructor); } Wrapper.prototype = Object.create(Class.prototype, { constructor: { value: Wrapper, enumerable: false, writable: true, configurable: true } }); return _setPrototypeOf(Wrapper, Class); }; return _wrapNativeSuper(Class); }
+
+function isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _construct(Parent, args, Class) { if (isNativeReflectConstruct()) { _construct = Reflect.construct; } else { _construct = function _construct(Parent, args, Class) { var a = [null]; a.push.apply(a, args); var Constructor = Function.bind.apply(Parent, a); var instance = new Constructor(); if (Class) _setPrototypeOf(instance, Class.prototype); return instance; }; } return _construct.apply(null, arguments); }
+
+function _isNativeFunction(fn) { return Function.toString.call(fn).indexOf("[native code]") !== -1; }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+var html = "\n<div class=\"TVYContentActionView\">\n    <div class=\"viewPart\">\n        View Part\n    </div>\n    <div class=\"actionPart\">\n        <div class=\"vote\">\n            <i class=\"far fa-thumbs-up selected\"></i>\n            <span class=\"numVote\">23</span>\n            <i class=\"far fa-thumbs-down\"></i>\n            <span class=\"askedOrEditedDate\">Asked seconds ago</span>\n        </div>\n        <div class=\"authorIdentity\">\n            <span class=\"authorInfo\">Vannyou Tang</span>\n            <img class=\"authorAvatar\" src=\"https://static.wixstatic.com/media/4a8176_6b644eece35c4e7588411663df2b1560~mv2.png/v1/fill/w_1000,h_1000,al_c,q_90/file.jpg\" alt=\"avatar\">    \n        </div>\n    </div>\n</div>\n";
+
+var TVYContentActionView =
+/*#__PURE__*/
+function (_HTMLElement) {
+  _inherits(TVYContentActionView, _HTMLElement);
+
+  function TVYContentActionView() {
+    var _this;
+
+    _classCallCheck(this, TVYContentActionView);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(TVYContentActionView).call(this));
+    _this.innerHTML = html;
+    _this.viewPart = _this.querySelector('.viewPart');
+
+    _this.fillTheContent();
+
+    return _this;
+  }
+
+  _createClass(TVYContentActionView, [{
+    key: "fillTheContent",
+    value: function fillTheContent() {
+      this.addTextContent();
+    }
+  }, {
+    key: "addTextContent",
+    value: function addTextContent() {
+      var textElement = document.createElement('div');
+      textElement.className = 'textDescElement col-md-12';
+      this.viewPart.appendChild(textElement);
+      new _QuillEditor__WEBPACK_IMPORTED_MODULE_0__["default"](textElement, false, true, null);
+    }
+  }]);
+
+  return TVYContentActionView;
+}(_wrapNativeSuper(HTMLElement));
+
+window.customElements.define('tvy-content-action-view', TVYContentActionView);
 
 /***/ }),
 
