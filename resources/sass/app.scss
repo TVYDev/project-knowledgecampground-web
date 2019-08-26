@@ -412,7 +412,8 @@ button:focus {
     grid-row-gap: 20px;
     padding: 5px;
     .viewPart {
-        border: 1px dashed red;
+        border-top: 1px solid $thirdly-gray;
+        padding-top: 20px;
         .ql-container {
             border: none;
             padding: 0;
@@ -422,13 +423,14 @@ button:focus {
         }
     }
     .actionPart {
-        border: 1px dashed red;
         display: grid;
         grid-template-columns: 1fr 1fr;
+        padding: 5px 10px;
+        border-top: 1px solid $thirdly-gray;
+        border-bottom: 1px solid $thirdly-gray;
         .vote {
             justify-self: left;
             align-self: center;
-            border: 1px dashed yellowgreen;
             color: $secondary-gray;
             .numVote {
                 font-weight: bold;
@@ -449,16 +451,21 @@ button:focus {
         .authorIdentity {
             justify-self: right;
             align-self: center;
-            border: 1px dashed yellowgreen;
             .authorInfo {
                 font-weight: bold;
                 color: $main-green;
+                cursor: pointer;
+            }
+            .authorInfo:hover, .authorInfo:focus {
+                color: $secondary-green;
+                text-decoration: underline;
             }
             .authorAvatar {
                 height: 30px;
                 border-radius: 40px;
                 border: 1.5px solid $main-green;
                 padding: 1px;
+                cursor: pointer;
             }
         }
     }

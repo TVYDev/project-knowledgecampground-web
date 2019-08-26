@@ -8,11 +8,11 @@ const html = `
             <i class="far fa-thumbs-up selected"></i>
             <span class="numVote">23</span>
             <i class="far fa-thumbs-down"></i>
-            <span class="askedOrEditedDate">Asked seconds ago</span>
+            <span class="askedOrEditedDate"></span>
         </div>
         <div class="authorIdentity">
-            <span class="authorInfo">Vannyou Tang</span>
-            <img class="authorAvatar" src="https://static.wixstatic.com/media/4a8176_6b644eece35c4e7588411663df2b1560~mv2.png/v1/fill/w_1000,h_1000,al_c,q_90/file.jpg" alt="avatar">    
+            <span class="authorInfo"></span>
+            <img class="authorAvatar" src="" alt="avatar">    
         </div>
     </div>
 </div>
@@ -25,6 +25,13 @@ class TVYContentActionView extends HTMLElement
         this.innerHTML = html;
 
         this.viewPart = this.querySelector('.viewPart');
+        this.actionPart = this.querySelector('.actionPart');
+        this.askedOrEditedDate = this.actionPart.querySelector('.askedOrEditedDate');
+        this.author = this.actionPart.querySelector('.authorIdentity .authorInfo');
+        this.avatar = this.actionPart.querySelector('.authorIdentity .authorAvatar');
+
+        this.fillInfoOfActionPart();
+
         this.descriptionContent = JSON.parse(this.getDescriptionContent());
         this.fillTheContent();
     }
@@ -47,6 +54,16 @@ class TVYContentActionView extends HTMLElement
             }
         });
         return descriptionContent;
+    }
+
+    fillInfoOfActionPart ()
+    {
+        this.askedOrEditedDate.textContent = this.getAttribute('data-readable-time');
+        console.log(this.getAttribute('data-readable-time'));
+        this.author.setAttribute('data-author-id', this.getAttribute('data-author-id'));
+        this.author.textContent = this.getAttribute('data-author-name');
+        this.avatar.setAttribute('data-author-id', this.getAttribute('data-author-id'));
+        this.avatar.setAttribute('src', this.getAttribute('data-avatar-url'));
     }
 
     fillTheContent ()

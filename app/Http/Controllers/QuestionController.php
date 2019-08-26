@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Support\Supporter;
+use App\Lib\HttpConstants;
 use App\Lib\RequestAPI;
 use App\Lib\ResponseEndPoint;
 use App\Lib\RouteConstants;
@@ -86,13 +87,21 @@ class QuestionController extends Controller
     {
         try
         {
-//            $response = $this->get($this->getApiRequestUrl('question.view'), $publicId, null, $this->getAuthorizationHeader());
+            $response = $this->get($this->getApiRequestUrl('question.view'), $publicId, null, $this->getAuthorizationHeader());
 
-            return view('question.view_question')->with('publicId', $publicId);
+            if($response->success) {
+                $data = $response->data;
+                return view('question.view_question')
+                    ->with('publicId', $publicId)
+                    ->with('title', $data->title)
+                    ->with('readableTime', $data->readable_time_en)
+                    ->with('authorName', $data->author_name)
+                    ->with('authorId', $data->author_id)
+                    ->with('avatarUrl', HttpConstants::HOST_URL . $data->avatar_url);
+            }
         }
         catch(\Exception $exception)
         {
-            dd($exception);
             return $this->doResponseError(
                 $exception,
                 true,

@@ -78674,7 +78674,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 
-var html = "\n<div class=\"TVYContentActionView\">\n    <div class=\"viewPart\"></div>\n    <div class=\"actionPart\">\n        <div class=\"vote\">\n            <i class=\"far fa-thumbs-up selected\"></i>\n            <span class=\"numVote\">23</span>\n            <i class=\"far fa-thumbs-down\"></i>\n            <span class=\"askedOrEditedDate\">Asked seconds ago</span>\n        </div>\n        <div class=\"authorIdentity\">\n            <span class=\"authorInfo\">Vannyou Tang</span>\n            <img class=\"authorAvatar\" src=\"https://static.wixstatic.com/media/4a8176_6b644eece35c4e7588411663df2b1560~mv2.png/v1/fill/w_1000,h_1000,al_c,q_90/file.jpg\" alt=\"avatar\">    \n        </div>\n    </div>\n</div>\n";
+var html = "\n<div class=\"TVYContentActionView\">\n    <div class=\"viewPart\"></div>\n    <div class=\"actionPart\">\n        <div class=\"vote\">\n            <i class=\"far fa-thumbs-up selected\"></i>\n            <span class=\"numVote\">23</span>\n            <i class=\"far fa-thumbs-down\"></i>\n            <span class=\"askedOrEditedDate\"></span>\n        </div>\n        <div class=\"authorIdentity\">\n            <span class=\"authorInfo\"></span>\n            <img class=\"authorAvatar\" src=\"\" alt=\"avatar\">    \n        </div>\n    </div>\n</div>\n";
 
 var TVYContentActionView =
 /*#__PURE__*/
@@ -78689,6 +78689,13 @@ function (_HTMLElement) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(TVYContentActionView).call(this));
     _this.innerHTML = html;
     _this.viewPart = _this.querySelector('.viewPart');
+    _this.actionPart = _this.querySelector('.actionPart');
+    _this.askedOrEditedDate = _this.actionPart.querySelector('.askedOrEditedDate');
+    _this.author = _this.actionPart.querySelector('.authorIdentity .authorInfo');
+    _this.avatar = _this.actionPart.querySelector('.authorIdentity .authorAvatar');
+
+    _this.fillInfoOfActionPart();
+
     _this.descriptionContent = JSON.parse(_this.getDescriptionContent());
 
     _this.fillTheContent();
@@ -78717,6 +78724,16 @@ function (_HTMLElement) {
         }
       });
       return descriptionContent;
+    }
+  }, {
+    key: "fillInfoOfActionPart",
+    value: function fillInfoOfActionPart() {
+      this.askedOrEditedDate.textContent = this.getAttribute('data-readable-time');
+      console.log(this.getAttribute('data-readable-time'));
+      this.author.setAttribute('data-author-id', this.getAttribute('data-author-id'));
+      this.author.textContent = this.getAttribute('data-author-name');
+      this.avatar.setAttribute('data-author-id', this.getAttribute('data-author-id'));
+      this.avatar.setAttribute('src', this.getAttribute('data-avatar-url'));
     }
   }, {
     key: "fillTheContent",

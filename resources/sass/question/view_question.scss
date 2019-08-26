@@ -6,7 +6,10 @@
         border: 1px dashed yellowgreen;
     }
     .viewQuestionContent {
-        border: 1px dashed pink;
+        .questionTitle {
+            font-weight: bold;
+        }
+        //border: 1px dashed pink;
     }
     .rightExtraSpace {
         border: 1px dashed mediumpurple;

@@ -23689,7 +23689,8 @@ button:focus {
 }
 
 .TVYContentActionView .viewPart {
-  border: 1px dashed red;
+  border-top: 1px solid #D8D8D8;
+  padding-top: 20px;
 }
 
 .TVYContentActionView .viewPart .ql-container {
@@ -23702,15 +23703,16 @@ button:focus {
 }
 
 .TVYContentActionView .actionPart {
-  border: 1px dashed red;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  padding: 5px 10px;
+  border-top: 1px solid #D8D8D8;
+  border-bottom: 1px solid #D8D8D8;
 }
 
 .TVYContentActionView .actionPart .vote {
   justify-self: left;
   align-self: center;
-  border: 1px dashed yellowgreen;
   color: #707070;
 }
 
@@ -23738,12 +23740,18 @@ button:focus {
 .TVYContentActionView .actionPart .authorIdentity {
   justify-self: right;
   align-self: center;
-  border: 1px dashed yellowgreen;
 }
 
 .TVYContentActionView .actionPart .authorIdentity .authorInfo {
   font-weight: bold;
   color: #0A5748;
+  cursor: pointer;
+}
+
+.TVYContentActionView .actionPart .authorIdentity .authorInfo:hover,
+.TVYContentActionView .actionPart .authorIdentity .authorInfo:focus {
+  color: #17CCA9;
+  text-decoration: underline;
 }
 
 .TVYContentActionView .actionPart .authorIdentity .authorAvatar {
@@ -23751,6 +23759,7 @@ button:focus {
   border-radius: 40px;
   border: 1.5px solid #0A5748;
   padding: 1px;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 1440px) {
@@ -25371,8 +25380,8 @@ button:focus {
   border: 1px dashed yellowgreen;
 }
 
-.pageViewQuestion .viewQuestionContent {
-  border: 1px dashed pink;
+.pageViewQuestion .viewQuestionContent .questionTitle {
+  font-weight: bold;
 }
 
 .pageViewQuestion .rightExtraSpace {

@@ -48,7 +48,7 @@ return [
 
         'daily' => [
             'driver' => 'daily',
-            'path' => storage_path('logs/chormnes_web.log'),
+            'path' => storage_path('logs/knowledgecampground_web.log'),
             'formatter' => Monolog\Formatter\LineFormatter::class,
             'formatter_with' => [
                 'format' => "[%datetime%] [%level_name%] %context% [%message%]\n"
