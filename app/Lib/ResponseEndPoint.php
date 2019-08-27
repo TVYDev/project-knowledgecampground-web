@@ -59,11 +59,11 @@ trait ResponseEndPoint
         throw  new \Exception($errorMessage);
     }
 
-    public function doResponseSuccess ($redirectRoute, $message, $isIncludedInput)
+    public function doResponseSuccess ($redirectRoute, $message, $isIncludedInput, $routeParams = [])
     {
         KCLog::info($message);
 
-        $redirectObj = Redirect::route($redirectRoute)->withSuccess($message);
+        $redirectObj = Redirect::route($redirectRoute, $routeParams)->withSuccess($message);
 
         if($isIncludedInput)
         {

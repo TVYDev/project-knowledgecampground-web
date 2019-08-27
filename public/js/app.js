@@ -78674,7 +78674,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 
-var html = "\n<div class=\"TVYContentActionView\">\n    <div class=\"viewPart\"></div>\n    <div class=\"actionPart\">\n        <div class=\"vote\">\n            <i class=\"far fa-thumbs-up selected\"></i>\n            <span class=\"numVote\">23</span>\n            <i class=\"far fa-thumbs-down\"></i>\n            <span class=\"askedOrEditedDate\"></span>\n        </div>\n        <div class=\"authorIdentity\">\n            <span class=\"authorInfo\"></span>\n            <img class=\"authorAvatar\" src=\"\" alt=\"avatar\">    \n        </div>\n    </div>\n</div>\n";
+var html = "\n<div class=\"TVYContentActionView\">\n    <div class=\"viewPart\"></div>\n    <div class=\"actionPart\">\n        <div class=\"vote\">\n            <i class=\"far fa-thumbs-up selected\"></i>\n            <span class=\"numVote\">23</span>\n            <i class=\"far fa-thumbs-down\"></i>\n        </div>\n        <div class=\"askedOrEditedDate\"></div>\n        <div class=\"authorIdentity\">\n            <a href=\"#\" class=\"authorInfo\"></a>\n            <img class=\"authorAvatar\" src=\"\" alt=\"avatar\">    \n        </div>\n    </div>\n</div>\n";
 
 var TVYContentActionView =
 /*#__PURE__*/

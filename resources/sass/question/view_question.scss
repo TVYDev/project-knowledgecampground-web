@@ -6,8 +6,23 @@
         border: 1px dashed yellowgreen;
     }
     .viewQuestionContent {
-        .questionTitle {
-            font-weight: bold;
+        .titleBlock {
+            color: $main-gray;
+            display: grid;
+            grid-template-columns: 30px auto;
+            align-items: center;
+            .questionFavorite {
+                display: block;
+            }
+            .questionFavorite:hover, .questionFavorite:focus, .questionFavorite.selected{
+                cursor: pointer;
+                color: $secondary-green;
+            }
+            .questionTitle {
+                display: block;
+                font-weight: bold;
+                margin: 0;
+            }
         }
         //border: 1px dashed pink;
     }

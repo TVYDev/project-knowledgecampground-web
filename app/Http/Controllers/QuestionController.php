@@ -65,7 +65,12 @@ class QuestionController extends Controller
 
             if($response->success == true)
             {
-                return $this->doResponseSuccess(RouteConstants::HOME, $response->message_en, false);
+                return $this->doResponseSuccess(
+                    RouteConstants::QUESTION_GET_VIEW,
+                    $response->message_en,
+                    false,
+                    ['publicId' => $publicId]
+                );
             }
         }
         catch(\Exception $exception)

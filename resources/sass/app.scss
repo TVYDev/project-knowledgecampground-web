@@ -424,7 +424,7 @@ button:focus {
     }
     .actionPart {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 2fr 1fr;
         padding: 5px 10px;
         border-top: 1px solid $thirdly-gray;
         border-bottom: 1px solid $thirdly-gray;
@@ -437,16 +437,21 @@ button:focus {
                 margin: 0 10px;
                 padding: 0 10px;
             }
-            .askedOrEditedDate {
-                margin: 0 10px;
-                padding: 0 10px;
-            }
             i {
                 cursor: pointer;
             }
             i:focus, i:hover, i.selected {
                 color: $secondary-green;
             }
+        }
+        .askedOrEditedDate {
+            color: $secondary-gray;
+            align-self: center;
+            justify-self: center;
+            text-align: center;
+            font-size: 0.9em;
+            margin: 0;
+            padding: 0;
         }
         .authorIdentity {
             justify-self: right;

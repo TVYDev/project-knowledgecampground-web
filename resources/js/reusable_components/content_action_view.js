@@ -8,10 +8,10 @@ const html = `
             <i class="far fa-thumbs-up selected"></i>
             <span class="numVote">23</span>
             <i class="far fa-thumbs-down"></i>
-            <span class="askedOrEditedDate"></span>
         </div>
+        <div class="askedOrEditedDate"></div>
         <div class="authorIdentity">
-            <span class="authorInfo"></span>
+            <a href="#" class="authorInfo"></a>
             <img class="authorAvatar" src="" alt="avatar">    
         </div>
     </div>

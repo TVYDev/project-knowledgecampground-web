@@ -6,7 +6,10 @@
     <div class="pageViewQuestion">
         <div class="leftExtraSpace"></div>
         <div class="viewQuestionContent">
-            <h3 class="questionTitle">{{ $title }}</h3>
+            <div class="titleBlock">
+                <i class="far fa-star questionFavorite"></i>
+                <h3 class="questionTitle">{{ $title }}</h3>
+            </div>
             <tvy-content-action-view
                 data-question-public-id="{{ $publicId }}"
                 data-readable-time="{{ $readableTime }}"
