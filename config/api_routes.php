@@ -58,6 +58,16 @@ return [
             'method'=> 'post',
             'path' => '/api/question/save-during-editing',
             'url'  => $host.'/api/question/save-during-editing'
+        ],
+        'view' => [
+            'method'=> 'get',
+            'path'  => '/api/question/view/{publicId}',
+            'url'   => $host.'/api/question/view'
+        ],
+        'description' => [
+            'method'=> 'get',
+            'paht'  => '/api/question/description-of/{publicId}',
+            'url'   => $host.'/api/question/description-of'
         ]
     ],
     'support' => [

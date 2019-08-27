@@ -183,7 +183,7 @@ class UserController extends Controller
         try
         {
             // --- call API to request information of the user
-            $response = $this->get($this->getApiRequestUrl('user.get_user'), null,$this->getAuthorizationHeader());
+            $response = $this->get($this->getApiRequestUrl('user.get_user'), null, null,$this->getAuthorizationHeader());
 
             dd($response);
         }

@@ -40,13 +40,21 @@ trait RequestAPI
         return $dataResponse;
     }
 
-    public function delete (string $url, $keyCondition, $data = null, $headers = null)
+    public function delete (string $url, $keyCondition = null, $data = null, $headers = null)
     {
-        return self::call("$url/$keyCondition", HttpConstants::METHOD_DELETE, $data, $headers);
+        if($keyCondition)
+        {
+            $url .= "/$keyCondition";
+        }
+        return self::call($url, HttpConstants::METHOD_DELETE, $data, $headers);
     }
 
-    public function get (string $url, $data = null, $headers = null)
+    public function get (string $url, $keyCondition = null, $data = null, $headers = null)
     {
+        if($keyCondition)
+        {
+            $url .= "/$keyCondition";
+        }
         return self::call($url, HttpConstants::METHOD_GET, $data, $headers);
     }
 
@@ -55,9 +63,13 @@ trait RequestAPI
         return self::call($url, HttpConstants::METHOD_POST, $data, $headers);
     }
 
-    public function put (string $url, $keyCondition, $data = null, $headers = null)
+    public function put (string $url, $keyCondition = null, $data = null, $headers = null)
     {
-        return self::call("$url/$keyCondition", HttpConstants::METHOD_PUT, $data, $headers);
+        if($keyCondition)
+        {
+            $url .= "/$keyCondition";
+        }
+        return self::call($url, HttpConstants::METHOD_PUT, $data, $headers);
     }
 
     public function getAuthorizationHeader()
@@ -106,6 +118,7 @@ trait RequestAPI
     {
         $message = $exception->getMessage() . $isIncludedTrace ? $exception->getTraceAsString() : '';
         if($exception instanceof ClientException){
+            dd($exception);
             $json = json_decode($exception->getResponse()->getBody()->getContents());
             $message = $json->message;
         }

@@ -405,6 +405,77 @@ button:focus {
     }
 }
 
+// -------------- TVY Content Action View
+.TVYContentActionView {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-row-gap: 20px;
+    padding: 5px;
+    .viewPart {
+        border-top: 1px solid $thirdly-gray;
+        padding-top: 20px;
+        .ql-container {
+            border: none;
+            padding: 0;
+        }
+        .ql-editor {
+            padding: 0;
+        }
+    }
+    .actionPart {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        padding: 5px 10px;
+        border-top: 1px solid $thirdly-gray;
+        border-bottom: 1px solid $thirdly-gray;
+        .vote {
+            justify-self: left;
+            align-self: center;
+            color: $secondary-gray;
+            .numVote {
+                font-weight: bold;
+                margin: 0 10px;
+                padding: 0 10px;
+            }
+            i {
+                cursor: pointer;
+            }
+            i:focus, i:hover, i.selected {
+                color: $secondary-green;
+            }
+        }
+        .askedOrEditedDate {
+            color: $secondary-gray;
+            align-self: center;
+            justify-self: center;
+            text-align: center;
+            font-size: 0.9em;
+            margin: 0;
+            padding: 0;
+        }
+        .authorIdentity {
+            justify-self: right;
+            align-self: center;
+            .authorInfo {
+                font-weight: bold;
+                color: $main-green;
+                cursor: pointer;
+            }
+            .authorInfo:hover, .authorInfo:focus {
+                color: $secondary-green;
+                text-decoration: underline;
+            }
+            .authorAvatar {
+                height: 30px;
+                border-radius: 40px;
+                border: 1.5px solid $main-green;
+                padding: 1px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
 //***********************
 // KC Navbar
 //***********************
@@ -414,3 +485,4 @@ button:focus {
 @import 'auth/user_profile';
 @import 'auth/change_password';
 @import 'question/post_question';
+@import 'question/view_question';
