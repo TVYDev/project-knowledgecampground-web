@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Support\Supporter;
+use App\Lib\HttpConstants;
 use App\Lib\RequestAPI;
 use App\Lib\ResponseEndPoint;
 use App\Lib\RouteConstants;
@@ -64,14 +65,76 @@ class QuestionController extends Controller
 
             if($response->success == true)
             {
-                return $this->doResponseSuccess(RouteConstants::HOME, $response->message_en, false);
+                return $this->doResponseSuccess(
+                    RouteConstants::QUESTION_GET_VIEW,
+                    $response->message_en,
+                    false,
+                    ['publicId' => $publicId]
+                );
             }
         }
         catch(\Exception $exception)
         {
-            dd($exception);
-            return $this->doResponseError($exception, true, RouteConstants::QUESTION_GET_POST, true);
+            return $this->doResponseError(
+                $exception,
+                true,
+                RouteConstants::QUESTION_GET_POST,
+                true
+            );
+        }
+    }
 
+    /************************************************
+     * Question View
+     * [GET]
+     ***********************************************/
+    public function getView ($publicId)
+    {
+        try
+        {
+            $response = $this->get($this->getApiRequestUrl('question.view'), $publicId, null, $this->getAuthorizationHeader());
+
+            if($response->success) {
+                $data = $response->data;
+                return view('question.view_question')
+                    ->with('publicId', $publicId)
+                    ->with('title', $data->title)
+                    ->with('readableTime', $data->readable_time_en)
+                    ->with('authorName', $data->author_name)
+                    ->with('authorId', $data->author_id)
+                    ->with('avatarUrl', HttpConstants::HOST_URL . $data->avatar_url);
+            }
+        }
+        catch(\Exception $exception)
+        {
+            return $this->doResponseError(
+                $exception,
+                true,
+                RouteConstants::HOME,
+                false
+            );
+        }
+    }
+
+    public function getDescriptionOf ($publicId)
+    {
+        try
+        {
+            $response = $this->get(
+                $this->getApiRequestUrl('question.description'),
+                $publicId,
+                null,
+                $this->getAuthorizationHeader()
+            );
+
+            if($response->success == true){
+                return $response->data->data;
+            }
+            return null;
+        }
+        catch(\Exception $exception)
+        {
+            return null;
         }
     }
 }

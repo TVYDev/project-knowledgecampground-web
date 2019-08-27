@@ -23681,6 +23681,92 @@ button:focus {
   color: #17CCA9;
 }
 
+.TVYContentActionView {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-row-gap: 20px;
+  padding: 5px;
+}
+
+.TVYContentActionView .viewPart {
+  border-top: 1px solid #D8D8D8;
+  padding-top: 20px;
+}
+
+.TVYContentActionView .viewPart .ql-container {
+  border: none;
+  padding: 0;
+}
+
+.TVYContentActionView .viewPart .ql-editor {
+  padding: 0;
+}
+
+.TVYContentActionView .actionPart {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  padding: 5px 10px;
+  border-top: 1px solid #D8D8D8;
+  border-bottom: 1px solid #D8D8D8;
+}
+
+.TVYContentActionView .actionPart .vote {
+  justify-self: left;
+  align-self: center;
+  color: #707070;
+}
+
+.TVYContentActionView .actionPart .vote .numVote {
+  font-weight: bold;
+  margin: 0 10px;
+  padding: 0 10px;
+}
+
+.TVYContentActionView .actionPart .vote i {
+  cursor: pointer;
+}
+
+.TVYContentActionView .actionPart .vote i:focus,
+.TVYContentActionView .actionPart .vote i:hover,
+.TVYContentActionView .actionPart .vote i.selected {
+  color: #17CCA9;
+}
+
+.TVYContentActionView .actionPart .askedOrEditedDate {
+  color: #707070;
+  align-self: center;
+  justify-self: center;
+  text-align: center;
+  font-size: 0.9em;
+  margin: 0;
+  padding: 0;
+}
+
+.TVYContentActionView .actionPart .authorIdentity {
+  justify-self: right;
+  align-self: center;
+}
+
+.TVYContentActionView .actionPart .authorIdentity .authorInfo {
+  font-weight: bold;
+  color: #0A5748;
+  cursor: pointer;
+}
+
+.TVYContentActionView .actionPart .authorIdentity .authorInfo:hover,
+.TVYContentActionView .actionPart .authorIdentity .authorInfo:focus {
+  color: #17CCA9;
+  text-decoration: underline;
+}
+
+.TVYContentActionView .actionPart .authorIdentity .authorAvatar {
+  height: 30px;
+  border-radius: 40px;
+  border: 1.5px solid #0A5748;
+  padding: 1px;
+  cursor: pointer;
+}
+
 @media screen and (min-width: 1440px) {
   #KCNavbar {
     width: 100%;
@@ -25287,5 +25373,43 @@ button:focus {
 
 .askQuestionContent .questionPreview {
   border: 1px dashed red;
+}
+
+.pageViewQuestion {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-column-gap: 10px;
+}
+
+.pageViewQuestion .leftExtraSpace {
+  border: 1px dashed yellowgreen;
+}
+
+.pageViewQuestion .viewQuestionContent .titleBlock {
+  color: #424242;
+  display: grid;
+  grid-template-columns: 30px auto;
+  align-items: center;
+}
+
+.pageViewQuestion .viewQuestionContent .titleBlock .questionFavorite {
+  display: block;
+}
+
+.pageViewQuestion .viewQuestionContent .titleBlock .questionFavorite:hover,
+.pageViewQuestion .viewQuestionContent .titleBlock .questionFavorite:focus,
+.pageViewQuestion .viewQuestionContent .titleBlock .questionFavorite.selected {
+  cursor: pointer;
+  color: #17CCA9;
+}
+
+.pageViewQuestion .viewQuestionContent .titleBlock .questionTitle {
+  display: block;
+  font-weight: bold;
+  margin: 0;
+}
+
+.pageViewQuestion .rightExtraSpace {
+  border: 1px dashed mediumpurple;
 }
 

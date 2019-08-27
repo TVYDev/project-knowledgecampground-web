@@ -18,7 +18,7 @@ class UserAvatar
     public function getUserAvatar()
     {
         // --- call API to request get user_avatar of the user
-        $responseUserAvatar = $this->get($this->getApiRequestUrl('user.get_user_avatar'),null,[
+        $responseUserAvatar = $this->get($this->getApiRequestUrl('user.get_user_avatar'), null,null,[
             'Authorization' => $this->getAccessToken()
         ]);
 
