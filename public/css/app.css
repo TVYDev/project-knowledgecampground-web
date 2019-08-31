@@ -13438,6 +13438,8 @@ button:focus {
 
   #KCNavbar #navContent .btnAsk {
     background: transparent;
+    border: none;
+    cursor: pointer;
     border-top: 0.2rem solid #0A5748;
     border-bottom: 0.2rem solid #0A5748;
     text-transform: uppercase;
@@ -13449,15 +13451,22 @@ button:focus {
     content: "  ";
   }
 
+  #KCNavbar #navContent .btnAsk i {
+    transition: all 0.5s ease-in-out;
+  }
+
   #KCNavbar #navContent .btnAsk:hover,
   #KCNavbar #navContent .btnAsk:focus {
     border-bottom: 0.2rem solid #0A5748;
     background-color: #0A5748;
+    color: white;
   }
 
   #KCNavbar #navContent .btnLogin {
     background: transparent;
     text-transform: uppercase;
+    border: none;
+    cursor: pointer;
     border-top: 0.2rem solid #0A5748;
     border-bottom: 0.2rem solid #0A5748;
     border-top-left-radius: 40px;
@@ -13467,9 +13476,14 @@ button:focus {
     content: "  ";
   }
 
+  #KCNavbar #navContent .btnLogin i {
+    transition: all 0.5s ease-in-out;
+  }
+
   #KCNavbar #navContent .btnLogin:hover,
   #KCNavbar #navContent .btnLogin:focus {
     background-color: #0A5748;
+    color: white;
   }
 
   #KCNavbar #navContent .btnAsk:hover i,
@@ -13524,6 +13538,8 @@ button:focus {
     font-weight: bold;
     border-radius: 15px;
     align-self: center;
+    padding-top: 3px;
+    padding-bottom: 3px;
   }
 
   #KCNavbar #navContent .userProfileBtn .profileMenuList {
@@ -14912,7 +14928,7 @@ button:focus {
 .changePasswordContent {
   margin-top: 50px;
   display: grid;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-column-gap: 5px;
 }
 
@@ -14952,7 +14968,7 @@ button:focus {
   color: #0A5748;
   border-radius: 30px 30px 0 30px;
   border: 3px solid #0A5748;
-  padding: 8px;
+  padding: 6px;
 }
 
 .askQuestionContent .questionCreation .headAskQuestion div:last-child {
@@ -14961,6 +14977,7 @@ button:focus {
   font-size: 1.5em;
   border-bottom: 3px solid #0A5748;
   align-self: end;
+  padding-bottom: 6px;
 }
 
 .askQuestionContent .questionCreation .headAskQuestion div:last-child span {

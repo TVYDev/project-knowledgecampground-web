@@ -111,6 +111,8 @@
             }
             .btnAsk {
                 background: transparent;
+                border: none;
+                cursor: pointer;
                 border-top: 0.2rem solid $main-green;
                 border-bottom: 0.2rem solid $main-green;
                 text-transform: uppercase;
@@ -119,24 +121,34 @@
                 span::after {
                     content: '  ';
                 }
+                i {
+                    transition: all 0.5s ease-in-out;
+                }
             }
             .btnAsk:hover, .btnAsk:focus {
                 border-bottom: 0.2rem solid $main-green;
                 background-color: $main-green;
+                color: white;
             }
             .btnLogin {
                 background: transparent;
                 text-transform: uppercase;
+                border: none;
+                cursor: pointer;
                 border-top: 0.2rem solid $main-green;
                 border-bottom: 0.2rem solid $main-green;
                 border-top-left-radius: 40px;
                 span::after {
                     content: '  ';
                 }
+                i {
+                    transition: all 0.5s ease-in-out;
+                }
             }
 
             .btnLogin:hover, .btnLogin:focus {
                 background-color: $main-green;
+                color: white;
             }
 
             .btnAsk:hover i, .btnAsk:focus i, .btnLogin:hover i, .btnLogin:focus i {
@@ -181,6 +193,8 @@
                         font-weight: bold;
                         border-radius: 15px;
                         align-self: center;
+                        padding-top: 3px;
+                        padding-bottom: 3px;
                     }
                 }
                 .profileMenuList {
