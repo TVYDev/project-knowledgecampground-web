@@ -11,15 +11,15 @@ export default class NotyAlertMessage {
     show () {
         new Noty({
             type: this.type,
-            theme: 'nest',
+            theme: 'relax',
             layout: 'topRight',
             text: this.msg,
             timeout: '2000',
             progressBar: true,
             closeWith: ['click'],
             animation: {
-                open: 'animated flipInY', // Animate.css class names
-                close: 'animated flipOutY' // Animate.css class names
+                open: 'animated bounceInRight', // Animate.css class names
+                close: 'animated bounceOutRight' // Animate.css class names
             }
         }).show();
     }

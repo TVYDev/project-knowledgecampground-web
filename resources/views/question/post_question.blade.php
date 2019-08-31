@@ -20,6 +20,11 @@
                     {{--- Provide relevant tags to get a response faster--}}
                 {{--</p>--}}
             {{--</div>--}}
+            <select class="ui dropdown">
+                <option value="">Gender</option>
+                <option value="1">Male</option>
+                <option value="0">Female</option>
+            </select>
             <div class="askQuestionForm">
                 <form action="{{ route(\App\Lib\RouteConstants::QUESTION_POST_POST) }}" method="POST" id="formAskQuestion">
                     @csrf
@@ -29,6 +34,37 @@
                             <option value="it_programming">IT Programming</option>
                             <option value="math">Mathematics</option>
                         </select>
+                    </div>
+                    <div class="ui fluid selection dropdown">
+                        <input type="hidden" name="user">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Select Friend</div>
+                        <div class="menu">
+                            <div class="item" data-value="jenny">
+                                <img class="ui mini avatar image" src="/images/avatar/small/jenny.jpg">
+                                Jenny Hess
+                            </div>
+                            <div class="item" data-value="elliot">
+                                <img class="ui mini avatar image" src="/images/avatar/small/elliot.jpg">
+                                Elliot Fu
+                            </div>
+                            <div class="item" data-value="stevie">
+                                <img class="ui mini avatar image" src="/images/avatar/small/stevie.jpg">
+                                Stevie Feliciano
+                            </div>
+                            <div class="item" data-value="christian">
+                                <img class="ui mini avatar image" src="/images/avatar/small/christian.jpg">
+                                Christian
+                            </div>
+                            <div class="item" data-value="matt">
+                                <img class="ui mini avatar image" src="/images/avatar/small/matt.jpg">
+                                Matt
+                            </div>
+                            <div class="item" data-value="justen">
+                                <img class="ui mini avatar image" src="/images/avatar/small/justen.jpg">
+                                Justen Kitsune
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group row">
                         <label for="title"><strong>Title</strong></label>

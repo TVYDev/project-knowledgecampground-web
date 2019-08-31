@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.googleapis.com/css?family=Happy+Monkey);@import url(https://fonts.googleapis.com/css?family=Barlow+Condensed);@import url(https://fonts.googleapis.com/css?family=Montserrat);@import url(https://fonts.googleapis.com/css?family=Sniglet);@import url(https://fonts.googleapis.com/css?family=Pacifico);@import url(https://fonts.googleapis.com/css?family=Patrick+Hand);@import url(https://fonts.googleapis.com/css?family=Angkor);@import url(https://fonts.googleapis.com/css?family=Hanuman);@import url(https://fonts.googleapis.com/css?family=Kdam+Thmor);@import url(https://fonts.googleapis.com/css?family=Taprom&display=swap);@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&subset=latin); /*
+@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.googleapis.com/css?family=Happy+Monkey);@import url(https://fonts.googleapis.com/css?family=Barlow+Condensed);@import url(https://fonts.googleapis.com/css?family=Montserrat);@import url(https://fonts.googleapis.com/css?family=Sniglet);@import url(https://fonts.googleapis.com/css?family=Pacifico);@import url(https://fonts.googleapis.com/css?family=Patrick+Hand);@import url(https://fonts.googleapis.com/css?family=Comfortaa&display=swap);@import url(https://fonts.googleapis.com/css?family=Angkor);@import url(https://fonts.googleapis.com/css?family=Hanuman);@import url(https://fonts.googleapis.com/css?family=Kdam+Thmor);@import url(https://fonts.googleapis.com/css?family=Taprom&display=swap);@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&subset=latin); /*
  * # Semantic UI - 2.4.2
  * https://github.com/Semantic-Org/Semantic-UI
  * http://www.semantic-ui.com/
@@ -7017,152 +7017,69 @@ li.CodeMirror-hint-active {
   }
 }
 
-.noty_theme__nest.noty_bar {
-  margin: 0 0 15px 0;
+.noty_theme__relax.noty_bar {
+  margin: 4px 0;
   overflow: hidden;
   border-radius: 2px;
   position: relative;
-  box-shadow: rgba(0, 0, 0, 0.098039) 5px 4px 10px 0;
 }
 
-.noty_theme__nest.noty_bar .noty_body {
-  padding: 10px;
-  font-size: 14px;
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
-}
-
-.noty_theme__nest.noty_bar .noty_buttons {
+.noty_theme__relax.noty_bar .noty_body {
   padding: 10px;
 }
 
-.noty_layout .noty_theme__nest.noty_bar {
-  z-index: 5;
+.noty_theme__relax.noty_bar .noty_buttons {
+  border-top: 1px solid #e7e7e7;
+  padding: 5px 10px;
 }
 
-.noty_layout .noty_theme__nest.noty_bar:nth-child(2) {
-  position: absolute;
-  top: 0;
-  margin-top: 4px;
-  margin-right: -4px;
-  margin-left: 4px;
-  z-index: 4;
-  width: 100%;
-}
-
-.noty_layout .noty_theme__nest.noty_bar:nth-child(3) {
-  position: absolute;
-  top: 0;
-  margin-top: 8px;
-  margin-right: -8px;
-  margin-left: 8px;
-  z-index: 3;
-  width: 100%;
-}
-
-.noty_layout .noty_theme__nest.noty_bar:nth-child(4) {
-  position: absolute;
-  top: 0;
-  margin-top: 12px;
-  margin-right: -12px;
-  margin-left: 12px;
-  z-index: 2;
-  width: 100%;
-}
-
-.noty_layout .noty_theme__nest.noty_bar:nth-child(5) {
-  position: absolute;
-  top: 0;
-  margin-top: 16px;
-  margin-right: -16px;
-  margin-left: 16px;
-  z-index: 1;
-  width: 100%;
-}
-
-.noty_layout .noty_theme__nest.noty_bar:nth-child(n+6) {
-  position: absolute;
-  top: 0;
-  margin-top: 20px;
-  margin-right: -20px;
-  margin-left: 20px;
-  z-index: -1;
-  width: 100%;
-}
-
-#noty_layout__bottomLeft .noty_theme__nest.noty_bar:nth-child(2),
-#noty_layout__topLeft .noty_theme__nest.noty_bar:nth-child(2) {
-  margin-top: 4px;
-  margin-left: -4px;
-  margin-right: 4px;
-}
-
-#noty_layout__bottomLeft .noty_theme__nest.noty_bar:nth-child(3),
-#noty_layout__topLeft .noty_theme__nest.noty_bar:nth-child(3) {
-  margin-top: 8px;
-  margin-left: -8px;
-  margin-right: 8px;
-}
-
-#noty_layout__bottomLeft .noty_theme__nest.noty_bar:nth-child(4),
-#noty_layout__topLeft .noty_theme__nest.noty_bar:nth-child(4) {
-  margin-top: 12px;
-  margin-left: -12px;
-  margin-right: 12px;
-}
-
-#noty_layout__bottomLeft .noty_theme__nest.noty_bar:nth-child(5),
-#noty_layout__topLeft .noty_theme__nest.noty_bar:nth-child(5) {
-  margin-top: 16px;
-  margin-left: -16px;
-  margin-right: 16px;
-}
-
-#noty_layout__bottomLeft .noty_theme__nest.noty_bar:nth-child(n+6),
-#noty_layout__topLeft .noty_theme__nest.noty_bar:nth-child(n+6) {
-  margin-top: 20px;
-  margin-left: -20px;
-  margin-right: 20px;
-}
-
-.noty_theme__nest.noty_type__alert,
-.noty_theme__nest.noty_type__notification {
-  background-color: #073B4C;
-  color: #fff;
-}
-
-.noty_theme__nest.noty_type__alert .noty_progressbar,
-.noty_theme__nest.noty_type__notification .noty_progressbar {
+.noty_theme__relax.noty_type__alert,
+.noty_theme__relax.noty_type__notification {
   background-color: #fff;
+  border: 1px solid #dedede;
+  color: #444;
 }
 
-.noty_theme__nest.noty_type__warning {
-  background-color: #FFD166;
-  color: #fff;
+.noty_theme__relax.noty_type__warning {
+  background-color: #FFEAA8;
+  border: 1px solid #FFC237;
+  color: #826200;
 }
 
-.noty_theme__nest.noty_type__error {
-  background-color: #EF476F;
-  color: #fff;
+.noty_theme__relax.noty_type__warning .noty_buttons {
+  border-color: #dfaa30;
 }
 
-.noty_theme__nest.noty_type__error .noty_progressbar {
-  opacity: 0.4;
+.noty_theme__relax.noty_type__error {
+  background-color: #FF8181;
+  border: 1px solid #e25353;
+  color: #FFF;
 }
 
-.noty_theme__nest.noty_type__info,
-.noty_theme__nest.noty_type__information {
-  background-color: #118AB2;
-  color: #fff;
+.noty_theme__relax.noty_type__error .noty_buttons {
+  border-color: darkred;
 }
 
-.noty_theme__nest.noty_type__info .noty_progressbar,
-.noty_theme__nest.noty_type__information .noty_progressbar {
-  opacity: 0.6;
+.noty_theme__relax.noty_type__info,
+.noty_theme__relax.noty_type__information {
+  background-color: #78C5E7;
+  border: 1px solid #3badd6;
+  color: #FFF;
 }
 
-.noty_theme__nest.noty_type__success {
-  background-color: #06D6A0;
-  color: #fff;
+.noty_theme__relax.noty_type__info .noty_buttons,
+.noty_theme__relax.noty_type__information .noty_buttons {
+  border-color: #0B90C4;
+}
+
+.noty_theme__relax.noty_type__success {
+  background-color: #BCF5BC;
+  border: 1px solid #7cdd77;
+  color: darkgreen;
+}
+
+.noty_theme__relax.noty_type__success .noty_buttons {
+  border-color: #50C24E;
 }
 
 /*!
@@ -12936,9 +12853,20 @@ readers do not read off random characters that represent icons */
 
 body {
   padding-top: 4rem;
-  font-family: "Montserrat";
   font-size: 13px;
   background: #F3F3F3;
+}
+
+*,
+button,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.ui.button {
+  font-family: "Taprom", "Comfortaa", sans-serif;
 }
 
 #noty_layout__topRight,
@@ -12956,13 +12884,13 @@ body {
   text-align: left;
 }
 
-.container {
+#mainContent {
   max-width: 100%;
   padding: 0 4rem;
 }
 
 @media screen and (max-width: 426px) {
-  .container {
+  #mainContent {
     padding: 0 2em;
   }
 }
@@ -12977,36 +12905,11 @@ hr.grayLine {
   margin: 3px 0;
 }
 
-.formTitle {
-  text-transform: uppercase;
-  color: #0A5748;
-  margin: 0.1rem 0 2rem 0;
+.textAlignCenter {
+  text-align: center;
 }
 
-button:focus {
-  outline: 0;
-}
-
-.btn-primary {
-  margin: 0px;
-  border: none;
-  background-color: #F3F3F3;
-  color: #0A5748;
-}
-
-.btn-primary i {
-  transition: all 0.5s ease-in-out;
-}
-
-.btn-primary:hover,
-.btn-primary:focus {
-  cursor: pointer;
-  background-color: #0A5748;
-  color: white;
-}
-
-.btnSubmit {
-  font-weight: bold;
+.ui.button.fluid.btnPrimary {
   color: white;
   background-color: #17CCA9;
   border-top: 1px solid transparent;
@@ -13014,11 +12917,12 @@ button:focus {
   border-left: 5px solid #0A5748;
   border-right: 5px solid #0A5748;
   border-radius: 10px;
+  margin-bottom: 10px;
 }
 
-.btnSubmit:hover,
-.btnSubmit:focus {
-  color: #0A5748;
+.ui.button.fluid.btnPrimary:hover,
+.ui.button.fluid.btnPrimary:focus {
+  color: #17CCA9;
   background-color: #F3F3F3;
   border-color: #0A5748;
   border-top: 1px solid #0A5748;
@@ -13042,6 +12946,28 @@ button:focus {
 
 .btnLink:hover::after {
   content: " \22D9";
+}
+
+button:focus {
+  outline: 0;
+}
+
+.btn-primary {
+  margin: 0px;
+  border: none;
+  background-color: #F3F3F3;
+  color: #0A5748;
+}
+
+.btn-primary i {
+  transition: all 0.5s ease-in-out;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  cursor: pointer;
+  background-color: #0A5748;
+  color: white;
 }
 
 .btnFormPrimary {
@@ -13082,85 +13008,6 @@ button:focus {
   background-color: white;
 }
 
-.btnSocialMedia {
-  margin-top: 10px;
-  border-radius: 8px;
-  background-color: white;
-}
-
-.btnSocialMedia .socialMediaGo {
-  visibility: hidden;
-}
-
-.btnSocialMedia:hover,
-.btnSocialMedia:focus {
-  border-style: dashed;
-  cursor: pointer;
-}
-
-.btnSocialMedia:hover .socialMediaText,
-.btnSocialMedia:focus .socialMediaText {
-  font-weight: bold;
-}
-
-.btnSocialMedia:hover .socialMediaGo,
-.btnSocialMedia:focus .socialMediaGo {
-  visibility: visible;
-}
-
-.btnFacebook {
-  border: 1px solid #3b5998;
-}
-
-.btnFacebook .socialMediaText {
-  color: #3b5998;
-}
-
-.btnTwitter {
-  border: 1px solid #38A1F3;
-}
-
-.btnTwitter .socialMediaText {
-  color: #38A1F3;
-}
-
-.btnGoogle {
-  border: 1px solid #DB4437;
-}
-
-.btnGoogle .socialMediaText {
-  color: #DB4437;
-}
-
-.btnSocialMedia > div {
-  display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
-  color: white;
-  grid-auto-rows: minmax(30px, 30px);
-}
-
-.btnSocialMedia > div div:nth-child(1) {
-  align-self: center;
-}
-
-.btnSocialMedia > div div:nth-child(2) {
-  justify-self: left;
-  align-self: center;
-}
-
-.btnSocialMedia > div div:nth-child(3) {
-  justify-self: right;
-  align-self: center;
-}
-
-.btnSocialMedia > div .socialMediaImg {
-  width: 25px;
-}
-
-.btnSocialMedia > div i {
-  color: #424242;
-}
-
 .far,
 .fas,
 .fab {
@@ -13174,16 +13021,6 @@ button:focus {
 
 .fa-2x {
   font-size: 2rem;
-}
-
-.form-group {
-  margin-left: 0;
-  margin-right: 0;
-}
-
-.col-form-label {
-  padding-left: 0;
-  font-weight: bold;
 }
 
 .descElement {
@@ -13492,7 +13329,6 @@ button:focus {
     grid-template-columns: 1fr 5fr;
     grid-template-rows: 45px;
     background: transparent;
-    font-family: "Taprom", "Patrick Hand", sans-serif;
     z-index: 999;
   }
 
@@ -13506,9 +13342,7 @@ button:focus {
     border-bottom-right-radius: 40px;
     border-top: 0.2rem solid #0A5748;
     border-bottom: 0.2rem solid #0A5748;
-    font-family: "Pacifico", sans-serif;
     color: white;
-    font-size: 1.2rem;
   }
 
   #KCNavbar #navLogo div div:nth-child(1) {
@@ -13524,7 +13358,6 @@ button:focus {
     display: grid;
     grid-template-columns: 1fr 4fr 1fr;
     grid-template-rows: minmax(45px, 45px);
-    font-size: 0.9rem;
   }
 
   #KCNavbar #navContent .navMenu {
@@ -13609,7 +13442,7 @@ button:focus {
     align-self: center;
     justify-self: center;
     border: 2px solid #0A5748;
-    padding: 1px 7px;
+    padding: 5px 7px;
     border-radius: 5px;
     display: block;
     transition: all 0.5s ease-in-out;
@@ -13707,7 +13540,6 @@ button:focus {
     grid-column-end: 14;
     grid-row-start: 1;
     text-align: center;
-    font-family: "Sniglet", cursive;
     border: 1.5px solid #0A5748;
     font-weight: bold;
     border-radius: 15px;
@@ -13731,7 +13563,6 @@ button:focus {
 
   #KCNavbar #navContent .userProfileBtn .profileMenuList div ul {
     margin: 0;
-    font-family: "Taprom", "Montserrat", sans-serif;
     font-size: 10px;
     border: 2px solid #424242;
     background-color: white;
@@ -14572,6 +14403,86 @@ button:focus {
   }
 }
 
+.ui.button.fluid.btnSocialMedia {
+  padding: 0 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+  background-color: white;
+}
+
+.ui.button.fluid.btnSocialMedia .socialMediaGo {
+  visibility: hidden;
+}
+
+.ui.button.fluid.btnSocialMedia:hover,
+.ui.button.fluid.btnSocialMedia:focus {
+  border-style: dashed;
+  cursor: pointer;
+}
+
+.ui.button.fluid.btnSocialMedia:hover .socialMediaText,
+.ui.button.fluid.btnSocialMedia:focus .socialMediaText {
+  font-weight: bold;
+}
+
+.ui.button.fluid.btnSocialMedia:hover .socialMediaGo,
+.ui.button.fluid.btnSocialMedia:focus .socialMediaGo {
+  visibility: visible;
+}
+
+.ui.button.fluid.btnFacebook {
+  border: 1px solid #3b5998;
+}
+
+.ui.button.fluid.btnFacebook .socialMediaText {
+  color: #3b5998;
+}
+
+.ui.button.fluid.btnTwitter {
+  border: 1px solid #38A1F3;
+}
+
+.ui.button.fluid.btnTwitter .socialMediaText {
+  color: #38A1F3;
+}
+
+.ui.button.fluid.btnGoogle {
+  border: 1px solid #DB4437;
+}
+
+.ui.button.fluid.btnGoogle .socialMediaText {
+  color: #DB4437;
+}
+
+.ui.button.fluid.btnSocialMedia > div {
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  color: white;
+  grid-auto-rows: minmax(30px, 30px);
+}
+
+.ui.button.fluid.btnSocialMedia > div div:nth-child(1) {
+  align-self: center;
+}
+
+.ui.button.fluid.btnSocialMedia > div div:nth-child(2) {
+  justify-self: left;
+  align-self: center;
+}
+
+.ui.button.fluid.btnSocialMedia > div div:nth-child(3) {
+  justify-self: right;
+  align-self: center;
+}
+
+.ui.button.fluid.btnSocialMedia > div .socialMediaImg {
+  width: 25px;
+}
+
+.ui.button.fluid.btnSocialMedia > div i {
+  color: #424242;
+}
+
 @media screen and (min-width: 1440px) {
   .loginContent {
     margin-top: 30px;
@@ -14583,6 +14494,7 @@ button:focus {
   .loginContent .quoteSide {
     justify-self: center;
     align-self: center;
+    text-align: center;
   }
 
   .loginContent .quoteSide .quoteContent {
@@ -14599,8 +14511,6 @@ button:focus {
   }
 
   .loginContent .formSide {
-    font-family: "Taprom", "Montserrat", sans-serif;
-    font-size: 0.9em;
     padding-right: 60px;
   }
 
@@ -14647,6 +14557,16 @@ button:focus {
     -webkit-transform: rotateY(180deg);
             transform: rotateY(180deg);
     visibility: hidden;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard .formTitle {
+    text-align: center;
+  }
+
+  .loginContent .formSide .cardContainer .kcCard .forgotPasswordBlock,
+  .loginContent .formSide .cardContainer .kcCard .registerNowBlock,
+  .loginContent .formSide .cardContainer .kcCard .logInNowBlock {
+    text-align: center;
   }
 
   .loginContent .formSide .cardContainer #formLogin .btnSubmit,

@@ -7,6 +7,7 @@
 @import url('https://fonts.googleapis.com/css?family=Sniglet');
 @import url('https://fonts.googleapis.com/css?family=Pacifico');
 @import url('https://fonts.googleapis.com/css?family=Patrick+Hand');
+@import url('https://fonts.googleapis.com/css?family=Comfortaa&display=swap');
 // Khmer Fonts
 @import url('https://fonts.googleapis.com/css?family=Angkor');
 @import url('https://fonts.googleapis.com/css?family=Hanuman');
@@ -24,7 +25,7 @@
 
 // Noty
 @import '~noty/src/noty.scss';
-@import '~noty/src/themes/nest.scss';
+@import '~noty/src/themes/relax.scss';
 
 // FontAwesome
 @import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
@@ -48,9 +49,12 @@
 //***************************************
 body {
     padding-top: 4rem;
-    font-family: 'Montserrat';
     font-size: 13px;
     background: $page-background;
+}
+
+*, button, h1, h2, h3, h4, h5, h6, .ui.button {
+    font-family: 'Taprom', 'Comfortaa', sans-serif;
 }
 
 // Override default location of noty
@@ -64,13 +68,13 @@ body {
     }
 }
 
-.container {
+#mainContent {
     max-width: 100%;
     padding: 0 4rem;
 }
 
 @media screen and (max-width: $above-mobile-L) {
-    .container {
+    #mainContent {
         padding: 0 2em;
     }
 }
@@ -84,32 +88,13 @@ hr.grayLine {
     margin: 3px 0;
 }
 
-.formTitle {
-    text-transform: uppercase;
-    color: $main-green;
-    margin: 0.1rem 0 2rem 0;
+//------------------------------------------------------------------------Text
+.textAlignCenter {
+    text-align: center;
 }
 
-//-----Buttons
-button:focus {
-    outline: 0;
-}
-.btn-primary {
-    margin: 0px;
-    border: none;
-    background-color: $page-background;
-    color: $main-green;
-}
-.btn-primary i {
-    transition: all 0.5s ease-in-out;
-}
-.btn-primary:hover, .btn-primary:focus {
-    cursor: pointer;
-    background-color: $main-green;
-    color: white;
-}
-.btnSubmit {
-    font-weight: bold;
+//------------------------------------------------------------------------Buttons
+.ui.button.fluid.btnPrimary {
     color: $white;
     background-color: $secondary-green;
     border-top: 1px solid transparent;
@@ -117,9 +102,10 @@ button:focus {
     border-left: 5px solid $main-green;
     border-right: 5px solid $main-green;
     border-radius: 10px;
+    margin-bottom: 10px;
 }
-.btnSubmit:hover, .btnSubmit:focus {
-    color: $main-green;
+.ui.button.fluid.btnPrimary:hover, .ui.button.fluid.btnPrimary:focus {
+    color: $secondary-green;
     background-color: $page-background;
     border-color: $main-green;
     border-top: 1px solid $main-green;
@@ -140,6 +126,27 @@ button:focus {
 .btnLink:hover::after {
     content: ' ⋙';
 }
+
+
+button:focus {
+    outline: 0;
+}
+.btn-primary {
+    margin: 0px;
+    border: none;
+    background-color: $page-background;
+    color: $main-green;
+}
+.btn-primary i {
+    transition: all 0.5s ease-in-out;
+}
+.btn-primary:hover, .btn-primary:focus {
+    cursor: pointer;
+    background-color: $main-green;
+    color: white;
+}
+
+
 .btnFormPrimary {
     color: $white;
     background-color: $secondary-green;
@@ -169,67 +176,6 @@ button:focus {
     color: $main-black;
     background-color: white;
 }
-.btnSocialMedia {
-    margin-top: 10px;
-    -webkit-border-radius: 8px;
-    -moz-border-radius: 8px;
-    border-radius: 8px;
-    background-color: white;
-    .socialMediaGo {
-        visibility: hidden;
-    }
-}
-.btnSocialMedia:hover, .btnSocialMedia:focus {
-    border-style: dashed;
-    cursor: pointer;
-    .socialMediaText {
-        font-weight: bold;
-    }
-    .socialMediaGo {
-        visibility: visible;
-    }
-}
-.btnFacebook {
-    border: 1px solid $facebook;
-    .socialMediaText {
-        color: $facebook;
-    }
-}
-.btnTwitter {
-    border: 1px solid $twitter;
-    .socialMediaText {
-        color: $twitter;
-    }
-}
-.btnGoogle {
-    border: 1px solid $google;
-    .socialMediaText{
-        color: $google;
-    }
-}
-.btnSocialMedia > div {
-    display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
-    color: white;
-    grid-auto-rows: minmax(30px, 30px);
-    div:nth-child(1) {
-        align-self: center;
-    }
-    div:nth-child(2) {
-        justify-self: left;
-        align-self: center;
-    }
-    div:nth-child(3) {
-        justify-self: right;
-        align-self: center;
-    }
-    .socialMediaImg {
-        width: 25px;
-    }
-    i {
-        color: $main-gray;
-    }
-}
 
 //-----Font awesome icons
 .far, .fas, .fab{
@@ -241,16 +187,6 @@ button:focus {
 }
 .fa-2x {
     font-size: 2rem;
-}
-
-//-----Bootstrap form
-.form-group {
-    margin-left: 0;
-    margin-right: 0;
-}
-.col-form-label {
-    padding-left: 0;
-    font-weight: bold;
 }
 
 // ---- Description Element
@@ -479,10 +415,8 @@ button:focus {
     }
 }
 
-//***********************
-// KC Navbar
-//***********************
 @import 'navbar';
+@import 'auth/social_login.scss';
 @import 'auth/login';
 @import '_animate.css';
 @import 'auth/user_profile';
