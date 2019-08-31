@@ -12865,7 +12865,8 @@ h3,
 h4,
 h5,
 h6,
-.ui.button {
+.ui.button,
+.ui.form input[type=text] {
   font-family: "Taprom", "Comfortaa", sans-serif;
 }
 
@@ -12909,6 +12910,10 @@ hr.grayLine {
   text-align: center;
 }
 
+button:focus {
+  outline: none;
+}
+
 .ui.button.fluid.btnPrimary {
   color: white;
   background-color: #17CCA9;
@@ -12948,63 +12953,44 @@ hr.grayLine {
   content: " \22D9";
 }
 
-button:focus {
-  outline: 0;
-}
-
-.btn-primary {
-  margin: 0px;
-  border: none;
-  background-color: #F3F3F3;
-  color: #0A5748;
-}
-
-.btn-primary i {
-  transition: all 0.5s ease-in-out;
-}
-
-.btn-primary:hover,
-.btn-primary:focus {
-  cursor: pointer;
-  background-color: #0A5748;
-  color: white;
-}
-
-.btnFormPrimary {
+.ui.button.btnFormPrimary {
   color: white;
   background-color: #17CCA9;
-  border: 2px solid #17CCA9;
+  border: 1.5px solid #17CCA9;
   border-radius: 10px;
+  padding: 7px 10px;
 }
 
-.btnFormPrimary:hover,
-.btnFormPrimary:focus {
-  color: #262626;
+.ui.button.btnFormPrimary:hover,
+.ui.button.btnFormPrimary:focus {
+  color: #17CCA9;
   background-color: white;
 }
 
-.btnFormSecondary {
+.ui.button.btnFormSecondary {
   color: white;
-  background-color: #424242;
-  border: 2px solid #424242;
+  background-color: #707070;
+  border: 1.5px solid #707070;
   border-radius: 10px;
+  padding: 7px 10px;
 }
 
-.btnFormSecondary:hover,
-.btnFormSecondary:focus {
-  color: #262626;
+.ui.button.btnFormSecondary:hover,
+.ui.button.btnFormSecondary:focus {
+  color: #707070;
   background-color: white;
 }
 
-.btnFormThirdly {
+.ui.button.btnFormThirdly {
   background-color: #D8D8D8;
-  border: 2px solid #D8D8D8;
+  border: 1.5px solid #D8D8D8;
   border-radius: 10px;
+  padding: 7px 10px;
 }
 
-.btnFormThirdly:hover,
-.btnFormThirdly:focus {
-  color: #262626;
+.ui.button.btnFormThirdly:hover,
+.ui.button.btnFormThirdly:focus {
+  color: #707070;
   background-color: white;
 }
 
@@ -13021,6 +13007,93 @@ button:focus {
 
 .fa-2x {
   font-size: 2rem;
+}
+
+.TVYContentEditor {
+  z-index: 334;
+  margin: 5px 0;
+  padding: 0;
+  border-radius: 5px;
+}
+
+.TVYContentEditor .tabTypeContent {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 2px;
+  align-items: stretch;
+}
+
+.TVYContentEditor .tabTypeContent button {
+  margin: 0;
+  border-radius: 10px 10px 0 0;
+  border: 1px solid #D8D8D8;
+  border-bottom: none;
+  background-color: white;
+  color: #707070;
+  font-size: 0.9em;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  cursor: pointer;
+}
+
+.TVYContentEditor .tabTypeContent button:hover,
+.TVYContentEditor .tabTypeContent button:focus {
+  font-weight: bold;
+  background-color: #F3F3F3;
+}
+
+.TVYContentEditor .tabTypeContent button.selected {
+  background-color: #17CCA9;
+  color: white;
+}
+
+.TVYContentEditor .editor {
+  border: 1px solid #D8D8D8;
+  border-top: none;
+  border-bottom: none;
+}
+
+.TVYContentEditor .editor .ql-container {
+  height: 200px;
+  background-color: white;
+  border: none;
+}
+
+.TVYContentEditor .editor .ql-toolbar {
+  border: none;
+  border-top: 2px solid #17CCA9;
+  background-color: white;
+}
+
+.TVYContentEditor .editor #TVYCodeEditor .codeEditorTools {
+  padding: 5px;
+  border-top: 2px solid #17CCA9;
+  background-color: white;
+  font-size: 0.8em;
+}
+
+.TVYContentEditor .actionContentEditor {
+  border: 1px solid #D8D8D8;
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  text-align: center;
+  background-color: white;
+  padding: 5px;
+}
+
+.TVYContentEditor .actionContentEditor .btnAddContent {
+  cursor: pointer;
+  border: 2px solid #17CCA9;
+  background-color: #17CCA9;
+  border-radius: 10px;
+  color: white;
+  padding: 2px 20px;
+}
+
+.TVYContentEditor .actionContentEditor .btnAddContent:hover,
+.TVYContentEditor .actionContentEditor .btnAddContent:focus {
+  background-color: white;
+  color: #17CCA9;
 }
 
 .descElement {
@@ -13138,99 +13211,6 @@ button:focus {
   background-color: white;
   border: 1.5px dashed #D8D8D8;
   border-radius: 5px;
-}
-
-.TVYContentOrder {
-  padding: 0;
-  z-index: 333;
-}
-
-.TVYContentEditor {
-  z-index: 334;
-  margin: 5px 0;
-  padding: 0;
-  border-radius: 5px;
-}
-
-.TVYContentEditor .tabTypeContent {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-column-gap: 2px;
-  align-items: stretch;
-}
-
-.TVYContentEditor .tabTypeContent button {
-  margin: 0;
-  border-radius: 10px 10px 0 0;
-  border: 1px solid #D8D8D8;
-  border-bottom: none;
-  background-color: white;
-  color: #707070;
-}
-
-.TVYContentEditor .tabTypeContent button:hover,
-.TVYContentEditor .tabTypeContent button:focus {
-  font-weight: bold;
-  background-color: #F3F3F3;
-}
-
-.TVYContentEditor .tabTypeContent button.selected {
-  background-color: #17CCA9;
-  color: white;
-}
-
-.TVYContentEditor .editor {
-  border: 1px solid #D8D8D8;
-  border-top: none;
-  border-bottom: none;
-}
-
-.TVYContentEditor .editor .ql-container {
-  height: 200px;
-}
-
-.TVYContentEditor .editor #TVYCodeEditor .codeEditorTools {
-  padding: 5px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  align-items: center;
-}
-
-.TVYContentEditor .editor #TVYCodeEditor .codeEditorTools label {
-  margin: 0;
-  text-align: right;
-}
-
-.TVYContentEditor .editor #TVYCodeEditor .codeEditorTools i {
-  font-size: 0.9em;
-  color: #707070;
-}
-
-.TVYContentEditor .editor #TVYCodeEditor .codeEditorTools i:hover {
-  cursor: pointer;
-}
-
-.TVYContentEditor .actionContentEditor {
-  border: 1px solid #D8D8D8;
-  border-top: none;
-  border-radius: 0 0 10px 10px;
-  text-align: center;
-  background-color: white;
-  padding: 5px;
-}
-
-.TVYContentEditor .actionContentEditor .btnAddContent {
-  border: 2px solid #17CCA9;
-  background-color: #17CCA9;
-  border-radius: 10px;
-  color: white;
-  padding: 2px 15px;
-}
-
-.TVYContentEditor .actionContentEditor .btnAddContent:hover,
-.TVYContentEditor .actionContentEditor .btnAddContent:focus {
-  background-color: white;
-  color: #17CCA9;
 }
 
 .TVYContentActionView {
@@ -15008,6 +14988,11 @@ button:focus {
 
 .askQuestionContent .questionPreview {
   border: 1px dashed red;
+}
+
+.askQuestionContent .questionPreview .TVYContentOrder {
+  padding: 0;
+  z-index: 333;
 }
 
 .pageViewQuestion {

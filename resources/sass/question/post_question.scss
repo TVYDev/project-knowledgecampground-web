@@ -43,5 +43,9 @@
     }
     .questionPreview {
         border: 1px dashed red;
+        .TVYContentOrder {
+            padding: 0;
+            z-index: 333;
+        }
     }
 }

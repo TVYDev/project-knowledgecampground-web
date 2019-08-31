@@ -14,21 +14,22 @@ const html = `
                     <div class="actualTextEditor"></div>
                 </div>
                 <div id="TVYCodeEditor" hidden="hidden">
-                    <div class="codeEditorTools col-md-12">
-                        <div>
-                            <label class="col-md-4">Language</label>
-                            <select class="codeEditorMode form-control-sm col-md-7">
-                                <option>JavaScript</option>
-                                <option>HTML</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="col-md-4">Theme</label>
-                            <select class="codeEditorTheme form-control-sm col-md-7">
-                                <option>Light Theme</option>
-                                <option>Dark Theme</option>
-                            </select>
-                            <i class="far fa-question-circle"></i>
+                    <div class="codeEditorTools ui fluid form">
+                        <div class="two fields">
+                            <div class="field">
+                                <label for="codeEditorMode">Language</label>
+                                <select class="ui fluid dropdown codeEditorMode" id="codeEditorMode">
+                                    <option>JavaScript</option>
+                                    <option>HTML</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="codeEditorTheme">Theme</label>
+                                <select class="ui fluid dropdown codeEditorTheme" id="codeEditorTheme">
+                                    <option>Light Theme</option>
+                                    <option>Dark Theme</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="actualCodeEditor"></div>
@@ -38,7 +39,9 @@ const html = `
                 </div>
             </div>
             <div class="actionContentEditor">
-                <button type="button" class="btnAddContent" data-type="text">Add to description</button>
+                <button type="button" class="btnAddContent" data-type="text">
+                    <i class="far fa-check-circle"></i>
+                </button>
             </div>
         </div>
     </div>
