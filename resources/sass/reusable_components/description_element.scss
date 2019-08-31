@@ -1,0 +1,72 @@
+.descElement {
+    padding: 0;
+    margin: 3px 0;
+    position: relative;
+    z-index: 10;
+    .descTools {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 11;
+        height: 100%;
+        width: 100%;
+        text-align: right;
+        border-radius: 5px;
+        border: 1.5px dashed transparent;
+        background-color: transparent;
+        button {
+            visibility: hidden;
+            border: none;
+            background: none;
+            padding: 0;
+            margin: 0 5px;
+            height: 100%;
+            color: $main-gray;
+            i {
+                font-size: 0.9rem;
+            }
+        }
+        button:hover, button:focus {
+            color: $secondary-green;
+        }
+    }
+    .descTools.editing {
+        background-color: rgba($secondary-gray, 0.3);
+        border-color: $main-gray;
+    }
+    .descTools.edited {
+        animation: blink 1.5s;
+    }
+    @keyframes blink{
+        0%{opacity: 0; background-color: $white;}
+        50%{opacity: .4; background-color: $white}
+        100%{opacity: .6; background-color: $white;}
+    }
+    .descTools:hover, .descTools:focus, .descContent .ql-editor:hover .descTools {
+        transition: 0.5s;
+        background-color: rgba($secondary-green, 0.3);
+        cursor: pointer;
+        border-color: white;
+    }
+    span {
+        position: relative;
+        right: -50px;
+        visibility: hidden;
+    }
+    .descTools:hover span {
+        border-radius: 10px 0 0 10px;
+        padding: 10px;
+        background-color: rgba($white, 0.8);
+        visibility: visible;
+        right: 0;
+        transition: 0.5s;
+    }
+    .descTools:hover button {
+        visibility: visible;
+    }
+    .descContent {
+        background-color: white;
+        border: 1.5px dashed $thirdly-gray;
+        border-radius: 5px;
+    }
+}

@@ -1,0 +1,62 @@
+.ui.button.fluid.btnSocialMedia {
+    padding: 0 10px;
+    margin-top: 10px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    background-color: white;
+    .socialMediaGo {
+        visibility: hidden;
+    }
+}
+.ui.button.fluid.btnSocialMedia:hover, .ui.button.fluid.btnSocialMedia:focus {
+    border-style: dashed;
+    cursor: pointer;
+    .socialMediaText {
+        font-weight: bold;
+    }
+    .socialMediaGo {
+        visibility: visible;
+    }
+}
+.ui.button.fluid.btnFacebook {
+    border: 1px solid $facebook;
+    .socialMediaText {
+        color: $facebook;
+    }
+}
+.ui.button.fluid.btnTwitter {
+    border: 1px solid $twitter;
+    .socialMediaText {
+        color: $twitter;
+    }
+}
+.ui.button.fluid.btnGoogle {
+    border: 1px solid $google;
+    .socialMediaText{
+        color: $google;
+    }
+}
+.ui.button.fluid.btnSocialMedia > div {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    color: white;
+    grid-auto-rows: minmax(30px, 30px);
+    div:nth-child(1) {
+        align-self: center;
+    }
+    div:nth-child(2) {
+        justify-self: left;
+        align-self: center;
+    }
+    div:nth-child(3) {
+        justify-self: right;
+        align-self: center;
+    }
+    .socialMediaImg {
+        width: 25px;
+    }
+    i {
+        color: $main-gray;
+    }
+}

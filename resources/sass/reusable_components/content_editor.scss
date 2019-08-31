@@ -1,0 +1,75 @@
+.TVYContentEditor {
+    z-index: 334;
+    margin: 5px 0;
+    padding: 0;
+    border-radius: 5px;
+    .tabTypeContent {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-column-gap: 2px;
+        align-items: stretch;
+        button {
+            margin: 0;
+            border-radius: 10px 10px 0 0;
+            border: 1px solid $thirdly-gray;
+            border-bottom: none;
+            background-color: white;
+            color: $secondary-gray;
+            font-size: 0.9em;
+            padding-top: 3px;
+            padding-bottom: 3px;
+            cursor: pointer;
+        }
+        button:hover, button:focus {
+            font-weight: bold;
+            background-color: $page-background;
+        }
+        button.selected {
+            background-color: $secondary-green;
+            color: white;
+        }
+    }
+    .editor {
+        border: 1px solid $thirdly-gray;
+        border-top: none;
+        border-bottom: none;
+        .ql-container {
+            height: 200px;
+            background-color: white;
+            border: none;
+        }
+        .ql-toolbar {
+            border: none;
+            border-top: 2px solid $secondary-green;
+            background-color: white;
+        }
+        #TVYCodeEditor {
+            .codeEditorTools {
+                padding: 5px;
+                border-top: 2px solid $secondary-green;
+                background-color: white;
+                font-size: 0.8em;
+            }
+        }
+    }
+    .actionContentEditor {
+        border: 1px solid $thirdly-gray;
+        border-top: none;
+        border-radius: 0 0 10px 10px;
+        text-align: center;
+        background-color: white;
+        padding: 5px;
+        .btnAddContent {
+            cursor: pointer;
+            border: 2px solid $secondary-green;
+            background-color: $secondary-green;
+            border-radius: 10px;
+            color: white;
+            padding: 2px 20px;
+        }
+        .btnAddContent:hover, .btnAddContent:focus {
+            background-color: white;
+            color: $secondary-green;
+        }
+    }
+}

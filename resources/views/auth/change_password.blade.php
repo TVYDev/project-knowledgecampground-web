@@ -20,35 +20,29 @@
             <h3>Change Password</h3><br>
             <form action="{{ route(\App\Lib\RouteConstants::USER_POST_CHANGE_PASSWORD) }}" method="post" id="formChangePassword">
                 @csrf
-                <div class="form-group row">
-                    <label for="currentPassword" class="col-md-3 col-form-label">Current Password</label>
-                    <div class="col-md-4 p-0">
-                        <input type="password" name="currentPassword" class="form-control" required="required">
+                <div class="ui form">
+                    <div class="field">
+                        <label for="currentPassword">Current Password</label>
+                        <input type="password" name="currentPassword" id="currentPassword" required="required">
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label for="newPassword" class="col-md-3 col-form-label">New Password</label>
-                    <div class="col-md-4 p-0">
-                        <input type="password" name="newPassword" class="form-control" required="required">
+                    <div class="field">
+                        <label for="newPassword">New Password</label>
+                        <input type="password" name="newPassword" id="newPassword" required="required">
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label for="newPassword_confirmation" class="col-md-3 col-form-label">Confirm New Password</label>
-                    <div class="col-md-4 p-0">
-                        <input type="password" name="newPassword_confirmation" class="form-control" required="required">
+                    <div class="field">
+                        <label for="newPassword_confirmation">Confirm New Password</label>
+                        <input type="password" name="newPassword_confirmation" id="newPassword_confirmation" required="required">
                     </div>
-                </div>
-                <div class="form-group row">
-                    <input type="submit" class="btn btnSubmit col-7" value="Change Password">
+                    <button class="ui button fluid btnPrimary" type="submit">Change Password</button>
                 </div>
             </form>
             <div class="notice">
                 <p class="p-0 m-0">
                     <strong>NOTICE:</strong><br>
-                    You will be required to login again with your new password in all synced devices
-                    <br>after current password is changed successfully.
+                    You will be required to login again with your new password in all synced devices after current password is changed successfully.
                 </p>
             </div>
         </div>
+        <div></div>
     </div>
 @endsection
