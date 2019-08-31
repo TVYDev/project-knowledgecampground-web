@@ -118,9 +118,9 @@ trait RequestAPI
     {
         $message = $exception->getMessage() . $isIncludedTrace ? $exception->getTraceAsString() : '';
         if($exception instanceof ClientException){
-            dd($exception);
+//            dd($exception);
             $json = json_decode($exception->getResponse()->getBody()->getContents());
-            $message = $json->message;
+            $message = $json->message_sys;
         }
         else if($exception instanceof ConnectException){
             $message = "Server is not running.";

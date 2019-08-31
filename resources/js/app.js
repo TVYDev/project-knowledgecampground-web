@@ -34,6 +34,15 @@ const app = new Vue({
 });
 
 /**
+ * Semantic UI
+ */
+require('semantic-ui/dist/semantic.min');
+
+window.onload = function(){
+    $('.ui.dropdown').dropdown();
+};
+
+/**
  * CodeMirror scripts
  */
 require('codemirror/mode/javascript/javascript');
