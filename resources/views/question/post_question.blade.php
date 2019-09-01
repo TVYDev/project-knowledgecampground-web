@@ -26,14 +26,23 @@
                     <div class="ui form">
                         <div class="field">
                             <label for="subject">Choose subject</label>
-                            <select name="subject" id="subject" class="ui dropdown" required="required">
-                                <option value="it_programming">IT Programming</option>
-                                <option value="math">Mathematics</option>
-                            </select>
+                            <div class="ui fluid search selection dropdown">
+                                <input type="hidden" name="subject" value="DEFAULT">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Choose a subject</div>
+                                <div class="menu">
+                                    @foreach($subjectsData as $s)
+                                        <div class="item" data-value="{{$s['public_id']}}">
+                                            <img class="ui mini avatar image" src="{{$s['img_url']}}">
+                                            {{$s['name_en']}}
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
                         <div class="field">
                             <label for="title">Title</label>
-                            <input type="text" id="title" name="title" placeholder="Keep your title short and simple" required="required">
+                            <input type="text" class="questionTitle" id="title" name="title" placeholder="Keep your title short and simple" required="required">
                         </div>
                         <div class="field">
                             <label for="description"><strong>Description</strong></label>
