@@ -8,7 +8,10 @@
         <div class="viewQuestionContent">
             <div class="titleBlock">
                 <i class="far fa-star questionFavorite"></i>
-                <h3 class="questionTitle">{{ $title }}</h3>
+                <h2 class="questionTitle">{{ $title }}</h2>
+            </div>
+            <div class="subjectTag" data-public-id="{{$subject['public_id']}}">
+                <img src="{{$subject['img_url']}}" alt="english">&nbsp;{{$subject['name_en']}}
             </div>
             <tvy-content-action-view
                 data-question-public-id="{{ $publicId }}"

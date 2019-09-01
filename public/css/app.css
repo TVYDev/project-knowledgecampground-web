@@ -12886,6 +12886,7 @@ h6,
 }
 
 #mainContent {
+  margin-top: 20px;
   max-width: 100%;
   padding: 0 4rem;
 }
@@ -13276,7 +13277,10 @@ button:focus {
 
 .TVYContentActionView .actionPart .authorIdentity {
   justify-self: right;
-  align-self: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 3px;
+  align-items: center;
 }
 
 .TVYContentActionView .actionPart .authorIdentity .authorInfo {
@@ -13292,6 +13296,7 @@ button:focus {
 }
 
 .TVYContentActionView .actionPart .authorIdentity .authorAvatar {
+  vertical-align: middle;
   height: 30px;
   border-radius: 40px;
   border: 1.5px solid #0A5748;
@@ -15044,6 +15049,30 @@ button:focus {
   display: block;
   font-weight: bold;
   margin: 0;
+}
+
+.pageViewQuestion .viewQuestionContent .subjectTag {
+  font-size: 0.9em;
+  margin-top: 10px;
+  margin-bottom: 2px;
+  border: 1px solid #54D0E6;
+  background-color: #54D0E6;
+  color: white;
+  display: inline-block;
+  padding: 2px 5px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.pageViewQuestion .viewQuestionContent .subjectTag img {
+  vertical-align: middle;
+  height: 18px;
+}
+
+.pageViewQuestion .viewQuestionContent .subjectTag:hover,
+.pageViewQuestion .viewQuestionContent .subjectTag:focus {
+  background-color: white;
+  color: #707070;
 }
 
 .pageViewQuestion .rightExtraSpace {

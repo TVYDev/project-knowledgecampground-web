@@ -47,7 +47,10 @@
         }
         .authorIdentity {
             justify-self: right;
-            align-self: center;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-column-gap: 3px;
+            align-items: center;
             .authorInfo {
                 font-weight: bold;
                 color: $main-green;
@@ -58,6 +61,7 @@
                 text-decoration: underline;
             }
             .authorAvatar {
+                vertical-align: middle;
                 height: 30px;
                 border-radius: 40px;
                 border: 1.5px solid $main-green;

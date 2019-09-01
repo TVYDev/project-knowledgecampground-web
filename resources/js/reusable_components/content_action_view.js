@@ -11,8 +11,8 @@ const html = `
         </div>
         <div class="askedOrEditedDate"></div>
         <div class="authorIdentity">
-            <a href="#" class="authorInfo"></a>
-            <img class="authorAvatar" src="" alt="avatar">    
+            <div><a href="#" class="authorInfo"></a></div>
+            <div><img class="authorAvatar" src="" alt="avatar"></div>    
         </div>
     </div>
 </div>

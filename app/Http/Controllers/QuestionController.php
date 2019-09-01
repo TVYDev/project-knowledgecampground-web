@@ -27,8 +27,29 @@ class QuestionController extends Controller
      *------------------------------------------------------------------------*/
     public function getPost ()
     {
-        $publicId = $this->supporter->doGeneratePublicId();
-        return view('question.post_question')->with('publicId', $publicId);
+        try
+        {
+            $publicId = $this->supporter->doGeneratePublicId();
+
+            $resultSubjects = $this->get($this->getApiRequestUrl('subject.get_all_subjects'), null, null, $this->getAuthorizationHeader());
+            $subjectsDataToBePassedToView = [];
+            foreach ($resultSubjects->data as $s){
+                array_push($subjectsDataToBePassedToView, [
+                    'public_id' => $s->public_id,
+                    'name_en' => $s->name_en,
+                    'name_kh' => $s->name_kh,
+                    'img_url' => HttpConstants::HOST_URL . $s->img_url
+                ]);
+            }
+
+            return view('question.post_question')
+                ->with('publicId', $publicId)
+                ->with('subjectsData', $subjectsDataToBePassedToView);
+        }
+        catch(\Exception $exception)
+        {
+
+        }
     }
     public function postSaveDuringEditing (Request $request)
     {
@@ -60,7 +81,8 @@ class QuestionController extends Controller
             $publicId = $request->publicId;
             $response = $this->put($this->getApiRequestUrl('question.save'), $publicId, [
                 'title'     => $request->title,
-                'is_draft'  => $is_draft
+                'is_draft'  => $is_draft,
+                'subject_public_id' => $request->subject
             ], $this->getAuthorizationHeader());
 
             if($response->success == true)
@@ -96,13 +118,20 @@ class QuestionController extends Controller
 
             if($response->success) {
                 $data = $response->data;
+                $subject = [
+                    'public_id' => $data->subject->public_id,
+                    'name_en'   => $data->subject->name_en,
+                    'name_kh'   => $data->subject->name_kh,
+                    'img_url'   => HttpConstants::HOST_URL . $data->subject->img_url
+                ];
                 return view('question.view_question')
                     ->with('publicId', $publicId)
                     ->with('title', $data->title)
                     ->with('readableTime', $data->readable_time_en)
                     ->with('authorName', $data->author_name)
                     ->with('authorId', $data->author_id)
-                    ->with('avatarUrl', HttpConstants::HOST_URL . $data->avatar_url);
+                    ->with('avatarUrl', HttpConstants::HOST_URL . $data->avatar_url)
+                    ->with('subject', $subject);
             }
         }
         catch(\Exception $exception)

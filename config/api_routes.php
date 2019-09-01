@@ -70,6 +70,13 @@ return [
             'url'   => $host.'/api/question/description-of'
         ]
     ],
+    'subject' => [
+        'get_all_subjects' => [
+            'method' => 'get',
+            'path' => '/api/subject/all-subjects',
+            'url' => $host.'/api/subject/all-subjects'
+        ]
+    ],
     'support' => [
         'generate_public_id' => [
             'method'=> 'get',
