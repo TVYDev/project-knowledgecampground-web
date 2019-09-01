@@ -344,7 +344,6 @@ class TVYContentEditor extends HTMLElement
             type: 'POST',
             success: function(result) {
                 console.log('---Success');
-                console.log(result);
             },
             error: function(err) {
                 console.log('---Error');

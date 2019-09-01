@@ -24,7 +24,26 @@
                 margin: 0;
             }
         }
-        //border: 1px dashed pink;
+        .subjectTag {
+            font-size: 0.9em;
+            margin-top: 10px;
+            margin-bottom: 2px;
+            border: 1px solid $secondary-blue;
+            background-color: $secondary-blue;
+            color: white;
+            display: inline-block;
+            padding: 2px 5px;
+            border-radius: 20px;
+            cursor: pointer;
+            img {
+                vertical-align: middle;
+                height: 18px;
+            }
+        }
+        .subjectTag:hover, .subjectTag:focus {
+            background-color: $white;
+            color: $secondary-gray;
+        }
     }
     .rightExtraSpace {
         border: 1px dashed mediumpurple;
