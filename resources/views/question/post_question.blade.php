@@ -25,9 +25,19 @@
                     @csrf
                     <div class="ui form">
                         <div class="field">
-                            <label for="subject">Choose subject</label>
-                            <div class="ui fluid search selection dropdown">
-                                <input type="hidden" name="subject" value="DEFAULT">
+                            <label for="title">Title</label>
+                            <input type="text" class="questionTitle" id="title" name="title" placeholder="Keep your title short and simple" required="required">
+                        </div>
+                        <div class="field">
+                            <label for="description"><strong>Description</strong></label>
+                            <div class="descriptionBlock col-md-12 m-0 p-0"></div>
+                            <input type="hidden" name="publicId" value="{{ $publicId }}">
+                            <tvy-content-editor class="col-md-12" data-public-id="{{ $publicId }}"></tvy-content-editor>
+                        </div>
+                        <div class="field">
+                            <label for="subject">Subject</label>
+                            <div class="ui fluid selection dropdown subjectOfQuestion">
+                                <input type="hidden" name="subject" value="">
                                 <i class="dropdown icon"></i>
                                 <div class="default text">Choose a subject</div>
                                 <div class="menu">
@@ -41,14 +51,13 @@
                             </div>
                         </div>
                         <div class="field">
-                            <label for="title">Title</label>
-                            <input type="text" class="questionTitle" id="title" name="title" placeholder="Keep your title short and simple" required="required">
-                        </div>
-                        <div class="field">
-                            <label for="description"><strong>Description</strong></label>
-                            <div class="descriptionBlock col-md-12 m-0 p-0"></div>
-                            <input type="hidden" name="publicId" value="{{ $publicId }}">
-                            <tvy-content-editor class="col-md-12" data-public-id="{{ $publicId }}"></tvy-content-editor>
+                            <label for="tags">Tags</label>
+                            <div class="ui fluid multiple search selection dropdown tagsOfQuestion">
+                                <input type="hidden" name="tags" value="">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Choose related tags (maximum 3 tags)</div>
+                                <div class="menu"></div>
+                            </div>
                         </div>
                         <button type="submit" name="submit" value="post" class="ui button btnPostQuestion btnFormPrimary">
                             <span>{{ __('Post my question') }}</span>&nbsp;&nbsp;&nbsp;<i class="far fa-paper-plane"></i>

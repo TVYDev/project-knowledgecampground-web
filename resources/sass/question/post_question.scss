@@ -40,10 +40,29 @@
             tvy-content-editor {
                 padding: 0;
             }
+            .tagsOfQuestion {
+                .menu {
+                    .menuSubjectName {
+                        font-weight: bold;
+                    }
+                    .menuSubjectDesc {
+                        font-size: 0.8em;
+                    }
+                }
+                a.transition.visible {
+                    border-radius: 20px;
+                    box-shadow: none;
+                    .menuNewLine, .menuSubjectDesc {
+                        display: none;
+                    }
+                    .menuSubjectName {
+                        font-weight: normal;
+                    }
+                }
+            }
         }
     }
     .questionPreview {
-        border: 1px dashed red;
         .TVYContentOrder {
             padding: 0;
             z-index: 333;

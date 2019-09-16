@@ -12995,6 +12995,18 @@ button:focus {
   background-color: white;
 }
 
+.ui.dropdown .menu {
+  padding: 5px;
+}
+
+.ui.dropdown .menu .item {
+  border-radius: 5px;
+}
+
+.ui.dropdown .menu .item:hover {
+  background-color: #54D0E6;
+}
+
 .far,
 .fas,
 .fab {
@@ -15008,8 +15020,26 @@ button:focus {
   padding: 0;
 }
 
-.askQuestionContent .questionPreview {
-  border: 1px dashed red;
+.askQuestionContent .questionCreation .askQuestionForm .tagsOfQuestion .menu .menuSubjectName {
+  font-weight: bold;
+}
+
+.askQuestionContent .questionCreation .askQuestionForm .tagsOfQuestion .menu .menuSubjectDesc {
+  font-size: 0.8em;
+}
+
+.askQuestionContent .questionCreation .askQuestionForm .tagsOfQuestion a.transition.visible {
+  border-radius: 20px;
+  box-shadow: none;
+}
+
+.askQuestionContent .questionCreation .askQuestionForm .tagsOfQuestion a.transition.visible .menuNewLine,
+.askQuestionContent .questionCreation .askQuestionForm .tagsOfQuestion a.transition.visible .menuSubjectDesc {
+  display: none;
+}
+
+.askQuestionContent .questionCreation .askQuestionForm .tagsOfQuestion a.transition.visible .menuSubjectName {
+  font-weight: normal;
 }
 
 .askQuestionContent .questionPreview .TVYContentOrder {

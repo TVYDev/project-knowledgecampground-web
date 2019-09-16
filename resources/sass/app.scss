@@ -167,6 +167,18 @@ button:focus {
     color: $secondary-gray;
     background-color: white;
 }
+//------------------------------------------------------------------------Dropdown
+.ui.dropdown {
+    .menu {
+        padding: 5px;
+        .item {
+            border-radius: 5px;
+        }
+        .item:hover {
+            background-color: $secondary-blue;
+        }
+    }
+}
 
 //-----Font awesome icons
 .far, .fas, .fab{

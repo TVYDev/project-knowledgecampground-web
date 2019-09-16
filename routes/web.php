@@ -66,3 +66,10 @@ Route::group([
     Route::get('/description-of/{publicId}', 'QuestionController@getDescriptionOf')
         ->name(RouteConstants::QUESTION_GET_DESCRIPTION_OF);
 });
+
+Route::group([
+    'prefix' => 'tag'
+    ], function (){
+    Route::get('/get_tags_of_subject/{subjectId}', 'TagController@getTagsOfSubject')
+        ->name(RouteConstants::TAG_GET_TAGS_OF_SUBJECT);
+});
