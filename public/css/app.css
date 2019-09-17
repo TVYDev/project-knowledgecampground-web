@@ -12995,6 +12995,18 @@ button:focus {
   background-color: white;
 }
 
+.ui.dropdown .menu {
+  padding: 5px;
+}
+
+.ui.dropdown .menu .item {
+  border-radius: 5px;
+}
+
+.ui.dropdown .menu .item:hover {
+  background-color: #54D0E6;
+}
+
 .far,
 .fas,
 .fab {
@@ -15008,8 +15020,26 @@ button:focus {
   padding: 0;
 }
 
-.askQuestionContent .questionPreview {
-  border: 1px dashed red;
+.askQuestionContent .questionCreation .askQuestionForm .tagsOfQuestion .menu .menuSubjectName {
+  font-weight: bold;
+}
+
+.askQuestionContent .questionCreation .askQuestionForm .tagsOfQuestion .menu .menuSubjectDesc {
+  font-size: 0.8em;
+}
+
+.askQuestionContent .questionCreation .askQuestionForm .tagsOfQuestion a.transition.visible {
+  border-radius: 20px;
+  box-shadow: none;
+}
+
+.askQuestionContent .questionCreation .askQuestionForm .tagsOfQuestion a.transition.visible .menuNewLine,
+.askQuestionContent .questionCreation .askQuestionForm .tagsOfQuestion a.transition.visible .menuSubjectDesc {
+  display: none;
+}
+
+.askQuestionContent .questionCreation .askQuestionForm .tagsOfQuestion a.transition.visible .menuSubjectName {
+  font-weight: normal;
 }
 
 .askQuestionContent .questionPreview .TVYContentOrder {
@@ -15051,27 +15081,50 @@ button:focus {
   margin: 0;
 }
 
-.pageViewQuestion .viewQuestionContent .subjectTag {
-  font-size: 0.9em;
+.pageViewQuestion .viewQuestionContent .subjectTag,
+.pageViewQuestion .viewQuestionContent .tagTag {
+  font-size: 0.8em;
   margin-top: 10px;
   margin-bottom: 2px;
-  border: 1px solid #54D0E6;
-  background-color: #54D0E6;
-  color: white;
   display: inline-block;
   padding: 2px 5px;
-  border-radius: 20px;
   cursor: pointer;
 }
 
-.pageViewQuestion .viewQuestionContent .subjectTag img {
+.pageViewQuestion .viewQuestionContent .subjectTag img,
+.pageViewQuestion .viewQuestionContent .tagTag img {
   vertical-align: middle;
-  height: 18px;
+  height: 16px;
+}
+
+.pageViewQuestion .viewQuestionContent .subjectTag {
+  color: white;
+  border: 1px solid #005273;
+  background-color: #005273;
+  border-radius: 20px;
+}
+
+.pageViewQuestion .viewQuestionContent .tagTag {
+  color: #005273;
+  border: 1px solid #005273;
+  background-color: transparent;
+  border-radius: 5px;
 }
 
 .pageViewQuestion .viewQuestionContent .subjectTag:hover,
 .pageViewQuestion .viewQuestionContent .subjectTag:focus {
   background-color: white;
+  color: #424242;
+  font-weight: bold;
+}
+
+.pageViewQuestion .viewQuestionContent .tagTag:hover,
+.pageViewQuestion .viewQuestionContent .tagTag:focus {
+  background-color: #54D0E6;
+  color: white;
+}
+
+.pageViewQuestion .viewQuestionContent .subjectTagSeparator {
   color: #707070;
 }
 

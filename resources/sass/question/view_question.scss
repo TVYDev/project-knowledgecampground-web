@@ -24,24 +24,40 @@
                 margin: 0;
             }
         }
-        .subjectTag {
-            font-size: 0.9em;
+        .subjectTag, .tagTag {
+            font-size: 0.8em;
             margin-top: 10px;
             margin-bottom: 2px;
-            border: 1px solid $secondary-blue;
-            background-color: $secondary-blue;
-            color: white;
             display: inline-block;
             padding: 2px 5px;
-            border-radius: 20px;
             cursor: pointer;
             img {
                 vertical-align: middle;
-                height: 18px;
+                height: 16px;
             }
+        }
+        .subjectTag {
+            color: white;
+            border: 1px solid $main-blue;
+            background-color: $main-blue;
+            border-radius: 20px;
+        }
+        .tagTag {
+            color: $main-blue;
+            border: 1px solid $main-blue;
+            background-color: transparent;
+            border-radius: 5px;
         }
         .subjectTag:hover, .subjectTag:focus {
             background-color: $white;
+            color: $main-gray;
+            font-weight: bold;
+        }
+        .tagTag:hover, .tagTag:focus {
+            background-color: $secondary-blue;
+            color: white;
+        }
+        .subjectTagSeparator {
             color: $secondary-gray;
         }
     }

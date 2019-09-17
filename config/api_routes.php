@@ -77,6 +77,13 @@ return [
             'url' => $host.'/api/subject/all-subjects'
         ]
     ],
+    'tag' => [
+        'get_tags_of_subject' => [
+            'method'=> 'get',
+            'path'  => '/api/tag/all-tags-of/{subjectId}',
+            'url'   => $host.'/api/tag/all-tags-of'
+        ]
+    ],
     'support' => [
         'generate_public_id' => [
             'method'=> 'get',

@@ -73870,11 +73870,10 @@ var app = new Vue({// el: '#app'
  * Semantic UI
  */
 
-__webpack_require__(/*! semantic-ui/dist/semantic.min */ "./node_modules/semantic-ui/dist/semantic.min.js");
+__webpack_require__(/*! semantic-ui/dist/semantic.min */ "./node_modules/semantic-ui/dist/semantic.min.js"); // window.onload = function(){
+//     $('.ui.dropdown').dropdown();
+// };
 
-window.onload = function () {
-  $('.ui.dropdown').dropdown();
-};
 /**
  * CodeMirror scripts
  */
@@ -74216,7 +74215,44 @@ function navigateSideMenuForMobileScreen() {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-$(document).ready(function () {// console.log(document.querySelector('tvy-content-editor').quillTextContent);
+$(document).ready(function () {
+  $('.subjectOfQuestion').dropdown({
+    forceSelection: false,
+    onChange: function onChange(value) {
+      var subjectPublicId = value;
+      var url = window.location.origin + '/tag/get_tags_of_subject/' + subjectPublicId;
+      $.ajax({
+        url: url,
+        type: 'GET',
+        success: function success(result) {
+          var tags = result;
+          $('.tagsOfQuestion .menu').html('');
+          $('.tagsOfQuestion').dropdown('clear');
+
+          if (tags.length > 0) {
+            tags.forEach(function (ele) {
+              var html = '<div class="item" data-value="' + ele.public_id + '">';
+              html += '<img class="ui mini avatar image" src="' + ele.img_url + '">';
+              html += '<span class="menuSubjectName">' + ele.name_en + '</span>';
+              html += '<span class="menuNewLine"><br><br></span>';
+              html += '<span class="menuSubjectDesc">';
+              html += '<a href="https://www.google.com/" target="_blank"><i class="fas fa-info-circle"></i></a>&nbsp;';
+              html += ele.desc_en;
+              html += '</span>';
+              html += '</div>';
+              $('.tagsOfQuestion .menu').append(html);
+            });
+          }
+        },
+        error: function error(err) {
+          console.log(err);
+        }
+      });
+    }
+  });
+  $('.tagsOfQuestion').dropdown({
+    forceSelection: false
+  });
 });
 
 /***/ }),

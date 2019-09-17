@@ -35,4 +35,9 @@ class RouteConstants
     const QUESTION_GET_DESCRIPTION_OF = 'question.getDescriptionOf';
     /***********************************************************/
 
+    /************************************************************
+     * Route for TagController
+     ***********************************************************/
+    const TAG_GET_TAGS_OF_SUBJECT  = 'tag.getTagsOfSubject';
+    /***********************************************************/
 }
