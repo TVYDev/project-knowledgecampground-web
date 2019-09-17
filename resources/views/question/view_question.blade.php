@@ -10,9 +10,17 @@
                 <i class="far fa-star questionFavorite"></i>
                 <h2 class="questionTitle">{{ $title }}</h2>
             </div>
-            <div class="subjectTag" data-public-id="{{$subject['public_id']}}">
-                <img src="{{$subject['img_url']}}" alt="english">&nbsp;{{$subject['name_en']}}
-            </div>
+            <span class="subjectTag" data-public-id="{{$subject['public_id']}}">
+                <img src="{{$subject['img_url']}}" alt="subject">&nbsp;{{$subject['name_en']}}
+            </span>
+            @if(isset($tags) && count($tags) > 0)
+                <i class="fas fa-angle-double-right subjectTagSeparator"></i>
+                @foreach($tags as $tag)
+                    <span class="tagTag" data-public-id="{{$tag['public_id']}}">
+                        <img src="{{$tag['img_url']}}" alt="tag">&nbsp;{{$tag['name_en']}}
+                    </span>
+                @endforeach
+            @endif
             <tvy-content-action-view
                 data-question-public-id="{{ $publicId }}"
                 data-readable-time="{{ $readableTime }}"

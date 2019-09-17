@@ -15081,27 +15081,50 @@ button:focus {
   margin: 0;
 }
 
-.pageViewQuestion .viewQuestionContent .subjectTag {
-  font-size: 0.9em;
+.pageViewQuestion .viewQuestionContent .subjectTag,
+.pageViewQuestion .viewQuestionContent .tagTag {
+  font-size: 0.8em;
   margin-top: 10px;
   margin-bottom: 2px;
-  border: 1px solid #54D0E6;
-  background-color: #54D0E6;
-  color: white;
   display: inline-block;
   padding: 2px 5px;
-  border-radius: 20px;
   cursor: pointer;
 }
 
-.pageViewQuestion .viewQuestionContent .subjectTag img {
+.pageViewQuestion .viewQuestionContent .subjectTag img,
+.pageViewQuestion .viewQuestionContent .tagTag img {
   vertical-align: middle;
-  height: 18px;
+  height: 16px;
+}
+
+.pageViewQuestion .viewQuestionContent .subjectTag {
+  color: white;
+  border: 1px solid #005273;
+  background-color: #005273;
+  border-radius: 20px;
+}
+
+.pageViewQuestion .viewQuestionContent .tagTag {
+  color: #005273;
+  border: 1px solid #005273;
+  background-color: transparent;
+  border-radius: 5px;
 }
 
 .pageViewQuestion .viewQuestionContent .subjectTag:hover,
 .pageViewQuestion .viewQuestionContent .subjectTag:focus {
   background-color: white;
+  color: #424242;
+  font-weight: bold;
+}
+
+.pageViewQuestion .viewQuestionContent .tagTag:hover,
+.pageViewQuestion .viewQuestionContent .tagTag:focus {
+  background-color: #54D0E6;
+  color: white;
+}
+
+.pageViewQuestion .viewQuestionContent .subjectTagSeparator {
   color: #707070;
 }
 
