@@ -72,17 +72,26 @@ class QuestionController extends Controller
     {
         try
         {
-            $is_draft = false;
+            $tagPublicIds = $request->tags;
+
+            $isDraft = false;
             if($request->has('submit') && $request->submit == 'draft')
             {
-                $is_draft = true;
+                $isDraft = true;
+            }
+
+            $arrayTagPublicId = [];
+            if(isset($tagPublicIds) && $tagPublicIds !== '')
+            {
+                $arrayTagPublicId = explode(',', $tagPublicIds);
             }
 
             $publicId = $request->publicId;
             $response = $this->put($this->getApiRequestUrl('question.save'), $publicId, [
                 'title'     => $request->title,
-                'is_draft'  => $is_draft,
-                'subject_public_id' => $request->subject
+                'is_draft'  => $isDraft,
+                'subject_public_id' => $request->subject,
+                'tag_public_ids' => $arrayTagPublicId
             ], $this->getAuthorizationHeader());
 
             if($response->success == true)
@@ -124,6 +133,19 @@ class QuestionController extends Controller
                     'name_kh'   => $data->subject->name_kh,
                     'img_url'   => HttpConstants::HOST_URL . $data->subject->img_url
                 ];
+
+                $tags = [];
+                if(isset($data->tags)){
+                    foreach ($data->tags as $t){
+                        array_push($tags, [
+                            'public_id' => $t->public_id,
+                            'name_en'   => $t->name_en,
+                            'name_kh'   => $t->name_kh,
+                            'img_url'   => HttpConstants::HOST_URL . $t->img_url
+                        ]);
+                    }
+                }
+
                 return view('question.view_question')
                     ->with('publicId', $publicId)
                     ->with('title', $data->title)
@@ -131,7 +153,8 @@ class QuestionController extends Controller
                     ->with('authorName', $data->author_name)
                     ->with('authorId', $data->author_id)
                     ->with('avatarUrl', HttpConstants::HOST_URL . $data->avatar_url)
-                    ->with('subject', $subject);
+                    ->with('subject', $subject)
+                    ->with('tags', $tags);
             }
         }
         catch(\Exception $exception)

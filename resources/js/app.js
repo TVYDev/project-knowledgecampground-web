@@ -38,9 +38,9 @@ const app = new Vue({
  */
 require('semantic-ui/dist/semantic.min');
 
-window.onload = function(){
-    $('.ui.dropdown').dropdown();
-};
+// window.onload = function(){
+//     $('.ui.dropdown').dropdown();
+// };
 
 /**
  * CodeMirror scripts
