@@ -14968,6 +14968,11 @@ button:focus {
   padding-left: 50px;
 }
 
+.changePasswordContent .notice {
+  margin-top: 20px;
+  font-size: 0.9em;
+}
+
 .askQuestionContent {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
