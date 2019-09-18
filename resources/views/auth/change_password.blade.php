@@ -17,29 +17,29 @@
             <h5 class="email">vannyou@kc.com</h5>
         </div>
         <div class="changePasswordForm">
-            <h3>Change Password</h3><br>
+            <h2>{{ __('Change Password') }}</h2><br>
             <form action="{{ route(\App\Lib\RouteConstants::USER_POST_CHANGE_PASSWORD) }}" method="post" id="formChangePassword">
                 @csrf
                 <div class="ui form">
                     <div class="field">
-                        <label for="currentPassword">Current Password</label>
+                        <label for="currentPassword">{{ __('Current password') }}</label>
                         <input type="password" name="currentPassword" id="currentPassword" required="required">
                     </div>
                     <div class="field">
-                        <label for="newPassword">New Password</label>
+                        <label for="newPassword">{{ __('New password') }}</label>
                         <input type="password" name="newPassword" id="newPassword" required="required">
                     </div>
                     <div class="field">
-                        <label for="newPassword_confirmation">Confirm New Password</label>
+                        <label for="newPassword_confirmation">{{ __('Confirm new password') }}</label>
                         <input type="password" name="newPassword_confirmation" id="newPassword_confirmation" required="required">
                     </div>
-                    <button class="ui button fluid btnPrimary" type="submit">Change Password</button>
+                    <button class="ui button fluid btnPrimary" type="submit">{{ __('Submit change') }}</button>
                 </div>
             </form>
             <div class="notice">
-                <p class="p-0 m-0">
-                    <strong>NOTICE:</strong><br>
-                    You will be required to login again with your new password in all synced devices after current password is changed successfully.
+                <p>
+                    <strong>{{ __('NOTICE') }}:</strong><br>
+                    {{ __('You will be required to login again with your new password in all synced devices after current password is changed successfully.') }}
                 </p>
             </div>
         </div>
