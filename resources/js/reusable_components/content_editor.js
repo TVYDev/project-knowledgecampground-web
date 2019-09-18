@@ -17,18 +17,28 @@ const html = `
                     <div class="codeEditorTools ui fluid form">
                         <div class="two fields">
                             <div class="field">
-                                <label for="codeEditorMode">Language</label>
-                                <select class="ui fluid dropdown codeEditorMode" id="codeEditorMode">
-                                    <option>JavaScript</option>
-                                    <option>HTML</option>
-                                </select>
+                                <label for="codeEditorLanguages">Language</label>
+                                <div class="ui selection dropdown codeEditorLanguages">
+                                    <input type="hidden" name="codeEditorLanguages" value="javascript">
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text">Choose a language</div>
+                                    <div class="menu">
+                                        <div class="item" data-value="javascript">JavaScript</div>
+                                        <div class="item" data-value="php">PHP</div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="field">
                                 <label for="codeEditorTheme">Theme</label>
-                                <select class="ui fluid dropdown codeEditorTheme" id="codeEditorTheme">
-                                    <option>Light Theme</option>
-                                    <option>Dark Theme</option>
-                                </select>
+                                <div class="ui selection dropdown codeEditorTheme">
+                                    <input type="hidden" name="codeEditorTheme" value="darkTheme">
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text">Choose related tags (maximum 3 tags)</div>
+                                    <div class="menu">
+                                        <div class="item" data-value="darkTheme">Dark</div>
+                                        <div class="item" data-value="lightTheme">Light</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -58,8 +68,12 @@ class TVYContentEditor extends HTMLElement
         this.allEditors = this.querySelectorAll('.editor > div');
         this.textEditor = this.querySelector('.editor #TVYTextEditor');
         this.actualTextEditor = this.querySelector('#TVYTextEditor .actualTextEditor');
+
         this.codeEditor = this.querySelector('.editor #TVYCodeEditor');
         this.actualCodeEditor = this.querySelector('#TVYCodeEditor .actualCodeEditor');
+        this.codeEditorLanguages = $('#TVYCodeEditor .codeEditorLanguages').dropdown({forceSelection: false});
+        this.codeEditorThemeSelect = $('#TVYCodeEditor .codeEditorTheme').dropdown({forceSelection: false});
+
         this.imageEditor = this.querySelector('.editor #TVYImageEditor');
         this.btnAddContent = this.querySelector('.actionContentEditor .btnAddContent');
         this.contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
@@ -70,7 +84,9 @@ class TVYContentEditor extends HTMLElement
         this.groupDescId = Math.random().toString(36).replace('0.', '');
 
         this.tabEditorMovement();
+
         this.quillTextObj = new QuillEditor(this.actualTextEditor).getQuill();
+
         this.codeMirrorObj = CodeMirror(this.actualCodeEditor, {
             value: "",
             theme: 'monokai',
