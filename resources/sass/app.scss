@@ -13,6 +13,8 @@
 @import url('https://fonts.googleapis.com/css?family=Hanuman');
 @import url('https://fonts.googleapis.com/css?family=Kdam+Thmor');
 @import url('https://fonts.googleapis.com/css?family=Taprom&display=swap');
+// Code Fonts
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap');
 
 // Variables
 @import 'variables';
@@ -41,7 +43,11 @@
 // CodeMirror
 @import '~codemirror/lib/codemirror.css';
 @import '~codemirror/theme/dracula.css';
-@import '~codemirror/theme/monokai.css';
+@import '~codemirror/theme/material.css';
+@import '~codemirror/theme/duotone-dark.css';
+@import '~codemirror/theme/duotone-light.css';
+@import '~codemirror/theme/elegant.css';
+@import '~codemirror/theme/eclipse.css';
 @import '~codemirror/addon/hint/show-hint.css';
 
 //***************************************
@@ -60,6 +66,11 @@ h1, h2, h3, h4, h5, h6,
 .ui.form input[type=text]
 {
     font-family: 'Taprom', 'Comfortaa', sans-serif;
+}
+
+.CodeMirror * {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 12px;
 }
 
 // Override default location of noty

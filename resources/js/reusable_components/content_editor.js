@@ -1,5 +1,6 @@
 import NotyAlertMessage from "../NotyAlertMessage";
 import QuillEditor from "../QuillEditor";
+import CodeMirrorEditor from "../CodeMirrorEditor";
 
 const html = `
     <div class="TVYContentProduction">
@@ -87,23 +88,8 @@ class TVYContentEditor extends HTMLElement
 
         this.quillTextObj = new QuillEditor(this.actualTextEditor).getQuill();
 
-        this.codeMirrorObj = CodeMirror(this.actualCodeEditor, {
-            value: "",
-            theme: 'monokai',
-            mode:  "javascript",
-            autoFocus: true,
-            lineNumbers: true,
-            autoRefresh: true,
-            styleActiveLine: true,
-            styleSelectedText: true,
-            showCursorWhenSelecting: true,
-            autoCloseBrackets: true,
-            matchBrackets: true,
-            extraKeys: {
-                "Ctrl-Space": "autocomplete",
-            },
-        });
-        this.codeMirrorObj.focus();
+        this.codeMirrorObj = new CodeMirrorEditor(this.actualCodeEditor,
+            CodeMirrorEditor.THEME_DRACULA, CodeMirrorEditor.MODE_JAVASCRIPT);
 
         this.btnAddContent.addEventListener('click', this.addContentListener.bind(this));
     }
@@ -111,6 +97,10 @@ class TVYContentEditor extends HTMLElement
     static get textType()   {return 'text';}
     static get codeType()   {return 'code';}
     static get imageType()  {return 'image';}
+
+    changeThemeListener () {
+        this.codeMirrorObj.setTheme(CodeMirrorEditor.THEME_DUOTONE_LIGHT);
+    }
 
     addContentListener () {
         let thisBtn = this.querySelector('.btnAddContent');

@@ -73674,6 +73674,116 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/js/CodeMirrorEditor.js":
+/*!******************************************!*\
+  !*** ./resources/js/CodeMirrorEditor.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return CodeMirrorEditor; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var CodeMirrorEditor =
+/*#__PURE__*/
+function () {
+  _createClass(CodeMirrorEditor, null, [{
+    key: "THEME_DRACULA",
+    get: function get() {
+      return 'dracula';
+    }
+  }, {
+    key: "THEME_MATERIAL",
+    get: function get() {
+      return 'material';
+    }
+  }, {
+    key: "THEME_DUOTONE_LIGHT",
+    get: function get() {
+      return 'duotone-light';
+    }
+  }, {
+    key: "THEME_DUOTONE_DARK",
+    get: function get() {
+      return 'duotone-dark';
+    }
+  }, {
+    key: "THEME_ECLIPSE",
+    get: function get() {
+      return 'eclipse';
+    }
+  }, {
+    key: "THEME_ELEGANT",
+    get: function get() {
+      return 'elegant';
+    }
+  }, {
+    key: "MODE_JAVASCRIPT",
+    get: function get() {
+      return 'javascript';
+    }
+  }, {
+    key: "MODE_PHP",
+    get: function get() {
+      return 'php';
+    }
+  }]);
+
+  function CodeMirrorEditor(selector, theme, mode) {
+    _classCallCheck(this, CodeMirrorEditor);
+
+    this.selector = selector;
+    this.theme = theme;
+    this.mode = mode;
+    this.codeMirror = CodeMirror(this.selector, {
+      value: "",
+      theme: this.theme,
+      mode: this.mode,
+      autoFocus: true,
+      lineNumbers: true,
+      autoRefresh: true,
+      styleActiveLine: true,
+      styleSelectedText: true,
+      showCursorWhenSelecting: true,
+      autoCloseBrackets: true,
+      matchBrackets: true,
+      extraKeys: {
+        "Ctrl-Space": "autocomplete"
+      }
+    });
+  }
+
+  _createClass(CodeMirrorEditor, [{
+    key: "getCodeMirror",
+    value: function getCodeMirror() {
+      return this.codeMirror;
+    }
+  }, {
+    key: "setTheme",
+    value: function setTheme(theme) {
+      this.codeMirror.setOption('theme', theme);
+      this.setFocus();
+    }
+  }, {
+    key: "setFocus",
+    value: function setFocus() {
+      this.codeMirror.focus();
+    }
+  }]);
+
+  return CodeMirrorEditor;
+}();
+
+
+
+/***/ }),
+
 /***/ "./resources/js/NotyAlertMessage.js":
 /*!******************************************!*\
   !*** ./resources/js/NotyAlertMessage.js ***!
@@ -74399,6 +74509,7 @@ window.customElements.define('tvy-content-action-view', TVYContentActionView);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../NotyAlertMessage */ "./resources/js/NotyAlertMessage.js");
 /* harmony import */ var _QuillEditor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../QuillEditor */ "./resources/js/QuillEditor.js");
+/* harmony import */ var _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../CodeMirrorEditor */ "./resources/js/CodeMirrorEditor.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -74424,6 +74535,7 @@ function _isNativeFunction(fn) { return Function.toString.call(fn).indexOf("[nat
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -74463,24 +74575,7 @@ function (_HTMLElement) {
     _this.tabEditorMovement();
 
     _this.quillTextObj = new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](_this.actualTextEditor).getQuill();
-    _this.codeMirrorObj = CodeMirror(_this.actualCodeEditor, {
-      value: "",
-      theme: 'monokai',
-      mode: "javascript",
-      autoFocus: true,
-      lineNumbers: true,
-      autoRefresh: true,
-      styleActiveLine: true,
-      styleSelectedText: true,
-      showCursorWhenSelecting: true,
-      autoCloseBrackets: true,
-      matchBrackets: true,
-      extraKeys: {
-        "Ctrl-Space": "autocomplete"
-      }
-    });
-
-    _this.codeMirrorObj.focus();
+    _this.codeMirrorObj = new _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"](_this.actualCodeEditor, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].THEME_DRACULA, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].MODE_JAVASCRIPT);
 
     _this.btnAddContent.addEventListener('click', _this.addContentListener.bind(_assertThisInitialized(_this)));
 
@@ -74488,6 +74583,11 @@ function (_HTMLElement) {
   }
 
   _createClass(TVYContentEditor, [{
+    key: "changeThemeListener",
+    value: function changeThemeListener() {
+      this.codeMirrorObj.setTheme(_CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].THEME_DUOTONE_LIGHT);
+    }
+  }, {
     key: "addContentListener",
     value: function addContentListener() {
       var _this2 = this;
