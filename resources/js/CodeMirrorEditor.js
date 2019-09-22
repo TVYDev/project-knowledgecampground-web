@@ -36,6 +36,11 @@ export default class CodeMirrorEditor {
         return this.codeMirror;
     }
 
+    setMode (mode) {
+        this.codeMirror.setOption('mode', mode);
+        this.setFocus();
+    }
+
     setTheme (theme) {
         this.codeMirror.setOption('theme', theme);
         this.setFocus();

@@ -18,28 +18,35 @@ const html = `
                     <div class="codeEditorTools ui fluid form">
                         <div class="two fields">
                             <div class="field">
-                                <label for="codeEditorLanguages">Language</label>
-                                <div class="ui selection dropdown codeEditorLanguages">
-                                    <input type="hidden" name="codeEditorLanguages" value="javascript">
-                                    <i class="dropdown icon"></i>
-                                    <div class="default text">Choose a language</div>
-                                    <div class="menu">
-                                        <div class="item" data-value="javascript">JavaScript</div>
-                                        <div class="item" data-value="php">PHP</div>
-                                    </div>
-                                </div>
+                                <label for="codeEditorMode">Language</label>
+                                <input type="hidden" data-selected-mode="" class="codeEditorModeSelected">
+                                <select class="ui dropdown codeEditorMode">
+                                    <option value="css" selected>CSS</option>
+                                    <option value="go">Go</option>
+                                    <option value="html">HTML</option>
+                                    <option value="javascript">JavaScript</option>
+                                    <option value="jsx">JSX</option>
+                                    <option value="php">PHP</option>
+                                    <option value="swift">Swift</option>
+                                    <option value="python">Python</option>
+                                    <option value="ruby">Ruby</option>
+                                    <option value="sass">Sass</option>
+                                    <option value="shell">Shell</option>
+                                    <option value="sql">SQL</option>
+                                    <option value="xml">XML</option>
+                                </select>
                             </div>
                             <div class="field">
                                 <label for="codeEditorTheme">Theme</label>
-                                <div class="ui selection dropdown codeEditorTheme">
-                                    <input type="hidden" name="codeEditorTheme" value="darkTheme">
-                                    <i class="dropdown icon"></i>
-                                    <div class="default text">Choose related tags (maximum 3 tags)</div>
-                                    <div class="menu">
-                                        <div class="item" data-value="darkTheme">Dark</div>
-                                        <div class="item" data-value="lightTheme">Light</div>
-                                    </div>
-                                </div>
+                                <input type="hidden" data-selected-theme="" class="codeEditorThemeSelected">
+                                <select class="ui dropdown codeEditorTheme">
+                                    <option value="dracula" selected>Dracula</option>
+                                    <option value="material">Material</option>
+                                    <option value="elegant">Elegant</option>
+                                    <option value="eclipse">Eclipse</option>
+                                    <option value="duotone-dark">Duotone dark</option>
+                                    <option value="duotone-light">Duotone light</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -72,8 +79,20 @@ class TVYContentEditor extends HTMLElement
 
         this.codeEditor = this.querySelector('.editor #TVYCodeEditor');
         this.actualCodeEditor = this.querySelector('#TVYCodeEditor .actualCodeEditor');
-        this.codeEditorLanguages = $('#TVYCodeEditor .codeEditorLanguages').dropdown({forceSelection: false});
-        this.codeEditorThemeSelect = $('#TVYCodeEditor .codeEditorTheme').dropdown({forceSelection: false});
+        this.codeEditorMode = $('#TVYCodeEditor .codeEditorMode').dropdown({
+            forceSelection: false,
+            onChange: function(value) {
+                $('#TVYCodeEditor .codeEditorModeSelected').attr('data-selected-mode', value);
+            }
+        });
+        this.codeEditorThemeSelect = $('#TVYCodeEditor .codeEditorTheme').dropdown({
+            forceSelection: false,
+            onChange: function(value) {
+                $('#TVYCodeEditor .codeEditorThemeSelected').attr('data-selected-theme', value);
+            }
+        });
+        this.jsObjCodeEditorModeSelect = this.querySelector('#TVYCodeEditor .codeEditorMode');
+        this.jsObjCodeEditorThemeSelect = this.querySelector('#TVYCodeEditor .codeEditorTheme');
 
         this.imageEditor = this.querySelector('.editor #TVYImageEditor');
         this.btnAddContent = this.querySelector('.actionContentEditor .btnAddContent');
@@ -92,14 +111,32 @@ class TVYContentEditor extends HTMLElement
             CodeMirrorEditor.THEME_DRACULA, CodeMirrorEditor.MODE_JAVASCRIPT);
 
         this.btnAddContent.addEventListener('click', this.addContentListener.bind(this));
+
+        this.jsObjCodeEditorModeSelect.addEventListener('change', this.changeModeOfCodeMirrorEditor.bind(this));
+        this.jsObjCodeEditorThemeSelect.addEventListener('change', this.changeThemeOfCodeMirrorEditor.bind(this));
     }
 
     static get textType()   {return 'text';}
     static get codeType()   {return 'code';}
     static get imageType()  {return 'image';}
 
-    changeThemeListener () {
-        this.codeMirrorObj.setTheme(CodeMirrorEditor.THEME_DUOTONE_LIGHT);
+    changeThemeOfCodeMirrorEditor () {
+        let selectedTheme = this.querySelector('#TVYCodeEditor .codeEditorThemeSelected');
+        let codeMirrorObj = this.codeMirrorObj;
+        setTimeout(function() {
+            let theme = selectedTheme.getAttribute('data-selected-theme');
+            codeMirrorObj.setTheme(theme);
+        },100);
+    }
+
+    changeModeOfCodeMirrorEditor () {
+        let selectedMode = this.querySelector('#TVYCodeEditor .codeEditorModeSelected');
+        let codeMirrorObj = this.codeMirrorObj;
+        setTimeout(function() {
+            let mode = selectedMode.getAttribute('data-selected-mode');
+            codeMirrorObj.setMode(mode);
+            console.log(mode);
+        });
     }
 
     addContentListener () {
