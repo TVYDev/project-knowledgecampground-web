@@ -9,7 +9,7 @@ export default class CodeMirrorEditor {
     static get MODE_JAVASCRIPT()    {return 'javascript';}
     static get MODE_PHP()           {return 'php';}
 
-    constructor (selector, theme, mode) {
+    constructor (selector, theme, mode, isReadOnly = false, dataContent = null, scrollbar = 'native') {
         this.selector = selector;
         this.theme = theme;
         this.mode = mode;
@@ -18,6 +18,8 @@ export default class CodeMirrorEditor {
             value: "",
             theme: this.theme,
             mode:  this.mode,
+            scrollbarStyle: scrollbar,
+            readOnly: isReadOnly,
             autoFocus: true,
             lineNumbers: true,
             autoRefresh: true,
@@ -30,6 +32,14 @@ export default class CodeMirrorEditor {
                 "Ctrl-Space": "autocomplete",
             },
         });
+
+        if(dataContent != null && dataContent != undefined){
+            this.setContent(dataContent);
+        }
+    }
+
+    getDoc() {
+        return this.codeMirror.getDoc();
     }
 
     getCodeMirror () {
@@ -48,5 +58,13 @@ export default class CodeMirrorEditor {
 
     setFocus () {
         this.codeMirror.focus();
+    }
+
+    setContent (codeContent) {
+        this.getDoc().setValue(codeContent);
+    }
+
+    getContent () {
+        return this.getDoc().getValue();
     }
 }

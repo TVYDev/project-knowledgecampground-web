@@ -12970,6 +12970,15 @@ readers do not read off random characters that represent icons */
   font-family: "Font Awesome 5 Brands";
 }
 
+.CodeMirror {
+  width: 700px;
+}
+
+.CodeMirror * {
+  font-family: "Source Code Pro", monospace;
+  font-size: 12px;
+}
+
 body {
   padding-top: 4rem;
   font-size: 13px;
@@ -12987,11 +12996,6 @@ h6,
 .ui.button,
 .ui.form input[type=text] {
   font-family: "Taprom", "Comfortaa", sans-serif;
-}
-
-.CodeMirror * {
-  font-family: "Source Code Pro", monospace;
-  font-size: 12px;
 }
 
 #noty_layout__topRight,
@@ -13325,7 +13329,7 @@ button:focus {
   border-color: white;
 }
 
-.descElement span {
+.descElement span.toolButtonsBlock {
   position: relative;
   right: -50px;
   visibility: hidden;
@@ -15174,6 +15178,15 @@ button:focus {
 .askQuestionContent .questionPreview .TVYContentOrder {
   padding: 0;
   z-index: 333;
+}
+
+.askQuestionContent .questionPreview .TVYContentOrder .descContent {
+  padding: 2px;
+}
+
+.askQuestionContent .questionPreview .TVYContentOrder .descContent .CodeMirror {
+  border-radius: 3px;
+  height: auto;
 }
 
 .pageViewQuestion {

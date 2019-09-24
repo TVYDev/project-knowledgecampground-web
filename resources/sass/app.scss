@@ -52,6 +52,8 @@
 
 @import '~codemirror/addon/hint/show-hint.css';
 
+@import 'code_mirror_editor.scss';
+
 //***************************************
 // Global Style
 //***************************************
@@ -68,11 +70,6 @@ h1, h2, h3, h4, h5, h6,
 .ui.form input[type=text]
 {
     font-family: 'Taprom', 'Comfortaa', sans-serif;
-}
-
-.CodeMirror * {
-    font-family: 'Source Code Pro', monospace;
-    font-size: 12px;
 }
 
 // Override default location of noty
@@ -111,7 +108,6 @@ hr.grayLine {
 .textAlignCenter {
     text-align: center;
 }
-
 //------------------------------------------------------------------------Buttons
 button:focus {
     outline: none;

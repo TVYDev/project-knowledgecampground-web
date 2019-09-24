@@ -78698,6 +78698,10 @@ function () {
   }]);
 
   function CodeMirrorEditor(selector, theme, mode) {
+    var isReadOnly = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+    var dataContent = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : null;
+    var scrollbar = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : 'native';
+
     _classCallCheck(this, CodeMirrorEditor);
 
     this.selector = selector;
@@ -78707,6 +78711,8 @@ function () {
       value: "",
       theme: this.theme,
       mode: this.mode,
+      scrollbarStyle: scrollbar,
+      readOnly: isReadOnly,
       autoFocus: true,
       lineNumbers: true,
       autoRefresh: true,
@@ -78719,9 +78725,18 @@ function () {
         "Ctrl-Space": "autocomplete"
       }
     });
+
+    if (dataContent != null && dataContent != undefined) {
+      this.setContent(dataContent);
+    }
   }
 
   _createClass(CodeMirrorEditor, [{
+    key: "getDoc",
+    value: function getDoc() {
+      return this.codeMirror.getDoc();
+    }
+  }, {
     key: "getCodeMirror",
     value: function getCodeMirror() {
       return this.codeMirror;
@@ -78742,6 +78757,16 @@ function () {
     key: "setFocus",
     value: function setFocus() {
       this.codeMirror.focus();
+    }
+  }, {
+    key: "setContent",
+    value: function setContent(codeContent) {
+      this.getDoc().setValue(codeContent);
+    }
+  }, {
+    key: "getContent",
+    value: function getContent() {
+      return this.getDoc().getValue();
     }
   }]);
 
@@ -79604,8 +79629,7 @@ function (_HTMLElement) {
       setTimeout(function () {
         var mode = selectedMode.getAttribute('data-selected-mode');
         codeMirrorObj.setMode(mode);
-        console.log(mode);
-      });
+      }, 100);
     }
   }, {
     key: "addContentListener",
@@ -79614,7 +79638,7 @@ function (_HTMLElement) {
 
       var thisBtn = this.querySelector('.btnAddContent');
       var dataType = thisBtn.getAttribute('data-type');
-      var descHTML = "\n            <div class=\"descTools\" draggable=\"true\">\n                <span>\n                    <button type=\"button\" class=\"toolArrowUp\"><i class=\"fas fa-arrow-up\"></i></button>\n                    <button type=\"button\" class=\"toolArrowDown\"><i class=\"fas fa-arrow-down\"></i></button>\n                    <button type=\"button\" class=\"toolEdit\"><i class=\"fas fa-pen\"></i></button>\n                    <button type=\"button\" class=\"toolDelete\"><i class=\"fas fa-trash-alt\"></i></button>\n                </span>\n            </div>\n            <div class=\"descContent\"></div>\n        ";
+      var descHTML = "\n            <div class=\"descTools\" draggable=\"true\">\n                <span class=\"toolButtonsBlock\">\n                    <button type=\"button\" class=\"toolArrowUp\"><i class=\"fas fa-arrow-up\"></i></button>\n                    <button type=\"button\" class=\"toolArrowDown\"><i class=\"fas fa-arrow-down\"></i></button>\n                    <button type=\"button\" class=\"toolEdit\"><i class=\"fas fa-pen\"></i></button>\n                    <button type=\"button\" class=\"toolDelete\"><i class=\"fas fa-trash-alt\"></i></button>\n                </span>\n            </div>\n            <div class=\"descContent\"></div>\n        ";
       var contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
       var randomDescId = Math.random().toString(36).replace('0.', '');
 
@@ -79642,7 +79666,8 @@ function (_HTMLElement) {
             textElement.setAttribute('data-desc-id', randomDescId);
             textElement.innerHTML = descHTML;
             contentOrder.appendChild(textElement);
-            var descContent = textElement.querySelector('.descContent');
+
+            var _descContent = textElement.querySelector('.descContent');
 
             var _descTools = textElement.querySelector('.descTools');
 
@@ -79728,7 +79753,7 @@ function (_HTMLElement) {
                 _this2.updateDataOfADesc(nextDescObjData, currentDescObj.desc_id);
               }
             });
-            new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](descContent, false, true, this.quillTextContent);
+            new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](_descContent, false, true, this.quillTextContent);
             this.storeDataContent(this.quillTextContent, TVYContentEditor.textType, randomDescId);
           }
 
@@ -79736,7 +79761,13 @@ function (_HTMLElement) {
           break;
 
         case 'code':
-          console.log('code111');
+          var codeElement = document.createElement('div');
+          codeElement.className = 'descElement col-md-12';
+          codeElement.setAttribute('data-desc-id', randomDescId);
+          codeElement.innerHTML = descHTML;
+          contentOrder.appendChild(codeElement);
+          var descContent = codeElement.querySelector('.descContent');
+          new _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"](descContent, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].THEME_MATERIAL, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].MODE_JAVASCRIPT, true, this.codeMirrorContent, null);
           break;
 
         case 'image':
@@ -79894,6 +79925,11 @@ function (_HTMLElement) {
     key: "connectedCallback",
     value: function connectedCallback() {
       console.log('TVYContentEditor is rendered');
+    }
+  }, {
+    key: "codeMirrorContent",
+    get: function get() {
+      return this.codeMirrorObj.getContent();
     }
   }, {
     key: "quillTextContent",

@@ -135,8 +135,7 @@ class TVYContentEditor extends HTMLElement
         setTimeout(function() {
             let mode = selectedMode.getAttribute('data-selected-mode');
             codeMirrorObj.setMode(mode);
-            console.log(mode);
-        });
+        },100);
     }
 
     addContentListener () {
@@ -145,7 +144,7 @@ class TVYContentEditor extends HTMLElement
 
         let descHTML = `
             <div class="descTools" draggable="true">
-                <span>
+                <span class="toolButtonsBlock">
                     <button type="button" class="toolArrowUp"><i class="fas fa-arrow-up"></i></button>
                     <button type="button" class="toolArrowDown"><i class="fas fa-arrow-down"></i></button>
                     <button type="button" class="toolEdit"><i class="fas fa-pen"></i></button>
@@ -268,13 +267,25 @@ class TVYContentEditor extends HTMLElement
                 this.quillTextObj.setContents(null);
                 break;
             case 'code':
-                console.log('code111');
+                let codeElement = document.createElement('div');
+                codeElement.className = 'descElement col-md-12';
+                codeElement.setAttribute('data-desc-id', randomDescId);
+                codeElement.innerHTML = descHTML;
+                contentOrder.appendChild(codeElement);
+
+                let descContent = codeElement.querySelector('.descContent');
+                new CodeMirrorEditor(descContent, CodeMirrorEditor.THEME_MATERIAL, CodeMirrorEditor.MODE_JAVASCRIPT,
+                                                    true, this.codeMirrorContent, null);
                 break;
             case 'image':
                 console.log('image111');
                 break;
             default: break;
         }
+    }
+
+    get codeMirrorContent() {
+        return this.codeMirrorObj.getContent();
     }
 
     get quillTextContent() {
