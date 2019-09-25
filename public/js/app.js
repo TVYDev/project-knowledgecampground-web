@@ -78768,6 +78768,12 @@ function () {
     value: function getContent() {
       return this.getDoc().getValue();
     }
+  }, {
+    key: "clearContent",
+    value: function clearContent() {
+      this.setContent('');
+      this.setFocus();
+    }
   }]);
 
   return CodeMirrorEditor;
@@ -79672,9 +79678,13 @@ function (_HTMLElement) {
             var _descTools = textElement.querySelector('.descTools');
 
             var editBtn = textElement.querySelector('.toolEdit');
-            var deleteBtn = textElement.querySelector('.toolDelete');
-            var arrowUpBtn = textElement.querySelector('.toolArrowUp');
-            var arrowDownBtn = textElement.querySelector('.toolArrowDown');
+
+            var _deleteBtn = textElement.querySelector('.toolDelete');
+
+            var _arrowUpBtn = textElement.querySelector('.toolArrowUp');
+
+            var _arrowDownBtn = textElement.querySelector('.toolArrowDown');
+
             editBtn.addEventListener('click', function () {
               _this2.quillTextObj.setContents(_this2.getDescObjectByDescId(randomDescId).data);
 
@@ -79688,14 +79698,16 @@ function (_HTMLElement) {
 
               _descTools.classList.add('editing');
             });
-            deleteBtn.addEventListener('click', function () {
+
+            _deleteBtn.addEventListener('click', function () {
               var selectedElement = _this2.getDescElementByDescId(randomDescId);
 
               selectedElement.parentNode.removeChild(selectedElement);
 
               _this2.updatePositionsAfterADescElementDeleted(randomDescId);
             });
-            arrowUpBtn.addEventListener('click', function () {
+
+            _arrowUpBtn.addEventListener('click', function () {
               var currentDescObj = _this2.getDescObjectByDescId(randomDescId);
 
               var currentDescObjPos = currentDescObj.pos;
@@ -79709,22 +79721,51 @@ function (_HTMLElement) {
 
 
                 var currentDescObjData = currentDescObj.data;
-                var preDescObjData = preDescObj.data; // Desc element
+                var currentDescObjType = currentDescObj.type;
+                var preDescObjData = preDescObj.data;
+                var preDescObjType = preDescObj.type; // Desc element
 
                 var currentDescElement = _this2.getDescElementByDescId(randomDescId);
 
-                var preDescElement = _this2.getDescElementByDescId(preDescObj.desc_id); // Exchange data content
+                var preDescElement = _this2.getDescElementByDescId(preDescObj.desc_id);
+
+                var descContentCurrentDescElement = currentDescElement.querySelector('.descContent');
+                var descContentPreDescElement = preDescElement.querySelector('.descContent');
+                descContentCurrentDescElement.parentNode.removeChild(descContentCurrentDescElement);
+                descContentPreDescElement.parentNode.removeChild(descContentPreDescElement);
+                var newDescContentCurrentDescElement = document.createElement('div');
+                newDescContentCurrentDescElement.className = 'descContent';
+                currentDescElement.appendChild(newDescContentCurrentDescElement);
+                var newDescContentPreDescElement = document.createElement('div');
+                newDescContentPreDescElement.className = 'descContent';
+                preDescElement.appendChild(newDescContentPreDescElement); // Exchange data content
+
+                if (currentDescObjType == TVYContentEditor.textType) {
+                  new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](newDescContentPreDescElement, false, true, currentDescObjData);
+
+                  _this2.updateDataOfADesc(currentDescObjData, TVYContentEditor.textType, preDescObj.desc_id);
+                } else if (currentDescObjType == TVYContentEditor.codeType) {
+                  new _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"](newDescContentPreDescElement, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].THEME_MATERIAL, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].MODE_JAVASCRIPT, true, currentDescObjData, null);
+
+                  _this2.updateDataOfADesc(currentDescObjData, TVYContentEditor.codeType, preDescObj.desc_id);
+                }
+
+                if (preDescObjType == TVYContentEditor.textType) {
+                  new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](newDescContentCurrentDescElement, false, true, preDescObjData);
+
+                  _this2.updateDataOfADesc(preDescObjData, TVYContentEditor.textType, currentDescObj.desc_id);
+                } else if (preDescObjType == TVYContentEditor.codeType) {
+                  new _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"](newDescContentCurrentDescElement, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].THEME_MATERIAL, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].MODE_JAVASCRIPT, true, preDescObjData, null);
+
+                  _this2.updateDataOfADesc(preDescObjData, TVYContentEditor.codeType, currentDescObj.desc_id);
+                } // Update data content
 
 
-                new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](currentDescElement.querySelector('.descContent'), false, true, preDescObjData);
-                new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](preDescElement.querySelector('.descContent'), false, true, currentDescObjData); // Update data content
-
-                _this2.updateDataOfADesc(currentDescObjData, preDescObj.desc_id);
-
-                _this2.updateDataOfADesc(preDescObjData, currentDescObj.desc_id);
+                console.log(_this2.allDescData);
               }
             });
-            arrowDownBtn.addEventListener('click', function () {
+
+            _arrowDownBtn.addEventListener('click', function () {
               var currentDescObj = _this2.getDescObjectByDescId(randomDescId);
 
               var currentDesObjPos = currentDescObj.pos;
@@ -79738,21 +79779,50 @@ function (_HTMLElement) {
 
 
                 var currentDescObjData = currentDescObj.data;
-                var nextDescObjData = newDescObj.data; // Desc element
+                var currentDescObjType = currentDescObj.type;
+                var nextDescObjData = newDescObj.data;
+                var nextDescObjType = newDescObj.type; // Desc element
 
                 var currentDescElement = _this2.getDescElementByDescId(randomDescId);
 
-                var nextDescElement = _this2.getDescElementByDescId(newDescObj.desc_id); // Exchange data content
+                var nextDescElement = _this2.getDescElementByDescId(newDescObj.desc_id);
+
+                var descContentCurrentDescElement = currentDescElement.querySelector('.descContent');
+                var descContentNextDescElement = nextDescElement.querySelector('.descContent');
+                descContentCurrentDescElement.parentNode.removeChild(descContentCurrentDescElement);
+                descContentNextDescElement.parentNode.removeChild(descContentNextDescElement);
+                var newDescContentCurrentDescElement = document.createElement('div');
+                newDescContentCurrentDescElement.className = 'descContent';
+                currentDescElement.appendChild(newDescContentCurrentDescElement);
+                var newDescContentNextDescElement = document.createElement('div');
+                newDescContentNextDescElement.className = 'descContent';
+                nextDescElement.appendChild(newDescContentNextDescElement); // Exchange data content
+
+                if (currentDescObjType == TVYContentEditor.textType) {
+                  new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](newDescContentNextDescElement, false, true, currentDescObjData);
+
+                  _this2.updateDataOfADesc(currentDescObjData, TVYContentEditor.textType, newDescObj.desc_id);
+                } else if (currentDescObjType == TVYContentEditor.codeType) {
+                  new _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"](newDescContentNextDescElement, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].THEME_MATERIAL, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].MODE_JAVASCRIPT, true, currentDescObjData, null);
+
+                  _this2.updateDataOfADesc(currentDescObjData, TVYContentEditor.codeType, newDescObj.desc_id);
+                }
+
+                if (nextDescObjType == TVYContentEditor.textType) {
+                  new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](newDescContentCurrentDescElement, false, true, nextDescObjData);
+
+                  _this2.updateDataOfADesc(nextDescObjData, TVYContentEditor.textType, currentDescObj.desc_id);
+                } else if (nextDescObjType == TVYContentEditor.codeType) {
+                  new _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"](newDescContentCurrentDescElement, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].THEME_MATERIAL, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].MODE_JAVASCRIPT, true, nextDescObjData, null);
+
+                  _this2.updateDataOfADesc(nextDescObjData, TVYContentEditor.codeType, currentDescObj.desc_id);
+                } // Update data content
 
 
-                new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](currentDescElement.querySelector('.descContent'), false, true, nextDescObjData);
-                new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](nextDescElement.querySelector('.descContent'), false, true, currentDescObjData); // Update data content
-
-                _this2.updateDataOfADesc(currentDescObjData, newDescObj.desc_id);
-
-                _this2.updateDataOfADesc(nextDescObjData, currentDescObj.desc_id);
+                console.log(_this2.allDescData);
               }
             });
+
             new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](_descContent, false, true, this.quillTextContent);
             this.storeDataContent(this.quillTextContent, TVYContentEditor.textType, randomDescId);
           }
@@ -79767,7 +79837,133 @@ function (_HTMLElement) {
           codeElement.innerHTML = descHTML;
           contentOrder.appendChild(codeElement);
           var descContent = codeElement.querySelector('.descContent');
+          var deleteBtn = codeElement.querySelector('.toolDelete');
+          var arrowUpBtn = codeElement.querySelector('.toolArrowUp');
+          var arrowDownBtn = codeElement.querySelector('.toolArrowDown');
+          deleteBtn.addEventListener('click', function () {
+            var selectedElement = _this2.getDescElementByDescId(randomDescId);
+
+            selectedElement.parentNode.removeChild(selectedElement);
+
+            _this2.updatePositionsAfterADescElementDeleted(randomDescId);
+          });
+          arrowUpBtn.addEventListener('click', function () {
+            var currentDescObj = _this2.getDescObjectByDescId(randomDescId);
+
+            var currentDescObjPos = currentDescObj.pos;
+
+            if (currentDescObjPos === 1) {
+              new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, '⚠️It is already at the top. Cannot move up anymore.').show();
+            } else {
+              var preDescObjPos = currentDescObjPos - 1;
+
+              var preDescObj = _this2.getDescObjectByPosition(preDescObjPos); // Data content
+
+
+              var currentDescObjData = currentDescObj.data;
+              var currentDescObjType = currentDescObj.type;
+              var preDescObjData = preDescObj.data;
+              var preDescObjType = preDescObj.type; // Desc element
+
+              var currentDescElement = _this2.getDescElementByDescId(randomDescId);
+
+              var preDescElement = _this2.getDescElementByDescId(preDescObj.desc_id);
+
+              var descContentCurrentDescElement = currentDescElement.querySelector('.descContent');
+              var descContentPreDescElement = preDescElement.querySelector('.descContent');
+              descContentCurrentDescElement.parentNode.removeChild(descContentCurrentDescElement);
+              descContentPreDescElement.parentNode.removeChild(descContentPreDescElement);
+              var newDescContentCurrentDescElement = document.createElement('div');
+              newDescContentCurrentDescElement.className = 'descContent';
+              currentDescElement.appendChild(newDescContentCurrentDescElement);
+              var newDescContentPreDescElement = document.createElement('div');
+              newDescContentPreDescElement.className = 'descContent';
+              preDescElement.appendChild(newDescContentPreDescElement); // Exchange data content
+
+              if (currentDescObjType == TVYContentEditor.textType) {
+                new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](newDescContentPreDescElement, false, true, currentDescObjData);
+
+                _this2.updateDataOfADesc(currentDescObjData, TVYContentEditor.textType, preDescObj.desc_id);
+              } else if (currentDescObjType == TVYContentEditor.codeType) {
+                new _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"](newDescContentPreDescElement, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].THEME_MATERIAL, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].MODE_JAVASCRIPT, true, currentDescObjData, null);
+
+                _this2.updateDataOfADesc(currentDescObjData, TVYContentEditor.codeType, preDescObj.desc_id);
+              }
+
+              if (preDescObjType == TVYContentEditor.textType) {
+                new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](newDescContentCurrentDescElement, false, true, preDescObjData);
+
+                _this2.updateDataOfADesc(preDescObjData, TVYContentEditor.textType, currentDescObj.desc_id);
+              } else if (preDescObjType == TVYContentEditor.codeType) {
+                new _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"](newDescContentCurrentDescElement, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].THEME_MATERIAL, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].MODE_JAVASCRIPT, true, preDescObjData, null);
+
+                _this2.updateDataOfADesc(preDescObjData, TVYContentEditor.codeType, currentDescObj.desc_id);
+              } // Update data content
+
+
+              console.log(_this2.allDescData);
+            }
+          });
+          arrowDownBtn.addEventListener('click', function () {
+            var currentDescObj = _this2.getDescObjectByDescId(randomDescId);
+
+            var currentDesObjPos = currentDescObj.pos;
+
+            if (currentDesObjPos === _this2.descPosition) {
+              new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, '⚠️It is already at the bottom. Cannot move down anymore.').show();
+            } else {
+              var nextDescObjPos = currentDesObjPos + 1;
+
+              var newDescObj = _this2.getDescObjectByPosition(nextDescObjPos); // Data content
+
+
+              var currentDescObjData = currentDescObj.data;
+              var currentDescObjType = currentDescObj.type;
+              var nextDescObjData = newDescObj.data;
+              var nextDescObjType = newDescObj.type; // Desc element
+
+              var currentDescElement = _this2.getDescElementByDescId(randomDescId);
+
+              var nextDescElement = _this2.getDescElementByDescId(newDescObj.desc_id);
+
+              var descContentCurrentDescElement = currentDescElement.querySelector('.descContent');
+              var descContentNextDescElement = nextDescElement.querySelector('.descContent');
+              descContentCurrentDescElement.parentNode.removeChild(descContentCurrentDescElement);
+              descContentNextDescElement.parentNode.removeChild(descContentNextDescElement);
+              var newDescContentCurrentDescElement = document.createElement('div');
+              newDescContentCurrentDescElement.className = 'descContent';
+              currentDescElement.appendChild(newDescContentCurrentDescElement);
+              var newDescContentNextDescElement = document.createElement('div');
+              newDescContentNextDescElement.className = 'descContent';
+              nextDescElement.appendChild(newDescContentNextDescElement); // Exchange data content
+
+              if (currentDescObjType == TVYContentEditor.textType) {
+                new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](newDescContentNextDescElement, false, true, currentDescObjData);
+
+                _this2.updateDataOfADesc(currentDescObjData, TVYContentEditor.textType, newDescObj.desc_id);
+              } else if (currentDescObjType == TVYContentEditor.codeType) {
+                _this2.updateDataOfADesc(currentDescObjData, TVYContentEditor.codeType, newDescObj.desc_id);
+
+                new _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"](newDescContentNextDescElement, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].THEME_MATERIAL, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].MODE_JAVASCRIPT, true, currentDescObjData, null);
+              }
+
+              if (nextDescObjType == TVYContentEditor.textType) {
+                new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](newDescContentCurrentDescElement, false, true, nextDescObjData);
+
+                _this2.updateDataOfADesc(nextDescObjData, TVYContentEditor.textType, currentDescObj.desc_id);
+              } else if (nextDescObjType == TVYContentEditor.codeType) {
+                new _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"](newDescContentCurrentDescElement, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].THEME_MATERIAL, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].MODE_JAVASCRIPT, true, nextDescObjData, null);
+
+                _this2.updateDataOfADesc(nextDescObjData, TVYContentEditor.codeType, currentDescObj.desc_id);
+              } // Update data content
+
+
+              console.log(_this2.allDescData);
+            }
+          });
           new _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"](descContent, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].THEME_MATERIAL, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].MODE_JAVASCRIPT, true, this.codeMirrorContent, null);
+          this.storeDataContent(this.codeMirrorContent, TVYContentEditor.codeType, randomDescId);
+          this.codeMirrorObj.clearContent();
           break;
 
         case 'image':
@@ -79795,6 +79991,13 @@ function (_HTMLElement) {
           break;
 
         case TVYContentEditor.codeType:
+          this.allDescData.push({
+            pos: position,
+            type: TVYContentEditor.codeType,
+            data: dataContent,
+            desc_id: descId,
+            group_desc_id: this.groupDescId
+          });
           break;
 
         case TVYContentEditor.imageType:
@@ -79805,15 +80008,17 @@ function (_HTMLElement) {
       }
 
       console.log('Data saved----------');
-      this.saveDescDataToBackend(true);
+      console.log(this.allDescData); // this.saveDescDataToBackend(true);
+
       console.log('Data saved----------End');
     }
   }, {
     key: "updateDataOfADesc",
-    value: function updateDataOfADesc(data, descId) {
+    value: function updateDataOfADesc(data, type, descId) {
       this.allDescData.forEach(function (ele) {
         if (ele.desc_id === descId) {
           ele.data = data;
+          ele.type = type;
         }
       });
     }

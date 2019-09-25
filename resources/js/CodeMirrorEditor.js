@@ -67,4 +67,9 @@ export default class CodeMirrorEditor {
     getContent () {
         return this.getDoc().getValue();
     }
+
+    clearContent () {
+        this.setContent('');
+        this.setFocus();
+    }
 }
