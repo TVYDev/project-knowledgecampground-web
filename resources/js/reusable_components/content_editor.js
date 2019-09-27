@@ -120,6 +120,9 @@ class TVYContentEditor extends HTMLElement
     static get codeType()   {return 'code';}
     static get imageType()  {return 'image';}
 
+    static get MOVE_UP()     {return 'move_up';}
+    static get MOVE_DOWN()   {return 'move_down';}
+
     changeThemeOfCodeMirrorEditor () {
         let selectedTheme = this.querySelector('#TVYCodeEditor .codeEditorThemeSelected');
         let codeMirrorObj = this.codeMirrorObj;
@@ -203,121 +206,13 @@ class TVYContentEditor extends HTMLElement
                         descTools.classList.add('editing');
                     });
                     deleteBtn.addEventListener('click', () => {
-                       let selectedElement = this.getDescElementByDescId(randomDescId);
-                       selectedElement.parentNode.removeChild(selectedElement);
-                       this.updatePositionsAfterADescElementDeleted(randomDescId);
+                       this.deleteDescriptionElement(randomDescId);
                     });
                     arrowUpBtn.addEventListener('click', () => {
-                        let currentDescObj = this.getDescObjectByDescId(randomDescId);
-                        let currentDescObjPos = currentDescObj.pos;
-                        if(currentDescObjPos === 1){
-                            new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️It is already at the top. Cannot move up anymore.').show();
-                        }else{
-                            let preDescObjPos = currentDescObjPos - 1;
-                            let preDescObj = this.getDescObjectByPosition(preDescObjPos);
-
-                            // Data content
-                            let currentDescObjData = currentDescObj.data;
-                            let currentDescObjType = currentDescObj.type;
-                            let preDescObjData = preDescObj.data;
-                            let preDescObjType = preDescObj.type;
-
-                            // Desc element
-                            let currentDescElement = this.getDescElementByDescId(randomDescId);
-                            let preDescElement = this.getDescElementByDescId(preDescObj.desc_id);
-
-                            let descContentCurrentDescElement = currentDescElement.querySelector('.descContent');
-                            let descContentPreDescElement = preDescElement.querySelector('.descContent');
-                            descContentCurrentDescElement.parentNode.removeChild(descContentCurrentDescElement);
-                            descContentPreDescElement.parentNode.removeChild(descContentPreDescElement);
-
-                            let newDescContentCurrentDescElement = document.createElement('div');
-                            newDescContentCurrentDescElement.className = 'descContent';
-                            currentDescElement.appendChild(newDescContentCurrentDescElement);
-
-                            let newDescContentPreDescElement = document.createElement('div');
-                            newDescContentPreDescElement.className = 'descContent';
-                            preDescElement.appendChild(newDescContentPreDescElement);
-
-                            // Exchange data content
-                            if(currentDescObjType == TVYContentEditor.textType){
-                                new QuillEditor(newDescContentPreDescElement, false, true, currentDescObjData);
-                                this.updateDataOfADesc(currentDescObjData, TVYContentEditor.textType, preDescObj.desc_id);
-                            }else if(currentDescObjType == TVYContentEditor.codeType){
-                                new CodeMirrorEditor(newDescContentPreDescElement, CodeMirrorEditor.THEME_MATERIAL, CodeMirrorEditor.MODE_JAVASCRIPT,
-                                    true, currentDescObjData, null);
-                                this.updateDataOfADesc(currentDescObjData, TVYContentEditor.codeType, preDescObj.desc_id);
-                            }
-
-                            if(preDescObjType == TVYContentEditor.textType){
-                                new QuillEditor(newDescContentCurrentDescElement, false, true, preDescObjData);
-                                this.updateDataOfADesc(preDescObjData, TVYContentEditor.textType, currentDescObj.desc_id);
-                            }else if(preDescObjType == TVYContentEditor.codeType){
-                                new CodeMirrorEditor(newDescContentCurrentDescElement, CodeMirrorEditor.THEME_MATERIAL, CodeMirrorEditor.MODE_JAVASCRIPT,
-                                    true, preDescObjData, null);
-                                this.updateDataOfADesc(preDescObjData, TVYContentEditor.codeType, currentDescObj.desc_id);
-                            }
-
-                            // Update data content
-
-                            console.log(this.allDescData);
-                        }
+                        this.moveDescriptionElement(randomDescId, TVYContentEditor.MOVE_UP);
                     });
                     arrowDownBtn.addEventListener('click', () => {
-                        let currentDescObj = this.getDescObjectByDescId(randomDescId);
-                        let currentDesObjPos = currentDescObj.pos;
-                        if(currentDesObjPos === this.descPosition){
-                            new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️It is already at the bottom. Cannot move down anymore.').show();
-                        }else{
-                            let nextDescObjPos = currentDesObjPos + 1;
-                            let newDescObj = this.getDescObjectByPosition(nextDescObjPos);
-
-                            // Data content
-                            let currentDescObjData = currentDescObj.data;
-                            let currentDescObjType = currentDescObj.type;
-                            let nextDescObjData = newDescObj.data;
-                            let nextDescObjType = newDescObj.type;
-
-                            // Desc element
-                            let currentDescElement = this.getDescElementByDescId(randomDescId);
-                            let nextDescElement = this.getDescElementByDescId(newDescObj.desc_id);
-
-                            let descContentCurrentDescElement = currentDescElement.querySelector('.descContent');
-                            let descContentNextDescElement = nextDescElement.querySelector('.descContent');
-                            descContentCurrentDescElement.parentNode.removeChild(descContentCurrentDescElement);
-                            descContentNextDescElement.parentNode.removeChild(descContentNextDescElement);
-
-                            let newDescContentCurrentDescElement = document.createElement('div');
-                            newDescContentCurrentDescElement.className = 'descContent';
-                            currentDescElement.appendChild(newDescContentCurrentDescElement);
-
-                            let newDescContentNextDescElement = document.createElement('div');
-                            newDescContentNextDescElement.className = 'descContent';
-                            nextDescElement.appendChild(newDescContentNextDescElement);
-
-                            // Exchange data content
-                            if(currentDescObjType == TVYContentEditor.textType){
-                                new QuillEditor(newDescContentNextDescElement, false, true, currentDescObjData);
-                                this.updateDataOfADesc(currentDescObjData, TVYContentEditor.textType, newDescObj.desc_id);
-                            }else if(currentDescObjType == TVYContentEditor.codeType){
-                                new CodeMirrorEditor(newDescContentNextDescElement, CodeMirrorEditor.THEME_MATERIAL, CodeMirrorEditor.MODE_JAVASCRIPT,
-                                    true, currentDescObjData, null);
-                                this.updateDataOfADesc(currentDescObjData, TVYContentEditor.codeType, newDescObj.desc_id);
-                            }
-
-                            if(nextDescObjType == TVYContentEditor.textType){
-                                new QuillEditor(newDescContentCurrentDescElement, false, true, nextDescObjData);
-                                this.updateDataOfADesc(nextDescObjData, TVYContentEditor.textType, currentDescObj.desc_id);
-                            }else if(nextDescObjType == TVYContentEditor.codeType){
-                                new CodeMirrorEditor(newDescContentCurrentDescElement, CodeMirrorEditor.THEME_MATERIAL, CodeMirrorEditor.MODE_JAVASCRIPT,
-                                    true, nextDescObjData, null);
-                                this.updateDataOfADesc(nextDescObjData, TVYContentEditor.codeType, currentDescObj.desc_id);
-                            }
-
-                            // Update data content
-
-                            console.log(this.allDescData);
-                        }
+                        this.moveDescriptionElement(randomDescId, TVYContentEditor.MOVE_DOWN);
                     });
 
                     new QuillEditor(descContent, false, true, this.quillTextContent);
@@ -339,123 +234,13 @@ class TVYContentEditor extends HTMLElement
                 let arrowDownBtn = codeElement.querySelector('.toolArrowDown');
 
                 deleteBtn.addEventListener('click', () => {
-                    let selectedElement = this.getDescElementByDescId(randomDescId);
-                    selectedElement.parentNode.removeChild(selectedElement);
-                    this.updatePositionsAfterADescElementDeleted(randomDescId);
+                    this.deleteDescriptionElement(randomDescId);
                 });
-
                 arrowUpBtn.addEventListener('click', () => {
-                    let currentDescObj = this.getDescObjectByDescId(randomDescId);
-                    let currentDescObjPos = currentDescObj.pos;
-                    if(currentDescObjPos === 1){
-                        new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️It is already at the top. Cannot move up anymore.').show();
-                    }else{
-                        let preDescObjPos = currentDescObjPos - 1;
-                        let preDescObj = this.getDescObjectByPosition(preDescObjPos);
-
-                        // Data content
-                        let currentDescObjData = currentDescObj.data;
-                        let currentDescObjType = currentDescObj.type;
-                        let preDescObjData = preDescObj.data;
-                        let preDescObjType = preDescObj.type;
-
-                        // Desc element
-                        let currentDescElement = this.getDescElementByDescId(randomDescId);
-                        let preDescElement = this.getDescElementByDescId(preDescObj.desc_id);
-
-                        let descContentCurrentDescElement = currentDescElement.querySelector('.descContent');
-                        let descContentPreDescElement = preDescElement.querySelector('.descContent');
-                        descContentCurrentDescElement.parentNode.removeChild(descContentCurrentDescElement);
-                        descContentPreDescElement.parentNode.removeChild(descContentPreDescElement);
-
-                        let newDescContentCurrentDescElement = document.createElement('div');
-                        newDescContentCurrentDescElement.className = 'descContent';
-                        currentDescElement.appendChild(newDescContentCurrentDescElement);
-
-                        let newDescContentPreDescElement = document.createElement('div');
-                        newDescContentPreDescElement.className = 'descContent';
-                        preDescElement.appendChild(newDescContentPreDescElement);
-
-                        // Exchange data content
-                        if(currentDescObjType == TVYContentEditor.textType){
-                            new QuillEditor(newDescContentPreDescElement, false, true, currentDescObjData);
-                            this.updateDataOfADesc(currentDescObjData, TVYContentEditor.textType, preDescObj.desc_id);
-                        }else if(currentDescObjType == TVYContentEditor.codeType){
-                            new CodeMirrorEditor(newDescContentPreDescElement, CodeMirrorEditor.THEME_MATERIAL, CodeMirrorEditor.MODE_JAVASCRIPT,
-                                true, currentDescObjData, null);
-                            this.updateDataOfADesc(currentDescObjData, TVYContentEditor.codeType, preDescObj.desc_id);
-                        }
-
-                        if(preDescObjType == TVYContentEditor.textType){
-                            new QuillEditor(newDescContentCurrentDescElement, false, true, preDescObjData);
-                            this.updateDataOfADesc(preDescObjData, TVYContentEditor.textType, currentDescObj.desc_id);
-                        }else if(preDescObjType == TVYContentEditor.codeType){
-                            new CodeMirrorEditor(newDescContentCurrentDescElement, CodeMirrorEditor.THEME_MATERIAL, CodeMirrorEditor.MODE_JAVASCRIPT,
-                                true, preDescObjData, null);
-                            this.updateDataOfADesc(preDescObjData, TVYContentEditor.codeType, currentDescObj.desc_id);
-                        }
-
-                        // Update data content
-                        
-                        console.log(this.allDescData);
-                    }
+                    this.moveDescriptionElement(randomDescId, TVYContentEditor.MOVE_UP);
                 });
-
                 arrowDownBtn.addEventListener('click', () => {
-                    let currentDescObj = this.getDescObjectByDescId(randomDescId);
-                    let currentDesObjPos = currentDescObj.pos;
-                    if(currentDesObjPos === this.descPosition){
-                        new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️It is already at the bottom. Cannot move down anymore.').show();
-                    }else{
-                        let nextDescObjPos = currentDesObjPos + 1;
-                        let newDescObj = this.getDescObjectByPosition(nextDescObjPos);
-
-                        // Data content
-                        let currentDescObjData = currentDescObj.data;
-                        let currentDescObjType = currentDescObj.type;
-                        let nextDescObjData = newDescObj.data;
-                        let nextDescObjType = newDescObj.type;
-
-                        // Desc element
-                        let currentDescElement = this.getDescElementByDescId(randomDescId);
-                        let nextDescElement = this.getDescElementByDescId(newDescObj.desc_id);
-
-                        let descContentCurrentDescElement = currentDescElement.querySelector('.descContent');
-                        let descContentNextDescElement = nextDescElement.querySelector('.descContent');
-                        descContentCurrentDescElement.parentNode.removeChild(descContentCurrentDescElement);
-                        descContentNextDescElement.parentNode.removeChild(descContentNextDescElement);
-
-                        let newDescContentCurrentDescElement = document.createElement('div');
-                        newDescContentCurrentDescElement.className = 'descContent';
-                        currentDescElement.appendChild(newDescContentCurrentDescElement);
-
-                        let newDescContentNextDescElement = document.createElement('div');
-                        newDescContentNextDescElement.className = 'descContent';
-                        nextDescElement.appendChild(newDescContentNextDescElement);
-
-                        // Exchange data content
-                        if(currentDescObjType == TVYContentEditor.textType){
-                            new QuillEditor(newDescContentNextDescElement, false, true, currentDescObjData);
-                            this.updateDataOfADesc(currentDescObjData, TVYContentEditor.textType, newDescObj.desc_id);
-                        }else if(currentDescObjType == TVYContentEditor.codeType){
-                            this.updateDataOfADesc(currentDescObjData, TVYContentEditor.codeType, newDescObj.desc_id);
-                            new CodeMirrorEditor(newDescContentNextDescElement, CodeMirrorEditor.THEME_MATERIAL, CodeMirrorEditor.MODE_JAVASCRIPT,
-                                true, currentDescObjData, null);
-                        }
-
-                        if(nextDescObjType == TVYContentEditor.textType){
-                            new QuillEditor(newDescContentCurrentDescElement, false, true, nextDescObjData);
-                            this.updateDataOfADesc(nextDescObjData, TVYContentEditor.textType, currentDescObj.desc_id);
-                        }else if(nextDescObjType == TVYContentEditor.codeType){
-                            new CodeMirrorEditor(newDescContentCurrentDescElement, CodeMirrorEditor.THEME_MATERIAL, CodeMirrorEditor.MODE_JAVASCRIPT,
-                                true, nextDescObjData, null);
-                            this.updateDataOfADesc(nextDescObjData, TVYContentEditor.codeType, currentDescObj.desc_id);
-                        }
-
-                        // Update data content
-
-                        console.log(this.allDescData);
-                    }
+                    this.moveDescriptionElement(randomDescId, TVYContentEditor.MOVE_DOWN);
                 });
 
                 new CodeMirrorEditor(descContent, CodeMirrorEditor.THEME_MATERIAL, CodeMirrorEditor.MODE_JAVASCRIPT,
@@ -571,6 +356,79 @@ class TVYContentEditor extends HTMLElement
                 this.btnAddContent.setAttribute('data-type', dataType);
             });
         });
+    }
+
+    deleteDescriptionElement (currentDescId)
+    {
+        let selectedElement = this.getDescElementByDescId(currentDescId);
+        selectedElement.parentNode.removeChild(selectedElement);
+        this.updatePositionsAfterADescElementDeleted(currentDescId);
+    }
+
+    moveDescriptionElement (currentDescId, direction)
+    {
+        let currentDescObj = this.getDescObjectByDescId(currentDescId);
+        let currentDescObjPos = currentDescObj.pos;
+
+        let toBeMovedDescObjPos = 0;
+        if(direction == TVYContentEditor.MOVE_UP){
+            if(currentDescObjPos === 1){
+                new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️It is already at the top. Cannot move up anymore.').show();
+            }else{
+                toBeMovedDescObjPos = currentDescObjPos - 1;
+            }
+        }else if(direction == TVYContentEditor.MOVE_DOWN) {
+            if (currentDescObjPos === this.descPosition) {
+                new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️It is already at the bottom. Cannot move down anymore.').show();
+            }else{
+                toBeMovedDescObjPos = currentDescObjPos + 1;
+            }
+        }else{
+            new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️No movement can be made.').show();
+        }
+
+        let toBeMovedDescObj = this.getDescObjectByPosition(toBeMovedDescObjPos);
+
+        // Data content
+        let currentDescObjData = currentDescObj.data;
+        let currentDescObjType = currentDescObj.type;
+        let toBeMovedDescObjData = toBeMovedDescObj.data;
+        let toBeMovedDescObjType = toBeMovedDescObj.type;
+
+        // Desc element
+        let currentDescElement = this.getDescElementByDescId(currentDescId);
+        let toBeMovedDescElement = this.getDescElementByDescId(toBeMovedDescObj.desc_id);
+
+        let descContentOfCurrentDescElement = currentDescElement.querySelector('.descContent');
+        let descContentOfToBeMovedDescElement = toBeMovedDescElement.querySelector('.descContent');
+        descContentOfCurrentDescElement.parentNode.removeChild(descContentOfCurrentDescElement);
+        descContentOfToBeMovedDescElement.parentNode.removeChild(descContentOfToBeMovedDescElement);
+
+        let newDescContentOfCurrentDescElement = document.createElement('div');
+        newDescContentOfCurrentDescElement.className = 'descContent';
+        currentDescElement.appendChild(newDescContentOfCurrentDescElement);
+
+        let newDescContentOfToBeMovedDescElement = document.createElement('div');
+        newDescContentOfToBeMovedDescElement.className = 'descContent';
+        toBeMovedDescElement.appendChild(newDescContentOfToBeMovedDescElement);
+
+        if(currentDescObjType == TVYContentEditor.textType){
+            new QuillEditor(newDescContentOfToBeMovedDescElement, false, true, currentDescObjData);
+            this.updateDataOfADesc(currentDescObjData, TVYContentEditor.textType, toBeMovedDescObj.desc_id);
+        }else if(currentDescObjType == TVYContentEditor.codeType){
+            new CodeMirrorEditor(newDescContentOfToBeMovedDescElement, CodeMirrorEditor.THEME_MATERIAL, CodeMirrorEditor.MODE_JAVASCRIPT,
+                true, currentDescObjData, null);
+            this.updateDataOfADesc(currentDescObjData, TVYContentEditor.codeType, toBeMovedDescObj.desc_id);
+        }
+
+        if(toBeMovedDescObjType == TVYContentEditor.textType){
+            new QuillEditor(newDescContentOfCurrentDescElement, false, true, toBeMovedDescObjData);
+            this.updateDataOfADesc(toBeMovedDescObjData, TVYContentEditor.textType, currentDescObj.desc_id);
+        }else if(toBeMovedDescObjType == TVYContentEditor.codeType){
+            new CodeMirrorEditor(newDescContentOfCurrentDescElement, CodeMirrorEditor.THEME_MATERIAL, CodeMirrorEditor.MODE_JAVASCRIPT,
+                true, toBeMovedDescObjData, null);
+            this.updateDataOfADesc(toBeMovedDescObjData, TVYContentEditor.codeType, currentDescObj.desc_id);
+        }
     }
 
     saveDescDataToBackend (isDraft) {
