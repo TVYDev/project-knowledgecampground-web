@@ -119,6 +119,9 @@ class TVYContentEditor extends HTMLElement
     static get textType()   {return 'text';}
     static get codeType()   {return 'code';}
     static get imageType()  {return 'image';}
+    static get TEXT_TYPE()   {return 'text';}
+    static get CODE_TYPE()   {return 'code';}
+    static get IMAGE_TYPE()  {return 'image';}
 
     static get MOVE_UP()     {return 'move_up';}
     static get MOVE_DOWN()   {return 'move_down';}
@@ -196,15 +199,7 @@ class TVYContentEditor extends HTMLElement
                     let arrowUpBtn = textElement.querySelector('.toolArrowUp');
                     let arrowDownBtn = textElement.querySelector('.toolArrowDown');
                     editBtn.addEventListener('click', () => {
-                        this.quillTextObj.setContents(this.getDescObjectByDescId(randomDescId).data);
-                        let allDescTools = this.querySelectorAll('.descTools');
-                        textEditor.setAttribute('data-editing', randomDescId);
-                        allDescTools.forEach(ele => {
-                           ele.classList.remove('editing');
-                           ele.classList.remove('edited');
-                        });
-                        descTools.classList.remove('edited');
-                        descTools.classList.add('editing');
+                        this.editDescriptionElement(textEditor, randomDescId, TVYContentEditor.textType, descTools);
                     });
                     deleteBtn.addEventListener('click', () => {
                        this.deleteDescriptionElement(randomDescId);
@@ -223,6 +218,12 @@ class TVYContentEditor extends HTMLElement
                 this.quillTextObj.setContents(null);
                 break;
             case 'code':
+                if(this.codeMirrorContent == '')
+                {
+                    new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️You cannot add empty code block.').show();
+                    break;
+                }
+
                 let codeEditor = this.querySelector('#TVYCodeEditor');
                 let codeDataEditing = codeEditor.getAttribute('data-editing');
                 if(codeDataEditing != null)
@@ -261,15 +262,7 @@ class TVYContentEditor extends HTMLElement
                     let arrowDownBtn = codeElement.querySelector('.toolArrowDown');
 
                     editBtn.addEventListener('click', () => {
-                        this.codeMirrorObj.setContent(this.getDescObjectByDescId(randomDescId).data);
-                        let allDescTools = this.querySelectorAll('.descTools');
-                        codeEditor.setAttribute('data-editing', randomDescId);
-                        allDescTools.forEach(ele => {
-                            ele.classList.remove('editing');
-                            ele.classList.remove('edited');
-                        });
-                        descTools.classList.remove('edited');
-                        descTools.classList.add('editing');
+                        this.editDescriptionElement(codeEditor, randomDescId, TVYContentEditor.codeType, descTools);
                     });
 
                     deleteBtn.addEventListener('click', () => {
@@ -396,6 +389,26 @@ class TVYContentEditor extends HTMLElement
                 this.btnAddContent.setAttribute('data-type', dataType);
             });
         });
+    }
+
+    editDescriptionElement (editor, descId, descType, descTools)
+    {
+        if(descType == TVYContentEditor.textType){
+            this.querySelector('.tabTypeContent .btnAddPlainText').click();
+            this.quillTextObj.setContents(this.getDescObjectByDescId(descId).data);
+        }else if(descType == TVYContentEditor.codeType){
+            this.querySelector('.tabTypeContent .btnAddCodingBlock').click();
+            this.codeMirrorObj.setContent(this.getDescObjectByDescId(descId).data);
+        }
+
+        let allDescTools = this.querySelectorAll('.descTools');
+        editor.setAttribute('data-editing', descId);
+        allDescTools.forEach(ele => {
+            ele.classList.remove('editing');
+            ele.classList.remove('edited');
+        });
+        descTools.classList.remove('edited');
+        descTools.classList.add('editing');
     }
 
     deleteDescriptionElement (currentDescId)

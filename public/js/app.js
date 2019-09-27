@@ -79681,19 +79681,7 @@ function (_HTMLElement) {
             var arrowUpBtn = textElement.querySelector('.toolArrowUp');
             var arrowDownBtn = textElement.querySelector('.toolArrowDown');
             editBtn.addEventListener('click', function () {
-              _this2.quillTextObj.setContents(_this2.getDescObjectByDescId(randomDescId).data);
-
-              var allDescTools = _this2.querySelectorAll('.descTools');
-
-              textEditor.setAttribute('data-editing', randomDescId);
-              allDescTools.forEach(function (ele) {
-                ele.classList.remove('editing');
-                ele.classList.remove('edited');
-              });
-
-              _descTools.classList.remove('edited');
-
-              _descTools.classList.add('editing');
+              _this2.editDescriptionElement(textEditor, randomDescId, TVYContentEditor.textType, _descTools);
             });
             deleteBtn.addEventListener('click', function () {
               _this2.deleteDescriptionElement(randomDescId);
@@ -79712,6 +79700,11 @@ function (_HTMLElement) {
           break;
 
         case 'code':
+          if (this.codeMirrorContent == '') {
+            new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, '⚠️You cannot add empty code block.').show();
+            break;
+          }
+
           var codeEditor = this.querySelector('#TVYCodeEditor');
           var codeDataEditing = codeEditor.getAttribute('data-editing');
 
@@ -79758,19 +79751,7 @@ function (_HTMLElement) {
             var _arrowDownBtn = codeElement.querySelector('.toolArrowDown');
 
             _editBtn.addEventListener('click', function () {
-              _this2.codeMirrorObj.setContent(_this2.getDescObjectByDescId(randomDescId).data);
-
-              var allDescTools = _this2.querySelectorAll('.descTools');
-
-              codeEditor.setAttribute('data-editing', randomDescId);
-              allDescTools.forEach(function (ele) {
-                ele.classList.remove('editing');
-                ele.classList.remove('edited');
-              });
-
-              _descTools3.classList.remove('edited');
-
-              _descTools3.classList.add('editing');
+              _this2.editDescriptionElement(codeEditor, randomDescId, TVYContentEditor.codeType, _descTools3);
             });
 
             _deleteBtn.addEventListener('click', function () {
@@ -79925,6 +79906,26 @@ function (_HTMLElement) {
       });
     }
   }, {
+    key: "editDescriptionElement",
+    value: function editDescriptionElement(editor, descId, descType, descTools) {
+      if (descType == TVYContentEditor.textType) {
+        this.querySelector('.tabTypeContent .btnAddPlainText').click();
+        this.quillTextObj.setContents(this.getDescObjectByDescId(descId).data);
+      } else if (descType == TVYContentEditor.codeType) {
+        this.querySelector('.tabTypeContent .btnAddCodingBlock').click();
+        this.codeMirrorObj.setContent(this.getDescObjectByDescId(descId).data);
+      }
+
+      var allDescTools = this.querySelectorAll('.descTools');
+      editor.setAttribute('data-editing', descId);
+      allDescTools.forEach(function (ele) {
+        ele.classList.remove('editing');
+        ele.classList.remove('edited');
+      });
+      descTools.classList.remove('edited');
+      descTools.classList.add('editing');
+    }
+  }, {
     key: "deleteDescriptionElement",
     value: function deleteDescriptionElement(currentDescId) {
       var selectedElement = this.getDescElementByDescId(currentDescId);
@@ -80050,6 +80051,21 @@ function (_HTMLElement) {
     }
   }, {
     key: "imageType",
+    get: function get() {
+      return 'image';
+    }
+  }, {
+    key: "TEXT_TYPE",
+    get: function get() {
+      return 'text';
+    }
+  }, {
+    key: "CODE_TYPE",
+    get: function get() {
+      return 'code';
+    }
+  }, {
+    key: "IMAGE_TYPE",
     get: function get() {
       return 'image';
     }
