@@ -31,16 +31,16 @@
         }
     }
     .descTools.editing {
-        background-color: rgba($secondary-gray, 0.3);
+        background-color: rgba($secondary-green, 0.3);
         border-color: $main-gray;
     }
     .descTools.edited {
-        animation: blink 1.5s;
+        animation: blink 0.5s;
     }
     @keyframes blink{
-        0%{opacity: 0; background-color: $white;}
-        50%{opacity: .4; background-color: $white}
-        100%{opacity: .6; background-color: $white;}
+        0%{opacity: 0; background-color: $secondary-blue;}
+        50%{opacity: .4; background-color: $secondary-blue}
+        100%{opacity: .6; background-color: $secondary-blue;}
     }
     .descTools:hover, .descTools:focus, .descContent .ql-editor:hover .descTools {
         transition: 0.5s;
@@ -66,7 +66,7 @@
     }
     .descContent {
         background-color: white;
-        border: 1.5px dashed $thirdly-gray;
+        border: 1.5px dashed $secondary-gray;
         border-radius: 5px;
     }
 }

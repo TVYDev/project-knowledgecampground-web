@@ -176,7 +176,7 @@ class TVYContentEditor extends HTMLElement
                     let descTools = editingDescEle.querySelector('.descTools');
                     new QuillEditor(editingDescEle.querySelector('.descContent'), false, true, this.quillTextContent);
 
-                    this.updateDataOfADesc(this.quillTextContent, dataEditing);
+                    this.updateDataOfADesc(this.quillTextContent, TVYContentEditor.textType, dataEditing);
 
                     descTools.classList.remove('editing');
                     descTools.classList.add('edited');
@@ -203,6 +203,7 @@ class TVYContentEditor extends HTMLElement
                            ele.classList.remove('editing');
                            ele.classList.remove('edited');
                         });
+                        descTools.classList.remove('edited');
                         descTools.classList.add('editing');
                     });
                     deleteBtn.addEventListener('click', () => {
@@ -222,31 +223,70 @@ class TVYContentEditor extends HTMLElement
                 this.quillTextObj.setContents(null);
                 break;
             case 'code':
-                let codeElement = document.createElement('div');
-                codeElement.className = 'descElement col-md-12';
-                codeElement.setAttribute('data-desc-id', randomDescId);
-                codeElement.innerHTML = descHTML;
-                contentOrder.appendChild(codeElement);
-                let descContent = codeElement.querySelector('.descContent');
+                let codeEditor = this.querySelector('#TVYCodeEditor');
+                let codeDataEditing = codeEditor.getAttribute('data-editing');
+                if(codeDataEditing != null)
+                {
+                    let editingDescEle = this.getDescElementByDescId(codeDataEditing);
+                    let descTools = editingDescEle.querySelector('.descTools');
+                    let descContent = editingDescEle.querySelector('.descContent');
+                    descContent.parentNode.removeChild(descContent);
 
-                let deleteBtn = codeElement.querySelector('.toolDelete');
-                let arrowUpBtn = codeElement.querySelector('.toolArrowUp');
-                let arrowDownBtn = codeElement.querySelector('.toolArrowDown');
+                    let newDescContent = document.createElement('div');
+                    newDescContent.className = 'descContent';
+                    editingDescEle.appendChild(newDescContent);
+                    new CodeMirrorEditor(newDescContent, CodeMirrorEditor.THEME_MATERIAL, CodeMirrorEditor.MODE_JAVASCRIPT,
+                        true, this.codeMirrorContent, null);
 
-                deleteBtn.addEventListener('click', () => {
-                    this.deleteDescriptionElement(randomDescId);
-                });
-                arrowUpBtn.addEventListener('click', () => {
-                    this.moveDescriptionElement(randomDescId, TVYContentEditor.MOVE_UP);
-                });
-                arrowDownBtn.addEventListener('click', () => {
-                    this.moveDescriptionElement(randomDescId, TVYContentEditor.MOVE_DOWN);
-                });
+                    this.updateDataOfADesc(this.codeMirrorContent, TVYContentEditor.codeType, codeDataEditing);
 
-                new CodeMirrorEditor(descContent, CodeMirrorEditor.THEME_MATERIAL, CodeMirrorEditor.MODE_JAVASCRIPT,
-                    true, this.codeMirrorContent, null);
+                    descTools.classList.remove('editing');
+                    descTools.classList.add('edited');
+                    codeEditor.removeAttribute('data-editing');
+                    console.log(this.allDescData);
+                }
+                else
+                {
+                    let codeElement = document.createElement('div');
+                    codeElement.className = 'descElement col-md-12';
+                    codeElement.setAttribute('data-desc-id', randomDescId);
+                    codeElement.innerHTML = descHTML;
+                    contentOrder.appendChild(codeElement);
+                    let descContent = codeElement.querySelector('.descContent');
+                    let descTools = codeElement.querySelector('.descTools');
 
-                this.storeDataContent(this.codeMirrorContent, TVYContentEditor.codeType, randomDescId);
+                    let editBtn = codeElement.querySelector('.toolEdit');
+                    let deleteBtn = codeElement.querySelector('.toolDelete');
+                    let arrowUpBtn = codeElement.querySelector('.toolArrowUp');
+                    let arrowDownBtn = codeElement.querySelector('.toolArrowDown');
+
+                    editBtn.addEventListener('click', () => {
+                        this.codeMirrorObj.setContent(this.getDescObjectByDescId(randomDescId).data);
+                        let allDescTools = this.querySelectorAll('.descTools');
+                        codeEditor.setAttribute('data-editing', randomDescId);
+                        allDescTools.forEach(ele => {
+                            ele.classList.remove('editing');
+                            ele.classList.remove('edited');
+                        });
+                        descTools.classList.remove('edited');
+                        descTools.classList.add('editing');
+                    });
+
+                    deleteBtn.addEventListener('click', () => {
+                        this.deleteDescriptionElement(randomDescId);
+                    });
+                    arrowUpBtn.addEventListener('click', () => {
+                        this.moveDescriptionElement(randomDescId, TVYContentEditor.MOVE_UP);
+                    });
+                    arrowDownBtn.addEventListener('click', () => {
+                        this.moveDescriptionElement(randomDescId, TVYContentEditor.MOVE_DOWN);
+                    });
+
+                    new CodeMirrorEditor(descContent, CodeMirrorEditor.THEME_MATERIAL, CodeMirrorEditor.MODE_JAVASCRIPT,
+                        true, this.codeMirrorContent, null);
+
+                    this.storeDataContent(this.codeMirrorContent, TVYContentEditor.codeType, randomDescId);
+                }
 
                 this.codeMirrorObj.clearContent();
                 break;

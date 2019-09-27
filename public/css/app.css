@@ -13277,46 +13277,46 @@ button:focus {
 }
 
 .descElement .descTools.editing {
-  background-color: rgba(112, 112, 112, 0.3);
+  background-color: rgba(23, 204, 169, 0.3);
   border-color: #424242;
 }
 
 .descElement .descTools.edited {
-  -webkit-animation: blink 1.5s;
-          animation: blink 1.5s;
+  -webkit-animation: blink 0.5s;
+          animation: blink 0.5s;
 }
 
 @-webkit-keyframes blink {
   0% {
     opacity: 0;
-    background-color: white;
+    background-color: #54D0E6;
   }
 
   50% {
     opacity: 0.4;
-    background-color: white;
+    background-color: #54D0E6;
   }
 
   100% {
     opacity: 0.6;
-    background-color: white;
+    background-color: #54D0E6;
   }
 }
 
 @keyframes blink {
   0% {
     opacity: 0;
-    background-color: white;
+    background-color: #54D0E6;
   }
 
   50% {
     opacity: 0.4;
-    background-color: white;
+    background-color: #54D0E6;
   }
 
   100% {
     opacity: 0.6;
-    background-color: white;
+    background-color: #54D0E6;
   }
 }
 
@@ -13350,7 +13350,7 @@ button:focus {
 
 .descElement .descContent {
   background-color: white;
-  border: 1.5px dashed #D8D8D8;
+  border: 1.5px dashed #707070;
   border-radius: 5px;
 }
 

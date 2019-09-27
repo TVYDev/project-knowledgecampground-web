@@ -79662,7 +79662,7 @@ function (_HTMLElement) {
             var editingDescEle = this.getDescElementByDescId(dataEditing);
             var descTools = editingDescEle.querySelector('.descTools');
             new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](editingDescEle.querySelector('.descContent'), false, true, this.quillTextContent);
-            this.updateDataOfADesc(this.quillTextContent, dataEditing);
+            this.updateDataOfADesc(this.quillTextContent, TVYContentEditor.textType, dataEditing);
             descTools.classList.remove('editing');
             descTools.classList.add('edited');
             textEditor.removeAttribute('data-editing');
@@ -79672,19 +79672,14 @@ function (_HTMLElement) {
             textElement.setAttribute('data-desc-id', randomDescId);
             textElement.innerHTML = descHTML;
             contentOrder.appendChild(textElement);
-
-            var _descContent = textElement.querySelector('.descContent');
+            var descContent = textElement.querySelector('.descContent');
 
             var _descTools = textElement.querySelector('.descTools');
 
             var editBtn = textElement.querySelector('.toolEdit');
-
-            var _deleteBtn = textElement.querySelector('.toolDelete');
-
-            var _arrowUpBtn = textElement.querySelector('.toolArrowUp');
-
-            var _arrowDownBtn = textElement.querySelector('.toolArrowDown');
-
+            var deleteBtn = textElement.querySelector('.toolDelete');
+            var arrowUpBtn = textElement.querySelector('.toolArrowUp');
+            var arrowDownBtn = textElement.querySelector('.toolArrowDown');
             editBtn.addEventListener('click', function () {
               _this2.quillTextObj.setContents(_this2.getDescObjectByDescId(randomDescId).data);
 
@@ -79696,7 +79691,86 @@ function (_HTMLElement) {
                 ele.classList.remove('edited');
               });
 
+              _descTools.classList.remove('edited');
+
               _descTools.classList.add('editing');
+            });
+            deleteBtn.addEventListener('click', function () {
+              _this2.deleteDescriptionElement(randomDescId);
+            });
+            arrowUpBtn.addEventListener('click', function () {
+              _this2.moveDescriptionElement(randomDescId, TVYContentEditor.MOVE_UP);
+            });
+            arrowDownBtn.addEventListener('click', function () {
+              _this2.moveDescriptionElement(randomDescId, TVYContentEditor.MOVE_DOWN);
+            });
+            new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](descContent, false, true, this.quillTextContent);
+            this.storeDataContent(this.quillTextContent, TVYContentEditor.textType, randomDescId);
+          }
+
+          this.quillTextObj.setContents(null);
+          break;
+
+        case 'code':
+          var codeEditor = this.querySelector('#TVYCodeEditor');
+          var codeDataEditing = codeEditor.getAttribute('data-editing');
+
+          if (codeDataEditing != null) {
+            var _editingDescEle = this.getDescElementByDescId(codeDataEditing);
+
+            var _descTools2 = _editingDescEle.querySelector('.descTools');
+
+            var _descContent = _editingDescEle.querySelector('.descContent');
+
+            _descContent.parentNode.removeChild(_descContent);
+
+            var newDescContent = document.createElement('div');
+            newDescContent.className = 'descContent';
+
+            _editingDescEle.appendChild(newDescContent);
+
+            new _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"](newDescContent, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].THEME_MATERIAL, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].MODE_JAVASCRIPT, true, this.codeMirrorContent, null);
+            this.updateDataOfADesc(this.codeMirrorContent, TVYContentEditor.codeType, codeDataEditing);
+
+            _descTools2.classList.remove('editing');
+
+            _descTools2.classList.add('edited');
+
+            codeEditor.removeAttribute('data-editing');
+            console.log(this.allDescData);
+          } else {
+            var codeElement = document.createElement('div');
+            codeElement.className = 'descElement col-md-12';
+            codeElement.setAttribute('data-desc-id', randomDescId);
+            codeElement.innerHTML = descHTML;
+            contentOrder.appendChild(codeElement);
+
+            var _descContent2 = codeElement.querySelector('.descContent');
+
+            var _descTools3 = codeElement.querySelector('.descTools');
+
+            var _editBtn = codeElement.querySelector('.toolEdit');
+
+            var _deleteBtn = codeElement.querySelector('.toolDelete');
+
+            var _arrowUpBtn = codeElement.querySelector('.toolArrowUp');
+
+            var _arrowDownBtn = codeElement.querySelector('.toolArrowDown');
+
+            _editBtn.addEventListener('click', function () {
+              _this2.codeMirrorObj.setContent(_this2.getDescObjectByDescId(randomDescId).data);
+
+              var allDescTools = _this2.querySelectorAll('.descTools');
+
+              codeEditor.setAttribute('data-editing', randomDescId);
+              allDescTools.forEach(function (ele) {
+                ele.classList.remove('editing');
+                ele.classList.remove('edited');
+              });
+
+              _descTools3.classList.remove('edited');
+
+              _descTools3.classList.add('editing');
             });
 
             _deleteBtn.addEventListener('click', function () {
@@ -79711,34 +79785,10 @@ function (_HTMLElement) {
               _this2.moveDescriptionElement(randomDescId, TVYContentEditor.MOVE_DOWN);
             });
 
-            new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](_descContent, false, true, this.quillTextContent);
-            this.storeDataContent(this.quillTextContent, TVYContentEditor.textType, randomDescId);
+            new _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"](_descContent2, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].THEME_MATERIAL, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].MODE_JAVASCRIPT, true, this.codeMirrorContent, null);
+            this.storeDataContent(this.codeMirrorContent, TVYContentEditor.codeType, randomDescId);
           }
 
-          this.quillTextObj.setContents(null);
-          break;
-
-        case 'code':
-          var codeElement = document.createElement('div');
-          codeElement.className = 'descElement col-md-12';
-          codeElement.setAttribute('data-desc-id', randomDescId);
-          codeElement.innerHTML = descHTML;
-          contentOrder.appendChild(codeElement);
-          var descContent = codeElement.querySelector('.descContent');
-          var deleteBtn = codeElement.querySelector('.toolDelete');
-          var arrowUpBtn = codeElement.querySelector('.toolArrowUp');
-          var arrowDownBtn = codeElement.querySelector('.toolArrowDown');
-          deleteBtn.addEventListener('click', function () {
-            _this2.deleteDescriptionElement(randomDescId);
-          });
-          arrowUpBtn.addEventListener('click', function () {
-            _this2.moveDescriptionElement(randomDescId, TVYContentEditor.MOVE_UP);
-          });
-          arrowDownBtn.addEventListener('click', function () {
-            _this2.moveDescriptionElement(randomDescId, TVYContentEditor.MOVE_DOWN);
-          });
-          new _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"](descContent, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].THEME_MATERIAL, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].MODE_JAVASCRIPT, true, this.codeMirrorContent, null);
-          this.storeDataContent(this.codeMirrorContent, TVYContentEditor.codeType, randomDescId);
           this.codeMirrorObj.clearContent();
           break;
 
