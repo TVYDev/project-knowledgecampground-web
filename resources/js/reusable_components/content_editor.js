@@ -65,6 +65,18 @@ const html = `
     </div>
 `;
 
+const htmlDescTools = `
+    <div class="descTools" draggable="true">
+        <span class="toolButtonsBlock">
+            <button type="button" class="toolArrowUp" action-type="move_up"><i class="fas fa-arrow-up"></i></button>
+            <button type="button" class="toolArrowDown" action-type="move_down"><i class="fas fa-arrow-down"></i></button>
+            <button type="button" class="toolEdit" action-type="edit"><i class="fas fa-pen"></i></button>
+            <button type="button" class="toolDelete" action-type="delete"><i class="fas fa-trash-alt"></i></button>
+        </span>
+    </div>
+    <div class="descContent"></div>
+`;
+
 class TVYContentEditor extends HTMLElement
 {
     constructor()
@@ -112,6 +124,11 @@ class TVYContentEditor extends HTMLElement
 
         this.btnAddContent.addEventListener('click', this.addContentListener.bind(this));
 
+        let tvyContentOrder = document.querySelector('.questionPreview .TVYContentOrder');
+        tvyContentOrder.addEventListener('click', (event) => {
+            this.doContentOrderActions(event);
+        });
+
         this.jsObjCodeEditorModeSelect.addEventListener('change', this.changeModeOfCodeMirrorEditor.bind(this));
         this.jsObjCodeEditorThemeSelect.addEventListener('change', this.changeThemeOfCodeMirrorEditor.bind(this));
     }
@@ -125,6 +142,10 @@ class TVYContentEditor extends HTMLElement
 
     static get MOVE_UP()     {return 'move_up';}
     static get MOVE_DOWN()   {return 'move_down';}
+    static get ACTION_TYPE_MOVE_UP()    {return 'move_up';}
+    static get ACTION_TYPE_MOVE_DOWN()  {return 'move_down';}
+    static get ACTION_TYPE_EDIT()       {return 'edit';}
+    static get ACTION_TYPE_DELETE()     {return 'delete';}
 
     changeThemeOfCodeMirrorEditor () {
         let selectedTheme = this.querySelector('#TVYCodeEditor .codeEditorThemeSelected');
@@ -148,24 +169,24 @@ class TVYContentEditor extends HTMLElement
         let thisBtn = this.querySelector('.btnAddContent');
         let dataType = thisBtn.getAttribute('data-type');
 
-        let descHTML = `
-            <div class="descTools" draggable="true">
-                <span class="toolButtonsBlock">
-                    <button type="button" class="toolArrowUp"><i class="fas fa-arrow-up"></i></button>
-                    <button type="button" class="toolArrowDown"><i class="fas fa-arrow-down"></i></button>
-                    <button type="button" class="toolEdit"><i class="fas fa-pen"></i></button>
-                    <button type="button" class="toolDelete"><i class="fas fa-trash-alt"></i></button>
-                </span>
-            </div>
-            <div class="descContent"></div>
-        `;
+        // let descHTML = `
+        //     <div class="descTools" draggable="true">
+        //         <span class="toolButtonsBlock">
+        //             <button type="button" class="toolArrowUp"><i class="fas fa-arrow-up"></i></button>
+        //             <button type="button" class="toolArrowDown"><i class="fas fa-arrow-down"></i></button>
+        //             <button type="button" class="toolEdit"><i class="fas fa-pen"></i></button>
+        //             <button type="button" class="toolDelete"><i class="fas fa-trash-alt"></i></button>
+        //         </span>
+        //     </div>
+        //     <div class="descContent"></div>
+        // `;
 
-        let contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
+        // let contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
         let randomDescId = Math.random().toString(36).replace('0.', '');
 
         switch(dataType)
         {
-            case 'text':
+            case TVYContentEditor.TEXT_TYPE:
                 if(this.quillTextObj.getLength() === 1)
                 {
                     new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️You cannot add empty plain text.').show();
@@ -186,38 +207,40 @@ class TVYContentEditor extends HTMLElement
                     textEditor.removeAttribute('data-editing');
                 }
                 else{
-                    let textElement = document.createElement('div');
-                    textElement.className = 'descElement col-md-12';
-                    textElement.setAttribute('data-desc-id', randomDescId);
-                    textElement.innerHTML = descHTML;
-                    contentOrder.appendChild(textElement);
-                    let descContent = textElement.querySelector('.descContent');
-                    let descTools = textElement.querySelector('.descTools');
+                    // let textElement = document.createElement('div');
+                    // textElement.className = 'descElement col-md-12';
+                    // textElement.setAttribute('data-desc-id', randomDescId);
+                    // textElement.innerHTML = descHTML;
+                    // contentOrder.appendChild(textElement);
+                    // let descContent = textElement.querySelector('.descContent');
+                    // let descTools = textElement.querySelector('.descTools');
+                    //
+                    // let editBtn = textElement.querySelector('.toolEdit');
+                    // let deleteBtn = textElement.querySelector('.toolDelete');
+                    // let arrowUpBtn = textElement.querySelector('.toolArrowUp');
+                    // let arrowDownBtn = textElement.querySelector('.toolArrowDown');
+                    // editBtn.addEventListener('click', () => {
+                    //     this.editDescriptionElement(textEditor, randomDescId, TVYContentEditor.textType, descTools);
+                    // });
+                    // deleteBtn.addEventListener('click', () => {
+                    //    this.deleteDescriptionElement(randomDescId);
+                    // });
+                    // arrowUpBtn.addEventListener('click', () => {
+                    //     this.moveDescriptionElement(randomDescId, TVYContentEditor.MOVE_UP);
+                    // });
+                    // arrowDownBtn.addEventListener('click', () => {
+                    //     this.moveDescriptionElement(randomDescId, TVYContentEditor.MOVE_DOWN);
+                    // });
 
-                    let editBtn = textElement.querySelector('.toolEdit');
-                    let deleteBtn = textElement.querySelector('.toolDelete');
-                    let arrowUpBtn = textElement.querySelector('.toolArrowUp');
-                    let arrowDownBtn = textElement.querySelector('.toolArrowDown');
-                    editBtn.addEventListener('click', () => {
-                        this.editDescriptionElement(textEditor, randomDescId, TVYContentEditor.textType, descTools);
-                    });
-                    deleteBtn.addEventListener('click', () => {
-                       this.deleteDescriptionElement(randomDescId);
-                    });
-                    arrowUpBtn.addEventListener('click', () => {
-                        this.moveDescriptionElement(randomDescId, TVYContentEditor.MOVE_UP);
-                    });
-                    arrowDownBtn.addEventListener('click', () => {
-                        this.moveDescriptionElement(randomDescId, TVYContentEditor.MOVE_DOWN);
-                    });
+                    let textDescContent = this.createDescriptionElementAndAttachEventOfDescTools(randomDescId, TVYContentEditor.TEXT_TYPE, textEditor);
 
-                    new QuillEditor(descContent, false, true, this.quillTextContent);
+                    new QuillEditor(textDescContent, false, true, this.quillTextContent);
 
                     this.storeDataContent(this.quillTextContent, TVYContentEditor.textType, randomDescId);
                 }
                 this.quillTextObj.setContents(null);
                 break;
-            case 'code':
+            case TVYContentEditor.CODE_TYPE:
                 if(this.codeMirrorContent == '')
                 {
                     new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️You cannot add empty code block.').show();
@@ -248,34 +271,36 @@ class TVYContentEditor extends HTMLElement
                 }
                 else
                 {
-                    let codeElement = document.createElement('div');
-                    codeElement.className = 'descElement col-md-12';
-                    codeElement.setAttribute('data-desc-id', randomDescId);
-                    codeElement.innerHTML = descHTML;
-                    contentOrder.appendChild(codeElement);
-                    let descContent = codeElement.querySelector('.descContent');
-                    let descTools = codeElement.querySelector('.descTools');
+                    // let codeElement = document.createElement('div');
+                    // codeElement.className = 'descElement col-md-12';
+                    // codeElement.setAttribute('data-desc-id', randomDescId);
+                    // codeElement.innerHTML = descHTML;
+                    // contentOrder.appendChild(codeElement);
+                    // let descContent = codeElement.querySelector('.descContent');
+                    // let descTools = codeElement.querySelector('.descTools');
+                    //
+                    // let editBtn = codeElement.querySelector('.toolEdit');
+                    // let deleteBtn = codeElement.querySelector('.toolDelete');
+                    // let arrowUpBtn = codeElement.querySelector('.toolArrowUp');
+                    // let arrowDownBtn = codeElement.querySelector('.toolArrowDown');
+                    //
+                    // editBtn.addEventListener('click', () => {
+                    //     this.editDescriptionElement(codeEditor, randomDescId, TVYContentEditor.codeType, descTools);
+                    // });
+                    //
+                    // deleteBtn.addEventListener('click', () => {
+                    //     this.deleteDescriptionElement(randomDescId);
+                    // });
+                    // arrowUpBtn.addEventListener('click', () => {
+                    //     this.moveDescriptionElement(randomDescId, TVYContentEditor.MOVE_UP);
+                    // });
+                    // arrowDownBtn.addEventListener('click', () => {
+                    //     this.moveDescriptionElement(randomDescId, TVYContentEditor.MOVE_DOWN);
+                    // });
 
-                    let editBtn = codeElement.querySelector('.toolEdit');
-                    let deleteBtn = codeElement.querySelector('.toolDelete');
-                    let arrowUpBtn = codeElement.querySelector('.toolArrowUp');
-                    let arrowDownBtn = codeElement.querySelector('.toolArrowDown');
+                    let codeDescContent = this.createDescriptionElementAndAttachEventOfDescTools(randomDescId, TVYContentEditor.CODE_TYPE, codeEditor);
 
-                    editBtn.addEventListener('click', () => {
-                        this.editDescriptionElement(codeEditor, randomDescId, TVYContentEditor.codeType, descTools);
-                    });
-
-                    deleteBtn.addEventListener('click', () => {
-                        this.deleteDescriptionElement(randomDescId);
-                    });
-                    arrowUpBtn.addEventListener('click', () => {
-                        this.moveDescriptionElement(randomDescId, TVYContentEditor.MOVE_UP);
-                    });
-                    arrowDownBtn.addEventListener('click', () => {
-                        this.moveDescriptionElement(randomDescId, TVYContentEditor.MOVE_DOWN);
-                    });
-
-                    new CodeMirrorEditor(descContent, CodeMirrorEditor.THEME_MATERIAL, CodeMirrorEditor.MODE_JAVASCRIPT,
+                    new CodeMirrorEditor(codeDescContent, CodeMirrorEditor.THEME_MATERIAL, CodeMirrorEditor.MODE_JAVASCRIPT,
                         true, this.codeMirrorContent, null);
 
                     this.storeDataContent(this.codeMirrorContent, TVYContentEditor.codeType, randomDescId);
@@ -391,6 +416,71 @@ class TVYContentEditor extends HTMLElement
         });
     }
 
+    doContentOrderActions (event)
+    {
+        let targetButton = event.target.parentNode;
+        let actionTypeOfTargetButton = targetButton.getAttribute('action-type');
+
+        let targetDescElement = event.target.parentNode.parentNode.parentNode.parentNode;
+        let descIdOfTargetDescElement = targetDescElement.getAttribute('data-desc-id');
+
+        let targetDescTools = event.target.parentNode.parentNode.parentNode;
+        let targetEditorType = this.getDescObjectByDescId(descIdOfTargetDescElement).type;
+        let targetEditor = null;
+        if(targetEditorType === TVYContentEditor.TEXT_TYPE){
+            targetEditor = this.querySelector('#TVYTextEditor');
+        }else {
+            targetEditor = this.querySelector('#TVYCodeEditor')
+        }
+
+        if(actionTypeOfTargetButton === TVYContentEditor.ACTION_TYPE_MOVE_UP){
+            this.moveDescriptionElementNew(descIdOfTargetDescElement, TVYContentEditor.ACTION_TYPE_MOVE_UP);
+        }
+        else if(actionTypeOfTargetButton === TVYContentEditor.ACTION_TYPE_MOVE_DOWN){
+            this.moveDescriptionElementNew(descIdOfTargetDescElement, TVYContentEditor.ACTION_TYPE_MOVE_DOWN);
+        }
+        else if(actionTypeOfTargetButton === TVYContentEditor.ACTION_TYPE_DELETE){
+            this.deleteDescriptionElement(descIdOfTargetDescElement);
+        }
+        else if(actionTypeOfTargetButton === TVYContentEditor.ACTION_TYPE_EDIT){
+            this.editDescriptionElement(targetEditor, descIdOfTargetDescElement, targetEditorType, targetDescTools);
+        }
+    }
+
+    createDescriptionElementAndAttachEventOfDescTools (descId, descType, editor)
+    {
+        let contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
+
+        let descElement = document.createElement('div');
+        descElement.className = 'descElement col-md-12';
+        descElement.setAttribute('data-desc-id', descId);
+        descElement.innerHTML = htmlDescTools;
+        contentOrder.appendChild(descElement);
+        let descContent = descElement.querySelector('.descContent');
+        let descTools = descElement.querySelector('.descTools');
+
+        // let editBtn = descElement.querySelector('.toolEdit');
+        // let deleteBtn = descElement.querySelector('.toolDelete');
+        // let arrowUpBtn = descElement.querySelector('.toolArrowUp');
+        // let arrowDownBtn = descElement.querySelector('.toolArrowDown');
+
+        // editBtn.addEventListener('click', () => {
+        //     this.editDescriptionElement(editor, descId, descType, descTools);
+        // });
+        //
+        // deleteBtn.addEventListener('click', () => {
+        //     this.deleteDescriptionElement(descId);
+        // });
+        // arrowUpBtn.addEventListener('click', () => {
+        //     this.moveDescriptionElementNew(descId, TVYContentEditor.MOVE_UP);
+        // });
+        // arrowDownBtn.addEventListener('click', () => {
+        //     this.moveDescriptionElementNew(descId, TVYContentEditor.MOVE_DOWN);
+        // });
+
+        return descContent;
+    }
+
     editDescriptionElement (editor, descId, descType, descTools)
     {
         if(descType == TVYContentEditor.textType){
@@ -416,6 +506,22 @@ class TVYContentEditor extends HTMLElement
         let selectedElement = this.getDescElementByDescId(currentDescId);
         selectedElement.parentNode.removeChild(selectedElement);
         this.updatePositionsAfterADescElementDeleted(currentDescId);
+    }
+
+    moveDescriptionElementNew (currentDescId, actionType)
+    {
+        let currentDescElement = this.getDescElementByDescId(currentDescId);
+        let cloneOfCurrentDescElement = currentDescElement.cloneNode(true);
+
+        if(actionType === TVYContentEditor.ACTION_TYPE_MOVE_UP)
+        {
+            currentDescElement.parentNode.insertBefore(cloneOfCurrentDescElement, currentDescElement.previousSibling);
+        }
+        else if(actionType === TVYContentEditor.ACTION_TYPE_MOVE_DOWN)
+        {
+            currentDescElement.parentNode.insertBefore(cloneOfCurrentDescElement, currentDescElement.nextSibling.nextSibling);
+        }
+        currentDescElement.parentNode.removeChild(currentDescElement);
     }
 
     moveDescriptionElement (currentDescId, direction)
@@ -482,6 +588,21 @@ class TVYContentEditor extends HTMLElement
                 true, toBeMovedDescObjData, null);
             this.updateDataOfADesc(toBeMovedDescObjData, TVYContentEditor.codeType, currentDescObj.desc_id);
         }
+        this.swapDescIdOfTwoDescElements(currentDescObj.desc_id, toBeMovedDescObj.desc_id);
+
+        console.log(this.allDescData);
+    }
+
+    swapDescIdOfTwoDescElements (descIdOne, descIdTwo)
+    {
+        this.allDescData.forEach(ele => {
+            if(ele.desc_id === descIdOne){
+                ele.desc_id = descIdTwo;
+            }
+            else if(ele.desc_id === descIdTwo){
+                ele.desc_id = descIdOne;
+            }
+        });
     }
 
     saveDescDataToBackend (isDraft) {
