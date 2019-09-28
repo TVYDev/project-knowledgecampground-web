@@ -79647,19 +79647,7 @@ function (_HTMLElement) {
     key: "addContentListener",
     value: function addContentListener() {
       var thisBtn = this.querySelector('.btnAddContent');
-      var dataType = thisBtn.getAttribute('data-type'); // let descHTML = `
-      //     <div class="descTools" draggable="true">
-      //         <span class="toolButtonsBlock">
-      //             <button type="button" class="toolArrowUp"><i class="fas fa-arrow-up"></i></button>
-      //             <button type="button" class="toolArrowDown"><i class="fas fa-arrow-down"></i></button>
-      //             <button type="button" class="toolEdit"><i class="fas fa-pen"></i></button>
-      //             <button type="button" class="toolDelete"><i class="fas fa-trash-alt"></i></button>
-      //         </span>
-      //     </div>
-      //     <div class="descContent"></div>
-      // `;
-      // let contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
-
+      var dataType = thisBtn.getAttribute('data-type');
       var randomDescId = Math.random().toString(36).replace('0.', '');
 
       switch (dataType) {
@@ -79676,38 +79664,14 @@ function (_HTMLElement) {
             var editingDescEle = this.getDescElementByDescId(dataEditing);
             var descTools = editingDescEle.querySelector('.descTools');
             new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](editingDescEle.querySelector('.descContent'), false, true, this.quillTextContent);
-            this.updateDataOfADesc(this.quillTextContent, TVYContentEditor.textType, dataEditing);
+            this.updateDataOfADesc(this.quillTextContent, TVYContentEditor.TEXT_TYPE, dataEditing);
             descTools.classList.remove('editing');
             descTools.classList.add('edited');
             textEditor.removeAttribute('data-editing');
           } else {
-            // let textElement = document.createElement('div');
-            // textElement.className = 'descElement col-md-12';
-            // textElement.setAttribute('data-desc-id', randomDescId);
-            // textElement.innerHTML = descHTML;
-            // contentOrder.appendChild(textElement);
-            // let descContent = textElement.querySelector('.descContent');
-            // let descTools = textElement.querySelector('.descTools');
-            //
-            // let editBtn = textElement.querySelector('.toolEdit');
-            // let deleteBtn = textElement.querySelector('.toolDelete');
-            // let arrowUpBtn = textElement.querySelector('.toolArrowUp');
-            // let arrowDownBtn = textElement.querySelector('.toolArrowDown');
-            // editBtn.addEventListener('click', () => {
-            //     this.editDescriptionElement(textEditor, randomDescId, TVYContentEditor.textType, descTools);
-            // });
-            // deleteBtn.addEventListener('click', () => {
-            //    this.deleteDescriptionElement(randomDescId);
-            // });
-            // arrowUpBtn.addEventListener('click', () => {
-            //     this.moveDescriptionElement(randomDescId, TVYContentEditor.MOVE_UP);
-            // });
-            // arrowDownBtn.addEventListener('click', () => {
-            //     this.moveDescriptionElement(randomDescId, TVYContentEditor.MOVE_DOWN);
-            // });
             var textDescContent = this.createDescriptionElementAndAttachEventOfDescTools(randomDescId, TVYContentEditor.TEXT_TYPE, textEditor);
             new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](textDescContent, false, true, this.quillTextContent);
-            this.storeDataContent(this.quillTextContent, TVYContentEditor.textType, randomDescId);
+            this.storeDataContent(this.quillTextContent, TVYContentEditor.TEXT_TYPE, randomDescId);
           }
 
           this.quillTextObj.setContents(null);
@@ -79736,44 +79700,17 @@ function (_HTMLElement) {
             _editingDescEle.appendChild(newDescContent);
 
             new _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"](newDescContent, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].THEME_MATERIAL, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].MODE_JAVASCRIPT, true, this.codeMirrorContent, null);
-            this.updateDataOfADesc(this.codeMirrorContent, TVYContentEditor.codeType, codeDataEditing);
+            this.updateDataOfADesc(this.codeMirrorContent, TVYContentEditor.CODE_TYPE, codeDataEditing);
 
             _descTools.classList.remove('editing');
 
             _descTools.classList.add('edited');
 
             codeEditor.removeAttribute('data-editing');
-            console.log(this.allDescData);
           } else {
-            // let codeElement = document.createElement('div');
-            // codeElement.className = 'descElement col-md-12';
-            // codeElement.setAttribute('data-desc-id', randomDescId);
-            // codeElement.innerHTML = descHTML;
-            // contentOrder.appendChild(codeElement);
-            // let descContent = codeElement.querySelector('.descContent');
-            // let descTools = codeElement.querySelector('.descTools');
-            //
-            // let editBtn = codeElement.querySelector('.toolEdit');
-            // let deleteBtn = codeElement.querySelector('.toolDelete');
-            // let arrowUpBtn = codeElement.querySelector('.toolArrowUp');
-            // let arrowDownBtn = codeElement.querySelector('.toolArrowDown');
-            //
-            // editBtn.addEventListener('click', () => {
-            //     this.editDescriptionElement(codeEditor, randomDescId, TVYContentEditor.codeType, descTools);
-            // });
-            //
-            // deleteBtn.addEventListener('click', () => {
-            //     this.deleteDescriptionElement(randomDescId);
-            // });
-            // arrowUpBtn.addEventListener('click', () => {
-            //     this.moveDescriptionElement(randomDescId, TVYContentEditor.MOVE_UP);
-            // });
-            // arrowDownBtn.addEventListener('click', () => {
-            //     this.moveDescriptionElement(randomDescId, TVYContentEditor.MOVE_DOWN);
-            // });
             var codeDescContent = this.createDescriptionElementAndAttachEventOfDescTools(randomDescId, TVYContentEditor.CODE_TYPE, codeEditor);
             new _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"](codeDescContent, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].THEME_MATERIAL, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].MODE_JAVASCRIPT, true, this.codeMirrorContent, null);
-            this.storeDataContent(this.codeMirrorContent, TVYContentEditor.codeType, randomDescId);
+            this.storeDataContent(this.codeMirrorContent, TVYContentEditor.CODE_TYPE, randomDescId);
           }
 
           this.codeMirrorObj.clearContent();
@@ -79793,27 +79730,27 @@ function (_HTMLElement) {
       var position = ++this.descPosition;
 
       switch (type) {
-        case TVYContentEditor.textType:
+        case TVYContentEditor.TEXT_TYPE:
           this.allDescData.push({
             pos: position,
-            type: TVYContentEditor.textType,
+            type: TVYContentEditor.TEXT_TYPE,
             data: dataContent,
             desc_id: descId,
             group_desc_id: this.groupDescId
           });
           break;
 
-        case TVYContentEditor.codeType:
+        case TVYContentEditor.CODE_TYPE:
           this.allDescData.push({
             pos: position,
-            type: TVYContentEditor.codeType,
+            type: TVYContentEditor.CODE_TYPE,
             data: dataContent,
             desc_id: descId,
             group_desc_id: this.groupDescId
           });
           break;
 
-        case TVYContentEditor.imageType:
+        case TVYContentEditor.IMAGE_TYPE:
           break;
 
         default:
@@ -79929,9 +79866,9 @@ function (_HTMLElement) {
       }
 
       if (actionTypeOfTargetButton === TVYContentEditor.ACTION_TYPE_MOVE_UP) {
-        this.moveDescriptionElementNew(descIdOfTargetDescElement, TVYContentEditor.ACTION_TYPE_MOVE_UP);
+        this.moveDescriptionElement(descIdOfTargetDescElement, TVYContentEditor.ACTION_TYPE_MOVE_UP);
       } else if (actionTypeOfTargetButton === TVYContentEditor.ACTION_TYPE_MOVE_DOWN) {
-        this.moveDescriptionElementNew(descIdOfTargetDescElement, TVYContentEditor.ACTION_TYPE_MOVE_DOWN);
+        this.moveDescriptionElement(descIdOfTargetDescElement, TVYContentEditor.ACTION_TYPE_MOVE_DOWN);
       } else if (actionTypeOfTargetButton === TVYContentEditor.ACTION_TYPE_DELETE) {
         this.deleteDescriptionElement(descIdOfTargetDescElement);
       } else if (actionTypeOfTargetButton === TVYContentEditor.ACTION_TYPE_EDIT) {
@@ -79948,33 +79885,15 @@ function (_HTMLElement) {
       descElement.innerHTML = htmlDescTools;
       contentOrder.appendChild(descElement);
       var descContent = descElement.querySelector('.descContent');
-      var descTools = descElement.querySelector('.descTools'); // let editBtn = descElement.querySelector('.toolEdit');
-      // let deleteBtn = descElement.querySelector('.toolDelete');
-      // let arrowUpBtn = descElement.querySelector('.toolArrowUp');
-      // let arrowDownBtn = descElement.querySelector('.toolArrowDown');
-      // editBtn.addEventListener('click', () => {
-      //     this.editDescriptionElement(editor, descId, descType, descTools);
-      // });
-      //
-      // deleteBtn.addEventListener('click', () => {
-      //     this.deleteDescriptionElement(descId);
-      // });
-      // arrowUpBtn.addEventListener('click', () => {
-      //     this.moveDescriptionElementNew(descId, TVYContentEditor.MOVE_UP);
-      // });
-      // arrowDownBtn.addEventListener('click', () => {
-      //     this.moveDescriptionElementNew(descId, TVYContentEditor.MOVE_DOWN);
-      // });
-
       return descContent;
     }
   }, {
     key: "editDescriptionElement",
     value: function editDescriptionElement(editor, descId, descType, descTools) {
-      if (descType == TVYContentEditor.textType) {
+      if (descType == TVYContentEditor.TEXT_TYPE) {
         this.querySelector('.tabTypeContent .btnAddPlainText').click();
         this.quillTextObj.setContents(this.getDescObjectByDescId(descId).data);
-      } else if (descType == TVYContentEditor.codeType) {
+      } else if (descType == TVYContentEditor.CODE_TYPE) {
         this.querySelector('.tabTypeContent .btnAddCodingBlock').click();
         this.codeMirrorObj.setContent(this.getDescObjectByDescId(descId).data);
       }
@@ -79996,89 +79915,54 @@ function (_HTMLElement) {
       this.updatePositionsAfterADescElementDeleted(currentDescId);
     }
   }, {
-    key: "moveDescriptionElementNew",
-    value: function moveDescriptionElementNew(currentDescId, actionType) {
+    key: "moveDescriptionElement",
+    value: function moveDescriptionElement(currentDescId, actionType) {
+      var currentDescObj = this.getDescObjectByDescId(currentDescId);
+      var currentDescObjPos = currentDescObj.pos;
+
+      if (actionType === TVYContentEditor.ACTION_TYPE_MOVE_UP && currentDescObjPos === 1) {
+        new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, '⚠️It is already at the top. Cannot move up anymore.').show();
+        return;
+      } else if (actionType === TVYContentEditor.ACTION_TYPE_MOVE_DOWN && currentDescObjPos === this.descPosition) {
+        new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, '⚠️It is already at the bottom. Cannot move down anymore.').show();
+        return;
+      }
+
       var currentDescElement = this.getDescElementByDescId(currentDescId);
       var cloneOfCurrentDescElement = currentDescElement.cloneNode(true);
+      var toBeMoveDescElement = null;
 
       if (actionType === TVYContentEditor.ACTION_TYPE_MOVE_UP) {
+        toBeMoveDescElement = currentDescElement.previousElementSibling;
         currentDescElement.parentNode.insertBefore(cloneOfCurrentDescElement, currentDescElement.previousSibling);
-      } else if (actionType === TVYContentEditor.ACTION_TYPE_MOVE_DOWN) {
+      } else {
+        toBeMoveDescElement = currentDescElement.nextElementSibling;
         currentDescElement.parentNode.insertBefore(cloneOfCurrentDescElement, currentDescElement.nextSibling.nextSibling);
       }
 
+      var descIdOfToBeMovedDescElement = toBeMoveDescElement.getAttribute('data-desc-id');
+      this.swapDataAndTypeAndDescIdOfTwoDescElements(currentDescId, descIdOfToBeMovedDescElement);
       currentDescElement.parentNode.removeChild(currentDescElement);
-    }
-  }, {
-    key: "moveDescriptionElement",
-    value: function moveDescriptionElement(currentDescId, direction) {
-      var currentDescObj = this.getDescObjectByDescId(currentDescId);
-      var currentDescObjPos = currentDescObj.pos;
-      var toBeMovedDescObjPos = 0;
-
-      if (direction == TVYContentEditor.MOVE_UP) {
-        if (currentDescObjPos === 1) {
-          new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, '⚠️It is already at the top. Cannot move up anymore.').show();
-        } else {
-          toBeMovedDescObjPos = currentDescObjPos - 1;
-        }
-      } else if (direction == TVYContentEditor.MOVE_DOWN) {
-        if (currentDescObjPos === this.descPosition) {
-          new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, '⚠️It is already at the bottom. Cannot move down anymore.').show();
-        } else {
-          toBeMovedDescObjPos = currentDescObjPos + 1;
-        }
-      } else {
-        new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, '⚠️No movement can be made.').show();
-      }
-
-      var toBeMovedDescObj = this.getDescObjectByPosition(toBeMovedDescObjPos); // Data content
-
-      var currentDescObjData = currentDescObj.data;
-      var currentDescObjType = currentDescObj.type;
-      var toBeMovedDescObjData = toBeMovedDescObj.data;
-      var toBeMovedDescObjType = toBeMovedDescObj.type; // Desc element
-
-      var currentDescElement = this.getDescElementByDescId(currentDescId);
-      var toBeMovedDescElement = this.getDescElementByDescId(toBeMovedDescObj.desc_id);
-      var descContentOfCurrentDescElement = currentDescElement.querySelector('.descContent');
-      var descContentOfToBeMovedDescElement = toBeMovedDescElement.querySelector('.descContent');
-      descContentOfCurrentDescElement.parentNode.removeChild(descContentOfCurrentDescElement);
-      descContentOfToBeMovedDescElement.parentNode.removeChild(descContentOfToBeMovedDescElement);
-      var newDescContentOfCurrentDescElement = document.createElement('div');
-      newDescContentOfCurrentDescElement.className = 'descContent';
-      currentDescElement.appendChild(newDescContentOfCurrentDescElement);
-      var newDescContentOfToBeMovedDescElement = document.createElement('div');
-      newDescContentOfToBeMovedDescElement.className = 'descContent';
-      toBeMovedDescElement.appendChild(newDescContentOfToBeMovedDescElement);
-
-      if (currentDescObjType == TVYContentEditor.textType) {
-        new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](newDescContentOfToBeMovedDescElement, false, true, currentDescObjData);
-        this.updateDataOfADesc(currentDescObjData, TVYContentEditor.textType, toBeMovedDescObj.desc_id);
-      } else if (currentDescObjType == TVYContentEditor.codeType) {
-        new _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"](newDescContentOfToBeMovedDescElement, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].THEME_MATERIAL, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].MODE_JAVASCRIPT, true, currentDescObjData, null);
-        this.updateDataOfADesc(currentDescObjData, TVYContentEditor.codeType, toBeMovedDescObj.desc_id);
-      }
-
-      if (toBeMovedDescObjType == TVYContentEditor.textType) {
-        new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](newDescContentOfCurrentDescElement, false, true, toBeMovedDescObjData);
-        this.updateDataOfADesc(toBeMovedDescObjData, TVYContentEditor.textType, currentDescObj.desc_id);
-      } else if (toBeMovedDescObjType == TVYContentEditor.codeType) {
-        new _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"](newDescContentOfCurrentDescElement, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].THEME_MATERIAL, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].MODE_JAVASCRIPT, true, toBeMovedDescObjData, null);
-        this.updateDataOfADesc(toBeMovedDescObjData, TVYContentEditor.codeType, currentDescObj.desc_id);
-      }
-
-      this.swapDescIdOfTwoDescElements(currentDescObj.desc_id, toBeMovedDescObj.desc_id);
       console.log(this.allDescData);
     }
   }, {
-    key: "swapDescIdOfTwoDescElements",
-    value: function swapDescIdOfTwoDescElements(descIdOne, descIdTwo) {
+    key: "swapDataAndTypeAndDescIdOfTwoDescElements",
+    value: function swapDataAndTypeAndDescIdOfTwoDescElements(descOneId, descTwoId) {
+      var descOne = this.getDescObjectByDescId(descOneId);
+      var descOneData = descOne.data;
+      var descOneType = descOne.type;
+      var descTwo = this.getDescObjectByDescId(descTwoId);
+      var descTwoData = descTwo.data;
+      var descTwoType = descTwo.type;
       this.allDescData.forEach(function (ele) {
-        if (ele.desc_id === descIdOne) {
-          ele.desc_id = descIdTwo;
-        } else if (ele.desc_id === descIdTwo) {
-          ele.desc_id = descIdOne;
+        if (ele.desc_id === descOneId) {
+          ele.desc_id = descTwoId;
+          ele.data = descTwoData;
+          ele.type = descTwoType;
+        } else if (ele.desc_id === descTwoId) {
+          ele.desc_id = descOneId;
+          ele.data = descOneData;
+          ele.type = descOneType;
         }
       });
     }
@@ -80131,21 +80015,6 @@ function (_HTMLElement) {
       return this.quillTextObj;
     }
   }], [{
-    key: "textType",
-    get: function get() {
-      return 'text';
-    }
-  }, {
-    key: "codeType",
-    get: function get() {
-      return 'code';
-    }
-  }, {
-    key: "imageType",
-    get: function get() {
-      return 'image';
-    }
-  }, {
     key: "TEXT_TYPE",
     get: function get() {
       return 'text';
@@ -80159,16 +80028,6 @@ function (_HTMLElement) {
     key: "IMAGE_TYPE",
     get: function get() {
       return 'image';
-    }
-  }, {
-    key: "MOVE_UP",
-    get: function get() {
-      return 'move_up';
-    }
-  }, {
-    key: "MOVE_DOWN",
-    get: function get() {
-      return 'move_down';
     }
   }, {
     key: "ACTION_TYPE_MOVE_UP",
