@@ -13271,6 +13271,11 @@ button:focus {
   font-size: 0.9rem;
 }
 
+.descElement .descTools span.toolSeparator {
+  color: #D8D8D8;
+  background: none;
+}
+
 .descElement .descTools button:hover,
 .descElement .descTools button:focus {
   color: #17CCA9;
@@ -13334,7 +13339,7 @@ button:focus {
   visibility: hidden;
 }
 
-.descElement .descTools:hover span {
+.descElement .descTools:hover span.toolButtonsBlock {
   border-radius: 10px 0 0 10px;
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.8);
@@ -13347,7 +13352,7 @@ button:focus {
   visibility: visible;
 }
 
-.descElement .descTools.editing:hover span,
+.descElement .descTools.editing:hover span.toolButtonsBlock,
 .descElement .descTools.editing:hover button {
   visibility: hidden;
 }
@@ -13361,7 +13366,9 @@ button:focus {
 .descElement .toolArrowDown,
 .descElement .toolArrowUp,
 .descElement .toolEdit,
-.descElement .toolDelete {
+.descElement .toolDelete,
+.descElement .toolArrowBottom,
+.descElement .toolArrowTop {
   cursor: pointer;
 }
 

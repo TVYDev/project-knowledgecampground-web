@@ -68,10 +68,14 @@ const html = `
 const htmlDescTools = `
     <div class="descTools" draggable="true">
         <span class="toolButtonsBlock">
-            <button type="button" class="toolArrowUp" action-type="move_up"><i class="fas fa-arrow-up"></i></button>
-            <button type="button" class="toolArrowDown" action-type="move_down"><i class="fas fa-arrow-down"></i></button>
+            <button type="button" class="toolArrowBottom" action-type="move_bottom"><i class="fas fa-angle-double-down"></i></button>
+            <button type="button" class="toolArrowDown" action-type="move_down"><i class="fas fa-chevron-down"></i></button>
+            <span class="toolSeparator">|</span>
             <button type="button" class="toolEdit" action-type="edit"><i class="fas fa-pen"></i></button>
             <button type="button" class="toolDelete" action-type="delete"><i class="fas fa-trash-alt"></i></button>
+            <span class="toolSeparator">|</span>
+            <button type="button" class="toolArrowUp" action-type="move_up"><i class="fas fa-chevron-up"></i></button>
+            <button type="button" class="toolArrowTop" action-type="move_top"><i class="fas fa-angle-double-up"></i></button>
         </span>
     </div>
     <div class="descContent"></div>
@@ -139,10 +143,17 @@ class TVYContentEditor extends HTMLElement
     static get CODE_TYPE()   {return 'code';}
     static get IMAGE_TYPE()  {return 'image';}
 
-    static get ACTION_TYPE_MOVE_UP()    {return 'move_up';}
-    static get ACTION_TYPE_MOVE_DOWN()  {return 'move_down';}
-    static get ACTION_TYPE_EDIT()       {return 'edit';}
-    static get ACTION_TYPE_DELETE()     {return 'delete';}
+    static get ACTION_TYPE_MOVE_TOP()       {return 'move_top';}
+    static get ACTION_TYPE_MOVE_BOTTOM()    {return 'move_bottom';}
+    static get ACTION_TYPE_MOVE_UP()        {return 'move_up';}
+    static get ACTION_TYPE_MOVE_DOWN()      {return 'move_down';}
+    static get ACTION_TYPE_EDIT()           {return 'edit';}
+    static get ACTION_TYPE_DELETE()         {return 'delete';}
+
+    static get ARRAY_INDEX_TOP()    {return 0;}
+    static get ARRAY_INDEX_PREV()   {return 777;}
+    static get ARRAY_INDEX_NEXT()   {return 888;}
+    static get ARRAY_INDEX_BOTTOM() {return 999;}
 
     changeThemeOfCodeMirrorEditor () {
         let selectedTheme = this.querySelector('#TVYCodeEditor .codeEditorThemeSelected');
@@ -303,6 +314,16 @@ class TVYContentEditor extends HTMLElement
         return descFiltered[0];
     }
 
+    getIndexArrayOfDescObject (descId) {
+        let i = 0;
+        this.allDescData.forEach((value, index) => {
+            if(value.desc_id === descId){
+                i = index;
+            }
+        });
+        return i;
+    }
+
     getDescElementByDescId (descId) {
         let allDescElements = document.querySelectorAll('.questionPreview .TVYContentOrder .descElement');
         let wantedElement = null;
@@ -366,6 +387,12 @@ class TVYContentEditor extends HTMLElement
         else if(actionTypeOfTargetButton === TVYContentEditor.ACTION_TYPE_MOVE_DOWN){
             this.moveDescriptionElement(descIdOfTargetDescElement, TVYContentEditor.ACTION_TYPE_MOVE_DOWN);
         }
+        else if(actionTypeOfTargetButton === TVYContentEditor.ACTION_TYPE_MOVE_TOP){
+            this.moveDescriptionElement(descIdOfTargetDescElement, TVYContentEditor.ACTION_TYPE_MOVE_TOP);
+        }
+        else if(actionTypeOfTargetButton === TVYContentEditor.ACTION_TYPE_MOVE_BOTTOM){
+            this.moveDescriptionElement(descIdOfTargetDescElement, TVYContentEditor.ACTION_TYPE_MOVE_BOTTOM);
+        }
         else if(actionTypeOfTargetButton === TVYContentEditor.ACTION_TYPE_DELETE){
             this.deleteDescriptionElement(descIdOfTargetDescElement);
         }
@@ -425,36 +452,48 @@ class TVYContentEditor extends HTMLElement
 
     moveDescriptionElement (currentDescId, actionType)
     {
-        let currentDescObj = this.getDescObjectByDescId(currentDescId);
-        let currentDescObjPos = currentDescObj.pos;
-        if(actionType === TVYContentEditor.ACTION_TYPE_MOVE_UP && currentDescObjPos === 1){
-            new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️It is already at the top. Cannot move up anymore.').show();
-            return;
-        }else if(actionType === TVYContentEditor.ACTION_TYPE_MOVE_DOWN && currentDescObjPos === this.descPosition) {
-            new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️It is already at the bottom. Cannot move down anymore.').show();
-            return;
+        let indexArrayOfCurrentDescObj = this.getIndexArrayOfDescObject(currentDescId);
+        if(actionType === TVYContentEditor.ACTION_TYPE_MOVE_UP || actionType === TVYContentEditor.ACTION_TYPE_MOVE_TOP)
+        {
+            if(indexArrayOfCurrentDescObj === 0)
+            {
+                new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️It is already at the top. Cannot move up anymore.').show();
+                return;
+            }
+        }
+        else if(actionType === TVYContentEditor.ACTION_TYPE_MOVE_DOWN || actionType === TVYContentEditor.ACTION_TYPE_MOVE_BOTTOM)
+        {
+            if(indexArrayOfCurrentDescObj === this.allDescData.length - 1)
+            {
+                new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️It is already at the bottom. Cannot move down anymore.').show();
+                return;
+            }
         }
 
         let currentDescElement = this.getDescElementByDescId(currentDescId);
         let cloneOfCurrentDescElement = currentDescElement.cloneNode(true);
-        let toBeMoveDescElement = null;
 
         if(actionType === TVYContentEditor.ACTION_TYPE_MOVE_UP)
         {
-            toBeMoveDescElement = currentDescElement.previousElementSibling;
+            this.moveCurrentDescDataToAnIndexOfArray(currentDescId, TVYContentEditor.ARRAY_INDEX_PREV);
             currentDescElement.parentNode.insertBefore(cloneOfCurrentDescElement, currentDescElement.previousSibling);
         }
-        else
+        else if(actionType === TVYContentEditor.ACTION_TYPE_MOVE_DOWN)
         {
-            toBeMoveDescElement = currentDescElement.nextElementSibling;
+            this.moveCurrentDescDataToAnIndexOfArray(currentDescId, TVYContentEditor.ARRAY_INDEX_NEXT);
             currentDescElement.parentNode.insertBefore(cloneOfCurrentDescElement, currentDescElement.nextSibling.nextSibling);
         }
-
-        let descIdOfToBeMovedDescElement = toBeMoveDescElement.getAttribute('data-desc-id');
-        this.swapDataAndTypeAndDescIdOfTwoDescElements(currentDescId, descIdOfToBeMovedDescElement);
-
+        else if(actionType === TVYContentEditor.ACTION_TYPE_MOVE_TOP)
+        {
+            this.moveCurrentDescDataToAnIndexOfArray(currentDescId, TVYContentEditor.ARRAY_INDEX_TOP);
+            currentDescElement.parentNode.insertBefore(cloneOfCurrentDescElement, currentDescElement.parentNode.firstChild);
+        }
+        else if(actionType === TVYContentEditor.ACTION_TYPE_MOVE_BOTTOM)
+        {
+            this.moveCurrentDescDataToAnIndexOfArray(currentDescId, TVYContentEditor.ARRAY_INDEX_BOTTOM);
+            currentDescElement.parentNode.append(cloneOfCurrentDescElement);
+        }
         currentDescElement.parentNode.removeChild(currentDescElement);
-        console.log(this.allDescData);
     }
 
     enableAllTabEditors()
@@ -499,6 +538,30 @@ class TVYContentEditor extends HTMLElement
                 ele.type = descOneType;
             }
         });
+    }
+
+    moveCurrentDescDataToAnIndexOfArray (currentDescId, indexPosition)
+    {
+        let currentDesc = this.allDescData.find(desc => desc.desc_id === currentDescId);
+        let indexArrayOfCurrentDesc = this.allDescData.findIndex(desc => desc.desc_id === currentDescId);
+        let arrayDescDataExcludedCurrentDesc = this.allDescData.filter(desc => desc.desc_id !== currentDescId);
+
+        if(indexPosition === TVYContentEditor.ARRAY_INDEX_TOP){
+            arrayDescDataExcludedCurrentDesc.unshift(currentDesc);
+        }
+        else if(indexPosition === TVYContentEditor.ARRAY_INDEX_BOTTOM){
+            arrayDescDataExcludedCurrentDesc.push(currentDesc);
+        }
+        else if(indexPosition === TVYContentEditor.ARRAY_INDEX_PREV){
+            arrayDescDataExcludedCurrentDesc.splice(indexArrayOfCurrentDesc - 1, 0, currentDesc);
+        }
+        else if(indexPosition === TVYContentEditor.ARRAY_INDEX_NEXT){
+            arrayDescDataExcludedCurrentDesc.splice(indexArrayOfCurrentDesc + 1, 0, currentDesc);
+        }
+        else{
+            arrayDescDataExcludedCurrentDesc.splice(indexPosition, 0, currentDesc);
+        }
+        this.allDescData = arrayDescDataExcludedCurrentDesc;
     }
 
     saveDescDataToBackend (isDraft) {

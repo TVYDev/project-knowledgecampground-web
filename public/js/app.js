@@ -79589,7 +79589,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 var html = "\n    <div class=\"TVYContentProduction\">\n        <div class=\"TVYContentEditor col-md-12\">\n            <div class=\"tabTypeContent\">\n               <button type=\"button\" class=\"btnSelectTabEditor btnAddPlainText selected\" data-type=\"text\">Plain Text</button>\n               <button type=\"button\" class=\"btnSelectTabEditor btnAddCodingBlock\" data-type=\"code\">Coding Block</button>\n               <button type=\"button\" class=\"btnSelectTabEditor btnAddImage\" data-type=\"image\">Media File</button>\n            </div>\n            <div class=\"editor\">\n                <div id=\"TVYTextEditor\">\n                    <div class=\"actualTextEditor\"></div>\n                </div>\n                <div id=\"TVYCodeEditor\" hidden=\"hidden\">\n                    <div class=\"codeEditorTools ui fluid form\">\n                        <div class=\"two fields\">\n                            <div class=\"field\">\n                                <label for=\"codeEditorMode\">Language</label>\n                                <input type=\"hidden\" data-selected-mode=\"\" class=\"codeEditorModeSelected\">\n                                <select class=\"ui dropdown codeEditorMode\">\n                                    <option value=\"css\" selected>CSS</option>\n                                    <option value=\"go\">Go</option>\n                                    <option value=\"html\">HTML</option>\n                                    <option value=\"javascript\">JavaScript</option>\n                                    <option value=\"jsx\">JSX</option>\n                                    <option value=\"php\">PHP</option>\n                                    <option value=\"swift\">Swift</option>\n                                    <option value=\"python\">Python</option>\n                                    <option value=\"ruby\">Ruby</option>\n                                    <option value=\"sass\">Sass</option>\n                                    <option value=\"shell\">Shell</option>\n                                    <option value=\"sql\">SQL</option>\n                                    <option value=\"xml\">XML</option>\n                                </select>\n                            </div>\n                            <div class=\"field\">\n                                <label for=\"codeEditorTheme\">Theme</label>\n                                <input type=\"hidden\" data-selected-theme=\"\" class=\"codeEditorThemeSelected\">\n                                <select class=\"ui dropdown codeEditorTheme\">\n                                    <option value=\"dracula\" selected>Dracula</option>\n                                    <option value=\"material\">Material</option>\n                                    <option value=\"elegant\">Elegant</option>\n                                    <option value=\"eclipse\">Eclipse</option>\n                                    <option value=\"duotone-dark\">Duotone dark</option>\n                                    <option value=\"duotone-light\">Duotone light</option>\n                                </select>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"actualCodeEditor\"></div>\n                </div>\n                <div id=\"TVYImageEditor\" hidden=\"hidden\">\n                    I am image selector\n                </div>\n            </div>\n            <div class=\"actionContentEditor\">\n                <button type=\"button\" class=\"btnAddContent\" data-type=\"text\">\n                    <i class=\"far fa-check-circle\"></i>\n                </button>\n            </div>\n        </div>\n    </div>\n";
-var htmlDescTools = "\n    <div class=\"descTools\" draggable=\"true\">\n        <span class=\"toolButtonsBlock\">\n            <button type=\"button\" class=\"toolArrowUp\" action-type=\"move_up\"><i class=\"fas fa-arrow-up\"></i></button>\n            <button type=\"button\" class=\"toolArrowDown\" action-type=\"move_down\"><i class=\"fas fa-arrow-down\"></i></button>\n            <button type=\"button\" class=\"toolEdit\" action-type=\"edit\"><i class=\"fas fa-pen\"></i></button>\n            <button type=\"button\" class=\"toolDelete\" action-type=\"delete\"><i class=\"fas fa-trash-alt\"></i></button>\n        </span>\n    </div>\n    <div class=\"descContent\"></div>\n";
+var htmlDescTools = "\n    <div class=\"descTools\" draggable=\"true\">\n        <span class=\"toolButtonsBlock\">\n            <button type=\"button\" class=\"toolArrowBottom\" action-type=\"move_bottom\"><i class=\"fas fa-angle-double-down\"></i></button>\n            <button type=\"button\" class=\"toolArrowDown\" action-type=\"move_down\"><i class=\"fas fa-chevron-down\"></i></button>\n            <span class=\"toolSeparator\">|</span>\n            <button type=\"button\" class=\"toolEdit\" action-type=\"edit\"><i class=\"fas fa-pen\"></i></button>\n            <button type=\"button\" class=\"toolDelete\" action-type=\"delete\"><i class=\"fas fa-trash-alt\"></i></button>\n            <span class=\"toolSeparator\">|</span>\n            <button type=\"button\" class=\"toolArrowUp\" action-type=\"move_up\"><i class=\"fas fa-chevron-up\"></i></button>\n            <button type=\"button\" class=\"toolArrowTop\" action-type=\"move_top\"><i class=\"fas fa-angle-double-up\"></i></button>\n        </span>\n    </div>\n    <div class=\"descContent\"></div>\n";
 
 var TVYContentEditor =
 /*#__PURE__*/
@@ -79832,6 +79832,17 @@ function (_HTMLElement) {
       return descFiltered[0];
     }
   }, {
+    key: "getIndexArrayOfDescObject",
+    value: function getIndexArrayOfDescObject(descId) {
+      var i = 0;
+      this.allDescData.forEach(function (value, index) {
+        if (value.desc_id === descId) {
+          i = index;
+        }
+      });
+      return i;
+    }
+  }, {
     key: "getDescElementByDescId",
     value: function getDescElementByDescId(descId) {
       var allDescElements = document.querySelectorAll('.questionPreview .TVYContentOrder .descElement');
@@ -79899,6 +79910,10 @@ function (_HTMLElement) {
         this.moveDescriptionElement(descIdOfTargetDescElement, TVYContentEditor.ACTION_TYPE_MOVE_UP);
       } else if (actionTypeOfTargetButton === TVYContentEditor.ACTION_TYPE_MOVE_DOWN) {
         this.moveDescriptionElement(descIdOfTargetDescElement, TVYContentEditor.ACTION_TYPE_MOVE_DOWN);
+      } else if (actionTypeOfTargetButton === TVYContentEditor.ACTION_TYPE_MOVE_TOP) {
+        this.moveDescriptionElement(descIdOfTargetDescElement, TVYContentEditor.ACTION_TYPE_MOVE_TOP);
+      } else if (actionTypeOfTargetButton === TVYContentEditor.ACTION_TYPE_MOVE_BOTTOM) {
+        this.moveDescriptionElement(descIdOfTargetDescElement, TVYContentEditor.ACTION_TYPE_MOVE_BOTTOM);
       } else if (actionTypeOfTargetButton === TVYContentEditor.ACTION_TYPE_DELETE) {
         this.deleteDescriptionElement(descIdOfTargetDescElement);
       } else if (actionTypeOfTargetButton === TVYContentEditor.ACTION_TYPE_EDIT) {
@@ -79956,33 +79971,38 @@ function (_HTMLElement) {
   }, {
     key: "moveDescriptionElement",
     value: function moveDescriptionElement(currentDescId, actionType) {
-      var currentDescObj = this.getDescObjectByDescId(currentDescId);
-      var currentDescObjPos = currentDescObj.pos;
+      var indexArrayOfCurrentDescObj = this.getIndexArrayOfDescObject(currentDescId);
 
-      if (actionType === TVYContentEditor.ACTION_TYPE_MOVE_UP && currentDescObjPos === 1) {
-        new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, '⚠️It is already at the top. Cannot move up anymore.').show();
-        return;
-      } else if (actionType === TVYContentEditor.ACTION_TYPE_MOVE_DOWN && currentDescObjPos === this.descPosition) {
-        new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, '⚠️It is already at the bottom. Cannot move down anymore.').show();
-        return;
+      if (actionType === TVYContentEditor.ACTION_TYPE_MOVE_UP || actionType === TVYContentEditor.ACTION_TYPE_MOVE_TOP) {
+        if (indexArrayOfCurrentDescObj === 0) {
+          new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, '⚠️It is already at the top. Cannot move up anymore.').show();
+          return;
+        }
+      } else if (actionType === TVYContentEditor.ACTION_TYPE_MOVE_DOWN || actionType === TVYContentEditor.ACTION_TYPE_MOVE_BOTTOM) {
+        if (indexArrayOfCurrentDescObj === this.allDescData.length - 1) {
+          new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, '⚠️It is already at the bottom. Cannot move down anymore.').show();
+          return;
+        }
       }
 
       var currentDescElement = this.getDescElementByDescId(currentDescId);
       var cloneOfCurrentDescElement = currentDescElement.cloneNode(true);
-      var toBeMoveDescElement = null;
 
       if (actionType === TVYContentEditor.ACTION_TYPE_MOVE_UP) {
-        toBeMoveDescElement = currentDescElement.previousElementSibling;
+        this.moveCurrentDescDataToAnIndexOfArray(currentDescId, TVYContentEditor.ARRAY_INDEX_PREV);
         currentDescElement.parentNode.insertBefore(cloneOfCurrentDescElement, currentDescElement.previousSibling);
-      } else {
-        toBeMoveDescElement = currentDescElement.nextElementSibling;
+      } else if (actionType === TVYContentEditor.ACTION_TYPE_MOVE_DOWN) {
+        this.moveCurrentDescDataToAnIndexOfArray(currentDescId, TVYContentEditor.ARRAY_INDEX_NEXT);
         currentDescElement.parentNode.insertBefore(cloneOfCurrentDescElement, currentDescElement.nextSibling.nextSibling);
+      } else if (actionType === TVYContentEditor.ACTION_TYPE_MOVE_TOP) {
+        this.moveCurrentDescDataToAnIndexOfArray(currentDescId, TVYContentEditor.ARRAY_INDEX_TOP);
+        currentDescElement.parentNode.insertBefore(cloneOfCurrentDescElement, currentDescElement.parentNode.firstChild);
+      } else if (actionType === TVYContentEditor.ACTION_TYPE_MOVE_BOTTOM) {
+        this.moveCurrentDescDataToAnIndexOfArray(currentDescId, TVYContentEditor.ARRAY_INDEX_BOTTOM);
+        currentDescElement.parentNode.append(cloneOfCurrentDescElement);
       }
 
-      var descIdOfToBeMovedDescElement = toBeMoveDescElement.getAttribute('data-desc-id');
-      this.swapDataAndTypeAndDescIdOfTwoDescElements(currentDescId, descIdOfToBeMovedDescElement);
       currentDescElement.parentNode.removeChild(currentDescElement);
-      console.log(this.allDescData);
     }
   }, {
     key: "enableAllTabEditors",
@@ -80024,6 +80044,33 @@ function (_HTMLElement) {
           ele.type = descOneType;
         }
       });
+    }
+  }, {
+    key: "moveCurrentDescDataToAnIndexOfArray",
+    value: function moveCurrentDescDataToAnIndexOfArray(currentDescId, indexPosition) {
+      var currentDesc = this.allDescData.find(function (desc) {
+        return desc.desc_id === currentDescId;
+      });
+      var indexArrayOfCurrentDesc = this.allDescData.findIndex(function (desc) {
+        return desc.desc_id === currentDescId;
+      });
+      var arrayDescDataExcludedCurrentDesc = this.allDescData.filter(function (desc) {
+        return desc.desc_id !== currentDescId;
+      });
+
+      if (indexPosition === TVYContentEditor.ARRAY_INDEX_TOP) {
+        arrayDescDataExcludedCurrentDesc.unshift(currentDesc);
+      } else if (indexPosition === TVYContentEditor.ARRAY_INDEX_BOTTOM) {
+        arrayDescDataExcludedCurrentDesc.push(currentDesc);
+      } else if (indexPosition === TVYContentEditor.ARRAY_INDEX_PREV) {
+        arrayDescDataExcludedCurrentDesc.splice(indexArrayOfCurrentDesc - 1, 0, currentDesc);
+      } else if (indexPosition === TVYContentEditor.ARRAY_INDEX_NEXT) {
+        arrayDescDataExcludedCurrentDesc.splice(indexArrayOfCurrentDesc + 1, 0, currentDesc);
+      } else {
+        arrayDescDataExcludedCurrentDesc.splice(indexPosition, 0, currentDesc);
+      }
+
+      this.allDescData = arrayDescDataExcludedCurrentDesc;
     }
   }, {
     key: "saveDescDataToBackend",
@@ -80084,6 +80131,16 @@ function (_HTMLElement) {
       return 'image';
     }
   }, {
+    key: "ACTION_TYPE_MOVE_TOP",
+    get: function get() {
+      return 'move_top';
+    }
+  }, {
+    key: "ACTION_TYPE_MOVE_BOTTOM",
+    get: function get() {
+      return 'move_bottom';
+    }
+  }, {
     key: "ACTION_TYPE_MOVE_UP",
     get: function get() {
       return 'move_up';
@@ -80102,6 +80159,26 @@ function (_HTMLElement) {
     key: "ACTION_TYPE_DELETE",
     get: function get() {
       return 'delete';
+    }
+  }, {
+    key: "ARRAY_INDEX_TOP",
+    get: function get() {
+      return 0;
+    }
+  }, {
+    key: "ARRAY_INDEX_PREV",
+    get: function get() {
+      return 777;
+    }
+  }, {
+    key: "ARRAY_INDEX_NEXT",
+    get: function get() {
+      return 888;
+    }
+  }, {
+    key: "ARRAY_INDEX_BOTTOM",
+    get: function get() {
+      return 999;
     }
   }]);
 
