@@ -79627,8 +79627,6 @@ function (_HTMLElement) {
     _this.btnAddContent = _this.querySelector('.actionContentEditor .btnAddContent');
     _this.contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
     _this.allDescData = [];
-    _this.descPosition = 0;
-    _this.groupDescId = Math.random().toString(36).replace('0.', '');
 
     _this.tabEditorMovement();
 
@@ -79757,36 +79755,11 @@ function (_HTMLElement) {
   }, {
     key: "storeDataContent",
     value: function storeDataContent(dataContent, type, descId) {
-      var position = ++this.descPosition;
-
-      switch (type) {
-        case TVYContentEditor.TEXT_TYPE:
-          this.allDescData.push({
-            pos: position,
-            type: TVYContentEditor.TEXT_TYPE,
-            data: dataContent,
-            desc_id: descId,
-            group_desc_id: this.groupDescId
-          });
-          break;
-
-        case TVYContentEditor.CODE_TYPE:
-          this.allDescData.push({
-            pos: position,
-            type: TVYContentEditor.CODE_TYPE,
-            data: dataContent,
-            desc_id: descId,
-            group_desc_id: this.groupDescId
-          });
-          break;
-
-        case TVYContentEditor.IMAGE_TYPE:
-          break;
-
-        default:
-          break;
-      }
-
+      this.allDescData.push({
+        type: type,
+        data: dataContent,
+        desc_id: descId
+      });
       console.log('Data saved----------');
       console.log(this.allDescData); // this.saveDescDataToBackend(true);
 
@@ -79803,31 +79776,10 @@ function (_HTMLElement) {
       });
     }
   }, {
-    key: "updatePositionsAfterADescElementDeleted",
-    value: function updatePositionsAfterADescElementDeleted(descId) {
-      this.descPosition--;
-      var prePos = 1;
-      var filteredDataContents = this.allDescData.filter(function (ele) {
-        return ele.desc_id !== descId;
-      });
-      filteredDataContents.forEach(function (ele) {
-        ele.pos = prePos++;
-      });
-      this.allDescData = filteredDataContents;
-    }
-  }, {
     key: "getDescObjectByDescId",
     value: function getDescObjectByDescId(descId) {
       var descFiltered = this.allDescData.filter(function (desc) {
         return desc.desc_id === descId;
-      });
-      return descFiltered[0];
-    }
-  }, {
-    key: "getDescObjectByPosition",
-    value: function getDescObjectByPosition(pos) {
-      var descFiltered = this.allDescData.filter(function (desc) {
-        return desc.pos === pos;
       });
       return descFiltered[0];
     }
@@ -79966,7 +79918,6 @@ function (_HTMLElement) {
     value: function deleteDescriptionElement(currentDescId) {
       var selectedElement = this.getDescElementByDescId(currentDescId);
       selectedElement.parentNode.removeChild(selectedElement);
-      this.updatePositionsAfterADescElementDeleted(currentDescId);
     }
   }, {
     key: "moveDescriptionElement",
@@ -80003,6 +79954,7 @@ function (_HTMLElement) {
       }
 
       currentDescElement.parentNode.removeChild(currentDescElement);
+      console.log(this.allDescData);
     }
   }, {
     key: "enableAllTabEditors",

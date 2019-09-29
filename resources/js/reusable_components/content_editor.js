@@ -115,9 +115,6 @@ class TVYContentEditor extends HTMLElement
         this.contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
 
         this.allDescData = [];
-        this.descPosition = 0;
-
-        this.groupDescId = Math.random().toString(36).replace('0.', '');
 
         this.tabEditorMovement();
 
@@ -266,19 +263,7 @@ class TVYContentEditor extends HTMLElement
     }
 
     storeDataContent(dataContent, type, descId) {
-        let position = ++(this.descPosition);
-        switch(type) {
-            case TVYContentEditor.TEXT_TYPE:
-                this.allDescData.push({pos: position, type: TVYContentEditor.TEXT_TYPE, data: dataContent, desc_id: descId, group_desc_id: this.groupDescId});
-                break;
-            case TVYContentEditor.CODE_TYPE:
-                this.allDescData.push({pos: position, type: TVYContentEditor.CODE_TYPE, data: dataContent, desc_id: descId, group_desc_id: this.groupDescId})
-                break;
-            case TVYContentEditor.IMAGE_TYPE:
-                break;
-            default:
-                break;
-        }
+        this.allDescData.push({type: type, data: dataContent, desc_id: descId});
         console.log('Data saved----------');
         console.log(this.allDescData);
         // this.saveDescDataToBackend(true);
@@ -294,23 +279,8 @@ class TVYContentEditor extends HTMLElement
         });
     }
 
-    updatePositionsAfterADescElementDeleted (descId) {
-        this.descPosition--;
-        let prePos = 1;
-        let filteredDataContents = this.allDescData.filter(ele => {return ele.desc_id !== descId;});
-        filteredDataContents.forEach(ele => {
-            ele.pos = prePos++;
-        });
-        this.allDescData = filteredDataContents;
-    }
-
     getDescObjectByDescId (descId) {
         let descFiltered = this.allDescData.filter(desc => desc.desc_id === descId);
-        return descFiltered[0];
-    }
-
-    getDescObjectByPosition (pos) {
-        let descFiltered = this.allDescData.filter(desc => desc.pos === pos);
         return descFiltered[0];
     }
 
@@ -447,7 +417,6 @@ class TVYContentEditor extends HTMLElement
     {
         let selectedElement = this.getDescElementByDescId(currentDescId);
         selectedElement.parentNode.removeChild(selectedElement);
-        this.updatePositionsAfterADescElementDeleted(currentDescId);
     }
 
     moveDescriptionElement (currentDescId, actionType)
@@ -494,6 +463,7 @@ class TVYContentEditor extends HTMLElement
             currentDescElement.parentNode.append(cloneOfCurrentDescElement);
         }
         currentDescElement.parentNode.removeChild(currentDescElement);
+        console.log(this.allDescData);
     }
 
     enableAllTabEditors()
