@@ -66,6 +66,13 @@
         .TVYContentOrder {
             padding: 0;
             z-index: 333;
+            .descContent {
+                padding: 2px;
+                .CodeMirror {
+                    border-radius: 3px;
+                    height: auto;
+                }
+            }
         }
     }
 }

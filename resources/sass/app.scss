@@ -13,6 +13,8 @@
 @import url('https://fonts.googleapis.com/css?family=Hanuman');
 @import url('https://fonts.googleapis.com/css?family=Kdam+Thmor');
 @import url('https://fonts.googleapis.com/css?family=Taprom&display=swap');
+// Code Fonts
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap');
 
 // Variables
 @import 'variables';
@@ -40,9 +42,17 @@
 
 // CodeMirror
 @import '~codemirror/lib/codemirror.css';
+
 @import '~codemirror/theme/dracula.css';
-@import '~codemirror/theme/monokai.css';
+@import '~codemirror/theme/material.css';
+@import '~codemirror/theme/duotone-dark.css';
+@import '~codemirror/theme/duotone-light.css';
+@import '~codemirror/theme/elegant.css';
+@import '~codemirror/theme/eclipse.css';
+
 @import '~codemirror/addon/hint/show-hint.css';
+
+@import 'code_mirror_editor.scss';
 
 //***************************************
 // Global Style
@@ -98,7 +108,6 @@ hr.grayLine {
 .textAlignCenter {
     text-align: center;
 }
-
 //------------------------------------------------------------------------Buttons
 button:focus {
     outline: none;

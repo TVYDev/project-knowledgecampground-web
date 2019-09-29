@@ -45,7 +45,19 @@ require('semantic-ui/dist/semantic.min');
 /**
  * CodeMirror scripts
  */
+require('codemirror/mode/css/css');
+require('codemirror/mode/go/go');
+require('codemirror/mode/htmlmixed/htmlmixed');
 require('codemirror/mode/javascript/javascript');
+require('codemirror/mode/jsx/jsx');
+require('codemirror/mode/php/php');
+require('codemirror/mode/swift/swift');
+require('codemirror/mode/python/python');
+require('codemirror/mode/ruby/ruby');
+require('codemirror/mode/sass/sass');
+require('codemirror/mode/shell/shell');
+require('codemirror/mode/sql/sql');
+require('codemirror/mode/xml/xml');
 
 require('codemirror/addon/display/autorefresh');
 
