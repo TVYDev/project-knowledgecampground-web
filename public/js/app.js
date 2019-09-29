@@ -79761,8 +79761,8 @@ function (_HTMLElement) {
         desc_id: descId
       });
       console.log('Data saved----------');
-      console.log(this.allDescData); // this.saveDescDataToBackend(true);
-
+      console.log(this.allDescData);
+      this.saveDescDataToBackend(true);
       console.log('Data saved----------End');
     }
   }, {
@@ -79954,6 +79954,7 @@ function (_HTMLElement) {
       }
 
       currentDescElement.parentNode.removeChild(currentDescElement);
+      this.saveDescDataToBackend(true);
       console.log(this.allDescData);
     }
   }, {
@@ -79973,27 +79974,6 @@ function (_HTMLElement) {
           ele.removeAttribute('disabled');
         } else {
           ele.setAttribute('disabled', 'disabled');
-        }
-      });
-    }
-  }, {
-    key: "swapDataAndTypeAndDescIdOfTwoDescElements",
-    value: function swapDataAndTypeAndDescIdOfTwoDescElements(descOneId, descTwoId) {
-      var descOne = this.getDescObjectByDescId(descOneId);
-      var descOneData = descOne.data;
-      var descOneType = descOne.type;
-      var descTwo = this.getDescObjectByDescId(descTwoId);
-      var descTwoData = descTwo.data;
-      var descTwoType = descTwo.type;
-      this.allDescData.forEach(function (ele) {
-        if (ele.desc_id === descOneId) {
-          ele.desc_id = descTwoId;
-          ele.data = descTwoData;
-          ele.type = descTwoType;
-        } else if (ele.desc_id === descTwoId) {
-          ele.desc_id = descOneId;
-          ele.data = descOneData;
-          ele.type = descOneType;
         }
       });
     }

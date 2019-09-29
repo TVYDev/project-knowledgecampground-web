@@ -266,7 +266,7 @@ class TVYContentEditor extends HTMLElement
         this.allDescData.push({type: type, data: dataContent, desc_id: descId});
         console.log('Data saved----------');
         console.log(this.allDescData);
-        // this.saveDescDataToBackend(true);
+        this.saveDescDataToBackend(true);
         console.log('Data saved----------End');
     }
 
@@ -463,6 +463,7 @@ class TVYContentEditor extends HTMLElement
             currentDescElement.parentNode.append(cloneOfCurrentDescElement);
         }
         currentDescElement.parentNode.removeChild(currentDescElement);
+        this.saveDescDataToBackend(true);
         console.log(this.allDescData);
     }
 
@@ -483,29 +484,6 @@ class TVYContentEditor extends HTMLElement
             }
             else{
                 ele.setAttribute('disabled', 'disabled')
-            }
-        });
-    }
-
-    swapDataAndTypeAndDescIdOfTwoDescElements (descOneId, descTwoId)
-    {
-        let descOne = this.getDescObjectByDescId(descOneId);
-        let descOneData = descOne.data;
-        let descOneType = descOne.type;
-        let descTwo = this.getDescObjectByDescId(descTwoId);
-        let descTwoData = descTwo.data;
-        let descTwoType = descTwo.type;
-
-        this.allDescData.forEach(ele => {
-            if(ele.desc_id === descOneId){
-                ele.desc_id = descTwoId;
-                ele.data = descTwoData;
-                ele.type = descTwoType;
-            }
-            else if(ele.desc_id === descTwoId){
-                ele.desc_id = descOneId;
-                ele.data = descOneData;
-                ele.type = descOneType;
             }
         });
     }
