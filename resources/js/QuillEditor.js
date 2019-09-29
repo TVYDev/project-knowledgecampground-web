@@ -33,4 +33,25 @@ export default class QuillEditor {
     getQuill() {
         return this.quill;
     }
+
+    getContent() {
+        return this.quill.getContents();
+    }
+
+    getLength() {
+        return this.quill.getLength();
+    }
+
+    setFocus() {
+        this.quill.focus();
+    }
+
+    setContent(content) {
+        this.quill.setContents(content);
+    }
+
+    clearContent() {
+        this.setContent(null);
+        this.setFocus();
+    }
 }

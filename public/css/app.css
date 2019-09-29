@@ -13325,7 +13325,6 @@ button:focus {
 .descElement .descContent .ql-editor:hover .descTools {
   transition: 0.5s;
   background-color: rgba(23, 204, 169, 0.3);
-  cursor: pointer;
   border-color: white;
 }
 
@@ -13348,10 +13347,22 @@ button:focus {
   visibility: visible;
 }
 
+.descElement .descTools.editing:hover span,
+.descElement .descTools.editing:hover button {
+  visibility: hidden;
+}
+
 .descElement .descContent {
   background-color: white;
   border: 1.5px dashed #707070;
   border-radius: 5px;
+}
+
+.descElement .toolArrowDown,
+.descElement .toolArrowUp,
+.descElement .toolEdit,
+.descElement .toolDelete {
+  cursor: pointer;
 }
 
 .TVYContentActionView {

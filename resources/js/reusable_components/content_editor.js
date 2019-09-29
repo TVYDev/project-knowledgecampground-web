@@ -6,9 +6,9 @@ const html = `
     <div class="TVYContentProduction">
         <div class="TVYContentEditor col-md-12">
             <div class="tabTypeContent">
-               <button type="button" class="btnAddPlainText selected" data-type="text">Plain Text</button>
-               <button type="button" class="btnAddCodingBlock" data-type="code">Coding Block</button>
-               <button type="button" class="btnAddImage" data-type="image">Media File</button>
+               <button type="button" class="btnSelectTabEditor btnAddPlainText selected" data-type="text">Plain Text</button>
+               <button type="button" class="btnSelectTabEditor btnAddCodingBlock" data-type="code">Coding Block</button>
+               <button type="button" class="btnSelectTabEditor btnAddImage" data-type="image">Media File</button>
             </div>
             <div class="editor">
                 <div id="TVYTextEditor">
@@ -117,7 +117,7 @@ class TVYContentEditor extends HTMLElement
 
         this.tabEditorMovement();
 
-        this.quillTextObj = new QuillEditor(this.actualTextEditor).getQuill();
+        this.quillTextObj = new QuillEditor(this.actualTextEditor);
 
         this.codeMirrorObj = new CodeMirrorEditor(this.actualCodeEditor,
             CodeMirrorEditor.THEME_DRACULA, CodeMirrorEditor.MODE_JAVASCRIPT);
@@ -131,6 +131,8 @@ class TVYContentEditor extends HTMLElement
 
         this.jsObjCodeEditorModeSelect.addEventListener('change', this.changeModeOfCodeMirrorEditor.bind(this));
         this.jsObjCodeEditorThemeSelect.addEventListener('change', this.changeThemeOfCodeMirrorEditor.bind(this));
+
+        this.quillTextObj.setFocus();
     }
 
     static get TEXT_TYPE()   {return 'text';}
@@ -195,7 +197,7 @@ class TVYContentEditor extends HTMLElement
 
                     this.storeDataContent(this.quillTextContent, TVYContentEditor.TEXT_TYPE, randomDescId);
                 }
-                this.quillTextObj.setContents(null);
+                this.quillTextObj.clearContent();
                 break;
             case TVYContentEditor.CODE_TYPE:
                 if(this.codeMirrorContent == '')
@@ -241,6 +243,7 @@ class TVYContentEditor extends HTMLElement
                 break;
             default: break;
         }
+        this.enableAllTabEditors();
     }
 
     get codeMirrorContent() {
@@ -248,11 +251,7 @@ class TVYContentEditor extends HTMLElement
     }
 
     get quillTextContent() {
-        return this.quillTextObj.getContents();
-    }
-
-    get quillTextObject() {
-        return this.quillTextObj;
+        return this.quillTextObj.getContent();
     }
 
     storeDataContent(dataContent, type, descId) {
@@ -330,15 +329,15 @@ class TVYContentEditor extends HTMLElement
                 this.allEditors.forEach( e => {
                     e.setAttribute('hidden', 'hidden');
                 });
-                let tempEditorToShow = null;
                 if(dataType === 'text'){
-                    tempEditorToShow = this.textEditor;
+                    this.textEditor.removeAttribute('hidden');
+                    this.quillTextObj.setFocus();
                 }else if(dataType === 'code'){
-                    tempEditorToShow = this.codeEditor;
+                    this.codeEditor.removeAttribute('hidden');
+                    this.codeMirrorObj.setFocus();
                 }else if(dataType === 'image'){
-                    tempEditorToShow = this.imageEditor;
+                    this.imageEditor.removeAttribute('hidden');
                 }
-                tempEditorToShow.removeAttribute('hidden');
                 this.btnAddContent.setAttribute('data-type', dataType);
             });
         });
@@ -391,15 +390,13 @@ class TVYContentEditor extends HTMLElement
 
     editDescriptionElement (editor, descId, descType, descTools)
     {
-        if(descType == TVYContentEditor.TEXT_TYPE){
-            this.querySelector('.tabTypeContent .btnAddPlainText').click();
-            this.quillTextObj.setContents(this.getDescObjectByDescId(descId).data);
-        }else if(descType == TVYContentEditor.CODE_TYPE){
-            this.querySelector('.tabTypeContent .btnAddCodingBlock').click();
-            this.codeMirrorObj.setContent(this.getDescObjectByDescId(descId).data);
+        let beingEditedDescTool = document.querySelector('.questionPreview .TVYContentOrder .descTools.editing');
+        if(beingEditedDescTool !== null) {
+            new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️You cannot edit this description element because another one is being edited.').show();
+            return;
         }
 
-        let allDescTools = this.querySelectorAll('.descTools');
+        let allDescTools = document.querySelectorAll('.questionPreview .TVYContentOrder .descTools');
         editor.setAttribute('data-editing', descId);
         allDescTools.forEach(ele => {
             ele.classList.remove('editing');
@@ -407,6 +404,16 @@ class TVYContentEditor extends HTMLElement
         });
         descTools.classList.remove('edited');
         descTools.classList.add('editing');
+
+        if(descType == TVYContentEditor.TEXT_TYPE){
+            this.querySelector('.tabTypeContent .btnAddPlainText').click();
+            this.quillTextObj.setContent(this.getDescObjectByDescId(descId).data)
+        }else if(descType == TVYContentEditor.CODE_TYPE){
+            this.querySelector('.tabTypeContent .btnAddCodingBlock').click();
+            this.codeMirrorObj.setContent(this.getDescObjectByDescId(descId).data);
+        }
+
+        this.enableOnlyOneTabEditor(descType);
     }
 
     deleteDescriptionElement (currentDescId)
@@ -448,6 +455,27 @@ class TVYContentEditor extends HTMLElement
 
         currentDescElement.parentNode.removeChild(currentDescElement);
         console.log(this.allDescData);
+    }
+
+    enableAllTabEditors()
+    {
+        let arrayBtnTabs = this.querySelectorAll('.btnSelectTabEditor');
+        arrayBtnTabs.forEach(ele =>{
+            ele.removeAttribute('disabled');
+        });
+    }
+
+    enableOnlyOneTabEditor(descType)
+    {
+        let arrayBtnTabs = this.querySelectorAll('.btnSelectTabEditor');
+        arrayBtnTabs.forEach(ele =>{
+            if(ele.getAttribute('data-type') === descType){
+                ele.removeAttribute('disabled');
+            }
+            else{
+                ele.setAttribute('disabled', 'disabled')
+            }
+        });
     }
 
     swapDataAndTypeAndDescIdOfTwoDescElements (descOneId, descTwoId)

@@ -78931,6 +78931,32 @@ function () {
     value: function getQuill() {
       return this.quill;
     }
+  }, {
+    key: "getContent",
+    value: function getContent() {
+      return this.quill.getContents();
+    }
+  }, {
+    key: "getLength",
+    value: function getLength() {
+      return this.quill.getLength();
+    }
+  }, {
+    key: "setFocus",
+    value: function setFocus() {
+      this.quill.focus();
+    }
+  }, {
+    key: "setContent",
+    value: function setContent(content) {
+      this.quill.setContents(content);
+    }
+  }, {
+    key: "clearContent",
+    value: function clearContent() {
+      this.setContent(null);
+      this.setFocus();
+    }
   }]);
 
   return QuillEditor;
@@ -79562,7 +79588,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-var html = "\n    <div class=\"TVYContentProduction\">\n        <div class=\"TVYContentEditor col-md-12\">\n            <div class=\"tabTypeContent\">\n               <button type=\"button\" class=\"btnAddPlainText selected\" data-type=\"text\">Plain Text</button>\n               <button type=\"button\" class=\"btnAddCodingBlock\" data-type=\"code\">Coding Block</button>\n               <button type=\"button\" class=\"btnAddImage\" data-type=\"image\">Media File</button>\n            </div>\n            <div class=\"editor\">\n                <div id=\"TVYTextEditor\">\n                    <div class=\"actualTextEditor\"></div>\n                </div>\n                <div id=\"TVYCodeEditor\" hidden=\"hidden\">\n                    <div class=\"codeEditorTools ui fluid form\">\n                        <div class=\"two fields\">\n                            <div class=\"field\">\n                                <label for=\"codeEditorMode\">Language</label>\n                                <input type=\"hidden\" data-selected-mode=\"\" class=\"codeEditorModeSelected\">\n                                <select class=\"ui dropdown codeEditorMode\">\n                                    <option value=\"css\" selected>CSS</option>\n                                    <option value=\"go\">Go</option>\n                                    <option value=\"html\">HTML</option>\n                                    <option value=\"javascript\">JavaScript</option>\n                                    <option value=\"jsx\">JSX</option>\n                                    <option value=\"php\">PHP</option>\n                                    <option value=\"swift\">Swift</option>\n                                    <option value=\"python\">Python</option>\n                                    <option value=\"ruby\">Ruby</option>\n                                    <option value=\"sass\">Sass</option>\n                                    <option value=\"shell\">Shell</option>\n                                    <option value=\"sql\">SQL</option>\n                                    <option value=\"xml\">XML</option>\n                                </select>\n                            </div>\n                            <div class=\"field\">\n                                <label for=\"codeEditorTheme\">Theme</label>\n                                <input type=\"hidden\" data-selected-theme=\"\" class=\"codeEditorThemeSelected\">\n                                <select class=\"ui dropdown codeEditorTheme\">\n                                    <option value=\"dracula\" selected>Dracula</option>\n                                    <option value=\"material\">Material</option>\n                                    <option value=\"elegant\">Elegant</option>\n                                    <option value=\"eclipse\">Eclipse</option>\n                                    <option value=\"duotone-dark\">Duotone dark</option>\n                                    <option value=\"duotone-light\">Duotone light</option>\n                                </select>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"actualCodeEditor\"></div>\n                </div>\n                <div id=\"TVYImageEditor\" hidden=\"hidden\">\n                    I am image selector\n                </div>\n            </div>\n            <div class=\"actionContentEditor\">\n                <button type=\"button\" class=\"btnAddContent\" data-type=\"text\">\n                    <i class=\"far fa-check-circle\"></i>\n                </button>\n            </div>\n        </div>\n    </div>\n";
+var html = "\n    <div class=\"TVYContentProduction\">\n        <div class=\"TVYContentEditor col-md-12\">\n            <div class=\"tabTypeContent\">\n               <button type=\"button\" class=\"btnSelectTabEditor btnAddPlainText selected\" data-type=\"text\">Plain Text</button>\n               <button type=\"button\" class=\"btnSelectTabEditor btnAddCodingBlock\" data-type=\"code\">Coding Block</button>\n               <button type=\"button\" class=\"btnSelectTabEditor btnAddImage\" data-type=\"image\">Media File</button>\n            </div>\n            <div class=\"editor\">\n                <div id=\"TVYTextEditor\">\n                    <div class=\"actualTextEditor\"></div>\n                </div>\n                <div id=\"TVYCodeEditor\" hidden=\"hidden\">\n                    <div class=\"codeEditorTools ui fluid form\">\n                        <div class=\"two fields\">\n                            <div class=\"field\">\n                                <label for=\"codeEditorMode\">Language</label>\n                                <input type=\"hidden\" data-selected-mode=\"\" class=\"codeEditorModeSelected\">\n                                <select class=\"ui dropdown codeEditorMode\">\n                                    <option value=\"css\" selected>CSS</option>\n                                    <option value=\"go\">Go</option>\n                                    <option value=\"html\">HTML</option>\n                                    <option value=\"javascript\">JavaScript</option>\n                                    <option value=\"jsx\">JSX</option>\n                                    <option value=\"php\">PHP</option>\n                                    <option value=\"swift\">Swift</option>\n                                    <option value=\"python\">Python</option>\n                                    <option value=\"ruby\">Ruby</option>\n                                    <option value=\"sass\">Sass</option>\n                                    <option value=\"shell\">Shell</option>\n                                    <option value=\"sql\">SQL</option>\n                                    <option value=\"xml\">XML</option>\n                                </select>\n                            </div>\n                            <div class=\"field\">\n                                <label for=\"codeEditorTheme\">Theme</label>\n                                <input type=\"hidden\" data-selected-theme=\"\" class=\"codeEditorThemeSelected\">\n                                <select class=\"ui dropdown codeEditorTheme\">\n                                    <option value=\"dracula\" selected>Dracula</option>\n                                    <option value=\"material\">Material</option>\n                                    <option value=\"elegant\">Elegant</option>\n                                    <option value=\"eclipse\">Eclipse</option>\n                                    <option value=\"duotone-dark\">Duotone dark</option>\n                                    <option value=\"duotone-light\">Duotone light</option>\n                                </select>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"actualCodeEditor\"></div>\n                </div>\n                <div id=\"TVYImageEditor\" hidden=\"hidden\">\n                    I am image selector\n                </div>\n            </div>\n            <div class=\"actionContentEditor\">\n                <button type=\"button\" class=\"btnAddContent\" data-type=\"text\">\n                    <i class=\"far fa-check-circle\"></i>\n                </button>\n            </div>\n        </div>\n    </div>\n";
 var htmlDescTools = "\n    <div class=\"descTools\" draggable=\"true\">\n        <span class=\"toolButtonsBlock\">\n            <button type=\"button\" class=\"toolArrowUp\" action-type=\"move_up\"><i class=\"fas fa-arrow-up\"></i></button>\n            <button type=\"button\" class=\"toolArrowDown\" action-type=\"move_down\"><i class=\"fas fa-arrow-down\"></i></button>\n            <button type=\"button\" class=\"toolEdit\" action-type=\"edit\"><i class=\"fas fa-pen\"></i></button>\n            <button type=\"button\" class=\"toolDelete\" action-type=\"delete\"><i class=\"fas fa-trash-alt\"></i></button>\n        </span>\n    </div>\n    <div class=\"descContent\"></div>\n";
 
 var TVYContentEditor =
@@ -79606,7 +79632,7 @@ function (_HTMLElement) {
 
     _this.tabEditorMovement();
 
-    _this.quillTextObj = new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](_this.actualTextEditor).getQuill();
+    _this.quillTextObj = new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](_this.actualTextEditor);
     _this.codeMirrorObj = new _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"](_this.actualCodeEditor, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].THEME_DRACULA, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].MODE_JAVASCRIPT);
 
     _this.btnAddContent.addEventListener('click', _this.addContentListener.bind(_assertThisInitialized(_this)));
@@ -79619,6 +79645,8 @@ function (_HTMLElement) {
     _this.jsObjCodeEditorModeSelect.addEventListener('change', _this.changeModeOfCodeMirrorEditor.bind(_assertThisInitialized(_this)));
 
     _this.jsObjCodeEditorThemeSelect.addEventListener('change', _this.changeThemeOfCodeMirrorEditor.bind(_assertThisInitialized(_this)));
+
+    _this.quillTextObj.setFocus();
 
     return _this;
   }
@@ -79674,7 +79702,7 @@ function (_HTMLElement) {
             this.storeDataContent(this.quillTextContent, TVYContentEditor.TEXT_TYPE, randomDescId);
           }
 
-          this.quillTextObj.setContents(null);
+          this.quillTextObj.clearContent();
           break;
 
         case TVYContentEditor.CODE_TYPE:
@@ -79723,6 +79751,8 @@ function (_HTMLElement) {
         default:
           break;
       }
+
+      this.enableAllTabEditors();
     }
   }, {
     key: "storeDataContent",
@@ -79832,17 +79862,17 @@ function (_HTMLElement) {
             e.setAttribute('hidden', 'hidden');
           });
 
-          var tempEditorToShow = null;
-
           if (dataType === 'text') {
-            tempEditorToShow = _this2.textEditor;
-          } else if (dataType === 'code') {
-            tempEditorToShow = _this2.codeEditor;
-          } else if (dataType === 'image') {
-            tempEditorToShow = _this2.imageEditor;
-          }
+            _this2.textEditor.removeAttribute('hidden');
 
-          tempEditorToShow.removeAttribute('hidden');
+            _this2.quillTextObj.setFocus();
+          } else if (dataType === 'code') {
+            _this2.codeEditor.removeAttribute('hidden');
+
+            _this2.codeMirrorObj.setFocus();
+          } else if (dataType === 'image') {
+            _this2.imageEditor.removeAttribute('hidden');
+          }
 
           _this2.btnAddContent.setAttribute('data-type', dataType);
         });
@@ -79890,15 +79920,14 @@ function (_HTMLElement) {
   }, {
     key: "editDescriptionElement",
     value: function editDescriptionElement(editor, descId, descType, descTools) {
-      if (descType == TVYContentEditor.TEXT_TYPE) {
-        this.querySelector('.tabTypeContent .btnAddPlainText').click();
-        this.quillTextObj.setContents(this.getDescObjectByDescId(descId).data);
-      } else if (descType == TVYContentEditor.CODE_TYPE) {
-        this.querySelector('.tabTypeContent .btnAddCodingBlock').click();
-        this.codeMirrorObj.setContent(this.getDescObjectByDescId(descId).data);
+      var beingEditedDescTool = document.querySelector('.questionPreview .TVYContentOrder .descTools.editing');
+
+      if (beingEditedDescTool !== null) {
+        new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, '⚠️You cannot edit this description element because another one is being edited.').show();
+        return;
       }
 
-      var allDescTools = this.querySelectorAll('.descTools');
+      var allDescTools = document.querySelectorAll('.questionPreview .TVYContentOrder .descTools');
       editor.setAttribute('data-editing', descId);
       allDescTools.forEach(function (ele) {
         ele.classList.remove('editing');
@@ -79906,6 +79935,16 @@ function (_HTMLElement) {
       });
       descTools.classList.remove('edited');
       descTools.classList.add('editing');
+
+      if (descType == TVYContentEditor.TEXT_TYPE) {
+        this.querySelector('.tabTypeContent .btnAddPlainText').click();
+        this.quillTextObj.setContent(this.getDescObjectByDescId(descId).data);
+      } else if (descType == TVYContentEditor.CODE_TYPE) {
+        this.querySelector('.tabTypeContent .btnAddCodingBlock').click();
+        this.codeMirrorObj.setContent(this.getDescObjectByDescId(descId).data);
+      }
+
+      this.enableOnlyOneTabEditor(descType);
     }
   }, {
     key: "deleteDescriptionElement",
@@ -79944,6 +79983,26 @@ function (_HTMLElement) {
       this.swapDataAndTypeAndDescIdOfTwoDescElements(currentDescId, descIdOfToBeMovedDescElement);
       currentDescElement.parentNode.removeChild(currentDescElement);
       console.log(this.allDescData);
+    }
+  }, {
+    key: "enableAllTabEditors",
+    value: function enableAllTabEditors() {
+      var arrayBtnTabs = this.querySelectorAll('.btnSelectTabEditor');
+      arrayBtnTabs.forEach(function (ele) {
+        ele.removeAttribute('disabled');
+      });
+    }
+  }, {
+    key: "enableOnlyOneTabEditor",
+    value: function enableOnlyOneTabEditor(descType) {
+      var arrayBtnTabs = this.querySelectorAll('.btnSelectTabEditor');
+      arrayBtnTabs.forEach(function (ele) {
+        if (ele.getAttribute('data-type') === descType) {
+          ele.removeAttribute('disabled');
+        } else {
+          ele.setAttribute('disabled', 'disabled');
+        }
+      });
     }
   }, {
     key: "swapDataAndTypeAndDescIdOfTwoDescElements",
@@ -80007,12 +80066,7 @@ function (_HTMLElement) {
   }, {
     key: "quillTextContent",
     get: function get() {
-      return this.quillTextObj.getContents();
-    }
-  }, {
-    key: "quillTextObject",
-    get: function get() {
-      return this.quillTextObj;
+      return this.quillTextObj.getContent();
     }
   }], [{
     key: "TEXT_TYPE",
