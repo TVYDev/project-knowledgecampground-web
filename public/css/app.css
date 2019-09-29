@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.googleapis.com/css?family=Happy+Monkey);@import url(https://fonts.googleapis.com/css?family=Barlow+Condensed);@import url(https://fonts.googleapis.com/css?family=Montserrat);@import url(https://fonts.googleapis.com/css?family=Sniglet);@import url(https://fonts.googleapis.com/css?family=Pacifico);@import url(https://fonts.googleapis.com/css?family=Patrick+Hand);@import url(https://fonts.googleapis.com/css?family=Comfortaa&display=swap);@import url(https://fonts.googleapis.com/css?family=Angkor);@import url(https://fonts.googleapis.com/css?family=Hanuman);@import url(https://fonts.googleapis.com/css?family=Kdam+Thmor);@import url(https://fonts.googleapis.com/css?family=Taprom&display=swap);@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&subset=latin); /*
+@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.googleapis.com/css?family=Happy+Monkey);@import url(https://fonts.googleapis.com/css?family=Barlow+Condensed);@import url(https://fonts.googleapis.com/css?family=Montserrat);@import url(https://fonts.googleapis.com/css?family=Sniglet);@import url(https://fonts.googleapis.com/css?family=Pacifico);@import url(https://fonts.googleapis.com/css?family=Patrick+Hand);@import url(https://fonts.googleapis.com/css?family=Comfortaa&display=swap);@import url(https://fonts.googleapis.com/css?family=Angkor);@import url(https://fonts.googleapis.com/css?family=Hanuman);@import url(https://fonts.googleapis.com/css?family=Kdam+Thmor);@import url(https://fonts.googleapis.com/css?family=Taprom&display=swap);@import url(https://fonts.googleapis.com/css?family=Source+Code+Pro&display=swap);@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic&subset=latin); /*
  * # Semantic UI - 2.4.2
  * https://github.com/Semantic-Org/Semantic-UI
  * http://www.semantic-ui.com/
@@ -3050,48 +3050,167 @@ span.CodeMirror-selectedtext { background: none; }
 
 .cm-s-dracula .CodeMirror-activeline-background { background: rgba(255,255,255,0.1); }
 .cm-s-dracula .CodeMirror-matchingbracket { text-decoration: underline; color: white !important; }
-/* Based on Sublime Text's Monokai theme */
+/*
 
-.cm-s-monokai.CodeMirror { background: #272822; color: #f8f8f2; }
-.cm-s-monokai div.CodeMirror-selected { background: #49483E; }
-.cm-s-monokai .CodeMirror-line::-moz-selection, .cm-s-monokai .CodeMirror-line > span::-moz-selection, .cm-s-monokai .CodeMirror-line > span > span::-moz-selection { background: rgba(73, 72, 62, .99); }
-.cm-s-monokai .CodeMirror-line::selection, .cm-s-monokai .CodeMirror-line > span::selection, .cm-s-monokai .CodeMirror-line > span > span::selection { background: rgba(73, 72, 62, .99); }
-.cm-s-monokai .CodeMirror-line::-moz-selection, .cm-s-monokai .CodeMirror-line > span::-moz-selection, .cm-s-monokai .CodeMirror-line > span > span::-moz-selection { background: rgba(73, 72, 62, .99); }
-.cm-s-monokai .CodeMirror-gutters { background: #272822; border-right: 0px; }
-.cm-s-monokai .CodeMirror-guttermarker { color: white; }
-.cm-s-monokai .CodeMirror-guttermarker-subtle { color: #d0d0d0; }
-.cm-s-monokai .CodeMirror-linenumber { color: #d0d0d0; }
-.cm-s-monokai .CodeMirror-cursor { border-left: 1px solid #f8f8f0; }
+    Name:       material
+    Author:     Michael Kaminsky (http://github.com/mkaminsky11)
 
-.cm-s-monokai span.cm-comment { color: #75715e; }
-.cm-s-monokai span.cm-atom { color: #ae81ff; }
-.cm-s-monokai span.cm-number { color: #ae81ff; }
+    Original material color scheme by Mattia Astorino (https://github.com/equinusocio/material-theme)
 
-.cm-s-monokai span.cm-comment.cm-attribute { color: #97b757; }
-.cm-s-monokai span.cm-comment.cm-def { color: #bc9262; }
-.cm-s-monokai span.cm-comment.cm-tag { color: #bc6283; }
-.cm-s-monokai span.cm-comment.cm-type { color: #5998a6; }
+*/
 
-.cm-s-monokai span.cm-property, .cm-s-monokai span.cm-attribute { color: #a6e22e; }
-.cm-s-monokai span.cm-keyword { color: #f92672; }
-.cm-s-monokai span.cm-builtin { color: #66d9ef; }
-.cm-s-monokai span.cm-string { color: #e6db74; }
+.cm-s-material.CodeMirror {
+  background-color: #263238;
+  color: rgba(233, 237, 237, 1);
+}
+.cm-s-material .CodeMirror-gutters {
+  background: #263238;
+  color: rgb(83,127,126);
+  border: none;
+}
+.cm-s-material .CodeMirror-guttermarker, .cm-s-material .CodeMirror-guttermarker-subtle, .cm-s-material .CodeMirror-linenumber { color: rgb(83,127,126); }
+.cm-s-material .CodeMirror-cursor { border-left: 1px solid #f8f8f0; }
+.cm-s-material div.CodeMirror-selected { background: rgba(255, 255, 255, 0.15); }
+.cm-s-material.CodeMirror-focused div.CodeMirror-selected { background: rgba(255, 255, 255, 0.10); }
+.cm-s-material .CodeMirror-line::-moz-selection, .cm-s-material .CodeMirror-line > span::-moz-selection, .cm-s-material .CodeMirror-line > span > span::-moz-selection { background: rgba(255, 255, 255, 0.10); }
+.cm-s-material .CodeMirror-line::selection, .cm-s-material .CodeMirror-line > span::selection, .cm-s-material .CodeMirror-line > span > span::selection { background: rgba(255, 255, 255, 0.10); }
+.cm-s-material .CodeMirror-line::-moz-selection, .cm-s-material .CodeMirror-line > span::-moz-selection, .cm-s-material .CodeMirror-line > span > span::-moz-selection { background: rgba(255, 255, 255, 0.10); }
 
-.cm-s-monokai span.cm-variable { color: #f8f8f2; }
-.cm-s-monokai span.cm-variable-2 { color: #9effff; }
-.cm-s-monokai span.cm-variable-3, .cm-s-monokai span.cm-type { color: #66d9ef; }
-.cm-s-monokai span.cm-def { color: #fd971f; }
-.cm-s-monokai span.cm-bracket { color: #f8f8f2; }
-.cm-s-monokai span.cm-tag { color: #f92672; }
-.cm-s-monokai span.cm-header { color: #ae81ff; }
-.cm-s-monokai span.cm-link { color: #ae81ff; }
-.cm-s-monokai span.cm-error { background: #f92672; color: #f8f8f0; }
-
-.cm-s-monokai .CodeMirror-activeline-background { background: #373831; }
-.cm-s-monokai .CodeMirror-matchingbracket {
+.cm-s-material .CodeMirror-activeline-background { background: rgba(0, 0, 0, 0); }
+.cm-s-material .cm-keyword { color: rgba(199, 146, 234, 1); }
+.cm-s-material .cm-operator { color: rgba(233, 237, 237, 1); }
+.cm-s-material .cm-variable-2 { color: #80CBC4; }
+.cm-s-material .cm-variable-3, .cm-s-material .cm-type { color: #82B1FF; }
+.cm-s-material .cm-builtin { color: #DECB6B; }
+.cm-s-material .cm-atom { color: #F77669; }
+.cm-s-material .cm-number { color: #F77669; }
+.cm-s-material .cm-def { color: rgba(233, 237, 237, 1); }
+.cm-s-material .cm-string { color: #C3E88D; }
+.cm-s-material .cm-string-2 { color: #80CBC4; }
+.cm-s-material .cm-comment { color: #546E7A; }
+.cm-s-material .cm-variable { color: #82B1FF; }
+.cm-s-material .cm-tag { color: #80CBC4; }
+.cm-s-material .cm-meta { color: #80CBC4; }
+.cm-s-material .cm-attribute { color: #FFCB6B; }
+.cm-s-material .cm-property { color: #80CBAE; }
+.cm-s-material .cm-qualifier { color: #DECB6B; }
+.cm-s-material .cm-variable-3, .cm-s-material .cm-type { color: #DECB6B; }
+.cm-s-material .cm-tag { color: rgba(255, 83, 112, 1); }
+.cm-s-material .cm-error {
+  color: rgba(255, 255, 255, 1.0);
+  background-color: #EC5F67;
+}
+.cm-s-material .CodeMirror-matchingbracket {
   text-decoration: underline;
   color: white !important;
 }
+/*
+Name:   DuoTone-Dark
+Author: by Bram de Haan, adapted from DuoTone themes by Simurai (http://simurai.com/projects/2016/01/01/duotone-themes)
+
+CodeMirror template by Jan T. Sott (https://github.com/idleberg), adapted by Bram de Haan (https://github.com/atelierbram/)
+*/
+
+.cm-s-duotone-dark.CodeMirror { background: #2a2734; color: #6c6783; }
+.cm-s-duotone-dark div.CodeMirror-selected { background: #545167!important; }
+.cm-s-duotone-dark .CodeMirror-gutters { background: #2a2734; border-right: 0px; }
+.cm-s-duotone-dark .CodeMirror-linenumber { color: #545167; }
+
+/* begin cursor */
+.cm-s-duotone-dark .CodeMirror-cursor { border-left: 1px solid #ffad5c; /* border-left: 1px solid #ffad5c80; */ border-right: .5em solid #ffad5c; /* border-right: .5em solid #ffad5c80; */ opacity: .5; }
+.cm-s-duotone-dark .CodeMirror-activeline-background { background: #363342; /* background: #36334280;  */ opacity: .5;}
+.cm-s-duotone-dark .cm-fat-cursor .CodeMirror-cursor { background: #ffad5c; /* background: #ffad5c80; */ opacity: .5;}
+/* end cursor */
+
+.cm-s-duotone-dark span.cm-atom, .cm-s-duotone-dark span.cm-number, .cm-s-duotone-dark span.cm-keyword, .cm-s-duotone-dark span.cm-variable, .cm-s-duotone-dark span.cm-attribute, .cm-s-duotone-dark span.cm-quote, .cm-s-duotone-dark span.cm-hr, .cm-s-duotone-dark span.cm-link { color: #ffcc99; }
+
+.cm-s-duotone-dark span.cm-property { color: #9a86fd; }
+.cm-s-duotone-dark span.cm-punctuation, .cm-s-duotone-dark span.cm-unit, .cm-s-duotone-dark span.cm-negative { color: #e09142; }
+.cm-s-duotone-dark span.cm-string { color: #ffb870; }
+.cm-s-duotone-dark span.cm-operator { color: #ffad5c; }
+.cm-s-duotone-dark span.cm-positive { color: #6a51e6; }
+
+.cm-s-duotone-dark span.cm-variable-2, .cm-s-duotone-dark span.cm-variable-3, .cm-s-duotone-dark span.cm-type, .cm-s-duotone-dark span.cm-string-2, .cm-s-duotone-dark span.cm-url { color: #7a63ee; }
+.cm-s-duotone-dark span.cm-def, .cm-s-duotone-dark span.cm-tag, .cm-s-duotone-dark span.cm-builtin, .cm-s-duotone-dark span.cm-qualifier, .cm-s-duotone-dark span.cm-header, .cm-s-duotone-dark span.cm-em { color: #eeebff; }
+.cm-s-duotone-dark span.cm-bracket, .cm-s-duotone-dark span.cm-comment { color: #6c6783; }
+
+/* using #f00 red for errors, don't think any of the colorscheme variables will stand out enough, ... maybe by giving it a background-color ... */
+.cm-s-duotone-dark span.cm-error, .cm-s-duotone-dark span.cm-invalidchar { color: #f00; }
+
+.cm-s-duotone-dark span.cm-header { font-weight: normal; }
+.cm-s-duotone-dark .CodeMirror-matchingbracket { text-decoration: underline; color: #eeebff !important; } 
+/*
+Name:   DuoTone-Light
+Author: by Bram de Haan, adapted from DuoTone themes by Simurai (http://simurai.com/projects/2016/01/01/duotone-themes)
+
+CodeMirror template by Jan T. Sott (https://github.com/idleberg), adapted by Bram de Haan (https://github.com/atelierbram/)
+*/
+
+.cm-s-duotone-light.CodeMirror { background: #faf8f5; color: #b29762; }
+.cm-s-duotone-light div.CodeMirror-selected { background: #e3dcce !important; }
+.cm-s-duotone-light .CodeMirror-gutters { background: #faf8f5; border-right: 0px; }
+.cm-s-duotone-light .CodeMirror-linenumber { color: #cdc4b1; }
+
+/* begin cursor */
+.cm-s-duotone-light .CodeMirror-cursor { border-left: 1px solid #93abdc; /* border-left: 1px solid #93abdc80; */ border-right: .5em solid #93abdc; /* border-right: .5em solid #93abdc80; */ opacity: .5; }
+.cm-s-duotone-light .CodeMirror-activeline-background { background: #e3dcce;  /* background: #e3dcce80; */ opacity: .5; }
+.cm-s-duotone-light .cm-fat-cursor .CodeMirror-cursor { background: #93abdc; /* #93abdc80; */ opacity: .5; }
+/* end cursor */
+
+.cm-s-duotone-light span.cm-atom, .cm-s-duotone-light span.cm-number, .cm-s-duotone-light span.cm-keyword, .cm-s-duotone-light span.cm-variable, .cm-s-duotone-light span.cm-attribute, .cm-s-duotone-light span.cm-quote, .cm-s-duotone-light-light span.cm-hr, .cm-s-duotone-light-light span.cm-link { color: #063289; }
+
+.cm-s-duotone-light span.cm-property { color: #b29762; }
+.cm-s-duotone-light span.cm-punctuation, .cm-s-duotone-light span.cm-unit, .cm-s-duotone-light span.cm-negative { color: #063289; }
+.cm-s-duotone-light span.cm-string, .cm-s-duotone-light span.cm-operator { color: #1659df; }
+.cm-s-duotone-light span.cm-positive { color: #896724; }
+
+.cm-s-duotone-light span.cm-variable-2, .cm-s-duotone-light span.cm-variable-3, .cm-s-duotone-light span.cm-type, .cm-s-duotone-light span.cm-string-2, .cm-s-duotone-light span.cm-url { color: #896724; }
+.cm-s-duotone-light span.cm-def, .cm-s-duotone-light span.cm-tag, .cm-s-duotone-light span.cm-builtin, .cm-s-duotone-light span.cm-qualifier, .cm-s-duotone-light span.cm-header, .cm-s-duotone-light span.cm-em { color: #2d2006; }
+.cm-s-duotone-light span.cm-bracket, .cm-s-duotone-light span.cm-comment { color: #b6ad9a; }
+
+/* using #f00 red for errors, don't think any of the colorscheme variables will stand out enough, ... maybe by giving it a background-color ... */
+/* .cm-s-duotone-light span.cm-error { background: #896724; color: #728fcb; } */
+.cm-s-duotone-light span.cm-error, .cm-s-duotone-light span.cm-invalidchar { color: #f00; }
+
+.cm-s-duotone-light span.cm-header { font-weight: normal; }
+.cm-s-duotone-light .CodeMirror-matchingbracket { text-decoration: underline; color: #faf8f5 !important; }
+
+.cm-s-elegant span.cm-number, .cm-s-elegant span.cm-string, .cm-s-elegant span.cm-atom { color: #762; }
+.cm-s-elegant span.cm-comment { color: #262; font-style: italic; line-height: 1em; }
+.cm-s-elegant span.cm-meta { color: #555; font-style: italic; line-height: 1em; }
+.cm-s-elegant span.cm-variable { color: black; }
+.cm-s-elegant span.cm-variable-2 { color: #b11; }
+.cm-s-elegant span.cm-qualifier { color: #555; }
+.cm-s-elegant span.cm-keyword { color: #730; }
+.cm-s-elegant span.cm-builtin { color: #30a; }
+.cm-s-elegant span.cm-link { color: #762; }
+.cm-s-elegant span.cm-error { background-color: #fdd; }
+
+.cm-s-elegant .CodeMirror-activeline-background { background: #e8f2ff; }
+.cm-s-elegant .CodeMirror-matchingbracket { outline:1px solid grey; color:black !important; }
+.cm-s-eclipse span.cm-meta { color: #FF1717; }
+.cm-s-eclipse span.cm-keyword { line-height: 1em; font-weight: bold; color: #7F0055; }
+.cm-s-eclipse span.cm-atom { color: #219; }
+.cm-s-eclipse span.cm-number { color: #164; }
+.cm-s-eclipse span.cm-def { color: #00f; }
+.cm-s-eclipse span.cm-variable { color: black; }
+.cm-s-eclipse span.cm-variable-2 { color: #0000C0; }
+.cm-s-eclipse span.cm-variable-3, .cm-s-eclipse span.cm-type { color: #0000C0; }
+.cm-s-eclipse span.cm-property { color: black; }
+.cm-s-eclipse span.cm-operator { color: black; }
+.cm-s-eclipse span.cm-comment { color: #3F7F5F; }
+.cm-s-eclipse span.cm-string { color: #2A00FF; }
+.cm-s-eclipse span.cm-string-2 { color: #f50; }
+.cm-s-eclipse span.cm-qualifier { color: #555; }
+.cm-s-eclipse span.cm-builtin { color: #30a; }
+.cm-s-eclipse span.cm-bracket { color: #cc7; }
+.cm-s-eclipse span.cm-tag { color: #170; }
+.cm-s-eclipse span.cm-attribute { color: #00c; }
+.cm-s-eclipse span.cm-link { color: #219; }
+.cm-s-eclipse span.cm-error { color: #f00; }
+
+.cm-s-eclipse .CodeMirror-activeline-background { background: #e8f2ff; }
+.cm-s-eclipse .CodeMirror-matchingbracket { outline:1px solid grey; color:black !important; }
 .CodeMirror-hints {
   position: absolute;
   z-index: 10;
@@ -12851,6 +12970,15 @@ readers do not read off random characters that represent icons */
   font-family: "Font Awesome 5 Brands";
 }
 
+.CodeMirror {
+  width: 700px;
+}
+
+.CodeMirror * {
+  font-family: "Source Code Pro", monospace;
+  font-size: 12px;
+}
+
 body {
   padding-top: 4rem;
   font-size: 13px;
@@ -13143,52 +13271,57 @@ button:focus {
   font-size: 0.9rem;
 }
 
+.descElement .descTools span.toolSeparator {
+  color: #D8D8D8;
+  background: none;
+}
+
 .descElement .descTools button:hover,
 .descElement .descTools button:focus {
   color: #17CCA9;
 }
 
 .descElement .descTools.editing {
-  background-color: rgba(112, 112, 112, 0.3);
+  background-color: rgba(23, 204, 169, 0.3);
   border-color: #424242;
 }
 
 .descElement .descTools.edited {
-  -webkit-animation: blink 1.5s;
-          animation: blink 1.5s;
+  -webkit-animation: blink 0.5s;
+          animation: blink 0.5s;
 }
 
 @-webkit-keyframes blink {
   0% {
     opacity: 0;
-    background-color: white;
+    background-color: #54D0E6;
   }
 
   50% {
     opacity: 0.4;
-    background-color: white;
+    background-color: #54D0E6;
   }
 
   100% {
     opacity: 0.6;
-    background-color: white;
+    background-color: #54D0E6;
   }
 }
 
 @keyframes blink {
   0% {
     opacity: 0;
-    background-color: white;
+    background-color: #54D0E6;
   }
 
   50% {
     opacity: 0.4;
-    background-color: white;
+    background-color: #54D0E6;
   }
 
   100% {
     opacity: 0.6;
-    background-color: white;
+    background-color: #54D0E6;
   }
 }
 
@@ -13197,17 +13330,16 @@ button:focus {
 .descElement .descContent .ql-editor:hover .descTools {
   transition: 0.5s;
   background-color: rgba(23, 204, 169, 0.3);
-  cursor: pointer;
   border-color: white;
 }
 
-.descElement span {
+.descElement span.toolButtonsBlock {
   position: relative;
   right: -50px;
   visibility: hidden;
 }
 
-.descElement .descTools:hover span {
+.descElement .descTools:hover span.toolButtonsBlock {
   border-radius: 10px 0 0 10px;
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.8);
@@ -13220,10 +13352,24 @@ button:focus {
   visibility: visible;
 }
 
+.descElement .descTools.editing:hover span.toolButtonsBlock,
+.descElement .descTools.editing:hover button {
+  visibility: hidden;
+}
+
 .descElement .descContent {
   background-color: white;
-  border: 1.5px dashed #D8D8D8;
+  border: 1.5px dashed #707070;
   border-radius: 5px;
+}
+
+.descElement .toolArrowDown,
+.descElement .toolArrowUp,
+.descElement .toolEdit,
+.descElement .toolDelete,
+.descElement .toolArrowBottom,
+.descElement .toolArrowTop {
+  cursor: pointer;
 }
 
 .TVYContentActionView {
@@ -15050,6 +15196,15 @@ button:focus {
 .askQuestionContent .questionPreview .TVYContentOrder {
   padding: 0;
   z-index: 333;
+}
+
+.askQuestionContent .questionPreview .TVYContentOrder .descContent {
+  padding: 2px;
+}
+
+.askQuestionContent .questionPreview .TVYContentOrder .descContent .CodeMirror {
+  border-radius: 3px;
+  height: auto;
 }
 
 .pageViewQuestion {

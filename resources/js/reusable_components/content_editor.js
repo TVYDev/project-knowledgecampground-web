@@ -1,13 +1,14 @@
 import NotyAlertMessage from "../NotyAlertMessage";
 import QuillEditor from "../QuillEditor";
+import CodeMirrorEditor from "../CodeMirrorEditor";
 
 const html = `
     <div class="TVYContentProduction">
         <div class="TVYContentEditor col-md-12">
             <div class="tabTypeContent">
-               <button type="button" class="btnAddPlainText selected" data-type="text">Plain Text</button>
-               <button type="button" class="btnAddCodingBlock" data-type="code">Coding Block</button>
-               <button type="button" class="btnAddImage" data-type="image">Media File</button>
+               <button type="button" class="btnSelectTabEditor btnAddPlainText selected" data-type="text">Plain Text</button>
+               <button type="button" class="btnSelectTabEditor btnAddCodingBlock" data-type="code">Coding Block</button>
+               <button type="button" class="btnSelectTabEditor btnAddImage" data-type="image">Media File</button>
             </div>
             <div class="editor">
                 <div id="TVYTextEditor">
@@ -18,16 +19,33 @@ const html = `
                         <div class="two fields">
                             <div class="field">
                                 <label for="codeEditorMode">Language</label>
-                                <select class="ui fluid dropdown codeEditorMode" id="codeEditorMode">
-                                    <option>JavaScript</option>
-                                    <option>HTML</option>
+                                <input type="hidden" data-selected-mode="" class="codeEditorModeSelected">
+                                <select class="ui dropdown codeEditorMode">
+                                    <option value="css" selected>CSS</option>
+                                    <option value="go">Go</option>
+                                    <option value="html">HTML</option>
+                                    <option value="javascript">JavaScript</option>
+                                    <option value="jsx">JSX</option>
+                                    <option value="php">PHP</option>
+                                    <option value="swift">Swift</option>
+                                    <option value="python">Python</option>
+                                    <option value="ruby">Ruby</option>
+                                    <option value="sass">Sass</option>
+                                    <option value="shell">Shell</option>
+                                    <option value="sql">SQL</option>
+                                    <option value="xml">XML</option>
                                 </select>
                             </div>
                             <div class="field">
                                 <label for="codeEditorTheme">Theme</label>
-                                <select class="ui fluid dropdown codeEditorTheme" id="codeEditorTheme">
-                                    <option>Light Theme</option>
-                                    <option>Dark Theme</option>
+                                <input type="hidden" data-selected-theme="" class="codeEditorThemeSelected">
+                                <select class="ui dropdown codeEditorTheme">
+                                    <option value="dracula" selected>Dracula</option>
+                                    <option value="material">Material</option>
+                                    <option value="elegant">Elegant</option>
+                                    <option value="eclipse">Eclipse</option>
+                                    <option value="duotone-dark">Duotone dark</option>
+                                    <option value="duotone-light">Duotone light</option>
                                 </select>
                             </div>
                         </div>
@@ -47,6 +65,22 @@ const html = `
     </div>
 `;
 
+const htmlDescTools = `
+    <div class="descTools" draggable="true">
+        <span class="toolButtonsBlock">
+            <button type="button" class="toolArrowBottom" action-type="move_bottom"><i class="fas fa-angle-double-down"></i></button>
+            <button type="button" class="toolArrowDown" action-type="move_down"><i class="fas fa-chevron-down"></i></button>
+            <span class="toolSeparator">|</span>
+            <button type="button" class="toolEdit" action-type="edit"><i class="fas fa-pen"></i></button>
+            <button type="button" class="toolDelete" action-type="delete"><i class="fas fa-trash-alt"></i></button>
+            <span class="toolSeparator">|</span>
+            <button type="button" class="toolArrowUp" action-type="move_up"><i class="fas fa-chevron-up"></i></button>
+            <button type="button" class="toolArrowTop" action-type="move_top"><i class="fas fa-angle-double-up"></i></button>
+        </span>
+    </div>
+    <div class="descContent"></div>
+`;
+
 class TVYContentEditor extends HTMLElement
 {
     constructor()
@@ -58,66 +92,92 @@ class TVYContentEditor extends HTMLElement
         this.allEditors = this.querySelectorAll('.editor > div');
         this.textEditor = this.querySelector('.editor #TVYTextEditor');
         this.actualTextEditor = this.querySelector('#TVYTextEditor .actualTextEditor');
+
         this.codeEditor = this.querySelector('.editor #TVYCodeEditor');
         this.actualCodeEditor = this.querySelector('#TVYCodeEditor .actualCodeEditor');
+        this.codeEditorMode = $('#TVYCodeEditor .codeEditorMode').dropdown({
+            forceSelection: false,
+            onChange: function(value) {
+                $('#TVYCodeEditor .codeEditorModeSelected').attr('data-selected-mode', value);
+            }
+        });
+        this.codeEditorThemeSelect = $('#TVYCodeEditor .codeEditorTheme').dropdown({
+            forceSelection: false,
+            onChange: function(value) {
+                $('#TVYCodeEditor .codeEditorThemeSelected').attr('data-selected-theme', value);
+            }
+        });
+        this.jsObjCodeEditorModeSelect = this.querySelector('#TVYCodeEditor .codeEditorMode');
+        this.jsObjCodeEditorThemeSelect = this.querySelector('#TVYCodeEditor .codeEditorTheme');
+
         this.imageEditor = this.querySelector('.editor #TVYImageEditor');
         this.btnAddContent = this.querySelector('.actionContentEditor .btnAddContent');
         this.contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
 
         this.allDescData = [];
-        this.descPosition = 0;
-
-        this.groupDescId = Math.random().toString(36).replace('0.', '');
 
         this.tabEditorMovement();
-        this.quillTextObj = new QuillEditor(this.actualTextEditor).getQuill();
-        this.codeMirrorObj = CodeMirror(this.actualCodeEditor, {
-            value: "",
-            theme: 'monokai',
-            mode:  "javascript",
-            autoFocus: true,
-            lineNumbers: true,
-            autoRefresh: true,
-            styleActiveLine: true,
-            styleSelectedText: true,
-            showCursorWhenSelecting: true,
-            autoCloseBrackets: true,
-            matchBrackets: true,
-            extraKeys: {
-                "Ctrl-Space": "autocomplete",
-            },
-        });
-        this.codeMirrorObj.focus();
+
+        this.quillTextObj = new QuillEditor(this.actualTextEditor);
+
+        this.codeMirrorObj = new CodeMirrorEditor(this.actualCodeEditor,
+            CodeMirrorEditor.THEME_DRACULA, CodeMirrorEditor.MODE_JAVASCRIPT);
 
         this.btnAddContent.addEventListener('click', this.addContentListener.bind(this));
+
+        let tvyContentOrder = document.querySelector('.questionPreview .TVYContentOrder');
+        tvyContentOrder.addEventListener('click', (event) => {
+            this.doContentOrderActions(event);
+        });
+
+        this.jsObjCodeEditorModeSelect.addEventListener('change', this.changeModeOfCodeMirrorEditor.bind(this));
+        this.jsObjCodeEditorThemeSelect.addEventListener('change', this.changeThemeOfCodeMirrorEditor.bind(this));
+
+        this.quillTextObj.setFocus();
     }
 
-    static get textType()   {return 'text';}
-    static get codeType()   {return 'code';}
-    static get imageType()  {return 'image';}
+    static get TEXT_TYPE()   {return 'text';}
+    static get CODE_TYPE()   {return 'code';}
+    static get IMAGE_TYPE()  {return 'image';}
+
+    static get ACTION_TYPE_MOVE_TOP()       {return 'move_top';}
+    static get ACTION_TYPE_MOVE_BOTTOM()    {return 'move_bottom';}
+    static get ACTION_TYPE_MOVE_UP()        {return 'move_up';}
+    static get ACTION_TYPE_MOVE_DOWN()      {return 'move_down';}
+    static get ACTION_TYPE_EDIT()           {return 'edit';}
+    static get ACTION_TYPE_DELETE()         {return 'delete';}
+
+    static get ARRAY_INDEX_TOP()    {return 0;}
+    static get ARRAY_INDEX_PREV()   {return 777;}
+    static get ARRAY_INDEX_NEXT()   {return 888;}
+    static get ARRAY_INDEX_BOTTOM() {return 999;}
+
+    changeThemeOfCodeMirrorEditor () {
+        let selectedTheme = this.querySelector('#TVYCodeEditor .codeEditorThemeSelected');
+        let codeMirrorObj = this.codeMirrorObj;
+        setTimeout(function() {
+            let theme = selectedTheme.getAttribute('data-selected-theme');
+            codeMirrorObj.setTheme(theme);
+        },100);
+    }
+
+    changeModeOfCodeMirrorEditor () {
+        let selectedMode = this.querySelector('#TVYCodeEditor .codeEditorModeSelected');
+        let codeMirrorObj = this.codeMirrorObj;
+        setTimeout(function() {
+            let mode = selectedMode.getAttribute('data-selected-mode');
+            codeMirrorObj.setMode(mode);
+        },100);
+    }
 
     addContentListener () {
         let thisBtn = this.querySelector('.btnAddContent');
         let dataType = thisBtn.getAttribute('data-type');
-
-        let descHTML = `
-            <div class="descTools" draggable="true">
-                <span>
-                    <button type="button" class="toolArrowUp"><i class="fas fa-arrow-up"></i></button>
-                    <button type="button" class="toolArrowDown"><i class="fas fa-arrow-down"></i></button>
-                    <button type="button" class="toolEdit"><i class="fas fa-pen"></i></button>
-                    <button type="button" class="toolDelete"><i class="fas fa-trash-alt"></i></button>
-                </span>
-            </div>
-            <div class="descContent"></div>
-        `;
-
-        let contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
         let randomDescId = Math.random().toString(36).replace('0.', '');
 
         switch(dataType)
         {
-            case 'text':
+            case TVYContentEditor.TEXT_TYPE:
                 if(this.quillTextObj.getLength() === 1)
                 {
                     new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️You cannot add empty plain text.').show();
@@ -131,151 +191,92 @@ class TVYContentEditor extends HTMLElement
                     let descTools = editingDescEle.querySelector('.descTools');
                     new QuillEditor(editingDescEle.querySelector('.descContent'), false, true, this.quillTextContent);
 
-                    this.updateDataOfADesc(this.quillTextContent, dataEditing);
+                    this.updateDataOfADesc(this.quillTextContent, TVYContentEditor.TEXT_TYPE, dataEditing);
 
                     descTools.classList.remove('editing');
                     descTools.classList.add('edited');
                     textEditor.removeAttribute('data-editing');
                 }
-                else{
-                    let textElement = document.createElement('div');
-                    textElement.className = 'descElement col-md-12';
-                    textElement.setAttribute('data-desc-id', randomDescId);
-                    textElement.innerHTML = descHTML;
-                    contentOrder.appendChild(textElement);
-                    let descContent = textElement.querySelector('.descContent');
-                    let descTools = textElement.querySelector('.descTools');
+                else
+                {
+                    let textDescContent = this.createDescriptionElementAndAttachEventOfDescTools(randomDescId, TVYContentEditor.TEXT_TYPE, textEditor);
 
-                    let editBtn = textElement.querySelector('.toolEdit');
-                    let deleteBtn = textElement.querySelector('.toolDelete');
-                    let arrowUpBtn = textElement.querySelector('.toolArrowUp');
-                    let arrowDownBtn = textElement.querySelector('.toolArrowDown');
-                    editBtn.addEventListener('click', () => {
-                        this.quillTextObj.setContents(this.getDescObjectByDescId(randomDescId).data);
-                        let allDescTools = this.querySelectorAll('.descTools');
-                        textEditor.setAttribute('data-editing', randomDescId);
-                        allDescTools.forEach(ele => {
-                           ele.classList.remove('editing');
-                           ele.classList.remove('edited');
-                        });
-                        descTools.classList.add('editing');
-                    });
-                    deleteBtn.addEventListener('click', () => {
-                       let selectedElement = this.getDescElementByDescId(randomDescId);
-                       selectedElement.parentNode.removeChild(selectedElement);
-                       this.updatePositionsAfterADescElementDeleted(randomDescId);
-                    });
-                    arrowUpBtn.addEventListener('click', () => {
-                        let currentDescObj = this.getDescObjectByDescId(randomDescId);
-                        let currentDescObjPos = currentDescObj.pos;
-                        if(currentDescObjPos === 1){
-                            new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️It is already at the top. Cannot move up anymore.').show();
-                        }else{
-                            let preDescObjPos = currentDescObjPos - 1;
-                            let preDescObj = this.getDescObjectByPosition(preDescObjPos);
+                    new QuillEditor(textDescContent, false, true, this.quillTextContent);
 
-                            // Data content
-                            let currentDescObjData = currentDescObj.data;
-                            let preDescObjData = preDescObj.data;
-
-                            // Desc element
-                            let currentDescElement = this.getDescElementByDescId(randomDescId);
-                            let preDescElement = this.getDescElementByDescId(preDescObj.desc_id);
-
-                            // Exchange data content
-                            new QuillEditor(currentDescElement.querySelector('.descContent'), false, true, preDescObjData);
-                            new QuillEditor(preDescElement.querySelector('.descContent'), false, true, currentDescObjData);
-
-                            // Update data content
-                            this.updateDataOfADesc(currentDescObjData, preDescObj.desc_id);
-                            this.updateDataOfADesc(preDescObjData, currentDescObj.desc_id);
-                        }
-                    });
-                    arrowDownBtn.addEventListener('click', () => {
-                        let currentDescObj = this.getDescObjectByDescId(randomDescId);
-                        let currentDesObjPos = currentDescObj.pos;
-                        if(currentDesObjPos === this.descPosition){
-                            new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️It is already at the bottom. Cannot move down anymore.').show();
-                        }else{
-                            let nextDescObjPos = currentDesObjPos + 1;
-                            let newDescObj = this.getDescObjectByPosition(nextDescObjPos);
-
-                            // Data content
-                            let currentDescObjData = currentDescObj.data;
-                            let nextDescObjData = newDescObj.data;
-
-                            // Desc element
-                            let currentDescElement = this.getDescElementByDescId(randomDescId);
-                            let nextDescElement = this.getDescElementByDescId(newDescObj.desc_id);
-
-                            // Exchange data content
-                            new QuillEditor(currentDescElement.querySelector('.descContent'), false, true, nextDescObjData);
-                            new QuillEditor(nextDescElement.querySelector('.descContent'), false, true, currentDescObjData);
-
-                            // Update data content
-                            this.updateDataOfADesc(currentDescObjData, newDescObj.desc_id);
-                            this.updateDataOfADesc(nextDescObjData, currentDescObj.desc_id);
-                        }
-                    });
-
-                    new QuillEditor(descContent, false, true, this.quillTextContent);
-
-                    this.storeDataContent(this.quillTextContent, TVYContentEditor.textType, randomDescId);
+                    this.storeDataContent(this.quillTextContent, TVYContentEditor.TEXT_TYPE, randomDescId);
                 }
-                this.quillTextObj.setContents(null);
+                this.quillTextObj.clearContent();
                 break;
-            case 'code':
-                console.log('code111');
+            case TVYContentEditor.CODE_TYPE:
+                if(this.codeMirrorContent == '')
+                {
+                    new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️You cannot add empty code block.').show();
+                    break;
+                }
+
+                let codeEditor = this.querySelector('#TVYCodeEditor');
+                let codeDataEditing = codeEditor.getAttribute('data-editing');
+                if(codeDataEditing != null)
+                {
+                    let editingDescEle = this.getDescElementByDescId(codeDataEditing);
+                    let descTools = editingDescEle.querySelector('.descTools');
+                    let descContent = editingDescEle.querySelector('.descContent');
+                    descContent.parentNode.removeChild(descContent);
+
+                    let newDescContent = document.createElement('div');
+                    newDescContent.className = 'descContent';
+                    editingDescEle.appendChild(newDescContent);
+                    new CodeMirrorEditor(newDescContent, CodeMirrorEditor.THEME_MATERIAL, CodeMirrorEditor.MODE_JAVASCRIPT,
+                        true, this.codeMirrorContent, null);
+
+                    this.updateDataOfADesc(this.codeMirrorContent, TVYContentEditor.CODE_TYPE, codeDataEditing);
+
+                    descTools.classList.remove('editing');
+                    descTools.classList.add('edited');
+                    codeEditor.removeAttribute('data-editing');
+                }
+                else
+                {
+                    let codeDescContent = this.createDescriptionElementAndAttachEventOfDescTools(randomDescId, TVYContentEditor.CODE_TYPE, codeEditor);
+
+                    new CodeMirrorEditor(codeDescContent, CodeMirrorEditor.THEME_MATERIAL, CodeMirrorEditor.MODE_JAVASCRIPT,
+                        true, this.codeMirrorContent, null);
+
+                    this.storeDataContent(this.codeMirrorContent, TVYContentEditor.CODE_TYPE, randomDescId);
+                }
+                this.codeMirrorObj.clearContent();
                 break;
             case 'image':
                 console.log('image111');
                 break;
             default: break;
         }
+        this.enableAllTabEditors();
+    }
+
+    get codeMirrorContent() {
+        return this.codeMirrorObj.getContent();
     }
 
     get quillTextContent() {
-        return this.quillTextObj.getContents();
-    }
-
-    get quillTextObject() {
-        return this.quillTextObj;
+        return this.quillTextObj.getContent();
     }
 
     storeDataContent(dataContent, type, descId) {
-        let position = ++(this.descPosition);
-        switch(type) {
-            case TVYContentEditor.textType:
-                this.allDescData.push({pos: position, type: TVYContentEditor.textType, data: dataContent, desc_id: descId, group_desc_id: this.groupDescId});
-                break;
-            case TVYContentEditor.codeType:
-                break;
-            case TVYContentEditor.imageType:
-                break;
-            default:
-                break;
-        }
+        this.allDescData.push({type: type, data: dataContent, desc_id: descId});
         console.log('Data saved----------');
+        console.log(this.allDescData);
         this.saveDescDataToBackend(true);
         console.log('Data saved----------End');
     }
 
-    updateDataOfADesc(data, descId) {
+    updateDataOfADesc(data, type, descId) {
         this.allDescData.forEach(ele => {
            if(ele.desc_id === descId){
                ele.data = data;
+               ele.type = type;
            }
         });
-    }
-
-    updatePositionsAfterADescElementDeleted (descId) {
-        this.descPosition--;
-        let prePos = 1;
-        let filteredDataContents = this.allDescData.filter(ele => {return ele.desc_id !== descId;});
-        filteredDataContents.forEach(ele => {
-            ele.pos = prePos++;
-        });
-        this.allDescData = filteredDataContents;
     }
 
     getDescObjectByDescId (descId) {
@@ -283,9 +284,14 @@ class TVYContentEditor extends HTMLElement
         return descFiltered[0];
     }
 
-    getDescObjectByPosition (pos) {
-        let descFiltered = this.allDescData.filter(desc => desc.pos === pos);
-        return descFiltered[0];
+    getIndexArrayOfDescObject (descId) {
+        let i = 0;
+        this.allDescData.forEach((value, index) => {
+            if(value.desc_id === descId){
+                i = index;
+            }
+        });
+        return i;
     }
 
     getDescElementByDescId (descId) {
@@ -314,18 +320,196 @@ class TVYContentEditor extends HTMLElement
                 this.allEditors.forEach( e => {
                     e.setAttribute('hidden', 'hidden');
                 });
-                let tempEditorToShow = null;
                 if(dataType === 'text'){
-                    tempEditorToShow = this.textEditor;
+                    this.textEditor.removeAttribute('hidden');
+                    this.quillTextObj.setFocus();
                 }else if(dataType === 'code'){
-                    tempEditorToShow = this.codeEditor;
+                    this.codeEditor.removeAttribute('hidden');
+                    this.codeMirrorObj.setFocus();
                 }else if(dataType === 'image'){
-                    tempEditorToShow = this.imageEditor;
+                    this.imageEditor.removeAttribute('hidden');
                 }
-                tempEditorToShow.removeAttribute('hidden');
                 this.btnAddContent.setAttribute('data-type', dataType);
             });
         });
+    }
+
+    doContentOrderActions (event)
+    {
+        let targetButton = event.target.parentNode;
+        let actionTypeOfTargetButton = targetButton.getAttribute('action-type');
+
+        let targetDescElement = event.target.parentNode.parentNode.parentNode.parentNode;
+        let descIdOfTargetDescElement = targetDescElement.getAttribute('data-desc-id');
+
+        let targetDescTools = event.target.parentNode.parentNode.parentNode;
+        let targetEditorType = this.getDescObjectByDescId(descIdOfTargetDescElement).type;
+        let targetEditor = null;
+        if(targetEditorType === TVYContentEditor.TEXT_TYPE){
+            targetEditor = this.querySelector('#TVYTextEditor');
+        }else {
+            targetEditor = this.querySelector('#TVYCodeEditor')
+        }
+
+        if(actionTypeOfTargetButton === TVYContentEditor.ACTION_TYPE_MOVE_UP){
+            this.moveDescriptionElement(descIdOfTargetDescElement, TVYContentEditor.ACTION_TYPE_MOVE_UP);
+        }
+        else if(actionTypeOfTargetButton === TVYContentEditor.ACTION_TYPE_MOVE_DOWN){
+            this.moveDescriptionElement(descIdOfTargetDescElement, TVYContentEditor.ACTION_TYPE_MOVE_DOWN);
+        }
+        else if(actionTypeOfTargetButton === TVYContentEditor.ACTION_TYPE_MOVE_TOP){
+            this.moveDescriptionElement(descIdOfTargetDescElement, TVYContentEditor.ACTION_TYPE_MOVE_TOP);
+        }
+        else if(actionTypeOfTargetButton === TVYContentEditor.ACTION_TYPE_MOVE_BOTTOM){
+            this.moveDescriptionElement(descIdOfTargetDescElement, TVYContentEditor.ACTION_TYPE_MOVE_BOTTOM);
+        }
+        else if(actionTypeOfTargetButton === TVYContentEditor.ACTION_TYPE_DELETE){
+            this.deleteDescriptionElement(descIdOfTargetDescElement);
+        }
+        else if(actionTypeOfTargetButton === TVYContentEditor.ACTION_TYPE_EDIT){
+            this.editDescriptionElement(targetEditor, descIdOfTargetDescElement, targetEditorType, targetDescTools);
+        }
+    }
+
+    createDescriptionElementAndAttachEventOfDescTools (descId, descType, editor)
+    {
+        let contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
+
+        let descElement = document.createElement('div');
+        descElement.className = 'descElement col-md-12';
+        descElement.setAttribute('data-desc-id', descId);
+        descElement.innerHTML = htmlDescTools;
+        contentOrder.appendChild(descElement);
+        let descContent = descElement.querySelector('.descContent');
+
+        return descContent;
+    }
+
+    editDescriptionElement (editor, descId, descType, descTools)
+    {
+        let beingEditedDescTool = document.querySelector('.questionPreview .TVYContentOrder .descTools.editing');
+        if(beingEditedDescTool !== null) {
+            new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️You cannot edit this description element because another one is being edited.').show();
+            return;
+        }
+
+        let allDescTools = document.querySelectorAll('.questionPreview .TVYContentOrder .descTools');
+        editor.setAttribute('data-editing', descId);
+        allDescTools.forEach(ele => {
+            ele.classList.remove('editing');
+            ele.classList.remove('edited');
+        });
+        descTools.classList.remove('edited');
+        descTools.classList.add('editing');
+
+        if(descType == TVYContentEditor.TEXT_TYPE){
+            this.querySelector('.tabTypeContent .btnAddPlainText').click();
+            this.quillTextObj.setContent(this.getDescObjectByDescId(descId).data)
+        }else if(descType == TVYContentEditor.CODE_TYPE){
+            this.querySelector('.tabTypeContent .btnAddCodingBlock').click();
+            this.codeMirrorObj.setContent(this.getDescObjectByDescId(descId).data);
+        }
+
+        this.enableOnlyOneTabEditor(descType);
+    }
+
+    deleteDescriptionElement (currentDescId)
+    {
+        let selectedElement = this.getDescElementByDescId(currentDescId);
+        selectedElement.parentNode.removeChild(selectedElement);
+    }
+
+    moveDescriptionElement (currentDescId, actionType)
+    {
+        let indexArrayOfCurrentDescObj = this.getIndexArrayOfDescObject(currentDescId);
+        if(actionType === TVYContentEditor.ACTION_TYPE_MOVE_UP || actionType === TVYContentEditor.ACTION_TYPE_MOVE_TOP)
+        {
+            if(indexArrayOfCurrentDescObj === 0)
+            {
+                new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️It is already at the top. Cannot move up anymore.').show();
+                return;
+            }
+        }
+        else if(actionType === TVYContentEditor.ACTION_TYPE_MOVE_DOWN || actionType === TVYContentEditor.ACTION_TYPE_MOVE_BOTTOM)
+        {
+            if(indexArrayOfCurrentDescObj === this.allDescData.length - 1)
+            {
+                new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️It is already at the bottom. Cannot move down anymore.').show();
+                return;
+            }
+        }
+
+        let currentDescElement = this.getDescElementByDescId(currentDescId);
+        let cloneOfCurrentDescElement = currentDescElement.cloneNode(true);
+
+        if(actionType === TVYContentEditor.ACTION_TYPE_MOVE_UP)
+        {
+            this.moveCurrentDescDataToAnIndexOfArray(currentDescId, TVYContentEditor.ARRAY_INDEX_PREV);
+            currentDescElement.parentNode.insertBefore(cloneOfCurrentDescElement, currentDescElement.previousSibling);
+        }
+        else if(actionType === TVYContentEditor.ACTION_TYPE_MOVE_DOWN)
+        {
+            this.moveCurrentDescDataToAnIndexOfArray(currentDescId, TVYContentEditor.ARRAY_INDEX_NEXT);
+            currentDescElement.parentNode.insertBefore(cloneOfCurrentDescElement, currentDescElement.nextSibling.nextSibling);
+        }
+        else if(actionType === TVYContentEditor.ACTION_TYPE_MOVE_TOP)
+        {
+            this.moveCurrentDescDataToAnIndexOfArray(currentDescId, TVYContentEditor.ARRAY_INDEX_TOP);
+            currentDescElement.parentNode.insertBefore(cloneOfCurrentDescElement, currentDescElement.parentNode.firstChild);
+        }
+        else if(actionType === TVYContentEditor.ACTION_TYPE_MOVE_BOTTOM)
+        {
+            this.moveCurrentDescDataToAnIndexOfArray(currentDescId, TVYContentEditor.ARRAY_INDEX_BOTTOM);
+            currentDescElement.parentNode.append(cloneOfCurrentDescElement);
+        }
+        currentDescElement.parentNode.removeChild(currentDescElement);
+        this.saveDescDataToBackend(true);
+        console.log(this.allDescData);
+    }
+
+    enableAllTabEditors()
+    {
+        let arrayBtnTabs = this.querySelectorAll('.btnSelectTabEditor');
+        arrayBtnTabs.forEach(ele =>{
+            ele.removeAttribute('disabled');
+        });
+    }
+
+    enableOnlyOneTabEditor(descType)
+    {
+        let arrayBtnTabs = this.querySelectorAll('.btnSelectTabEditor');
+        arrayBtnTabs.forEach(ele =>{
+            if(ele.getAttribute('data-type') === descType){
+                ele.removeAttribute('disabled');
+            }
+            else{
+                ele.setAttribute('disabled', 'disabled')
+            }
+        });
+    }
+
+    moveCurrentDescDataToAnIndexOfArray (currentDescId, indexPosition)
+    {
+        let currentDesc = this.allDescData.find(desc => desc.desc_id === currentDescId);
+        let indexArrayOfCurrentDesc = this.allDescData.findIndex(desc => desc.desc_id === currentDescId);
+        let arrayDescDataExcludedCurrentDesc = this.allDescData.filter(desc => desc.desc_id !== currentDescId);
+
+        if(indexPosition === TVYContentEditor.ARRAY_INDEX_TOP){
+            arrayDescDataExcludedCurrentDesc.unshift(currentDesc);
+        }
+        else if(indexPosition === TVYContentEditor.ARRAY_INDEX_BOTTOM){
+            arrayDescDataExcludedCurrentDesc.push(currentDesc);
+        }
+        else if(indexPosition === TVYContentEditor.ARRAY_INDEX_PREV){
+            arrayDescDataExcludedCurrentDesc.splice(indexArrayOfCurrentDesc - 1, 0, currentDesc);
+        }
+        else if(indexPosition === TVYContentEditor.ARRAY_INDEX_NEXT){
+            arrayDescDataExcludedCurrentDesc.splice(indexArrayOfCurrentDesc + 1, 0, currentDesc);
+        }
+        else{
+            arrayDescDataExcludedCurrentDesc.splice(indexPosition, 0, currentDesc);
+        }
+        this.allDescData = arrayDescDataExcludedCurrentDesc;
     }
 
     saveDescDataToBackend (isDraft) {

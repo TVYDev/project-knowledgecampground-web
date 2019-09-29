@@ -26,34 +26,37 @@
                 font-size: 0.9rem;
             }
         }
+        span.toolSeparator {
+            color: $thirdly-gray;
+            background: none;
+        }
         button:hover, button:focus {
             color: $secondary-green;
         }
     }
     .descTools.editing {
-        background-color: rgba($secondary-gray, 0.3);
+        background-color: rgba($secondary-green, 0.3);
         border-color: $main-gray;
     }
     .descTools.edited {
-        animation: blink 1.5s;
+        animation: blink 0.5s;
     }
     @keyframes blink{
-        0%{opacity: 0; background-color: $white;}
-        50%{opacity: .4; background-color: $white}
-        100%{opacity: .6; background-color: $white;}
+        0%{opacity: 0; background-color: $secondary-blue;}
+        50%{opacity: .4; background-color: $secondary-blue}
+        100%{opacity: .6; background-color: $secondary-blue;}
     }
     .descTools:hover, .descTools:focus, .descContent .ql-editor:hover .descTools {
         transition: 0.5s;
         background-color: rgba($secondary-green, 0.3);
-        cursor: pointer;
         border-color: white;
     }
-    span {
+    span.toolButtonsBlock {
         position: relative;
         right: -50px;
         visibility: hidden;
     }
-    .descTools:hover span {
+    .descTools:hover span.toolButtonsBlock {
         border-radius: 10px 0 0 10px;
         padding: 10px;
         background-color: rgba($white, 0.8);
@@ -64,9 +67,15 @@
     .descTools:hover button {
         visibility: visible;
     }
+    .descTools.editing:hover span.toolButtonsBlock, .descTools.editing:hover button {
+        visibility: hidden;
+    }
     .descContent {
         background-color: white;
-        border: 1.5px dashed $thirdly-gray;
+        border: 1.5px dashed $secondary-gray;
         border-radius: 5px;
+    }
+    .toolArrowDown, .toolArrowUp, .toolEdit, .toolDelete, .toolArrowBottom, .toolArrowTop {
+        cursor: pointer;
     }
 }
