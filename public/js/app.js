@@ -79426,6 +79426,7 @@ $(document).ready(function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _QuillEditor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../QuillEditor */ "./resources/js/QuillEditor.js");
+/* harmony import */ var _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../CodeMirrorEditor */ "./resources/js/CodeMirrorEditor.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -79451,6 +79452,7 @@ function _isNativeFunction(fn) { return Function.toString.call(fn).indexOf("[nat
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 var html = "\n<div class=\"TVYContentActionView\">\n    <div class=\"viewPart\"></div>\n    <div class=\"actionPart\">\n        <div class=\"vote\">\n            <i class=\"far fa-thumbs-up selected\"></i>\n            <span class=\"numVote\">23</span>\n            <i class=\"far fa-thumbs-down\"></i>\n        </div>\n        <div class=\"askedOrEditedDate\"></div>\n        <div class=\"authorIdentity\">\n            <div><a href=\"#\" class=\"authorInfo\"></a></div>\n            <div><img class=\"authorAvatar\" src=\"\" alt=\"avatar\"></div>    \n        </div>\n    </div>\n</div>\n";
@@ -79520,23 +79522,32 @@ function (_HTMLElement) {
       var descCount = this.descriptionContent.length;
 
       for (var i = 0; i < descCount; i++) {
-        switch (this.descriptionContent[i].type) {
-          case 'text':
-            this.addTextContent(this.descriptionContent[i].data);
-            break;
-
-          default:
-            break;
-        }
+        var description = this.descriptionContent[i];
+        this.addContent(description.data, description.type);
       }
     }
   }, {
-    key: "addTextContent",
-    value: function addTextContent(descData) {
-      var textElement = document.createElement('div');
-      textElement.className = 'textDescElement col-md-12';
-      this.viewPart.appendChild(textElement);
-      new _QuillEditor__WEBPACK_IMPORTED_MODULE_0__["default"](textElement, false, true, descData);
+    key: "addContent",
+    value: function addContent(descData, type) {
+      var element = document.createElement('div');
+      element.className = 'descElementForView col-md-12';
+      this.viewPart.appendChild(element);
+
+      if (type === TVYContentActionView.TEXT_TYPE) {
+        new _QuillEditor__WEBPACK_IMPORTED_MODULE_0__["default"](element, false, true, descData);
+      } else if (type === TVYContentActionView.CODE_TYPE) {
+        new _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_1__["default"](element, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_1__["default"].THEME_MATERIAL, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_1__["default"].MODE_JAVASCRIPT, true, descData);
+      }
+    }
+  }], [{
+    key: "TEXT_TYPE",
+    get: function get() {
+      return 'text';
+    }
+  }, {
+    key: "CODE_TYPE",
+    get: function get() {
+      return 'code';
     }
   }]);
 
