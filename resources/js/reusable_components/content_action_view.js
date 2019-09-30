@@ -1,4 +1,5 @@
 import QuillEditor from "../QuillEditor";
+import CodeMirrorEditor from "../CodeMirrorEditor";
 
 const html = `
 <div class="TVYContentActionView">
@@ -36,6 +37,9 @@ class TVYContentActionView extends HTMLElement
         this.fillTheContent();
     }
 
+    static get TEXT_TYPE()  {return 'text';}
+    static get CODE_TYPE()  {return 'code';}
+
     getDescriptionContent ()
     {
         let url = window.location.origin + '/question/description-of/' + this.getAttribute('data-question-public-id');
@@ -70,23 +74,24 @@ class TVYContentActionView extends HTMLElement
     {
         let descCount = this.descriptionContent.length;
         for (let i=0; i<descCount; i++){
-            switch (this.descriptionContent[i].type) {
-                case 'text':
-                    this.addTextContent(this.descriptionContent[i].data);
-                    break;
-                default:
-                    break;
-            }
+            let description = this.descriptionContent[i];
+            this.addContent(description.data, description.type);
         }
     }
 
-    addTextContent (descData)
+    addContent (descData, type)
     {
-        let textElement = document.createElement('div');
-        textElement.className = 'textDescElement col-md-12';
-        this.viewPart.appendChild(textElement);
+        let element = document.createElement('div');
+        element.className = 'descElementForView col-md-12';
+        this.viewPart.appendChild(element);
 
-        new QuillEditor(textElement, false, true, descData);
+        if(type === TVYContentActionView.TEXT_TYPE){
+            new QuillEditor(element, false, true, descData);
+        }
+        else if(type === TVYContentActionView.CODE_TYPE){
+            new CodeMirrorEditor(element, CodeMirrorEditor.THEME_MATERIAL, CodeMirrorEditor.MODE_JAVASCRIPT,
+                        true, descData);
+        }
     }
 }
 
