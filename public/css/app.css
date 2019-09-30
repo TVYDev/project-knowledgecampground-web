@@ -15288,6 +15288,20 @@ button:focus {
   color: #707070;
 }
 
+.pageViewQuestion .viewQuestionContent .descElementForView {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.pageViewQuestion .viewQuestionContent .descElementForView .CodeMirror {
+  border-radius: 10px;
+  height: auto;
+}
+
+.pageViewQuestion .viewQuestionContent .descElementForView .CodeMirror .CodeMirror-cursors {
+  display: none;
+}
+
 .pageViewQuestion .rightExtraSpace {
   border: 1px dashed mediumpurple;
 }
