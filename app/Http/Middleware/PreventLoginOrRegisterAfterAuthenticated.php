@@ -28,9 +28,8 @@ class PreventLoginOrRegisterAfterAuthenticated
                 if($uri == '/auth/login' || $uri == '/auth/register'){
                     return redirect()->back()->withInfo('You are already logged in')->withInput();
                 }
-
-                return $next($request);
             }
+            throw new \ErrorException('Unauthenticated');
         }
         catch(\Exception $exception)
         {
