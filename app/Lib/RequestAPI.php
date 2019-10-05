@@ -14,6 +14,7 @@ use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
+use Symfony\Component\Debug\Exception\FatalThrowableError;
 use function GuzzleHttp\Psr7\str;
 
 trait RequestAPI
@@ -43,9 +44,10 @@ trait RequestAPI
         }
         catch(RequestException $exception)
         {
-            if(strpos(str($exception->getResponse()), HttpConstants::ERROR_CODE_TOKEN_EXPIRED)){
-                try
-                {
+            try
+            {
+                $response = $exception->getResponse();
+                if(isset($response) && strpos(str($exception->getResponse()), HttpConstants::ERROR_CODE_TOKEN_EXPIRED)){
                     $httpNew = new Client();
                     $responseNew = $httpNew->request('POST', self::getApiRequestUrl('user.refresh_token'), [
                         'headers'   => self::getAuthorizationHeader()
@@ -66,12 +68,13 @@ trait RequestAPI
                     }
                     throw $exception;
                 }
-                catch(RequestException $e)
+                else
                 {
                     throw $exception;
                 }
             }
-            else {
+            catch(\Exception $e)
+            {
                 throw $exception;
             }
         }
@@ -155,9 +158,16 @@ trait RequestAPI
     {
         $message = $exception->getMessage() . $isIncludedTrace ? $exception->getTraceAsString() : '';
         if($exception instanceof ClientException){
-//            dd($exception);
-            $json = json_decode($exception->getResponse()->getBody()->getContents());
-            $message = $json->message_sys;
+            $stringResponse = str($exception->getResponse());
+            $match = null;
+            $result = preg_match('/.*({"success".*}})/', $stringResponse, $match);
+            if($result === 1){
+                $json = json_decode($match[0]);
+                $message = $json->message_sys;
+            }
+            else {
+                $message = $stringResponse;
+            }
         }
         else if($exception instanceof ConnectException){
             $message = "Server is not running.";
