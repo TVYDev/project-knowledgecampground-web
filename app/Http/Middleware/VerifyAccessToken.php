@@ -29,6 +29,8 @@ class VerifyAccessToken
                 session([HttpConstants::KEY_TO_KC_USER_AUTHENTICATED => HttpConstants::KC_USER_VALID]);
                 return $next($request);
             }
+
+            throw new \ErrorException('Unauthenticated');
         }
         catch(\Exception $exception)
         {
