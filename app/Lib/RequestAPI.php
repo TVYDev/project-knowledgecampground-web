@@ -12,7 +12,10 @@ namespace App\Lib;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
+use Symfony\Component\Debug\Exception\FatalThrowableError;
+use function GuzzleHttp\Psr7\str;
 
 trait RequestAPI
 {
@@ -28,16 +31,53 @@ trait RequestAPI
      **********************************************************************************************/
     public function call (string $url, $method, $data = null, $headers = null)
     {
-        $http = new Client();
+        try{
+            $http = new Client();
 
-        $response = $http->request($method, $url, [
-            'headers'   => isset($headers) ? $headers : [],
-            'json'      => isset($data) ? $data : []
-        ]);
+            // TODO: handle the headers again
+            $response = $http->request($method, $url, [
+                'headers'   => isset($headers) ? $headers : [],
+                'json'      => isset($data) ? $data : []
+            ]);
 
-        $dataResponse = json_decode($response->getBody()->getContents());
+            return json_decode($response->getBody()->getContents());
+        }
+        catch(RequestException $exception)
+        {
+            try
+            {
+                $response = $exception->getResponse();
+                if(isset($response) && strpos(str($exception->getResponse()), HttpConstants::ERROR_CODE_TOKEN_EXPIRED)){
+                    $httpNew = new Client();
+                    $responseNew = $httpNew->request('POST', self::getApiRequestUrl('user.refresh_token'), [
+                        'headers'   => self::getAuthorizationHeader()
+                    ]);
+                    $dataResponseNew = json_decode($responseNew->getBody()->getContents());
 
-        return $dataResponse;
+                    if($dataResponseNew->success){
+                        self::saveAccessToken($dataResponseNew);
+
+                        $httpResendToResource = new Client();
+
+                        $responseAfterResend = $httpResendToResource->request($method, $url, [
+                            'headers'   => self::getAuthorizationHeader(),
+                            'json'      => isset($data) ? $data : []
+                        ]);
+
+                        return json_decode($responseAfterResend->getBody()->getContents());
+                    }
+                    throw $exception;
+                }
+                else
+                {
+                    throw $exception;
+                }
+            }
+            catch(\Exception $e)
+            {
+                throw $exception;
+            }
+        }
     }
 
     public function delete (string $url, $keyCondition = null, $data = null, $headers = null)
@@ -118,9 +158,16 @@ trait RequestAPI
     {
         $message = $exception->getMessage() . $isIncludedTrace ? $exception->getTraceAsString() : '';
         if($exception instanceof ClientException){
-//            dd($exception);
-            $json = json_decode($exception->getResponse()->getBody()->getContents());
-            $message = $json->message_sys;
+            $stringResponse = str($exception->getResponse());
+            $match = null;
+            $result = preg_match('/.*({"success".*}})/', $stringResponse, $match);
+            if($result === 1){
+                $json = json_decode($match[0]);
+                $message = $json->message_sys;
+            }
+            else {
+                $message = $stringResponse;
+            }
         }
         else if($exception instanceof ConnectException){
             $message = "Server is not running.";

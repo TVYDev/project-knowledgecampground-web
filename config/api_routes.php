@@ -46,6 +46,11 @@ return [
             'method'=> 'get',
             'path'  => '/api/auth/verify-authentication',
             'url'   => $host.'/api/auth/verify-authentication'
+        ],
+        'refresh_token' => [
+            'method'=> 'post',
+            'path'  => '/api/auth/refresh-token',
+            'url'   => $host.'/api/auth/refresh-token'
         ]
     ],
     'question' => [
