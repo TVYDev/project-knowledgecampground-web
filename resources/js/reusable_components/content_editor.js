@@ -53,7 +53,21 @@ const html = `
                     <div class="actualCodeEditor"></div>
                 </div>
                 <div id="TVYImageEditor" hidden="hidden">
-                    I am image selector
+                    <div class="imageSelector">
+                        <div><strong>Drag & Drop image here</strong></div>
+                        <div class="orSeparator">or</div>
+                        <div>
+                            <input type="file" class="iptBrowseImage" id="iptImageForQuestion" hidden="hidden"
+                                accept=".gif,.jpg,.jpeg,.png"/>
+                            <label for="iptImageForQuestion" class="lblBrowseImage">
+                                Browse local image&nbsp;&nbsp;&nbsp;<i class="fas fa-search"></i>
+                            </label>
+                        </div>
+                        <div class="orSeparator">or</div>
+                        <div class="ui input focus blockImageUrl">
+                            <input type="text" class="txtImageUrl" placeholder="Paste image url here...">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="actionContentEditor">

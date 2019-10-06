@@ -51,6 +51,41 @@
                 font-size: 0.8em;
             }
         }
+        #TVYImageEditor {
+            background-color: white;
+            border-top: 2px solid $secondary-green;
+            height: 350px;
+            .imageSelector {
+                padding: 15px;
+                height: 100%;
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-template-rows: 3fr 1fr 3fr 1fr 3fr;
+                align-items: center;
+                justify-items: center;
+                .lblBrowseImage {
+                    padding: 10px 20px;
+                    border-radius: 10px;
+                    border: 1.5px solid $secondary-green;
+                    background-color: $white;
+                    color: $main-gray;
+                    i {
+                        color: $secondary-gray;
+                    }
+                }
+                .lblBrowseImage:hover, .lblBrowseImage:focus {
+                    font-weight: bold;
+                    cursor: pointer;
+                    border-style: dashed;
+                }
+                .blockImageUrl {
+                    justify-self: normal;
+                }
+                .orSeparator {
+                    color: $secondary-gray;
+                }
+            }
+        }
     }
     .actionContentEditor {
         border: 1px solid $thirdly-gray;

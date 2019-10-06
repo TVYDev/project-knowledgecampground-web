@@ -13213,6 +13213,49 @@ button:focus {
   font-size: 0.8em;
 }
 
+.TVYContentEditor .editor #TVYImageEditor {
+  background-color: white;
+  border-top: 2px solid #17CCA9;
+  height: 350px;
+}
+
+.TVYContentEditor .editor #TVYImageEditor .imageSelector {
+  padding: 15px;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 3fr 1fr 3fr 1fr 3fr;
+  align-items: center;
+  justify-items: center;
+}
+
+.TVYContentEditor .editor #TVYImageEditor .imageSelector .lblBrowseImage {
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 1.5px solid #17CCA9;
+  background-color: white;
+  color: #424242;
+}
+
+.TVYContentEditor .editor #TVYImageEditor .imageSelector .lblBrowseImage i {
+  color: #707070;
+}
+
+.TVYContentEditor .editor #TVYImageEditor .imageSelector .lblBrowseImage:hover,
+.TVYContentEditor .editor #TVYImageEditor .imageSelector .lblBrowseImage:focus {
+  font-weight: bold;
+  cursor: pointer;
+  border-style: dashed;
+}
+
+.TVYContentEditor .editor #TVYImageEditor .imageSelector .blockImageUrl {
+  justify-self: normal;
+}
+
+.TVYContentEditor .editor #TVYImageEditor .imageSelector .orSeparator {
+  color: #707070;
+}
+
 .TVYContentEditor .actionContentEditor {
   border: 1px solid #D8D8D8;
   border-top: none;
