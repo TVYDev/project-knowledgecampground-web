@@ -1,5 +1,5 @@
 .TVYContentEditor {
-    z-index: 334;
+    //z-index: 334;
     margin: 5px 0;
     padding: 0;
     border-radius: 5px;
@@ -34,7 +34,7 @@
         border-top: none;
         border-bottom: none;
         .ql-container {
-            height: 200px;
+            height: 300px;
             background-color: white;
             border: none;
         }
@@ -54,36 +54,36 @@
         #TVYImageEditor {
             background-color: white;
             border-top: 2px solid $secondary-green;
-            height: 350px;
+            height: 300px;
             .imageSelector {
-                padding: 15px;
-                height: 100%;
                 display: grid;
                 grid-template-columns: 1fr;
-                grid-template-rows: 3fr 1fr 3fr 1fr 3fr;
+                grid-template-rows: 1fr;
                 align-items: center;
-                justify-items: center;
-                .lblBrowseImage {
-                    padding: 10px 20px;
-                    border-radius: 10px;
-                    border: 1.5px solid $secondary-green;
-                    background-color: $white;
-                    color: $main-gray;
-                    i {
-                        color: $secondary-gray;
+                height: 100%;
+                cursor: pointer;
+                .dropArea div {
+                    text-align: center;
+                    justify-self: center;
+                    input[type=file] {
+                        display: none;
                     }
                 }
-                .lblBrowseImage:hover, .lblBrowseImage:focus {
-                    font-weight: bold;
-                    cursor: pointer;
-                    border-style: dashed;
+                .previewImage {
+                    display: none;
+                    text-align: center;
+                    padding: 10px;
+                    .uploadedImagePreview {
+                        height: 200px;
+                        border-radius: 5px;
+                    }
+                    .imageCaption {
+                        resize: none;
+                    }
                 }
-                .blockImageUrl {
-                    justify-self: normal;
-                }
-                .orSeparator {
-                    color: $secondary-gray;
-                }
+            }
+            .imageSelector.highlight {
+                background-color: $thirdly-gray;
             }
         }
     }

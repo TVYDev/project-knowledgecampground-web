@@ -1,4 +1,10 @@
 $(document).ready(function() {
+    // window.addEventListener("dragover",function(e){
+    //     e.preventDefault();
+    // });
+    // window.addEventListener("drop",function(e){
+    //     e.preventDefault();
+    // });
     $('.subjectOfQuestion').dropdown({
         forceSelection: false,
         onChange: function(value){

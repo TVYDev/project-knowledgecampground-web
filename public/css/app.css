@@ -12994,7 +12994,8 @@ h4,
 h5,
 h6,
 .ui.button,
-.ui.form input[type=text] {
+.ui.form input[type=text],
+.ui.form textarea {
   font-family: "Taprom", "Comfortaa", sans-serif;
 }
 
@@ -13151,7 +13152,6 @@ button:focus {
 }
 
 .TVYContentEditor {
-  z-index: 334;
   margin: 5px 0;
   padding: 0;
   border-radius: 5px;
@@ -13195,7 +13195,7 @@ button:focus {
 }
 
 .TVYContentEditor .editor .ql-container {
-  height: 200px;
+  height: 300px;
   background-color: white;
   border: none;
 }
@@ -13216,44 +13216,44 @@ button:focus {
 .TVYContentEditor .editor #TVYImageEditor {
   background-color: white;
   border-top: 2px solid #17CCA9;
-  height: 350px;
+  height: 300px;
 }
 
 .TVYContentEditor .editor #TVYImageEditor .imageSelector {
-  padding: 15px;
-  height: 100%;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 3fr 1fr 3fr 1fr 3fr;
+  grid-template-rows: 1fr;
   align-items: center;
-  justify-items: center;
-}
-
-.TVYContentEditor .editor #TVYImageEditor .imageSelector .lblBrowseImage {
-  padding: 10px 20px;
-  border-radius: 10px;
-  border: 1.5px solid #17CCA9;
-  background-color: white;
-  color: #424242;
-}
-
-.TVYContentEditor .editor #TVYImageEditor .imageSelector .lblBrowseImage i {
-  color: #707070;
-}
-
-.TVYContentEditor .editor #TVYImageEditor .imageSelector .lblBrowseImage:hover,
-.TVYContentEditor .editor #TVYImageEditor .imageSelector .lblBrowseImage:focus {
-  font-weight: bold;
+  height: 100%;
   cursor: pointer;
-  border-style: dashed;
 }
 
-.TVYContentEditor .editor #TVYImageEditor .imageSelector .blockImageUrl {
-  justify-self: normal;
+.TVYContentEditor .editor #TVYImageEditor .imageSelector .dropArea div {
+  text-align: center;
+  justify-self: center;
 }
 
-.TVYContentEditor .editor #TVYImageEditor .imageSelector .orSeparator {
-  color: #707070;
+.TVYContentEditor .editor #TVYImageEditor .imageSelector .dropArea div input[type=file] {
+  display: none;
+}
+
+.TVYContentEditor .editor #TVYImageEditor .imageSelector .previewImage {
+  display: none;
+  text-align: center;
+  padding: 10px;
+}
+
+.TVYContentEditor .editor #TVYImageEditor .imageSelector .previewImage .uploadedImagePreview {
+  height: 200px;
+  border-radius: 5px;
+}
+
+.TVYContentEditor .editor #TVYImageEditor .imageSelector .previewImage .imageCaption {
+  resize: none;
+}
+
+.TVYContentEditor .editor #TVYImageEditor .imageSelector.highlight {
+  background-color: #D8D8D8;
 }
 
 .TVYContentEditor .actionContentEditor {

@@ -54,18 +54,20 @@ const html = `
                 </div>
                 <div id="TVYImageEditor" hidden="hidden">
                     <div class="imageSelector">
-                        <div><strong>Drag & Drop image here</strong></div>
-                        <div class="orSeparator">or</div>
-                        <div>
-                            <input type="file" class="iptBrowseImage" id="iptImageForQuestion" hidden="hidden"
-                                accept=".gif,.jpg,.jpeg,.png"/>
-                            <label for="iptImageForQuestion" class="lblBrowseImage">
-                                Browse local image&nbsp;&nbsp;&nbsp;<i class="fas fa-search"></i>
-                            </label>
+                        <div class="dropArea">
+                            <div>
+                                <span class="dropOrBrowse"><strong>Drag & Drop image here</strong><br /><br />or<br /><br /><strong>Click to browse image</strong></span>
+                                <input type="file" class="iptBrowseImage" id="iptImageForQuestion" hidden="hidden" accept="image/*"/>                            
+                            </div>
                         </div>
-                        <div class="orSeparator">or</div>
-                        <div class="ui input focus blockImageUrl">
-                            <input type="text" class="txtImageUrl" placeholder="Paste image url here...">
+                        <div class="previewImage">
+                            <img class="uploadedImagePreview" />
+                            <div><button type="button" class="btnLink btnRemovePreviewImage">Remove above image</button></div>
+                            <div class="ui small form">
+                                <div class="field">
+                                    <textarea rows="2" class="imageCaption" placeholder="Provide caption (optional)"></textarea>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -125,6 +127,12 @@ class TVYContentEditor extends HTMLElement
         this.jsObjCodeEditorThemeSelect = this.querySelector('#TVYCodeEditor .codeEditorTheme');
 
         this.imageEditor = this.querySelector('.editor #TVYImageEditor');
+        this.imageSelector = this.imageEditor.querySelector('.imageSelector');
+        this.dropArea = this.imageEditor.querySelector('.dropArea');
+        this.previewImage = this.imageEditor.querySelector('.previewImage');
+        this.uploadedImagePreivew = this.imageEditor.querySelector('.previewImage .uploadedImagePreview');
+        this.btnRemovePreviewImage = this.imageEditor.querySelector('.btnRemovePreviewImage');
+
         this.btnAddContent = this.querySelector('.actionContentEditor .btnAddContent');
         this.contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
 
@@ -147,6 +155,12 @@ class TVYContentEditor extends HTMLElement
         this.jsObjCodeEditorModeSelect.addEventListener('change', this.changeModeOfCodeMirrorEditor.bind(this));
         this.jsObjCodeEditorThemeSelect.addEventListener('change', this.changeThemeOfCodeMirrorEditor.bind(this));
 
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => this.imageSelector.addEventListener(eventName, this.preventDefaults, false));
+        ['dragenter', 'dragover'].forEach(eventName => this.imageSelector.addEventListener(eventName, this.highlightDropArea.bind(this), false));
+        ['dragleave', 'drop'].forEach(eventName => this.imageSelector.addEventListener(eventName, this.unhighlightDropArea.bind(this), false));
+        this.imageSelector.addEventListener('drop', this.handleDroppedFile.bind(this), false);
+        this.btnRemovePreviewImage.addEventListener('click', this.handleRemovePreviewImage.bind(this));
+
         this.quillTextObj.setFocus();
     }
 
@@ -165,6 +179,42 @@ class TVYContentEditor extends HTMLElement
     static get ARRAY_INDEX_PREV()   {return 777;}
     static get ARRAY_INDEX_NEXT()   {return 888;}
     static get ARRAY_INDEX_BOTTOM() {return 999;}
+
+    handleRemovePreviewImage () {
+        this.uploadedImagePreivew.setAttribute('src', '');
+        this.dropArea.style.display = 'block';
+        this.previewImage.style.display = 'none';
+    }
+
+    handleDroppedFile (event) {
+        let dt = event.dataTransfer;
+        let files = dt.files;
+        this.previewFile(files[0]);
+    }
+
+    previewFile (file) {
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            this.uploadedImagePreivew.setAttribute('src', reader.result);
+            this.dropArea.style.display = 'none';
+            this.previewImage.style.display = 'block';
+        }
+    }
+
+    highlightDropArea () {
+        this.imageSelector.classList.add('highlight');
+    }
+
+    unhighlightDropArea () {
+        this.imageSelector.classList.remove('highlight');
+    }
+
+    preventDefaults (event)
+    {
+        event.preventDefault();
+        event.stopPropagation();
+    }
 
     changeThemeOfCodeMirrorEditor () {
         let selectedTheme = this.querySelector('#TVYCodeEditor .codeEditorThemeSelected');

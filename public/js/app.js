@@ -79375,6 +79375,12 @@ function navigateSideMenuForMobileScreen() {
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
+  // window.addEventListener("dragover",function(e){
+  //     e.preventDefault();
+  // });
+  // window.addEventListener("drop",function(e){
+  //     e.preventDefault();
+  // });
   $('.subjectOfQuestion').dropdown({
     forceSelection: false,
     onChange: function onChange(value) {
@@ -79599,7 +79605,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-var html = "\n    <div class=\"TVYContentProduction\">\n        <div class=\"TVYContentEditor col-md-12\">\n            <div class=\"tabTypeContent\">\n               <button type=\"button\" class=\"btnSelectTabEditor btnAddPlainText selected\" data-type=\"text\">Plain Text</button>\n               <button type=\"button\" class=\"btnSelectTabEditor btnAddCodingBlock\" data-type=\"code\">Coding Block</button>\n               <button type=\"button\" class=\"btnSelectTabEditor btnAddImage\" data-type=\"image\">Media File</button>\n            </div>\n            <div class=\"editor\">\n                <div id=\"TVYTextEditor\">\n                    <div class=\"actualTextEditor\"></div>\n                </div>\n                <div id=\"TVYCodeEditor\" hidden=\"hidden\">\n                    <div class=\"codeEditorTools ui fluid form\">\n                        <div class=\"two fields\">\n                            <div class=\"field\">\n                                <label for=\"codeEditorMode\">Language</label>\n                                <input type=\"hidden\" data-selected-mode=\"\" class=\"codeEditorModeSelected\">\n                                <select class=\"ui dropdown codeEditorMode\">\n                                    <option value=\"css\" selected>CSS</option>\n                                    <option value=\"go\">Go</option>\n                                    <option value=\"html\">HTML</option>\n                                    <option value=\"javascript\">JavaScript</option>\n                                    <option value=\"jsx\">JSX</option>\n                                    <option value=\"php\">PHP</option>\n                                    <option value=\"swift\">Swift</option>\n                                    <option value=\"python\">Python</option>\n                                    <option value=\"ruby\">Ruby</option>\n                                    <option value=\"sass\">Sass</option>\n                                    <option value=\"shell\">Shell</option>\n                                    <option value=\"sql\">SQL</option>\n                                    <option value=\"xml\">XML</option>\n                                </select>\n                            </div>\n                            <div class=\"field\">\n                                <label for=\"codeEditorTheme\">Theme</label>\n                                <input type=\"hidden\" data-selected-theme=\"\" class=\"codeEditorThemeSelected\">\n                                <select class=\"ui dropdown codeEditorTheme\">\n                                    <option value=\"dracula\" selected>Dracula</option>\n                                    <option value=\"material\">Material</option>\n                                    <option value=\"elegant\">Elegant</option>\n                                    <option value=\"eclipse\">Eclipse</option>\n                                    <option value=\"duotone-dark\">Duotone dark</option>\n                                    <option value=\"duotone-light\">Duotone light</option>\n                                </select>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"actualCodeEditor\"></div>\n                </div>\n                <div id=\"TVYImageEditor\" hidden=\"hidden\">\n                    <div class=\"imageSelector\">\n                        <div><strong>Drag & Drop image here</strong></div>\n                        <div class=\"orSeparator\">or</div>\n                        <div>\n                            <input type=\"file\" class=\"iptBrowseImage\" id=\"iptImageForQuestion\" hidden=\"hidden\"\n                                accept=\".gif,.jpg,.jpeg,.png\"/>\n                            <label for=\"iptImageForQuestion\" class=\"lblBrowseImage\">\n                                Browse local image&nbsp;&nbsp;&nbsp;<i class=\"fas fa-search\"></i>\n                            </label>\n                        </div>\n                        <div class=\"orSeparator\">or</div>\n                        <div class=\"ui input focus blockImageUrl\">\n                            <input type=\"text\" class=\"txtImageUrl\" placeholder=\"Paste image url here...\">\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class=\"actionContentEditor\">\n                <button type=\"button\" class=\"btnAddContent\" data-type=\"text\">\n                    <i class=\"far fa-check-circle\"></i>\n                </button>\n            </div>\n        </div>\n    </div>\n";
+var html = "\n    <div class=\"TVYContentProduction\">\n        <div class=\"TVYContentEditor col-md-12\">\n            <div class=\"tabTypeContent\">\n               <button type=\"button\" class=\"btnSelectTabEditor btnAddPlainText selected\" data-type=\"text\">Plain Text</button>\n               <button type=\"button\" class=\"btnSelectTabEditor btnAddCodingBlock\" data-type=\"code\">Coding Block</button>\n               <button type=\"button\" class=\"btnSelectTabEditor btnAddImage\" data-type=\"image\">Media File</button>\n            </div>\n            <div class=\"editor\">\n                <div id=\"TVYTextEditor\">\n                    <div class=\"actualTextEditor\"></div>\n                </div>\n                <div id=\"TVYCodeEditor\" hidden=\"hidden\">\n                    <div class=\"codeEditorTools ui fluid form\">\n                        <div class=\"two fields\">\n                            <div class=\"field\">\n                                <label for=\"codeEditorMode\">Language</label>\n                                <input type=\"hidden\" data-selected-mode=\"\" class=\"codeEditorModeSelected\">\n                                <select class=\"ui dropdown codeEditorMode\">\n                                    <option value=\"css\" selected>CSS</option>\n                                    <option value=\"go\">Go</option>\n                                    <option value=\"html\">HTML</option>\n                                    <option value=\"javascript\">JavaScript</option>\n                                    <option value=\"jsx\">JSX</option>\n                                    <option value=\"php\">PHP</option>\n                                    <option value=\"swift\">Swift</option>\n                                    <option value=\"python\">Python</option>\n                                    <option value=\"ruby\">Ruby</option>\n                                    <option value=\"sass\">Sass</option>\n                                    <option value=\"shell\">Shell</option>\n                                    <option value=\"sql\">SQL</option>\n                                    <option value=\"xml\">XML</option>\n                                </select>\n                            </div>\n                            <div class=\"field\">\n                                <label for=\"codeEditorTheme\">Theme</label>\n                                <input type=\"hidden\" data-selected-theme=\"\" class=\"codeEditorThemeSelected\">\n                                <select class=\"ui dropdown codeEditorTheme\">\n                                    <option value=\"dracula\" selected>Dracula</option>\n                                    <option value=\"material\">Material</option>\n                                    <option value=\"elegant\">Elegant</option>\n                                    <option value=\"eclipse\">Eclipse</option>\n                                    <option value=\"duotone-dark\">Duotone dark</option>\n                                    <option value=\"duotone-light\">Duotone light</option>\n                                </select>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"actualCodeEditor\"></div>\n                </div>\n                <div id=\"TVYImageEditor\" hidden=\"hidden\">\n                    <div class=\"imageSelector\">\n                        <div class=\"dropArea\">\n                            <div>\n                                <span class=\"dropOrBrowse\"><strong>Drag & Drop image here</strong><br /><br />or<br /><br /><strong>Click to browse image</strong></span>\n                                <input type=\"file\" class=\"iptBrowseImage\" id=\"iptImageForQuestion\" hidden=\"hidden\" accept=\"image/*\"/>                            \n                            </div>\n                        </div>\n                        <div class=\"previewImage\">\n                            <img class=\"uploadedImagePreview\" />\n                            <div><button type=\"button\" class=\"btnLink btnRemovePreviewImage\">Remove above image</button></div>\n                            <div class=\"ui small form\">\n                                <div class=\"field\">\n                                    <textarea rows=\"2\" class=\"imageCaption\" placeholder=\"Provide caption (optional)\"></textarea>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class=\"actionContentEditor\">\n                <button type=\"button\" class=\"btnAddContent\" data-type=\"text\">\n                    <i class=\"far fa-check-circle\"></i>\n                </button>\n            </div>\n        </div>\n    </div>\n";
 var htmlDescTools = "\n    <div class=\"descTools\" draggable=\"true\">\n        <span class=\"toolButtonsBlock\">\n            <button type=\"button\" class=\"toolArrowBottom\" action-type=\"move_bottom\"><i class=\"fas fa-angle-double-down\"></i></button>\n            <button type=\"button\" class=\"toolArrowDown\" action-type=\"move_down\"><i class=\"fas fa-chevron-down\"></i></button>\n            <span class=\"toolSeparator\">|</span>\n            <button type=\"button\" class=\"toolEdit\" action-type=\"edit\"><i class=\"fas fa-pen\"></i></button>\n            <button type=\"button\" class=\"toolDelete\" action-type=\"delete\"><i class=\"fas fa-trash-alt\"></i></button>\n            <span class=\"toolSeparator\">|</span>\n            <button type=\"button\" class=\"toolArrowUp\" action-type=\"move_up\"><i class=\"fas fa-chevron-up\"></i></button>\n            <button type=\"button\" class=\"toolArrowTop\" action-type=\"move_top\"><i class=\"fas fa-angle-double-up\"></i></button>\n        </span>\n    </div>\n    <div class=\"descContent\"></div>\n";
 
 var TVYContentEditor =
@@ -79635,6 +79641,11 @@ function (_HTMLElement) {
     _this.jsObjCodeEditorModeSelect = _this.querySelector('#TVYCodeEditor .codeEditorMode');
     _this.jsObjCodeEditorThemeSelect = _this.querySelector('#TVYCodeEditor .codeEditorTheme');
     _this.imageEditor = _this.querySelector('.editor #TVYImageEditor');
+    _this.imageSelector = _this.imageEditor.querySelector('.imageSelector');
+    _this.dropArea = _this.imageEditor.querySelector('.dropArea');
+    _this.previewImage = _this.imageEditor.querySelector('.previewImage');
+    _this.uploadedImagePreivew = _this.imageEditor.querySelector('.previewImage .uploadedImagePreview');
+    _this.btnRemovePreviewImage = _this.imageEditor.querySelector('.btnRemovePreviewImage');
     _this.btnAddContent = _this.querySelector('.actionContentEditor .btnAddContent');
     _this.contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
     _this.allDescData = [];
@@ -79655,12 +79666,71 @@ function (_HTMLElement) {
 
     _this.jsObjCodeEditorThemeSelect.addEventListener('change', _this.changeThemeOfCodeMirrorEditor.bind(_assertThisInitialized(_this)));
 
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(function (eventName) {
+      return _this.imageSelector.addEventListener(eventName, _this.preventDefaults, false);
+    });
+    ['dragenter', 'dragover'].forEach(function (eventName) {
+      return _this.imageSelector.addEventListener(eventName, _this.highlightDropArea.bind(_assertThisInitialized(_this)), false);
+    });
+    ['dragleave', 'drop'].forEach(function (eventName) {
+      return _this.imageSelector.addEventListener(eventName, _this.unhighlightDropArea.bind(_assertThisInitialized(_this)), false);
+    });
+
+    _this.imageSelector.addEventListener('drop', _this.handleDroppedFile.bind(_assertThisInitialized(_this)), false);
+
+    _this.btnRemovePreviewImage.addEventListener('click', _this.handleRemovePreviewImage.bind(_assertThisInitialized(_this)));
+
     _this.quillTextObj.setFocus();
 
     return _this;
   }
 
   _createClass(TVYContentEditor, [{
+    key: "handleRemovePreviewImage",
+    value: function handleRemovePreviewImage() {
+      this.uploadedImagePreivew.setAttribute('src', '');
+      this.dropArea.style.display = 'block';
+      this.previewImage.style.display = 'none';
+    }
+  }, {
+    key: "handleDroppedFile",
+    value: function handleDroppedFile(event) {
+      var dt = event.dataTransfer;
+      var files = dt.files;
+      this.previewFile(files[0]);
+    }
+  }, {
+    key: "previewFile",
+    value: function previewFile(file) {
+      var _this2 = this;
+
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      reader.onloadend = function () {
+        _this2.uploadedImagePreivew.setAttribute('src', reader.result);
+
+        _this2.dropArea.style.display = 'none';
+        _this2.previewImage.style.display = 'block';
+      };
+    }
+  }, {
+    key: "highlightDropArea",
+    value: function highlightDropArea() {
+      this.imageSelector.classList.add('highlight');
+    }
+  }, {
+    key: "unhighlightDropArea",
+    value: function unhighlightDropArea() {
+      this.imageSelector.classList.remove('highlight');
+    }
+  }, {
+    key: "preventDefaults",
+    value: function preventDefaults(event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, {
     key: "changeThemeOfCodeMirrorEditor",
     value: function changeThemeOfCodeMirrorEditor() {
       var selectedTheme = this.querySelector('#TVYCodeEditor .codeEditorThemeSelected');
@@ -79820,35 +79890,35 @@ function (_HTMLElement) {
   }, {
     key: "tabEditorMovement",
     value: function tabEditorMovement() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.allTabs.forEach(function (ele) {
         ele.addEventListener('click', function () {
           // tap changed on click
-          _this2.allTabs.forEach(function (e) {
+          _this3.allTabs.forEach(function (e) {
             e.classList.remove('selected');
           });
 
           ele.classList.add('selected');
           var dataType = ele.getAttribute('data-type'); // editor changed on click
 
-          _this2.allEditors.forEach(function (e) {
+          _this3.allEditors.forEach(function (e) {
             e.setAttribute('hidden', 'hidden');
           });
 
           if (dataType === 'text') {
-            _this2.textEditor.removeAttribute('hidden');
+            _this3.textEditor.removeAttribute('hidden');
 
-            _this2.quillTextObj.setFocus();
+            _this3.quillTextObj.setFocus();
           } else if (dataType === 'code') {
-            _this2.codeEditor.removeAttribute('hidden');
+            _this3.codeEditor.removeAttribute('hidden');
 
-            _this2.codeMirrorObj.setFocus();
+            _this3.codeMirrorObj.setFocus();
           } else if (dataType === 'image') {
-            _this2.imageEditor.removeAttribute('hidden');
+            _this3.imageEditor.removeAttribute('hidden');
           }
 
-          _this2.btnAddContent.setAttribute('data-type', dataType);
+          _this3.btnAddContent.setAttribute('data-type', dataType);
         });
       });
     }
