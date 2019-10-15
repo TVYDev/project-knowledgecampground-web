@@ -56,7 +56,9 @@ const html = `
                     <div class="imageSelector">
                         <div class="dropArea">
                             <div>
-                                <span class="dropOrBrowse"><strong>Drag & Drop image here</strong><br /><br />or<br /><br /><strong>Click to browse image</strong></span>
+                                <label for="iptImageForQuestion" class="dropOrBrowse">
+                                    <strong>Drag & Drop image here</strong><br /><br />or<br /><br /><strong>Click to browse image</strong>
+                                </label>
                                 <input type="file" class="iptBrowseImage" id="iptImageForQuestion" hidden="hidden" accept="image/*"/>                            
                             </div>
                         </div>
@@ -65,7 +67,7 @@ const html = `
                             <div><button type="button" class="btnLink btnRemovePreviewImage">Remove above image</button></div>
                             <div class="ui small form">
                                 <div class="field">
-                                    <textarea rows="2" class="imageCaption" placeholder="Provide caption (optional)"></textarea>
+                                    <input type="text" class="imageCaption" placeholder="Provide caption (optional)" />
                                 </div>
                             </div>
                         </div>
@@ -126,12 +128,15 @@ class TVYContentEditor extends HTMLElement
         this.jsObjCodeEditorModeSelect = this.querySelector('#TVYCodeEditor .codeEditorMode');
         this.jsObjCodeEditorThemeSelect = this.querySelector('#TVYCodeEditor .codeEditorTheme');
 
+        this.fileImageToUpload = null;
         this.imageEditor = this.querySelector('.editor #TVYImageEditor');
         this.imageSelector = this.imageEditor.querySelector('.imageSelector');
+        this.imageBrowser = this.imageEditor.querySelector('.iptBrowseImage');
         this.dropArea = this.imageEditor.querySelector('.dropArea');
         this.previewImage = this.imageEditor.querySelector('.previewImage');
         this.uploadedImagePreivew = this.imageEditor.querySelector('.previewImage .uploadedImagePreview');
         this.btnRemovePreviewImage = this.imageEditor.querySelector('.btnRemovePreviewImage');
+        this.imageCaption = this.imageEditor.querySelector('.imageCaption');
 
         this.btnAddContent = this.querySelector('.actionContentEditor .btnAddContent');
         this.contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
@@ -159,7 +164,9 @@ class TVYContentEditor extends HTMLElement
         ['dragenter', 'dragover'].forEach(eventName => this.imageSelector.addEventListener(eventName, this.highlightDropArea.bind(this), false));
         ['dragleave', 'drop'].forEach(eventName => this.imageSelector.addEventListener(eventName, this.unhighlightDropArea.bind(this), false));
         this.imageSelector.addEventListener('drop', this.handleDroppedFile.bind(this), false);
-        this.btnRemovePreviewImage.addEventListener('click', this.handleRemovePreviewImage.bind(this));
+        this.imageSelector.addEventListener('click', this.handleImageSelectorClick.bind(this), false);
+        this.btnRemovePreviewImage.addEventListener('click', this.handleRemovePreviewImage.bind(this), false);
+        this.imageBrowser.addEventListener('change', this.handleBrowsedFile.bind(this), false);
 
         this.quillTextObj.setFocus();
     }
@@ -180,10 +187,22 @@ class TVYContentEditor extends HTMLElement
     static get ARRAY_INDEX_NEXT()   {return 888;}
     static get ARRAY_INDEX_BOTTOM() {return 999;}
 
-    handleRemovePreviewImage () {
+    handleImageSelectorClick (event) {
+        if(!event.target.className.includes('imageCaption')){
+            this.imageBrowser.click()
+        }
+    }
+
+    handleRemovePreviewImage (event) {
         this.uploadedImagePreivew.setAttribute('src', '');
         this.dropArea.style.display = 'block';
         this.previewImage.style.display = 'none';
+        event.stopPropagation();
+    }
+
+    handleBrowsedFile (event) {
+        let files = event.target.files;
+        this.previewFile(files[0]);
     }
 
     handleDroppedFile (event) {
@@ -193,12 +212,15 @@ class TVYContentEditor extends HTMLElement
     }
 
     previewFile (file) {
-        let reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onloadend = () => {
-            this.uploadedImagePreivew.setAttribute('src', reader.result);
-            this.dropArea.style.display = 'none';
-            this.previewImage.style.display = 'block';
+        if(file != undefined){
+            this.fileImageToUpload = file;
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onloadend = () => {
+                this.uploadedImagePreivew.setAttribute('src', reader.result);
+                this.dropArea.style.display = 'none';
+                this.previewImage.style.display = 'block';
+            }
         }
     }
 
@@ -311,7 +333,25 @@ class TVYContentEditor extends HTMLElement
                 this.codeMirrorObj.clearContent();
                 break;
             case 'image':
-                console.log('image111');
+                if(this.fileImageToUpload == null)
+                {
+                    new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️Please select an image to upload').show();
+                    break;
+                }
+
+                let imageDescContent = this.createDescriptionElementAndAttachEventOfDescTools(randomDescId, TVYContentEditor.IMAGE_TYPE);
+                let imageContentHTML = `
+                    <div class="imageContent">
+                        <img class="imageFile" src="https://www.optomaeurope.com/images/ProductApplicationFeatures/4kuhd/banner.jpg" alt="qew"/>
+                        <p class="imageCaption">${this.imageCaption.value}</p>
+                    </div>
+                `;
+                imageDescContent.innerHTML = imageContentHTML;
+
+                this.storeDataContent(null, TVYContentEditor.IMAGE_TYPE, randomDescId);
+                this.imageCaption.value = '';
+                this.dropArea.style.display = 'block';
+                this.previewImage.style.display = 'none';
                 break;
             default: break;
         }
@@ -330,7 +370,7 @@ class TVYContentEditor extends HTMLElement
         this.allDescData.push({type: type, data: dataContent, desc_id: descId});
         console.log('Data saved----------');
         console.log(this.allDescData);
-        this.saveDescDataToBackend(true);
+        this.saveDescDataToBackend();
         console.log('Data saved----------End');
     }
 
@@ -435,7 +475,7 @@ class TVYContentEditor extends HTMLElement
         }
     }
 
-    createDescriptionElementAndAttachEventOfDescTools (descId, descType, editor)
+    createDescriptionElementAndAttachEventOfDescTools (descId, descType = null, editor = null)
     {
         let contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
 
@@ -527,7 +567,7 @@ class TVYContentEditor extends HTMLElement
             currentDescElement.parentNode.append(cloneOfCurrentDescElement);
         }
         currentDescElement.parentNode.removeChild(currentDescElement);
-        this.saveDescDataToBackend(true);
+        this.saveDescDataToBackend();
         console.log(this.allDescData);
     }
 
@@ -576,19 +616,23 @@ class TVYContentEditor extends HTMLElement
         this.allDescData = arrayDescDataExcludedCurrentDesc;
     }
 
-    saveDescDataToBackend (isDraft) {
+    saveDescDataToBackend () {
         let url = window.location.origin + '/question/save-during-editing';
         let titleQuestion = $('#formAskQuestion .questionTitle').val();
+
+        let formData = new FormData();
+        formData.append('title', titleQuestion != '' ? titleQuestion : 'sample title');
+        formData.append('public_id', this.getAttribute('data-public-id'));
+        formData.append('desc_data', JSON.stringify(this.allDescData));
+        formData.append('image_upload', this.fileImageToUpload);
+        formData.append('image_caption', this.imageCaption.value);
+
         $.ajax({
             url: url,
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-            data: JSON.stringify({
-                title: titleQuestion != '' ? titleQuestion : 'sample title',
-                public_id: this.getAttribute('data-public-id'),
-                desc_data: JSON.stringify(this.allDescData),
-                is_draft: isDraft
-            }),
-            contentType: 'application/json',
+            data: formData,
+            contentType: false,
+            processData: false,
             type: 'POST',
             success: function(result) {
                 console.log('---Success');

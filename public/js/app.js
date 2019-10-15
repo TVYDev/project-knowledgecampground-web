@@ -79605,7 +79605,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-var html = "\n    <div class=\"TVYContentProduction\">\n        <div class=\"TVYContentEditor col-md-12\">\n            <div class=\"tabTypeContent\">\n               <button type=\"button\" class=\"btnSelectTabEditor btnAddPlainText selected\" data-type=\"text\">Plain Text</button>\n               <button type=\"button\" class=\"btnSelectTabEditor btnAddCodingBlock\" data-type=\"code\">Coding Block</button>\n               <button type=\"button\" class=\"btnSelectTabEditor btnAddImage\" data-type=\"image\">Media File</button>\n            </div>\n            <div class=\"editor\">\n                <div id=\"TVYTextEditor\">\n                    <div class=\"actualTextEditor\"></div>\n                </div>\n                <div id=\"TVYCodeEditor\" hidden=\"hidden\">\n                    <div class=\"codeEditorTools ui fluid form\">\n                        <div class=\"two fields\">\n                            <div class=\"field\">\n                                <label for=\"codeEditorMode\">Language</label>\n                                <input type=\"hidden\" data-selected-mode=\"\" class=\"codeEditorModeSelected\">\n                                <select class=\"ui dropdown codeEditorMode\">\n                                    <option value=\"css\" selected>CSS</option>\n                                    <option value=\"go\">Go</option>\n                                    <option value=\"html\">HTML</option>\n                                    <option value=\"javascript\">JavaScript</option>\n                                    <option value=\"jsx\">JSX</option>\n                                    <option value=\"php\">PHP</option>\n                                    <option value=\"swift\">Swift</option>\n                                    <option value=\"python\">Python</option>\n                                    <option value=\"ruby\">Ruby</option>\n                                    <option value=\"sass\">Sass</option>\n                                    <option value=\"shell\">Shell</option>\n                                    <option value=\"sql\">SQL</option>\n                                    <option value=\"xml\">XML</option>\n                                </select>\n                            </div>\n                            <div class=\"field\">\n                                <label for=\"codeEditorTheme\">Theme</label>\n                                <input type=\"hidden\" data-selected-theme=\"\" class=\"codeEditorThemeSelected\">\n                                <select class=\"ui dropdown codeEditorTheme\">\n                                    <option value=\"dracula\" selected>Dracula</option>\n                                    <option value=\"material\">Material</option>\n                                    <option value=\"elegant\">Elegant</option>\n                                    <option value=\"eclipse\">Eclipse</option>\n                                    <option value=\"duotone-dark\">Duotone dark</option>\n                                    <option value=\"duotone-light\">Duotone light</option>\n                                </select>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"actualCodeEditor\"></div>\n                </div>\n                <div id=\"TVYImageEditor\" hidden=\"hidden\">\n                    <div class=\"imageSelector\">\n                        <div class=\"dropArea\">\n                            <div>\n                                <span class=\"dropOrBrowse\"><strong>Drag & Drop image here</strong><br /><br />or<br /><br /><strong>Click to browse image</strong></span>\n                                <input type=\"file\" class=\"iptBrowseImage\" id=\"iptImageForQuestion\" hidden=\"hidden\" accept=\"image/*\"/>                            \n                            </div>\n                        </div>\n                        <div class=\"previewImage\">\n                            <img class=\"uploadedImagePreview\" />\n                            <div><button type=\"button\" class=\"btnLink btnRemovePreviewImage\">Remove above image</button></div>\n                            <div class=\"ui small form\">\n                                <div class=\"field\">\n                                    <textarea rows=\"2\" class=\"imageCaption\" placeholder=\"Provide caption (optional)\"></textarea>\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class=\"actionContentEditor\">\n                <button type=\"button\" class=\"btnAddContent\" data-type=\"text\">\n                    <i class=\"far fa-check-circle\"></i>\n                </button>\n            </div>\n        </div>\n    </div>\n";
+var html = "\n    <div class=\"TVYContentProduction\">\n        <div class=\"TVYContentEditor col-md-12\">\n            <div class=\"tabTypeContent\">\n               <button type=\"button\" class=\"btnSelectTabEditor btnAddPlainText selected\" data-type=\"text\">Plain Text</button>\n               <button type=\"button\" class=\"btnSelectTabEditor btnAddCodingBlock\" data-type=\"code\">Coding Block</button>\n               <button type=\"button\" class=\"btnSelectTabEditor btnAddImage\" data-type=\"image\">Media File</button>\n            </div>\n            <div class=\"editor\">\n                <div id=\"TVYTextEditor\">\n                    <div class=\"actualTextEditor\"></div>\n                </div>\n                <div id=\"TVYCodeEditor\" hidden=\"hidden\">\n                    <div class=\"codeEditorTools ui fluid form\">\n                        <div class=\"two fields\">\n                            <div class=\"field\">\n                                <label for=\"codeEditorMode\">Language</label>\n                                <input type=\"hidden\" data-selected-mode=\"\" class=\"codeEditorModeSelected\">\n                                <select class=\"ui dropdown codeEditorMode\">\n                                    <option value=\"css\" selected>CSS</option>\n                                    <option value=\"go\">Go</option>\n                                    <option value=\"html\">HTML</option>\n                                    <option value=\"javascript\">JavaScript</option>\n                                    <option value=\"jsx\">JSX</option>\n                                    <option value=\"php\">PHP</option>\n                                    <option value=\"swift\">Swift</option>\n                                    <option value=\"python\">Python</option>\n                                    <option value=\"ruby\">Ruby</option>\n                                    <option value=\"sass\">Sass</option>\n                                    <option value=\"shell\">Shell</option>\n                                    <option value=\"sql\">SQL</option>\n                                    <option value=\"xml\">XML</option>\n                                </select>\n                            </div>\n                            <div class=\"field\">\n                                <label for=\"codeEditorTheme\">Theme</label>\n                                <input type=\"hidden\" data-selected-theme=\"\" class=\"codeEditorThemeSelected\">\n                                <select class=\"ui dropdown codeEditorTheme\">\n                                    <option value=\"dracula\" selected>Dracula</option>\n                                    <option value=\"material\">Material</option>\n                                    <option value=\"elegant\">Elegant</option>\n                                    <option value=\"eclipse\">Eclipse</option>\n                                    <option value=\"duotone-dark\">Duotone dark</option>\n                                    <option value=\"duotone-light\">Duotone light</option>\n                                </select>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"actualCodeEditor\"></div>\n                </div>\n                <div id=\"TVYImageEditor\" hidden=\"hidden\">\n                    <div class=\"imageSelector\">\n                        <div class=\"dropArea\">\n                            <div>\n                                <label for=\"iptImageForQuestion\" class=\"dropOrBrowse\">\n                                    <strong>Drag & Drop image here</strong><br /><br />or<br /><br /><strong>Click to browse image</strong>\n                                </label>\n                                <input type=\"file\" class=\"iptBrowseImage\" id=\"iptImageForQuestion\" hidden=\"hidden\" accept=\"image/*\"/>                            \n                            </div>\n                        </div>\n                        <div class=\"previewImage\">\n                            <img class=\"uploadedImagePreview\" />\n                            <div><button type=\"button\" class=\"btnLink btnRemovePreviewImage\">Remove above image</button></div>\n                            <div class=\"ui small form\">\n                                <div class=\"field\">\n                                    <input type=\"text\" class=\"imageCaption\" placeholder=\"Provide caption (optional)\" />\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class=\"actionContentEditor\">\n                <button type=\"button\" class=\"btnAddContent\" data-type=\"text\">\n                    <i class=\"far fa-check-circle\"></i>\n                </button>\n            </div>\n        </div>\n    </div>\n";
 var htmlDescTools = "\n    <div class=\"descTools\" draggable=\"true\">\n        <span class=\"toolButtonsBlock\">\n            <button type=\"button\" class=\"toolArrowBottom\" action-type=\"move_bottom\"><i class=\"fas fa-angle-double-down\"></i></button>\n            <button type=\"button\" class=\"toolArrowDown\" action-type=\"move_down\"><i class=\"fas fa-chevron-down\"></i></button>\n            <span class=\"toolSeparator\">|</span>\n            <button type=\"button\" class=\"toolEdit\" action-type=\"edit\"><i class=\"fas fa-pen\"></i></button>\n            <button type=\"button\" class=\"toolDelete\" action-type=\"delete\"><i class=\"fas fa-trash-alt\"></i></button>\n            <span class=\"toolSeparator\">|</span>\n            <button type=\"button\" class=\"toolArrowUp\" action-type=\"move_up\"><i class=\"fas fa-chevron-up\"></i></button>\n            <button type=\"button\" class=\"toolArrowTop\" action-type=\"move_top\"><i class=\"fas fa-angle-double-up\"></i></button>\n        </span>\n    </div>\n    <div class=\"descContent\"></div>\n";
 
 var TVYContentEditor =
@@ -79640,12 +79640,15 @@ function (_HTMLElement) {
     });
     _this.jsObjCodeEditorModeSelect = _this.querySelector('#TVYCodeEditor .codeEditorMode');
     _this.jsObjCodeEditorThemeSelect = _this.querySelector('#TVYCodeEditor .codeEditorTheme');
+    _this.fileImageToUpload = null;
     _this.imageEditor = _this.querySelector('.editor #TVYImageEditor');
     _this.imageSelector = _this.imageEditor.querySelector('.imageSelector');
+    _this.imageBrowser = _this.imageEditor.querySelector('.iptBrowseImage');
     _this.dropArea = _this.imageEditor.querySelector('.dropArea');
     _this.previewImage = _this.imageEditor.querySelector('.previewImage');
     _this.uploadedImagePreivew = _this.imageEditor.querySelector('.previewImage .uploadedImagePreview');
     _this.btnRemovePreviewImage = _this.imageEditor.querySelector('.btnRemovePreviewImage');
+    _this.imageCaption = _this.imageEditor.querySelector('.imageCaption');
     _this.btnAddContent = _this.querySelector('.actionContentEditor .btnAddContent');
     _this.contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
     _this.allDescData = [];
@@ -79678,7 +79681,11 @@ function (_HTMLElement) {
 
     _this.imageSelector.addEventListener('drop', _this.handleDroppedFile.bind(_assertThisInitialized(_this)), false);
 
-    _this.btnRemovePreviewImage.addEventListener('click', _this.handleRemovePreviewImage.bind(_assertThisInitialized(_this)));
+    _this.imageSelector.addEventListener('click', _this.handleImageSelectorClick.bind(_assertThisInitialized(_this)), false);
+
+    _this.btnRemovePreviewImage.addEventListener('click', _this.handleRemovePreviewImage.bind(_assertThisInitialized(_this)), false);
+
+    _this.imageBrowser.addEventListener('change', _this.handleBrowsedFile.bind(_assertThisInitialized(_this)), false);
 
     _this.quillTextObj.setFocus();
 
@@ -79686,11 +79693,25 @@ function (_HTMLElement) {
   }
 
   _createClass(TVYContentEditor, [{
+    key: "handleImageSelectorClick",
+    value: function handleImageSelectorClick(event) {
+      if (!event.target.className.includes('imageCaption')) {
+        this.imageBrowser.click();
+      }
+    }
+  }, {
     key: "handleRemovePreviewImage",
-    value: function handleRemovePreviewImage() {
+    value: function handleRemovePreviewImage(event) {
       this.uploadedImagePreivew.setAttribute('src', '');
       this.dropArea.style.display = 'block';
       this.previewImage.style.display = 'none';
+      event.stopPropagation();
+    }
+  }, {
+    key: "handleBrowsedFile",
+    value: function handleBrowsedFile(event) {
+      var files = event.target.files;
+      this.previewFile(files[0]);
     }
   }, {
     key: "handleDroppedFile",
@@ -79704,15 +79725,18 @@ function (_HTMLElement) {
     value: function previewFile(file) {
       var _this2 = this;
 
-      var reader = new FileReader();
-      reader.readAsDataURL(file);
+      if (file != undefined) {
+        this.fileImageToUpload = file;
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
 
-      reader.onloadend = function () {
-        _this2.uploadedImagePreivew.setAttribute('src', reader.result);
+        reader.onloadend = function () {
+          _this2.uploadedImagePreivew.setAttribute('src', reader.result);
 
-        _this2.dropArea.style.display = 'none';
-        _this2.previewImage.style.display = 'block';
-      };
+          _this2.dropArea.style.display = 'none';
+          _this2.previewImage.style.display = 'block';
+        };
+      }
     }
   }, {
     key: "highlightDropArea",
@@ -79824,7 +79848,18 @@ function (_HTMLElement) {
           break;
 
         case 'image':
-          console.log('image111');
+          if (this.fileImageToUpload == null) {
+            new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, '⚠️Please select an image to upload').show();
+            break;
+          }
+
+          var imageDescContent = this.createDescriptionElementAndAttachEventOfDescTools(randomDescId, TVYContentEditor.IMAGE_TYPE);
+          var imageContentHTML = "\n                    <div class=\"imageContent\">\n                        <img class=\"imageFile\" src=\"https://www.optomaeurope.com/images/ProductApplicationFeatures/4kuhd/banner.jpg\" alt=\"qew\"/>\n                        <p class=\"imageCaption\">".concat(this.imageCaption.value, "</p>\n                    </div>\n                ");
+          imageDescContent.innerHTML = imageContentHTML;
+          this.storeDataContent(null, TVYContentEditor.IMAGE_TYPE, randomDescId);
+          this.imageCaption.value = '';
+          this.dropArea.style.display = 'block';
+          this.previewImage.style.display = 'none';
           break;
 
         default:
@@ -79843,7 +79878,7 @@ function (_HTMLElement) {
       });
       console.log('Data saved----------');
       console.log(this.allDescData);
-      this.saveDescDataToBackend(true);
+      this.saveDescDataToBackend();
       console.log('Data saved----------End');
     }
   }, {
@@ -79955,7 +79990,9 @@ function (_HTMLElement) {
     }
   }, {
     key: "createDescriptionElementAndAttachEventOfDescTools",
-    value: function createDescriptionElementAndAttachEventOfDescTools(descId, descType, editor) {
+    value: function createDescriptionElementAndAttachEventOfDescTools(descId) {
+      var descType = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+      var editor = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
       var contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
       var descElement = document.createElement('div');
       descElement.className = 'descElement col-md-12';
@@ -80035,7 +80072,7 @@ function (_HTMLElement) {
       }
 
       currentDescElement.parentNode.removeChild(currentDescElement);
-      this.saveDescDataToBackend(true);
+      this.saveDescDataToBackend();
       console.log(this.allDescData);
     }
   }, {
@@ -80087,21 +80124,23 @@ function (_HTMLElement) {
     }
   }, {
     key: "saveDescDataToBackend",
-    value: function saveDescDataToBackend(isDraft) {
+    value: function saveDescDataToBackend() {
       var url = window.location.origin + '/question/save-during-editing';
       var titleQuestion = $('#formAskQuestion .questionTitle').val();
+      var formData = new FormData();
+      formData.append('title', titleQuestion != '' ? titleQuestion : 'sample title');
+      formData.append('public_id', this.getAttribute('data-public-id'));
+      formData.append('desc_data', JSON.stringify(this.allDescData));
+      formData.append('image_upload', this.fileImageToUpload);
+      formData.append('image_caption', this.imageCaption.value);
       $.ajax({
         url: url,
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        data: JSON.stringify({
-          title: titleQuestion != '' ? titleQuestion : 'sample title',
-          public_id: this.getAttribute('data-public-id'),
-          desc_data: JSON.stringify(this.allDescData),
-          is_draft: isDraft
-        }),
-        contentType: 'application/json',
+        data: formData,
+        contentType: false,
+        processData: false,
         type: 'POST',
         success: function success(result) {
           console.log('---Success');

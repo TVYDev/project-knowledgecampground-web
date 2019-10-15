@@ -15250,6 +15250,27 @@ button:focus {
   height: auto;
 }
 
+.askQuestionContent .questionPreview .TVYContentOrder .descContent .imageContent {
+  margin: auto;
+  background-color: #424242;
+  text-align: center;
+  border-radius: 10px;
+  max-width: 650px;
+}
+
+.askQuestionContent .questionPreview .TVYContentOrder .descContent .imageContent .imageFile {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.askQuestionContent .questionPreview .TVYContentOrder .descContent .imageContent .imageCaption {
+  font-size: 0.8em;
+  overflow-x: hidden;
+  width: 100%;
+  margin: 0;
+  color: #D8D8D8;
+}
+
 .pageViewQuestion {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
