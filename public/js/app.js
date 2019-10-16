@@ -79890,6 +79890,7 @@ function (_HTMLElement) {
           ele.type = type;
         }
       });
+      this.saveDescDataToBackend();
     }
   }, {
     key: "getDescObjectByDescId",
@@ -80036,6 +80037,11 @@ function (_HTMLElement) {
     value: function deleteDescriptionElement(currentDescId) {
       var selectedElement = this.getDescElementByDescId(currentDescId);
       selectedElement.parentNode.removeChild(selectedElement);
+      var remainingDescData = this.allDescData.filter(function (desc) {
+        return desc.desc_id !== currentDescId;
+      });
+      this.allDescData = remainingDescData;
+      this.saveDescDataToBackend();
     }
   }, {
     key: "moveDescriptionElement",
@@ -80133,6 +80139,7 @@ function (_HTMLElement) {
       formData.append('desc_data', JSON.stringify(this.allDescData));
       formData.append('image_upload', this.fileImageToUpload);
       formData.append('image_caption', this.imageCaption.value);
+      console.log(this.fileImageToUpload);
       $.ajax({
         url: url,
         headers: {

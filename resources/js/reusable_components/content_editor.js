@@ -381,6 +381,7 @@ class TVYContentEditor extends HTMLElement
                ele.type = type;
            }
         });
+        this.saveDescDataToBackend();
     }
 
     getDescObjectByDescId (descId) {
@@ -521,6 +522,10 @@ class TVYContentEditor extends HTMLElement
     {
         let selectedElement = this.getDescElementByDescId(currentDescId);
         selectedElement.parentNode.removeChild(selectedElement);
+
+        let remainingDescData = this.allDescData.filter(desc => desc.desc_id !== currentDescId);
+        this.allDescData = remainingDescData;
+        this.saveDescDataToBackend();
     }
 
     moveDescriptionElement (currentDescId, actionType)
@@ -626,6 +631,8 @@ class TVYContentEditor extends HTMLElement
         formData.append('desc_data', JSON.stringify(this.allDescData));
         formData.append('image_upload', this.fileImageToUpload);
         formData.append('image_caption', this.imageCaption.value);
+
+        console.log(this.fileImageToUpload);
 
         $.ajax({
             url: url,
