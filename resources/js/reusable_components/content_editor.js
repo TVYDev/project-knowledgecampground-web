@@ -106,6 +106,9 @@ class TVYContentEditor extends HTMLElement
         super();
         this.innerHTML = html;
 
+        this.questionPublicId = this.getAttribute('data-public-id');
+        console.log('constructor', this.questionPublicId);
+
         this.allTabs = this.querySelectorAll('.tabTypeContent button');
         this.allEditors = this.querySelectorAll('.editor > div');
         this.textEditor = this.querySelector('.editor #TVYTextEditor');
@@ -129,6 +132,7 @@ class TVYContentEditor extends HTMLElement
         this.jsObjCodeEditorThemeSelect = this.querySelector('#TVYCodeEditor .codeEditorTheme');
 
         this.fileImageToUpload = null;
+        this.fileImageExtension = null;
         this.imageEditor = this.querySelector('.editor #TVYImageEditor');
         this.imageSelector = this.imageEditor.querySelector('.imageSelector');
         this.imageBrowser = this.imageEditor.querySelector('.iptBrowseImage');
@@ -213,6 +217,7 @@ class TVYContentEditor extends HTMLElement
 
     previewFile (file) {
         if(file != undefined){
+            this.fileImageExtension = file.name.split('.')[1];
             this.fileImageToUpload = file;
             let reader = new FileReader();
             reader.readAsDataURL(file);
@@ -339,16 +344,58 @@ class TVYContentEditor extends HTMLElement
                     break;
                 }
 
-                let imageDescContent = this.createDescriptionElementAndAttachEventOfDescTools(randomDescId, TVYContentEditor.IMAGE_TYPE);
-                let imageContentHTML = `
-                    <div class="imageContent">
-                        <img class="imageFile" src="https://www.optomaeurope.com/images/ProductApplicationFeatures/4kuhd/banner.jpg" alt="qew"/>
-                        <p class="imageCaption">${this.imageCaption.value}</p>
-                    </div>
-                `;
-                imageDescContent.innerHTML = imageContentHTML;
+                let imageEditor = this.querySelector('#TVYImageEditor');
+                let imageDataEditing = imageEditor.getAttribute('data-editing');
+                let imageExtension = imageEditor.getAttribute('data-image-extension');
 
-                this.storeDataContent(null, TVYContentEditor.IMAGE_TYPE, randomDescId);
+                if(imageDataEditing !== null)
+                {
+                    let editingDescEle = this.getDescElementByDescId(imageDataEditing);
+                    let descTools = editingDescEle.querySelector('.descTools');
+                    let descContent = editingDescEle.querySelector('.descContent');
+
+                    descContent.querySelector('.imageContent .imageFile').setAttribute('src', this.uploadedImagePreivew.getAttribute('src'));
+                    descContent.querySelector('.imageContent .imageCaption').innerHTML = this.imageCaption.value;
+                    console.log('from edit', descContent.querySelector('.imageContent .imageCaption'));
+
+                    this.updateDataOfADesc(
+                        {
+                            caption: this.imageCaption.value,
+                            image_file_name: this.questionPublicId + '_' + imageDataEditing + '.' + imageExtension
+                        },
+                        TVYContentEditor.IMAGE_TYPE,
+                        imageDataEditing
+                    );
+
+                    descTools.classList.remove('editing');
+                    descTools.classList.add('edited');
+                    imageEditor.removeAttribute('data-editing');
+                    imageEditor.removeAttribute('data-image-extension');
+                }
+                else
+                {
+                    let imageDescContent = this.createDescriptionElementAndAttachEventOfDescTools(randomDescId, TVYContentEditor.IMAGE_TYPE);
+                    let imageContentHTML = `
+                        <div class="imageContent">
+                            <img 
+                                class="imageFile" 
+                                src=${this.uploadedImagePreivew.getAttribute('src')} 
+                                data-image-extension=${this.fileImageExtension} />
+                            <p class="imageCaption">${this.imageCaption.value}</p>
+                        </div>
+                    `;
+                    imageDescContent.innerHTML = imageContentHTML;
+
+                    this.storeDataContent(
+                        {
+                            caption: this.imageCaption.value,
+                            image_file_name: this.questionPublicId + '_' + randomDescId + '.' + this.fileImageExtension
+                        },
+                        TVYContentEditor.IMAGE_TYPE, randomDescId
+                    );
+                }
+
+                this.uploadedImagePreivew.setAttribute('src', '');
                 this.imageCaption.value = '';
                 this.dropArea.style.display = 'block';
                 this.previewImage.style.display = 'none';
@@ -397,6 +444,10 @@ class TVYContentEditor extends HTMLElement
             }
         });
         return i;
+    }
+
+    getDescElementByDescIdV2 (descId) {
+        return document.querySelector(`.questionPreview .TVYContentOrder .descElement[data-desc-id="${descId}"]`);
     }
 
     getDescElementByDescId (descId) {
@@ -452,8 +503,10 @@ class TVYContentEditor extends HTMLElement
         let targetEditor = null;
         if(targetEditorType === TVYContentEditor.TEXT_TYPE){
             targetEditor = this.querySelector('#TVYTextEditor');
-        }else {
-            targetEditor = this.querySelector('#TVYCodeEditor')
+        }else if(targetEditorType === TVYContentEditor.CODE_TYPE) {
+            targetEditor = this.querySelector('#TVYCodeEditor');
+        }else if(targetEditorType === TVYContentEditor.IMAGE_TYPE) {
+            targetEditor = this.querySelector('#TVYImageEditor');
         }
 
         if(actionTypeOfTargetButton === TVYContentEditor.ACTION_TYPE_MOVE_UP){
@@ -513,6 +566,14 @@ class TVYContentEditor extends HTMLElement
         }else if(descType == TVYContentEditor.CODE_TYPE){
             this.querySelector('.tabTypeContent .btnAddCodingBlock').click();
             this.codeMirrorObj.setContent(this.getDescObjectByDescId(descId).data);
+        }else if (descType == TVYContentEditor.IMAGE_TYPE){
+            this.querySelector('.tabTypeContent .btnAddImage').click();
+            let selectedImageDescToBeEdited = this.getDescElementByDescIdV2(descId).querySelector('.imageContent .imageFile');
+            editor.setAttribute('data-image-extension',selectedImageDescToBeEdited.getAttribute('data-image-extension'));
+            this.uploadedImagePreivew.setAttribute('src', selectedImageDescToBeEdited.getAttribute('src'));
+            this.imageCaption.value = this.getDescObjectByDescId(descId).data.caption;
+            this.dropArea.style.display = 'none';
+            this.previewImage.style.display = 'block';
         }
 
         this.enableOnlyOneTabEditor(descType);
@@ -627,7 +688,7 @@ class TVYContentEditor extends HTMLElement
 
         let formData = new FormData();
         formData.append('title', titleQuestion != '' ? titleQuestion : 'sample title');
-        formData.append('public_id', this.getAttribute('data-public-id'));
+        formData.append('public_id', this.questionPublicId);
         formData.append('desc_data', JSON.stringify(this.allDescData));
         formData.append('image_upload', this.fileImageToUpload);
         formData.append('image_caption', this.imageCaption.value);

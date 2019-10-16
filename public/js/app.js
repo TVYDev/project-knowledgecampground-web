@@ -79620,6 +79620,8 @@ function (_HTMLElement) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(TVYContentEditor).call(this));
     _this.innerHTML = html;
+    _this.questionPublicId = _this.getAttribute('data-public-id');
+    console.log('constructor', _this.questionPublicId);
     _this.allTabs = _this.querySelectorAll('.tabTypeContent button');
     _this.allEditors = _this.querySelectorAll('.editor > div');
     _this.textEditor = _this.querySelector('.editor #TVYTextEditor');
@@ -79641,6 +79643,7 @@ function (_HTMLElement) {
     _this.jsObjCodeEditorModeSelect = _this.querySelector('#TVYCodeEditor .codeEditorMode');
     _this.jsObjCodeEditorThemeSelect = _this.querySelector('#TVYCodeEditor .codeEditorTheme');
     _this.fileImageToUpload = null;
+    _this.fileImageExtension = null;
     _this.imageEditor = _this.querySelector('.editor #TVYImageEditor');
     _this.imageSelector = _this.imageEditor.querySelector('.imageSelector');
     _this.imageBrowser = _this.imageEditor.querySelector('.iptBrowseImage');
@@ -79726,6 +79729,7 @@ function (_HTMLElement) {
       var _this2 = this;
 
       if (file != undefined) {
+        this.fileImageExtension = file.name.split('.')[1];
         this.fileImageToUpload = file;
         var reader = new FileReader();
         reader.readAsDataURL(file);
@@ -79853,10 +79857,43 @@ function (_HTMLElement) {
             break;
           }
 
-          var imageDescContent = this.createDescriptionElementAndAttachEventOfDescTools(randomDescId, TVYContentEditor.IMAGE_TYPE);
-          var imageContentHTML = "\n                    <div class=\"imageContent\">\n                        <img class=\"imageFile\" src=\"https://www.optomaeurope.com/images/ProductApplicationFeatures/4kuhd/banner.jpg\" alt=\"qew\"/>\n                        <p class=\"imageCaption\">".concat(this.imageCaption.value, "</p>\n                    </div>\n                ");
-          imageDescContent.innerHTML = imageContentHTML;
-          this.storeDataContent(null, TVYContentEditor.IMAGE_TYPE, randomDescId);
+          var imageEditor = this.querySelector('#TVYImageEditor');
+          var imageDataEditing = imageEditor.getAttribute('data-editing');
+          var imageExtension = imageEditor.getAttribute('data-image-extension');
+
+          if (imageDataEditing !== null) {
+            var _editingDescEle2 = this.getDescElementByDescId(imageDataEditing);
+
+            var _descTools2 = _editingDescEle2.querySelector('.descTools');
+
+            var _descContent = _editingDescEle2.querySelector('.descContent');
+
+            _descContent.querySelector('.imageContent .imageFile').setAttribute('src', this.uploadedImagePreivew.getAttribute('src'));
+
+            _descContent.querySelector('.imageContent .imageCaption').innerHTML = this.imageCaption.value;
+            console.log('from edit', _descContent.querySelector('.imageContent .imageCaption'));
+            this.updateDataOfADesc({
+              caption: this.imageCaption.value,
+              image_file_name: this.questionPublicId + '_' + imageDataEditing + '.' + imageExtension
+            }, TVYContentEditor.IMAGE_TYPE, imageDataEditing);
+
+            _descTools2.classList.remove('editing');
+
+            _descTools2.classList.add('edited');
+
+            imageEditor.removeAttribute('data-editing');
+            imageEditor.removeAttribute('data-image-extension');
+          } else {
+            var imageDescContent = this.createDescriptionElementAndAttachEventOfDescTools(randomDescId, TVYContentEditor.IMAGE_TYPE);
+            var imageContentHTML = "\n                        <div class=\"imageContent\">\n                            <img \n                                class=\"imageFile\" \n                                src=".concat(this.uploadedImagePreivew.getAttribute('src'), " \n                                data-image-extension=").concat(this.fileImageExtension, " />\n                            <p class=\"imageCaption\">").concat(this.imageCaption.value, "</p>\n                        </div>\n                    ");
+            imageDescContent.innerHTML = imageContentHTML;
+            this.storeDataContent({
+              caption: this.imageCaption.value,
+              image_file_name: this.questionPublicId + '_' + randomDescId + '.' + this.fileImageExtension
+            }, TVYContentEditor.IMAGE_TYPE, randomDescId);
+          }
+
+          this.uploadedImagePreivew.setAttribute('src', '');
           this.imageCaption.value = '';
           this.dropArea.style.display = 'block';
           this.previewImage.style.display = 'none';
@@ -79910,6 +79947,11 @@ function (_HTMLElement) {
         }
       });
       return i;
+    }
+  }, {
+    key: "getDescElementByDescIdV2",
+    value: function getDescElementByDescIdV2(descId) {
+      return document.querySelector(".questionPreview .TVYContentOrder .descElement[data-desc-id=\"".concat(descId, "\"]"));
     }
   }, {
     key: "getDescElementByDescId",
@@ -79971,8 +80013,10 @@ function (_HTMLElement) {
 
       if (targetEditorType === TVYContentEditor.TEXT_TYPE) {
         targetEditor = this.querySelector('#TVYTextEditor');
-      } else {
+      } else if (targetEditorType === TVYContentEditor.CODE_TYPE) {
         targetEditor = this.querySelector('#TVYCodeEditor');
+      } else if (targetEditorType === TVYContentEditor.IMAGE_TYPE) {
+        targetEditor = this.querySelector('#TVYImageEditor');
       }
 
       if (actionTypeOfTargetButton === TVYContentEditor.ACTION_TYPE_MOVE_UP) {
@@ -80028,6 +80072,14 @@ function (_HTMLElement) {
       } else if (descType == TVYContentEditor.CODE_TYPE) {
         this.querySelector('.tabTypeContent .btnAddCodingBlock').click();
         this.codeMirrorObj.setContent(this.getDescObjectByDescId(descId).data);
+      } else if (descType == TVYContentEditor.IMAGE_TYPE) {
+        this.querySelector('.tabTypeContent .btnAddImage').click();
+        var selectedImageDescToBeEdited = this.getDescElementByDescIdV2(descId).querySelector('.imageContent .imageFile');
+        editor.setAttribute('data-image-extension', selectedImageDescToBeEdited.getAttribute('data-image-extension'));
+        this.uploadedImagePreivew.setAttribute('src', selectedImageDescToBeEdited.getAttribute('src'));
+        this.imageCaption.value = this.getDescObjectByDescId(descId).data.caption;
+        this.dropArea.style.display = 'none';
+        this.previewImage.style.display = 'block';
       }
 
       this.enableOnlyOneTabEditor(descType);
@@ -80135,7 +80187,7 @@ function (_HTMLElement) {
       var titleQuestion = $('#formAskQuestion .questionTitle').val();
       var formData = new FormData();
       formData.append('title', titleQuestion != '' ? titleQuestion : 'sample title');
-      formData.append('public_id', this.getAttribute('data-public-id'));
+      formData.append('public_id', this.questionPublicId);
       formData.append('desc_data', JSON.stringify(this.allDescData));
       formData.append('image_upload', this.fileImageToUpload);
       formData.append('image_caption', this.imageCaption.value);
