@@ -15252,18 +15252,22 @@ button:focus {
 
 .askQuestionContent .questionPreview .TVYContentOrder .descContent .imageContent {
   margin: auto;
-  background-color: #424242;
+  border: 1px solid #424242;
+  border-bottom: none;
   text-align: center;
   border-radius: 10px;
   max-width: 650px;
 }
 
 .askQuestionContent .questionPreview .TVYContentOrder .descContent .imageContent .imageFile {
-  width: 100%;
+  width: 50%;
   border-radius: 10px;
+  margin: 5px 5px 0 5px;
 }
 
 .askQuestionContent .questionPreview .TVYContentOrder .descContent .imageContent .imageCaption {
+  border-radius: 0 0 10px 10px;
+  background-color: #424242;
   font-size: 0.8em;
   overflow-x: hidden;
   width: 100%;

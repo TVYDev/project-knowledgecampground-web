@@ -63,7 +63,7 @@ const html = `
                             </div>
                         </div>
                         <div class="previewImage">
-                            <img class="uploadedImagePreview" />
+                            <img class="uploadedImagePreview" src=""/>
                             <div><button type="button" class="btnLink btnRemovePreviewImage">Remove above image</button></div>
                             <div class="ui small form">
                                 <div class="field">
@@ -338,7 +338,7 @@ class TVYContentEditor extends HTMLElement
                 this.codeMirrorObj.clearContent();
                 break;
             case 'image':
-                if(this.fileImageToUpload == null)
+                if(this.uploadedImagePreivew.getAttribute('src') == '')
                 {
                     new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️Please select an image to upload').show();
                     break;
@@ -356,7 +356,6 @@ class TVYContentEditor extends HTMLElement
 
                     descContent.querySelector('.imageContent .imageFile').setAttribute('src', this.uploadedImagePreivew.getAttribute('src'));
                     descContent.querySelector('.imageContent .imageCaption').innerHTML = this.imageCaption.value;
-                    console.log('from edit', descContent.querySelector('.imageContent .imageCaption'));
 
                     this.updateDataOfADesc(
                         {
@@ -399,6 +398,7 @@ class TVYContentEditor extends HTMLElement
                 this.imageCaption.value = '';
                 this.dropArea.style.display = 'block';
                 this.previewImage.style.display = 'none';
+                this.previewImage.querySelector('.btnRemovePreviewImage').style.visibility = 'visible';
                 break;
             default: break;
         }
@@ -574,6 +574,7 @@ class TVYContentEditor extends HTMLElement
             this.imageCaption.value = this.getDescObjectByDescId(descId).data.caption;
             this.dropArea.style.display = 'none';
             this.previewImage.style.display = 'block';
+            this.previewImage.querySelector('.btnRemovePreviewImage').style.visibility = 'hidden';
         }
 
         this.enableOnlyOneTabEditor(descType);
@@ -693,7 +694,7 @@ class TVYContentEditor extends HTMLElement
         formData.append('image_upload', this.fileImageToUpload);
         formData.append('image_caption', this.imageCaption.value);
 
-        console.log(this.fileImageToUpload);
+        console.log('From save to backend',this.fileImageToUpload);
 
         $.ajax({
             url: url,

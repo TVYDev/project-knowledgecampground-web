@@ -74,15 +74,19 @@
                 }
                 .imageContent {
                     margin: auto;
-                    background-color: $main-gray;
+                    border: 1px solid $main-gray;
+                    border-bottom: none;
                     text-align: center;
                     border-radius: 10px;
                     max-width: 650px;
                     .imageFile {
-                        width: 100%;
+                        width: 50%;
                         border-radius: 10px;
+                        margin: 5px 5px 0 5px;
                     }
                     .imageCaption {
+                        border-radius: 0 0 10px 10px;
+                        background-color: $main-gray;
                         font-size: 0.8em;
                         overflow-x: hidden;
                         width: 100%;
