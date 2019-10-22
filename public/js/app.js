@@ -79643,6 +79643,7 @@ function (_HTMLElement) {
     _this.jsObjCodeEditorModeSelect = _this.querySelector('#TVYCodeEditor .codeEditorMode');
     _this.jsObjCodeEditorThemeSelect = _this.querySelector('#TVYCodeEditor .codeEditorTheme');
     _this.fileImageToUpload = null;
+    _this.nameFileImageToUpload = null;
     _this.fileImageExtension = null;
     _this.imageEditor = _this.querySelector('.editor #TVYImageEditor');
     _this.imageSelector = _this.imageEditor.querySelector('.imageSelector');
@@ -79871,9 +79872,11 @@ function (_HTMLElement) {
             _descContent.querySelector('.imageContent .imageFile').setAttribute('src', this.uploadedImagePreivew.getAttribute('src'));
 
             _descContent.querySelector('.imageContent .imageCaption').innerHTML = this.imageCaption.value;
+            var imageFileName = this.questionPublicId + '_' + imageDataEditing + '.' + imageExtension;
+            this.nameFileImageToUpload = imageFileName;
             this.updateDataOfADesc({
               caption: this.imageCaption.value,
-              image_file_name: this.questionPublicId + '_' + imageDataEditing + '.' + imageExtension
+              image_file_name: imageFileName
             }, TVYContentEditor.IMAGE_TYPE, imageDataEditing);
 
             _descTools2.classList.remove('editing');
@@ -79886,9 +79889,13 @@ function (_HTMLElement) {
             var imageDescContent = this.createDescriptionElementAndAttachEventOfDescTools(randomDescId, TVYContentEditor.IMAGE_TYPE);
             var imageContentHTML = "\n                        <div class=\"imageContent\">\n                            <img \n                                class=\"imageFile\" \n                                src=".concat(this.uploadedImagePreivew.getAttribute('src'), " \n                                data-image-extension=").concat(this.fileImageExtension, " />\n                            <p class=\"imageCaption\">").concat(this.imageCaption.value, "</p>\n                        </div>\n                    ");
             imageDescContent.innerHTML = imageContentHTML;
+
+            var _imageFileName = this.questionPublicId + '_' + randomDescId + '.' + this.fileImageExtension;
+
+            this.nameFileImageToUpload = _imageFileName;
             this.storeDataContent({
               caption: this.imageCaption.value,
-              image_file_name: this.questionPublicId + '_' + randomDescId + '.' + this.fileImageExtension
+              image_file_name: _imageFileName
             }, TVYContentEditor.IMAGE_TYPE, randomDescId);
           }
 
@@ -80190,9 +80197,12 @@ function (_HTMLElement) {
       formData.append('title', titleQuestion != '' ? titleQuestion : 'sample title');
       formData.append('public_id', this.questionPublicId);
       formData.append('desc_data', JSON.stringify(this.allDescData));
-      formData.append('image_upload', this.fileImageToUpload);
-      formData.append('image_caption', this.imageCaption.value);
+      formData.append('image_file_upload', this.fileImageToUpload);
+      formData.append('image_file_name', this.nameFileImageToUpload);
       console.log('From save to backend', this.fileImageToUpload);
+      console.log('From save to backend', this.nameFileImageToUpload);
+      this.fileImageToUpload = null;
+      this.nameFileImageToUpload = null;
       $.ajax({
         url: url,
         headers: {

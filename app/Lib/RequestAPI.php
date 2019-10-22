@@ -29,15 +29,14 @@ trait RequestAPI
      * @return mixed
      * @throws \GuzzleHttp\Exception\GuzzleException
      **********************************************************************************************/
-    public function call (string $url, $method, $data = null, $headers = null)
+    public function call (string $url, $method, $data = null, $headers = null, $requestOption = null)
     {
         try{
             $http = new Client();
 
-            // TODO: handle the headers again
             $response = $http->request($method, $url, [
-                'headers'   => isset($headers) ? $headers : [],
-                'json'      => isset($data) ? $data : []
+                'headers'       => isset($headers) ? $headers : [],
+                isset($requestOption) ? $requestOption : 'json'  => isset($data) ? $data : []
             ]);
 
             return json_decode($response->getBody()->getContents());
@@ -80,44 +79,51 @@ trait RequestAPI
         }
     }
 
-    public function delete (string $url, $keyCondition = null, $data = null, $headers = null)
+    public function delete (string $url, $keyCondition = null, $data = null, $headers = null, $requestOption = null)
     {
         if($keyCondition)
         {
             $url .= "/$keyCondition";
         }
-        return self::call($url, HttpConstants::METHOD_DELETE, $data, $headers);
+        return self::call($url, HttpConstants::METHOD_DELETE, $data, $headers, $requestOption);
     }
 
-    public function get (string $url, $keyCondition = null, $data = null, $headers = null)
+    public function get (string $url, $keyCondition = null, $data = null, $headers = null, $requestOption = null)
     {
         if($keyCondition)
         {
             $url .= "/$keyCondition";
         }
-        return self::call($url, HttpConstants::METHOD_GET, $data, $headers);
+        return self::call($url, HttpConstants::METHOD_GET, $data, $headers, $requestOption);
     }
 
-    public function post (string $url, $data = null, $headers = null)
+    public function post (string $url, $data = null, $headers = null, $requestOption = null)
     {
-        return self::call($url, HttpConstants::METHOD_POST, $data, $headers);
+        return self::call($url, HttpConstants::METHOD_POST, $data, $headers, $requestOption);
     }
 
-    public function put (string $url, $keyCondition = null, $data = null, $headers = null)
+    public function put (string $url, $keyCondition = null, $data = null, $headers = null, $requestOption = null)
     {
         if($keyCondition)
         {
             $url .= "/$keyCondition";
         }
-        return self::call($url, HttpConstants::METHOD_PUT, $data, $headers);
+        return self::call($url, HttpConstants::METHOD_PUT, $data, $headers, $requestOption);
     }
 
-    public function getAuthorizationHeader()
+    public function getAuthorizationHeader($isIncludedAuthorizationHeader = true, $otherHeadersBesidesContentTypeApplicationJson = null)
     {
-        return [
-            'Authorization' => self::getAccessToken(),
-            'Content-Type'  => 'application/json'
-        ];
+        $tempHeaders = [];
+        if($isIncludedAuthorizationHeader){
+            $tempHeaders['Authorization'] = self::getAccessToken();
+        }
+        if(isset($otherHeadersBesidesContentTypeApplicationJson)){
+//            $tempHeaders = array_merge($tempHeaders, $otherHeadersBesidesContentTypeApplicationJson);
+        }else{
+            $tempHeaders['Content-Type'] = 'application/json';
+        }
+
+        return $tempHeaders;
     }
     /**********************************************************************************************
      * END (Make HTTP Request)

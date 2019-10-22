@@ -132,6 +132,7 @@ class TVYContentEditor extends HTMLElement
         this.jsObjCodeEditorThemeSelect = this.querySelector('#TVYCodeEditor .codeEditorTheme');
 
         this.fileImageToUpload = null;
+        this.nameFileImageToUpload = null;
         this.fileImageExtension = null;
         this.imageEditor = this.querySelector('.editor #TVYImageEditor');
         this.imageSelector = this.imageEditor.querySelector('.imageSelector');
@@ -357,10 +358,12 @@ class TVYContentEditor extends HTMLElement
                     descContent.querySelector('.imageContent .imageFile').setAttribute('src', this.uploadedImagePreivew.getAttribute('src'));
                     descContent.querySelector('.imageContent .imageCaption').innerHTML = this.imageCaption.value;
 
+                    let imageFileName = this.questionPublicId + '_' + imageDataEditing + '.' + imageExtension;
+                    this.nameFileImageToUpload = imageFileName;
                     this.updateDataOfADesc(
                         {
                             caption: this.imageCaption.value,
-                            image_file_name: this.questionPublicId + '_' + imageDataEditing + '.' + imageExtension
+                            image_file_name: imageFileName
                         },
                         TVYContentEditor.IMAGE_TYPE,
                         imageDataEditing
@@ -385,10 +388,12 @@ class TVYContentEditor extends HTMLElement
                     `;
                     imageDescContent.innerHTML = imageContentHTML;
 
+                    let imageFileName = this.questionPublicId + '_' + randomDescId + '.' + this.fileImageExtension;
+                    this.nameFileImageToUpload = imageFileName;
                     this.storeDataContent(
                         {
                             caption: this.imageCaption.value,
-                            image_file_name: this.questionPublicId + '_' + randomDescId + '.' + this.fileImageExtension
+                            image_file_name: imageFileName
                         },
                         TVYContentEditor.IMAGE_TYPE, randomDescId
                     );
@@ -691,10 +696,12 @@ class TVYContentEditor extends HTMLElement
         formData.append('title', titleQuestion != '' ? titleQuestion : 'sample title');
         formData.append('public_id', this.questionPublicId);
         formData.append('desc_data', JSON.stringify(this.allDescData));
-        formData.append('image_upload', this.fileImageToUpload);
-        formData.append('image_caption', this.imageCaption.value);
-
+        formData.append('image_file_upload', this.fileImageToUpload);
+        formData.append('image_file_name', this.nameFileImageToUpload);
         console.log('From save to backend',this.fileImageToUpload);
+        console.log('From save to backend',this.nameFileImageToUpload);
+        this.fileImageToUpload = null;
+        this.nameFileImageToUpload = null;
 
         $.ajax({
             url: url,
