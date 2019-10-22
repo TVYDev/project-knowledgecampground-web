@@ -377,13 +377,17 @@ class TVYContentEditor extends HTMLElement
                 else
                 {
                     let imageDescContent = this.createDescriptionElementAndAttachEventOfDescTools(randomDescId, TVYContentEditor.IMAGE_TYPE);
+                    let imageCaptionToView = '';
+                    if(this.imageCaption.value !== ''){
+                        imageCaptionToView = `<strong>Caption:</strong>&nbsp;${this.imageCaption.value}`;
+                    }
                     let imageContentHTML = `
                         <div class="imageContent">
                             <img 
                                 class="imageFile" 
                                 src=${this.uploadedImagePreivew.getAttribute('src')} 
                                 data-image-extension=${this.fileImageExtension} />
-                            <p class="imageCaption">${this.imageCaption.value}</p>
+                            <p class="imageCaption">${imageCaptionToView}</p>
                         </div>
                     `;
                     imageDescContent.innerHTML = imageContentHTML;
@@ -698,8 +702,6 @@ class TVYContentEditor extends HTMLElement
         formData.append('desc_data', JSON.stringify(this.allDescData));
         formData.append('image_file_upload', this.fileImageToUpload);
         formData.append('image_file_name', this.nameFileImageToUpload);
-        console.log('From save to backend',this.fileImageToUpload);
-        console.log('From save to backend',this.nameFileImageToUpload);
         this.fileImageToUpload = null;
         this.nameFileImageToUpload = null;
 

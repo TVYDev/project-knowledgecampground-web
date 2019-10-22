@@ -54,12 +54,17 @@ class QuestionController extends Controller
     }
     public function postSaveDuringEditing (Request $request)
     {
-        $fileInput = $request->image_file_upload;
-        $filePath = $fileInput->getRealPath();
-        $fileName = $fileInput->getClientOriginalName();
-        $fileContent = File::get($filePath);
         try
         {
+            $fileContent = null;
+            $fileName = null;
+            if($request->hasFile('image_file_upload')){
+                $fileInput = $request->image_file_upload;
+                $filePath = $fileInput->getRealPath();
+                $fileName = $fileInput->getClientOriginalName();
+                $fileContent = File::get($filePath);
+            }
+
             $requestedData = [
                 [
                     'name'  => 'public_id',
@@ -90,11 +95,7 @@ class QuestionController extends Controller
 
             $response = $this->post($this->getApiRequestUrl('question.save_during_editing'),
                 $requestedData,
-                $this->getAuthorizationHeader(true,
-                    [
-                    'Content-Type' => 'multipart/form-data'
-                    ]
-                ), 'multipart');
+                $this->getAuthorizationHeader(true, false), 'multipart');
         }
         catch(\Exception $exception)
         {

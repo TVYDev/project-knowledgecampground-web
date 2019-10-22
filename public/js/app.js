@@ -79887,7 +79887,13 @@ function (_HTMLElement) {
             imageEditor.removeAttribute('data-image-extension');
           } else {
             var imageDescContent = this.createDescriptionElementAndAttachEventOfDescTools(randomDescId, TVYContentEditor.IMAGE_TYPE);
-            var imageContentHTML = "\n                        <div class=\"imageContent\">\n                            <img \n                                class=\"imageFile\" \n                                src=".concat(this.uploadedImagePreivew.getAttribute('src'), " \n                                data-image-extension=").concat(this.fileImageExtension, " />\n                            <p class=\"imageCaption\">").concat(this.imageCaption.value, "</p>\n                        </div>\n                    ");
+            var imageCaptionToView = '';
+
+            if (this.imageCaption.value !== '') {
+              imageCaptionToView = "<strong>Caption:</strong>&nbsp;".concat(this.imageCaption.value);
+            }
+
+            var imageContentHTML = "\n                        <div class=\"imageContent\">\n                            <img \n                                class=\"imageFile\" \n                                src=".concat(this.uploadedImagePreivew.getAttribute('src'), " \n                                data-image-extension=").concat(this.fileImageExtension, " />\n                            <p class=\"imageCaption\">").concat(imageCaptionToView, "</p>\n                        </div>\n                    ");
             imageDescContent.innerHTML = imageContentHTML;
 
             var _imageFileName = this.questionPublicId + '_' + randomDescId + '.' + this.fileImageExtension;
@@ -80199,8 +80205,6 @@ function (_HTMLElement) {
       formData.append('desc_data', JSON.stringify(this.allDescData));
       formData.append('image_file_upload', this.fileImageToUpload);
       formData.append('image_file_name', this.nameFileImageToUpload);
-      console.log('From save to backend', this.fileImageToUpload);
-      console.log('From save to backend', this.nameFileImageToUpload);
       this.fileImageToUpload = null;
       this.nameFileImageToUpload = null;
       $.ajax({

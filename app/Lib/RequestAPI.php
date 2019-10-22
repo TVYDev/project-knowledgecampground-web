@@ -111,16 +111,19 @@ trait RequestAPI
         return self::call($url, HttpConstants::METHOD_PUT, $data, $headers, $requestOption);
     }
 
-    public function getAuthorizationHeader($isIncludedAuthorizationHeader = true, $otherHeadersBesidesContentTypeApplicationJson = null)
+    public function getAuthorizationHeader($isIncludedAuthorizationHeader = true,
+                                           $isIncludedContentTypeApplicationJson = true,
+                                           $otherHeadersBesidesContentTypeApplicationJson = [])
     {
         $tempHeaders = [];
         if($isIncludedAuthorizationHeader){
             $tempHeaders['Authorization'] = self::getAccessToken();
         }
-        if(isset($otherHeadersBesidesContentTypeApplicationJson)){
-//            $tempHeaders = array_merge($tempHeaders, $otherHeadersBesidesContentTypeApplicationJson);
-        }else{
+
+        if($isIncludedContentTypeApplicationJson){
             $tempHeaders['Content-Type'] = 'application/json';
+        }else {
+            $tempHeaders = array_merge($tempHeaders, $otherHeadersBesidesContentTypeApplicationJson);
         }
 
         return $tempHeaders;

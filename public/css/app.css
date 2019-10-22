@@ -15242,7 +15242,7 @@ button:focus {
 }
 
 .askQuestionContent .questionPreview .TVYContentOrder .descContent {
-  padding: 2px;
+  padding: 5px;
 }
 
 .askQuestionContent .questionPreview .TVYContentOrder .descContent .CodeMirror {
@@ -15251,28 +15251,22 @@ button:focus {
 }
 
 .askQuestionContent .questionPreview .TVYContentOrder .descContent .imageContent {
-  margin: auto;
-  border: 1px solid #424242;
-  border-bottom: none;
-  text-align: center;
-  border-radius: 10px;
   max-width: 650px;
 }
 
 .askQuestionContent .questionPreview .TVYContentOrder .descContent .imageContent .imageFile {
   width: 50%;
-  border-radius: 10px;
-  margin: 5px 5px 0 5px;
+  border-radius: 5px;
+  display: block;
 }
 
 .askQuestionContent .questionPreview .TVYContentOrder .descContent .imageContent .imageCaption {
-  border-radius: 0 0 10px 10px;
-  background-color: #424242;
+  font-style: italic;
   font-size: 0.8em;
   overflow-x: hidden;
   width: 100%;
   margin: 0;
-  color: #D8D8D8;
+  color: #424242;
 }
 
 .pageViewQuestion {

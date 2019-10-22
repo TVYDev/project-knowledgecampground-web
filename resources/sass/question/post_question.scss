@@ -67,31 +67,25 @@
             padding: 0;
             z-index: 333;
             .descContent {
-                padding: 2px;
+                padding: 5px;
                 .CodeMirror {
                     border-radius: 3px;
                     height: auto;
                 }
                 .imageContent {
-                    margin: auto;
-                    border: 1px solid $main-gray;
-                    border-bottom: none;
-                    text-align: center;
-                    border-radius: 10px;
                     max-width: 650px;
                     .imageFile {
                         width: 50%;
-                        border-radius: 10px;
-                        margin: 5px 5px 0 5px;
+                        border-radius: 5px;
+                        display: block;
                     }
                     .imageCaption {
-                        border-radius: 0 0 10px 10px;
-                        background-color: $main-gray;
+                        font-style: italic;
                         font-size: 0.8em;
                         overflow-x: hidden;
                         width: 100%;
                         margin: 0;
-                        color: $thirdly-gray;
+                        color: $main-gray;
                     }
                 }
             }
