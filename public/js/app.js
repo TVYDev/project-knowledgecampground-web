@@ -79375,6 +79375,12 @@ function navigateSideMenuForMobileScreen() {
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
+  // window.addEventListener("dragover",function(e){
+  //     e.preventDefault();
+  // });
+  // window.addEventListener("drop",function(e){
+  //     e.preventDefault();
+  // });
   $('.subjectOfQuestion').dropdown({
     forceSelection: false,
     onChange: function onChange(value) {
@@ -79599,7 +79605,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-var html = "\n    <div class=\"TVYContentProduction\">\n        <div class=\"TVYContentEditor col-md-12\">\n            <div class=\"tabTypeContent\">\n               <button type=\"button\" class=\"btnSelectTabEditor btnAddPlainText selected\" data-type=\"text\">Plain Text</button>\n               <button type=\"button\" class=\"btnSelectTabEditor btnAddCodingBlock\" data-type=\"code\">Coding Block</button>\n               <button type=\"button\" class=\"btnSelectTabEditor btnAddImage\" data-type=\"image\">Media File</button>\n            </div>\n            <div class=\"editor\">\n                <div id=\"TVYTextEditor\">\n                    <div class=\"actualTextEditor\"></div>\n                </div>\n                <div id=\"TVYCodeEditor\" hidden=\"hidden\">\n                    <div class=\"codeEditorTools ui fluid form\">\n                        <div class=\"two fields\">\n                            <div class=\"field\">\n                                <label for=\"codeEditorMode\">Language</label>\n                                <input type=\"hidden\" data-selected-mode=\"\" class=\"codeEditorModeSelected\">\n                                <select class=\"ui dropdown codeEditorMode\">\n                                    <option value=\"css\" selected>CSS</option>\n                                    <option value=\"go\">Go</option>\n                                    <option value=\"html\">HTML</option>\n                                    <option value=\"javascript\">JavaScript</option>\n                                    <option value=\"jsx\">JSX</option>\n                                    <option value=\"php\">PHP</option>\n                                    <option value=\"swift\">Swift</option>\n                                    <option value=\"python\">Python</option>\n                                    <option value=\"ruby\">Ruby</option>\n                                    <option value=\"sass\">Sass</option>\n                                    <option value=\"shell\">Shell</option>\n                                    <option value=\"sql\">SQL</option>\n                                    <option value=\"xml\">XML</option>\n                                </select>\n                            </div>\n                            <div class=\"field\">\n                                <label for=\"codeEditorTheme\">Theme</label>\n                                <input type=\"hidden\" data-selected-theme=\"\" class=\"codeEditorThemeSelected\">\n                                <select class=\"ui dropdown codeEditorTheme\">\n                                    <option value=\"dracula\" selected>Dracula</option>\n                                    <option value=\"material\">Material</option>\n                                    <option value=\"elegant\">Elegant</option>\n                                    <option value=\"eclipse\">Eclipse</option>\n                                    <option value=\"duotone-dark\">Duotone dark</option>\n                                    <option value=\"duotone-light\">Duotone light</option>\n                                </select>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"actualCodeEditor\"></div>\n                </div>\n                <div id=\"TVYImageEditor\" hidden=\"hidden\">\n                    I am image selector\n                </div>\n            </div>\n            <div class=\"actionContentEditor\">\n                <button type=\"button\" class=\"btnAddContent\" data-type=\"text\">\n                    <i class=\"far fa-check-circle\"></i>\n                </button>\n            </div>\n        </div>\n    </div>\n";
+var html = "\n    <div class=\"TVYContentProduction\">\n        <div class=\"TVYContentEditor col-md-12\">\n            <div class=\"tabTypeContent\">\n               <button type=\"button\" class=\"btnSelectTabEditor btnAddPlainText selected\" data-type=\"text\">Plain Text</button>\n               <button type=\"button\" class=\"btnSelectTabEditor btnAddCodingBlock\" data-type=\"code\">Coding Block</button>\n               <button type=\"button\" class=\"btnSelectTabEditor btnAddImage\" data-type=\"image\">Media File</button>\n            </div>\n            <div class=\"editor\">\n                <div id=\"TVYTextEditor\">\n                    <div class=\"actualTextEditor\"></div>\n                </div>\n                <div id=\"TVYCodeEditor\" hidden=\"hidden\">\n                    <div class=\"codeEditorTools ui fluid form\">\n                        <div class=\"two fields\">\n                            <div class=\"field\">\n                                <label for=\"codeEditorMode\">Language</label>\n                                <input type=\"hidden\" data-selected-mode=\"\" class=\"codeEditorModeSelected\">\n                                <select class=\"ui dropdown codeEditorMode\">\n                                    <option value=\"css\" selected>CSS</option>\n                                    <option value=\"go\">Go</option>\n                                    <option value=\"html\">HTML</option>\n                                    <option value=\"javascript\">JavaScript</option>\n                                    <option value=\"jsx\">JSX</option>\n                                    <option value=\"php\">PHP</option>\n                                    <option value=\"swift\">Swift</option>\n                                    <option value=\"python\">Python</option>\n                                    <option value=\"ruby\">Ruby</option>\n                                    <option value=\"sass\">Sass</option>\n                                    <option value=\"shell\">Shell</option>\n                                    <option value=\"sql\">SQL</option>\n                                    <option value=\"xml\">XML</option>\n                                </select>\n                            </div>\n                            <div class=\"field\">\n                                <label for=\"codeEditorTheme\">Theme</label>\n                                <input type=\"hidden\" data-selected-theme=\"\" class=\"codeEditorThemeSelected\">\n                                <select class=\"ui dropdown codeEditorTheme\">\n                                    <option value=\"dracula\" selected>Dracula</option>\n                                    <option value=\"material\">Material</option>\n                                    <option value=\"elegant\">Elegant</option>\n                                    <option value=\"eclipse\">Eclipse</option>\n                                    <option value=\"duotone-dark\">Duotone dark</option>\n                                    <option value=\"duotone-light\">Duotone light</option>\n                                </select>\n                            </div>\n                        </div>\n                    </div>\n                    <div class=\"actualCodeEditor\"></div>\n                </div>\n                <div id=\"TVYImageEditor\" hidden=\"hidden\">\n                    <div class=\"imageSelector\">\n                        <div class=\"dropArea\">\n                            <div>\n                                <label for=\"iptImageForQuestion\" class=\"dropOrBrowse\">\n                                    <strong>Drag & Drop image here</strong><br /><br />or<br /><br /><strong>Click to browse image</strong>\n                                </label>\n                                <input type=\"file\" class=\"iptBrowseImage\" id=\"iptImageForQuestion\" hidden=\"hidden\" accept=\"image/*\"/>                            \n                            </div>\n                        </div>\n                        <div class=\"previewImage\">\n                            <img class=\"uploadedImagePreview\" src=\"\"/>\n                            <div><button type=\"button\" class=\"btnLink btnRemovePreviewImage\">Remove above image</button></div>\n                            <div class=\"ui small form\">\n                                <div class=\"field\">\n                                    <input type=\"text\" class=\"imageCaption\" placeholder=\"Provide caption (optional)\" />\n                                </div>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n            </div>\n            <div class=\"actionContentEditor\">\n                <button type=\"button\" class=\"btnAddContent\" data-type=\"text\">\n                    <i class=\"far fa-check-circle\"></i>\n                </button>\n            </div>\n        </div>\n    </div>\n";
 var htmlDescTools = "\n    <div class=\"descTools\" draggable=\"true\">\n        <span class=\"toolButtonsBlock\">\n            <button type=\"button\" class=\"toolArrowBottom\" action-type=\"move_bottom\"><i class=\"fas fa-angle-double-down\"></i></button>\n            <button type=\"button\" class=\"toolArrowDown\" action-type=\"move_down\"><i class=\"fas fa-chevron-down\"></i></button>\n            <span class=\"toolSeparator\">|</span>\n            <button type=\"button\" class=\"toolEdit\" action-type=\"edit\"><i class=\"fas fa-pen\"></i></button>\n            <button type=\"button\" class=\"toolDelete\" action-type=\"delete\"><i class=\"fas fa-trash-alt\"></i></button>\n            <span class=\"toolSeparator\">|</span>\n            <button type=\"button\" class=\"toolArrowUp\" action-type=\"move_up\"><i class=\"fas fa-chevron-up\"></i></button>\n            <button type=\"button\" class=\"toolArrowTop\" action-type=\"move_top\"><i class=\"fas fa-angle-double-up\"></i></button>\n        </span>\n    </div>\n    <div class=\"descContent\"></div>\n";
 
 var TVYContentEditor =
@@ -79614,6 +79620,8 @@ function (_HTMLElement) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(TVYContentEditor).call(this));
     _this.innerHTML = html;
+    _this.questionPublicId = _this.getAttribute('data-public-id');
+    console.log('constructor', _this.questionPublicId);
     _this.allTabs = _this.querySelectorAll('.tabTypeContent button');
     _this.allEditors = _this.querySelectorAll('.editor > div');
     _this.textEditor = _this.querySelector('.editor #TVYTextEditor');
@@ -79634,7 +79642,17 @@ function (_HTMLElement) {
     });
     _this.jsObjCodeEditorModeSelect = _this.querySelector('#TVYCodeEditor .codeEditorMode');
     _this.jsObjCodeEditorThemeSelect = _this.querySelector('#TVYCodeEditor .codeEditorTheme');
+    _this.fileImageToUpload = null;
+    _this.nameFileImageToUpload = null;
+    _this.fileImageExtension = null;
     _this.imageEditor = _this.querySelector('.editor #TVYImageEditor');
+    _this.imageSelector = _this.imageEditor.querySelector('.imageSelector');
+    _this.imageBrowser = _this.imageEditor.querySelector('.iptBrowseImage');
+    _this.dropArea = _this.imageEditor.querySelector('.dropArea');
+    _this.previewImage = _this.imageEditor.querySelector('.previewImage');
+    _this.uploadedImagePreivew = _this.imageEditor.querySelector('.previewImage .uploadedImagePreview');
+    _this.btnRemovePreviewImage = _this.imageEditor.querySelector('.btnRemovePreviewImage');
+    _this.imageCaption = _this.imageEditor.querySelector('.imageCaption');
     _this.btnAddContent = _this.querySelector('.actionContentEditor .btnAddContent');
     _this.contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
     _this.allDescData = [];
@@ -79655,12 +79673,93 @@ function (_HTMLElement) {
 
     _this.jsObjCodeEditorThemeSelect.addEventListener('change', _this.changeThemeOfCodeMirrorEditor.bind(_assertThisInitialized(_this)));
 
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(function (eventName) {
+      return _this.imageSelector.addEventListener(eventName, _this.preventDefaults, false);
+    });
+    ['dragenter', 'dragover'].forEach(function (eventName) {
+      return _this.imageSelector.addEventListener(eventName, _this.highlightDropArea.bind(_assertThisInitialized(_this)), false);
+    });
+    ['dragleave', 'drop'].forEach(function (eventName) {
+      return _this.imageSelector.addEventListener(eventName, _this.unhighlightDropArea.bind(_assertThisInitialized(_this)), false);
+    });
+
+    _this.imageSelector.addEventListener('drop', _this.handleDroppedFile.bind(_assertThisInitialized(_this)), false);
+
+    _this.imageSelector.addEventListener('click', _this.handleImageSelectorClick.bind(_assertThisInitialized(_this)), false);
+
+    _this.btnRemovePreviewImage.addEventListener('click', _this.handleRemovePreviewImage.bind(_assertThisInitialized(_this)), false);
+
+    _this.imageBrowser.addEventListener('change', _this.handleBrowsedFile.bind(_assertThisInitialized(_this)), false);
+
     _this.quillTextObj.setFocus();
 
     return _this;
   }
 
   _createClass(TVYContentEditor, [{
+    key: "handleImageSelectorClick",
+    value: function handleImageSelectorClick(event) {
+      if (!event.target.className.includes('imageCaption')) {
+        this.imageBrowser.click();
+      }
+    }
+  }, {
+    key: "handleRemovePreviewImage",
+    value: function handleRemovePreviewImage(event) {
+      this.uploadedImagePreivew.setAttribute('src', '');
+      this.dropArea.style.display = 'block';
+      this.previewImage.style.display = 'none';
+      event.stopPropagation();
+    }
+  }, {
+    key: "handleBrowsedFile",
+    value: function handleBrowsedFile(event) {
+      var files = event.target.files;
+      this.previewFile(files[0]);
+    }
+  }, {
+    key: "handleDroppedFile",
+    value: function handleDroppedFile(event) {
+      var dt = event.dataTransfer;
+      var files = dt.files;
+      this.previewFile(files[0]);
+    }
+  }, {
+    key: "previewFile",
+    value: function previewFile(file) {
+      var _this2 = this;
+
+      if (file != undefined) {
+        this.fileImageExtension = file.name.split('.')[1];
+        this.fileImageToUpload = file;
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        reader.onloadend = function () {
+          _this2.uploadedImagePreivew.setAttribute('src', reader.result);
+
+          _this2.dropArea.style.display = 'none';
+          _this2.previewImage.style.display = 'block';
+        };
+      }
+    }
+  }, {
+    key: "highlightDropArea",
+    value: function highlightDropArea() {
+      this.imageSelector.classList.add('highlight');
+    }
+  }, {
+    key: "unhighlightDropArea",
+    value: function unhighlightDropArea() {
+      this.imageSelector.classList.remove('highlight');
+    }
+  }, {
+    key: "preventDefaults",
+    value: function preventDefaults(event) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }, {
     key: "changeThemeOfCodeMirrorEditor",
     value: function changeThemeOfCodeMirrorEditor() {
       var selectedTheme = this.querySelector('#TVYCodeEditor .codeEditorThemeSelected');
@@ -79754,7 +79853,63 @@ function (_HTMLElement) {
           break;
 
         case 'image':
-          console.log('image111');
+          if (this.uploadedImagePreivew.getAttribute('src') == '') {
+            new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, '⚠️Please select an image to upload').show();
+            break;
+          }
+
+          var imageEditor = this.querySelector('#TVYImageEditor');
+          var imageDataEditing = imageEditor.getAttribute('data-editing');
+          var imageExtension = imageEditor.getAttribute('data-image-extension');
+
+          if (imageDataEditing !== null) {
+            var _editingDescEle2 = this.getDescElementByDescId(imageDataEditing);
+
+            var _descTools2 = _editingDescEle2.querySelector('.descTools');
+
+            var _descContent = _editingDescEle2.querySelector('.descContent');
+
+            _descContent.querySelector('.imageContent .imageFile').setAttribute('src', this.uploadedImagePreivew.getAttribute('src'));
+
+            _descContent.querySelector('.imageContent .imageCaption').innerHTML = this.imageCaption.value;
+            var imageFileName = this.questionPublicId + '_' + imageDataEditing + '.' + imageExtension;
+            this.nameFileImageToUpload = imageFileName;
+            this.updateDataOfADesc({
+              caption: this.imageCaption.value,
+              image_file_name: imageFileName
+            }, TVYContentEditor.IMAGE_TYPE, imageDataEditing);
+
+            _descTools2.classList.remove('editing');
+
+            _descTools2.classList.add('edited');
+
+            imageEditor.removeAttribute('data-editing');
+            imageEditor.removeAttribute('data-image-extension');
+          } else {
+            var imageDescContent = this.createDescriptionElementAndAttachEventOfDescTools(randomDescId, TVYContentEditor.IMAGE_TYPE);
+            var imageCaptionToView = '';
+
+            if (this.imageCaption.value !== '') {
+              imageCaptionToView = "<strong>Caption:</strong>&nbsp;".concat(this.imageCaption.value);
+            }
+
+            var imageContentHTML = "\n                        <div class=\"imageContent\">\n                            <img \n                                class=\"imageFile\" \n                                src=".concat(this.uploadedImagePreivew.getAttribute('src'), " \n                                data-image-extension=").concat(this.fileImageExtension, " />\n                            <p class=\"imageCaption\">").concat(imageCaptionToView, "</p>\n                        </div>\n                    ");
+            imageDescContent.innerHTML = imageContentHTML;
+
+            var _imageFileName = this.questionPublicId + '_' + randomDescId + '.' + this.fileImageExtension;
+
+            this.nameFileImageToUpload = _imageFileName;
+            this.storeDataContent({
+              caption: this.imageCaption.value,
+              image_file_name: _imageFileName
+            }, TVYContentEditor.IMAGE_TYPE, randomDescId);
+          }
+
+          this.uploadedImagePreivew.setAttribute('src', '');
+          this.imageCaption.value = '';
+          this.dropArea.style.display = 'block';
+          this.previewImage.style.display = 'none';
+          this.previewImage.querySelector('.btnRemovePreviewImage').style.visibility = 'visible';
           break;
 
         default:
@@ -79773,7 +79928,7 @@ function (_HTMLElement) {
       });
       console.log('Data saved----------');
       console.log(this.allDescData);
-      this.saveDescDataToBackend(true);
+      this.saveDescDataToBackend();
       console.log('Data saved----------End');
     }
   }, {
@@ -79785,6 +79940,7 @@ function (_HTMLElement) {
           ele.type = type;
         }
       });
+      this.saveDescDataToBackend();
     }
   }, {
     key: "getDescObjectByDescId",
@@ -79806,6 +79962,11 @@ function (_HTMLElement) {
       return i;
     }
   }, {
+    key: "getDescElementByDescIdV2",
+    value: function getDescElementByDescIdV2(descId) {
+      return document.querySelector(".questionPreview .TVYContentOrder .descElement[data-desc-id=\"".concat(descId, "\"]"));
+    }
+  }, {
     key: "getDescElementByDescId",
     value: function getDescElementByDescId(descId) {
       var allDescElements = document.querySelectorAll('.questionPreview .TVYContentOrder .descElement');
@@ -79820,35 +79981,35 @@ function (_HTMLElement) {
   }, {
     key: "tabEditorMovement",
     value: function tabEditorMovement() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.allTabs.forEach(function (ele) {
         ele.addEventListener('click', function () {
           // tap changed on click
-          _this2.allTabs.forEach(function (e) {
+          _this3.allTabs.forEach(function (e) {
             e.classList.remove('selected');
           });
 
           ele.classList.add('selected');
           var dataType = ele.getAttribute('data-type'); // editor changed on click
 
-          _this2.allEditors.forEach(function (e) {
+          _this3.allEditors.forEach(function (e) {
             e.setAttribute('hidden', 'hidden');
           });
 
           if (dataType === 'text') {
-            _this2.textEditor.removeAttribute('hidden');
+            _this3.textEditor.removeAttribute('hidden');
 
-            _this2.quillTextObj.setFocus();
+            _this3.quillTextObj.setFocus();
           } else if (dataType === 'code') {
-            _this2.codeEditor.removeAttribute('hidden');
+            _this3.codeEditor.removeAttribute('hidden');
 
-            _this2.codeMirrorObj.setFocus();
+            _this3.codeMirrorObj.setFocus();
           } else if (dataType === 'image') {
-            _this2.imageEditor.removeAttribute('hidden');
+            _this3.imageEditor.removeAttribute('hidden');
           }
 
-          _this2.btnAddContent.setAttribute('data-type', dataType);
+          _this3.btnAddContent.setAttribute('data-type', dataType);
         });
       });
     }
@@ -79865,8 +80026,10 @@ function (_HTMLElement) {
 
       if (targetEditorType === TVYContentEditor.TEXT_TYPE) {
         targetEditor = this.querySelector('#TVYTextEditor');
-      } else {
+      } else if (targetEditorType === TVYContentEditor.CODE_TYPE) {
         targetEditor = this.querySelector('#TVYCodeEditor');
+      } else if (targetEditorType === TVYContentEditor.IMAGE_TYPE) {
+        targetEditor = this.querySelector('#TVYImageEditor');
       }
 
       if (actionTypeOfTargetButton === TVYContentEditor.ACTION_TYPE_MOVE_UP) {
@@ -79885,7 +80048,9 @@ function (_HTMLElement) {
     }
   }, {
     key: "createDescriptionElementAndAttachEventOfDescTools",
-    value: function createDescriptionElementAndAttachEventOfDescTools(descId, descType, editor) {
+    value: function createDescriptionElementAndAttachEventOfDescTools(descId) {
+      var descType = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+      var editor = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
       var contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
       var descElement = document.createElement('div');
       descElement.className = 'descElement col-md-12';
@@ -79920,6 +80085,15 @@ function (_HTMLElement) {
       } else if (descType == TVYContentEditor.CODE_TYPE) {
         this.querySelector('.tabTypeContent .btnAddCodingBlock').click();
         this.codeMirrorObj.setContent(this.getDescObjectByDescId(descId).data);
+      } else if (descType == TVYContentEditor.IMAGE_TYPE) {
+        this.querySelector('.tabTypeContent .btnAddImage').click();
+        var selectedImageDescToBeEdited = this.getDescElementByDescIdV2(descId).querySelector('.imageContent .imageFile');
+        editor.setAttribute('data-image-extension', selectedImageDescToBeEdited.getAttribute('data-image-extension'));
+        this.uploadedImagePreivew.setAttribute('src', selectedImageDescToBeEdited.getAttribute('src'));
+        this.imageCaption.value = this.getDescObjectByDescId(descId).data.caption;
+        this.dropArea.style.display = 'none';
+        this.previewImage.style.display = 'block';
+        this.previewImage.querySelector('.btnRemovePreviewImage').style.visibility = 'hidden';
       }
 
       this.enableOnlyOneTabEditor(descType);
@@ -79929,6 +80103,11 @@ function (_HTMLElement) {
     value: function deleteDescriptionElement(currentDescId) {
       var selectedElement = this.getDescElementByDescId(currentDescId);
       selectedElement.parentNode.removeChild(selectedElement);
+      var remainingDescData = this.allDescData.filter(function (desc) {
+        return desc.desc_id !== currentDescId;
+      });
+      this.allDescData = remainingDescData;
+      this.saveDescDataToBackend();
     }
   }, {
     key: "moveDescriptionElement",
@@ -79965,7 +80144,7 @@ function (_HTMLElement) {
       }
 
       currentDescElement.parentNode.removeChild(currentDescElement);
-      this.saveDescDataToBackend(true);
+      this.saveDescDataToBackend();
       console.log(this.allDescData);
     }
   }, {
@@ -80017,21 +80196,25 @@ function (_HTMLElement) {
     }
   }, {
     key: "saveDescDataToBackend",
-    value: function saveDescDataToBackend(isDraft) {
+    value: function saveDescDataToBackend() {
       var url = window.location.origin + '/question/save-during-editing';
       var titleQuestion = $('#formAskQuestion .questionTitle').val();
+      var formData = new FormData();
+      formData.append('title', titleQuestion != '' ? titleQuestion : 'sample title');
+      formData.append('public_id', this.questionPublicId);
+      formData.append('desc_data', JSON.stringify(this.allDescData));
+      formData.append('image_file_upload', this.fileImageToUpload);
+      formData.append('image_file_name', this.nameFileImageToUpload);
+      this.fileImageToUpload = null;
+      this.nameFileImageToUpload = null;
       $.ajax({
         url: url,
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        data: JSON.stringify({
-          title: titleQuestion != '' ? titleQuestion : 'sample title',
-          public_id: this.getAttribute('data-public-id'),
-          desc_data: JSON.stringify(this.allDescData),
-          is_draft: isDraft
-        }),
-        contentType: 'application/json',
+        data: formData,
+        contentType: false,
+        processData: false,
         type: 'POST',
         success: function success(result) {
           console.log('---Success');

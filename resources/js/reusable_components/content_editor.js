@@ -53,7 +53,25 @@ const html = `
                     <div class="actualCodeEditor"></div>
                 </div>
                 <div id="TVYImageEditor" hidden="hidden">
-                    I am image selector
+                    <div class="imageSelector">
+                        <div class="dropArea">
+                            <div>
+                                <label for="iptImageForQuestion" class="dropOrBrowse">
+                                    <strong>Drag & Drop image here</strong><br /><br />or<br /><br /><strong>Click to browse image</strong>
+                                </label>
+                                <input type="file" class="iptBrowseImage" id="iptImageForQuestion" hidden="hidden" accept="image/*"/>                            
+                            </div>
+                        </div>
+                        <div class="previewImage">
+                            <img class="uploadedImagePreview" src=""/>
+                            <div><button type="button" class="btnLink btnRemovePreviewImage">Remove above image</button></div>
+                            <div class="ui small form">
+                                <div class="field">
+                                    <input type="text" class="imageCaption" placeholder="Provide caption (optional)" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="actionContentEditor">
@@ -88,6 +106,9 @@ class TVYContentEditor extends HTMLElement
         super();
         this.innerHTML = html;
 
+        this.questionPublicId = this.getAttribute('data-public-id');
+        console.log('constructor', this.questionPublicId);
+
         this.allTabs = this.querySelectorAll('.tabTypeContent button');
         this.allEditors = this.querySelectorAll('.editor > div');
         this.textEditor = this.querySelector('.editor #TVYTextEditor');
@@ -110,7 +131,18 @@ class TVYContentEditor extends HTMLElement
         this.jsObjCodeEditorModeSelect = this.querySelector('#TVYCodeEditor .codeEditorMode');
         this.jsObjCodeEditorThemeSelect = this.querySelector('#TVYCodeEditor .codeEditorTheme');
 
+        this.fileImageToUpload = null;
+        this.nameFileImageToUpload = null;
+        this.fileImageExtension = null;
         this.imageEditor = this.querySelector('.editor #TVYImageEditor');
+        this.imageSelector = this.imageEditor.querySelector('.imageSelector');
+        this.imageBrowser = this.imageEditor.querySelector('.iptBrowseImage');
+        this.dropArea = this.imageEditor.querySelector('.dropArea');
+        this.previewImage = this.imageEditor.querySelector('.previewImage');
+        this.uploadedImagePreivew = this.imageEditor.querySelector('.previewImage .uploadedImagePreview');
+        this.btnRemovePreviewImage = this.imageEditor.querySelector('.btnRemovePreviewImage');
+        this.imageCaption = this.imageEditor.querySelector('.imageCaption');
+
         this.btnAddContent = this.querySelector('.actionContentEditor .btnAddContent');
         this.contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
 
@@ -133,6 +165,14 @@ class TVYContentEditor extends HTMLElement
         this.jsObjCodeEditorModeSelect.addEventListener('change', this.changeModeOfCodeMirrorEditor.bind(this));
         this.jsObjCodeEditorThemeSelect.addEventListener('change', this.changeThemeOfCodeMirrorEditor.bind(this));
 
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => this.imageSelector.addEventListener(eventName, this.preventDefaults, false));
+        ['dragenter', 'dragover'].forEach(eventName => this.imageSelector.addEventListener(eventName, this.highlightDropArea.bind(this), false));
+        ['dragleave', 'drop'].forEach(eventName => this.imageSelector.addEventListener(eventName, this.unhighlightDropArea.bind(this), false));
+        this.imageSelector.addEventListener('drop', this.handleDroppedFile.bind(this), false);
+        this.imageSelector.addEventListener('click', this.handleImageSelectorClick.bind(this), false);
+        this.btnRemovePreviewImage.addEventListener('click', this.handleRemovePreviewImage.bind(this), false);
+        this.imageBrowser.addEventListener('change', this.handleBrowsedFile.bind(this), false);
+
         this.quillTextObj.setFocus();
     }
 
@@ -151,6 +191,58 @@ class TVYContentEditor extends HTMLElement
     static get ARRAY_INDEX_PREV()   {return 777;}
     static get ARRAY_INDEX_NEXT()   {return 888;}
     static get ARRAY_INDEX_BOTTOM() {return 999;}
+
+    handleImageSelectorClick (event) {
+        if(!event.target.className.includes('imageCaption')){
+            this.imageBrowser.click()
+        }
+    }
+
+    handleRemovePreviewImage (event) {
+        this.uploadedImagePreivew.setAttribute('src', '');
+        this.dropArea.style.display = 'block';
+        this.previewImage.style.display = 'none';
+        event.stopPropagation();
+    }
+
+    handleBrowsedFile (event) {
+        let files = event.target.files;
+        this.previewFile(files[0]);
+    }
+
+    handleDroppedFile (event) {
+        let dt = event.dataTransfer;
+        let files = dt.files;
+        this.previewFile(files[0]);
+    }
+
+    previewFile (file) {
+        if(file != undefined){
+            this.fileImageExtension = file.name.split('.')[1];
+            this.fileImageToUpload = file;
+            let reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onloadend = () => {
+                this.uploadedImagePreivew.setAttribute('src', reader.result);
+                this.dropArea.style.display = 'none';
+                this.previewImage.style.display = 'block';
+            }
+        }
+    }
+
+    highlightDropArea () {
+        this.imageSelector.classList.add('highlight');
+    }
+
+    unhighlightDropArea () {
+        this.imageSelector.classList.remove('highlight');
+    }
+
+    preventDefaults (event)
+    {
+        event.preventDefault();
+        event.stopPropagation();
+    }
 
     changeThemeOfCodeMirrorEditor () {
         let selectedTheme = this.querySelector('#TVYCodeEditor .codeEditorThemeSelected');
@@ -247,7 +339,75 @@ class TVYContentEditor extends HTMLElement
                 this.codeMirrorObj.clearContent();
                 break;
             case 'image':
-                console.log('image111');
+                if(this.uploadedImagePreivew.getAttribute('src') == '')
+                {
+                    new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️Please select an image to upload').show();
+                    break;
+                }
+
+                let imageEditor = this.querySelector('#TVYImageEditor');
+                let imageDataEditing = imageEditor.getAttribute('data-editing');
+                let imageExtension = imageEditor.getAttribute('data-image-extension');
+
+                if(imageDataEditing !== null)
+                {
+                    let editingDescEle = this.getDescElementByDescId(imageDataEditing);
+                    let descTools = editingDescEle.querySelector('.descTools');
+                    let descContent = editingDescEle.querySelector('.descContent');
+
+                    descContent.querySelector('.imageContent .imageFile').setAttribute('src', this.uploadedImagePreivew.getAttribute('src'));
+                    descContent.querySelector('.imageContent .imageCaption').innerHTML = this.imageCaption.value;
+
+                    let imageFileName = this.questionPublicId + '_' + imageDataEditing + '.' + imageExtension;
+                    this.nameFileImageToUpload = imageFileName;
+                    this.updateDataOfADesc(
+                        {
+                            caption: this.imageCaption.value,
+                            image_file_name: imageFileName
+                        },
+                        TVYContentEditor.IMAGE_TYPE,
+                        imageDataEditing
+                    );
+
+                    descTools.classList.remove('editing');
+                    descTools.classList.add('edited');
+                    imageEditor.removeAttribute('data-editing');
+                    imageEditor.removeAttribute('data-image-extension');
+                }
+                else
+                {
+                    let imageDescContent = this.createDescriptionElementAndAttachEventOfDescTools(randomDescId, TVYContentEditor.IMAGE_TYPE);
+                    let imageCaptionToView = '';
+                    if(this.imageCaption.value !== ''){
+                        imageCaptionToView = `<strong>Caption:</strong>&nbsp;${this.imageCaption.value}`;
+                    }
+                    let imageContentHTML = `
+                        <div class="imageContent">
+                            <img 
+                                class="imageFile" 
+                                src=${this.uploadedImagePreivew.getAttribute('src')} 
+                                data-image-extension=${this.fileImageExtension} />
+                            <p class="imageCaption">${imageCaptionToView}</p>
+                        </div>
+                    `;
+                    imageDescContent.innerHTML = imageContentHTML;
+
+                    let imageFileName = this.questionPublicId + '_' + randomDescId + '.' + this.fileImageExtension;
+                    this.nameFileImageToUpload = imageFileName;
+                    this.storeDataContent(
+                        {
+                            caption: this.imageCaption.value,
+                            image_file_name: imageFileName
+                        },
+                        TVYContentEditor.IMAGE_TYPE, randomDescId
+                    );
+                }
+
+                this.uploadedImagePreivew.setAttribute('src', '');
+                this.imageCaption.value = '';
+                this.dropArea.style.display = 'block';
+                this.previewImage.style.display = 'none';
+                this.previewImage.querySelector('.btnRemovePreviewImage').style.visibility = 'visible';
                 break;
             default: break;
         }
@@ -266,7 +426,7 @@ class TVYContentEditor extends HTMLElement
         this.allDescData.push({type: type, data: dataContent, desc_id: descId});
         console.log('Data saved----------');
         console.log(this.allDescData);
-        this.saveDescDataToBackend(true);
+        this.saveDescDataToBackend();
         console.log('Data saved----------End');
     }
 
@@ -277,6 +437,7 @@ class TVYContentEditor extends HTMLElement
                ele.type = type;
            }
         });
+        this.saveDescDataToBackend();
     }
 
     getDescObjectByDescId (descId) {
@@ -292,6 +453,10 @@ class TVYContentEditor extends HTMLElement
             }
         });
         return i;
+    }
+
+    getDescElementByDescIdV2 (descId) {
+        return document.querySelector(`.questionPreview .TVYContentOrder .descElement[data-desc-id="${descId}"]`);
     }
 
     getDescElementByDescId (descId) {
@@ -347,8 +512,10 @@ class TVYContentEditor extends HTMLElement
         let targetEditor = null;
         if(targetEditorType === TVYContentEditor.TEXT_TYPE){
             targetEditor = this.querySelector('#TVYTextEditor');
-        }else {
-            targetEditor = this.querySelector('#TVYCodeEditor')
+        }else if(targetEditorType === TVYContentEditor.CODE_TYPE) {
+            targetEditor = this.querySelector('#TVYCodeEditor');
+        }else if(targetEditorType === TVYContentEditor.IMAGE_TYPE) {
+            targetEditor = this.querySelector('#TVYImageEditor');
         }
 
         if(actionTypeOfTargetButton === TVYContentEditor.ACTION_TYPE_MOVE_UP){
@@ -371,7 +538,7 @@ class TVYContentEditor extends HTMLElement
         }
     }
 
-    createDescriptionElementAndAttachEventOfDescTools (descId, descType, editor)
+    createDescriptionElementAndAttachEventOfDescTools (descId, descType = null, editor = null)
     {
         let contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
 
@@ -408,6 +575,15 @@ class TVYContentEditor extends HTMLElement
         }else if(descType == TVYContentEditor.CODE_TYPE){
             this.querySelector('.tabTypeContent .btnAddCodingBlock').click();
             this.codeMirrorObj.setContent(this.getDescObjectByDescId(descId).data);
+        }else if (descType == TVYContentEditor.IMAGE_TYPE){
+            this.querySelector('.tabTypeContent .btnAddImage').click();
+            let selectedImageDescToBeEdited = this.getDescElementByDescIdV2(descId).querySelector('.imageContent .imageFile');
+            editor.setAttribute('data-image-extension',selectedImageDescToBeEdited.getAttribute('data-image-extension'));
+            this.uploadedImagePreivew.setAttribute('src', selectedImageDescToBeEdited.getAttribute('src'));
+            this.imageCaption.value = this.getDescObjectByDescId(descId).data.caption;
+            this.dropArea.style.display = 'none';
+            this.previewImage.style.display = 'block';
+            this.previewImage.querySelector('.btnRemovePreviewImage').style.visibility = 'hidden';
         }
 
         this.enableOnlyOneTabEditor(descType);
@@ -417,6 +593,10 @@ class TVYContentEditor extends HTMLElement
     {
         let selectedElement = this.getDescElementByDescId(currentDescId);
         selectedElement.parentNode.removeChild(selectedElement);
+
+        let remainingDescData = this.allDescData.filter(desc => desc.desc_id !== currentDescId);
+        this.allDescData = remainingDescData;
+        this.saveDescDataToBackend();
     }
 
     moveDescriptionElement (currentDescId, actionType)
@@ -463,7 +643,7 @@ class TVYContentEditor extends HTMLElement
             currentDescElement.parentNode.append(cloneOfCurrentDescElement);
         }
         currentDescElement.parentNode.removeChild(currentDescElement);
-        this.saveDescDataToBackend(true);
+        this.saveDescDataToBackend();
         console.log(this.allDescData);
     }
 
@@ -512,19 +692,25 @@ class TVYContentEditor extends HTMLElement
         this.allDescData = arrayDescDataExcludedCurrentDesc;
     }
 
-    saveDescDataToBackend (isDraft) {
+    saveDescDataToBackend () {
         let url = window.location.origin + '/question/save-during-editing';
         let titleQuestion = $('#formAskQuestion .questionTitle').val();
+
+        let formData = new FormData();
+        formData.append('title', titleQuestion != '' ? titleQuestion : 'sample title');
+        formData.append('public_id', this.questionPublicId);
+        formData.append('desc_data', JSON.stringify(this.allDescData));
+        formData.append('image_file_upload', this.fileImageToUpload);
+        formData.append('image_file_name', this.nameFileImageToUpload);
+        this.fileImageToUpload = null;
+        this.nameFileImageToUpload = null;
+
         $.ajax({
             url: url,
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-            data: JSON.stringify({
-                title: titleQuestion != '' ? titleQuestion : 'sample title',
-                public_id: this.getAttribute('data-public-id'),
-                desc_data: JSON.stringify(this.allDescData),
-                is_draft: isDraft
-            }),
-            contentType: 'application/json',
+            data: formData,
+            contentType: false,
+            processData: false,
             type: 'POST',
             success: function(result) {
                 console.log('---Success');
