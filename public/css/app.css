@@ -12994,7 +12994,8 @@ h4,
 h5,
 h6,
 .ui.button,
-.ui.form input[type=text] {
+.ui.form input[type=text],
+.ui.form textarea {
   font-family: "Taprom", "Comfortaa", sans-serif;
 }
 
@@ -13151,7 +13152,6 @@ button:focus {
 }
 
 .TVYContentEditor {
-  z-index: 334;
   margin: 5px 0;
   padding: 0;
   border-radius: 5px;
@@ -13195,7 +13195,7 @@ button:focus {
 }
 
 .TVYContentEditor .editor .ql-container {
-  height: 200px;
+  height: 300px;
   background-color: white;
   border: none;
 }
@@ -13211,6 +13211,49 @@ button:focus {
   border-top: 2px solid #17CCA9;
   background-color: white;
   font-size: 0.8em;
+}
+
+.TVYContentEditor .editor #TVYImageEditor {
+  background-color: white;
+  border-top: 2px solid #17CCA9;
+  height: 300px;
+}
+
+.TVYContentEditor .editor #TVYImageEditor .imageSelector {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  align-items: center;
+  height: 100%;
+  cursor: pointer;
+}
+
+.TVYContentEditor .editor #TVYImageEditor .imageSelector .dropArea div {
+  text-align: center;
+  justify-self: center;
+}
+
+.TVYContentEditor .editor #TVYImageEditor .imageSelector .dropArea div input[type=file] {
+  display: none;
+}
+
+.TVYContentEditor .editor #TVYImageEditor .imageSelector .previewImage {
+  display: none;
+  text-align: center;
+  padding: 10px;
+}
+
+.TVYContentEditor .editor #TVYImageEditor .imageSelector .previewImage .uploadedImagePreview {
+  height: 200px;
+  border-radius: 5px;
+}
+
+.TVYContentEditor .editor #TVYImageEditor .imageSelector .previewImage .imageCaption {
+  resize: none;
+}
+
+.TVYContentEditor .editor #TVYImageEditor .imageSelector.highlight {
+  background-color: #D8D8D8;
 }
 
 .TVYContentEditor .actionContentEditor {
@@ -15199,12 +15242,31 @@ button:focus {
 }
 
 .askQuestionContent .questionPreview .TVYContentOrder .descContent {
-  padding: 2px;
+  padding: 5px;
 }
 
 .askQuestionContent .questionPreview .TVYContentOrder .descContent .CodeMirror {
   border-radius: 3px;
   height: auto;
+}
+
+.askQuestionContent .questionPreview .TVYContentOrder .descContent .imageContent {
+  max-width: 650px;
+}
+
+.askQuestionContent .questionPreview .TVYContentOrder .descContent .imageContent .imageFile {
+  width: 50%;
+  border-radius: 5px;
+  display: block;
+}
+
+.askQuestionContent .questionPreview .TVYContentOrder .descContent .imageContent .imageCaption {
+  font-style: italic;
+  font-size: 0.8em;
+  overflow-x: hidden;
+  width: 100%;
+  margin: 0;
+  color: #424242;
 }
 
 .pageViewQuestion {

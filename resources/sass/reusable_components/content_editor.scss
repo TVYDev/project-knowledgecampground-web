@@ -1,5 +1,5 @@
 .TVYContentEditor {
-    z-index: 334;
+    //z-index: 334;
     margin: 5px 0;
     padding: 0;
     border-radius: 5px;
@@ -34,7 +34,7 @@
         border-top: none;
         border-bottom: none;
         .ql-container {
-            height: 200px;
+            height: 300px;
             background-color: white;
             border: none;
         }
@@ -49,6 +49,41 @@
                 border-top: 2px solid $secondary-green;
                 background-color: white;
                 font-size: 0.8em;
+            }
+        }
+        #TVYImageEditor {
+            background-color: white;
+            border-top: 2px solid $secondary-green;
+            height: 300px;
+            .imageSelector {
+                display: grid;
+                grid-template-columns: 1fr;
+                grid-template-rows: 1fr;
+                align-items: center;
+                height: 100%;
+                cursor: pointer;
+                .dropArea div {
+                    text-align: center;
+                    justify-self: center;
+                    input[type=file] {
+                        display: none;
+                    }
+                }
+                .previewImage {
+                    display: none;
+                    text-align: center;
+                    padding: 10px;
+                    .uploadedImagePreview {
+                        height: 200px;
+                        border-radius: 5px;
+                    }
+                    .imageCaption {
+                        resize: none;
+                    }
+                }
+            }
+            .imageSelector.highlight {
+                background-color: $thirdly-gray;
             }
         }
     }

@@ -8,6 +8,7 @@ use App\Lib\RequestAPI;
 use App\Lib\ResponseEndPoint;
 use App\Lib\RouteConstants;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class QuestionController extends Controller
 {
@@ -55,12 +56,46 @@ class QuestionController extends Controller
     {
         try
         {
-            $response = $this->post($this->getApiRequestUrl('question.save_during_editing'), [
-                'public_id'     => $request->public_id,
-                'title'         => $request->title,
-                'description'   => $request->desc_data,
-                'is_draft'      => true
-            ], $this->getAuthorizationHeader());
+            $fileContent = null;
+            $fileName = null;
+            if($request->hasFile('image_file_upload')){
+                $fileInput = $request->image_file_upload;
+                $filePath = $fileInput->getRealPath();
+                $fileName = $fileInput->getClientOriginalName();
+                $fileContent = File::get($filePath);
+            }
+
+            $requestedData = [
+                [
+                    'name'  => 'public_id',
+                    'contents' => $request->public_id
+                ],
+                [
+                    'name'  => 'title',
+                    'contents' => $request->title
+                ],
+                [
+                    'name'  => 'description',
+                    'contents' => $request->desc_data
+                ],
+                [
+                    'name'  => 'is_draft',
+                    'contents' => true
+                ],
+                [
+                    'name'  => 'image_file_name',
+                    'contents' => $request->image_file_name
+                ],
+                [
+                    'name'  => 'image_file_upload',
+                    'contents' => $fileContent,
+                    'filename' => $fileName
+                ]
+            ];
+
+            $response = $this->post($this->getApiRequestUrl('question.save_during_editing'),
+                $requestedData,
+                $this->getAuthorizationHeader(true, false), 'multipart');
         }
         catch(\Exception $exception)
         {
