@@ -189,7 +189,8 @@ class QuestionController extends Controller
                     ->with('authorId', $data->author_id)
                     ->with('avatarUrl', HttpConstants::HOST_URL . $data->avatar_url)
                     ->with('subject', $subject)
-                    ->with('tags', $tags);
+                    ->with('tags', $tags)
+                    ->with('relativePathStoreImagesOfQuestion', HttpConstants::HOST_URL . $data->relative_path_store_images_of_question);
             }
         }
         catch(\Exception $exception)
