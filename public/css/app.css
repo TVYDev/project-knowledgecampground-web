@@ -13436,6 +13436,52 @@ button:focus {
   padding: 0;
 }
 
+.TVYContentActionView .viewPart .imageContent .imageView {
+  position: relative;
+  z-index: 22;
+  cursor: pointer;
+}
+
+.TVYContentActionView .viewPart .imageContent .imageView .imageFile {
+  width: 100%;
+  border-radius: 5px;
+  display: block;
+  opacity: 1;
+}
+
+.TVYContentActionView .viewPart .imageContent .imageView .toolZoomImage {
+  color: #0A5748;
+  visibility: hidden;
+  text-align: center;
+  font-size: 1.2em;
+  position: absolute;
+  top: 45%;
+  left: 0;
+  width: 100%;
+  z-index: 23;
+}
+
+.TVYContentActionView .viewPart .imageContent .imageView .toolZoomImage i {
+  font-size: 1.5em;
+}
+
+.TVYContentActionView .viewPart .imageContent .imageView:hover .toolZoomImage {
+  visibility: visible;
+}
+
+.TVYContentActionView .viewPart .imageContent .imageView:hover .imageFile {
+  opacity: 0.5;
+}
+
+.TVYContentActionView .viewPart .imageContent .imageCaption {
+  font-style: italic;
+  font-size: 0.8em;
+  overflow-x: hidden;
+  width: 100%;
+  margin: 0;
+  color: #424242;
+}
+
 .TVYContentActionView .actionPart {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;

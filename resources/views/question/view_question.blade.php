@@ -26,7 +26,8 @@
                 data-readable-time="{{ $readableTime }}"
                 data-author-name="{{ $authorName }}"
                 data-author-id="{{ $authorId }}"
-                data-avatar-url="{{ $avatarUrl }}">
+                data-avatar-url="{{ $avatarUrl }}"
+                data-relative-path-image="{{ $relativePathStoreImagesOfQuestion }}">
             </tvy-content-action-view>
         </div>
         <div class="rightExtraSpace"></div>

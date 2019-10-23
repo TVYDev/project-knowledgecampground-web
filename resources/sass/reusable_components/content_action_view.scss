@@ -13,6 +13,47 @@
         .ql-editor {
             padding: 0;
         }
+        .imageContent {
+            .imageView {
+                position: relative;
+                z-index: 22;
+                cursor: pointer;
+                .imageFile {
+                    width: 100%;
+                    border-radius: 5px;
+                    display: block;
+                    opacity: 1;
+                }
+                .toolZoomImage {
+                    color: $main-green;
+                    visibility: hidden;
+                    text-align: center;
+                    font-size: 1.2em;
+                    position: absolute;
+                    top: 45%;
+                    left: 0;
+                    width: 100%;
+                    z-index: 23;
+                    i {
+                        font-size: 1.5em;
+                    }
+                }
+            }
+            .imageView:hover .toolZoomImage{
+                visibility: visible;
+            }
+            .imageView:hover .imageFile {
+                opacity: 0.5;
+            }
+            .imageCaption {
+                font-style: italic;
+                font-size: 0.8em;
+                overflow-x: hidden;
+                width: 100%;
+                margin: 0;
+                color: $main-gray;
+            }
+        }
     }
     .actionPart {
         display: grid;

@@ -39,6 +39,7 @@ class TVYContentActionView extends HTMLElement
 
     static get TEXT_TYPE()  {return 'text';}
     static get CODE_TYPE()  {return 'code';}
+    static get IMAGE_TYPE() {return 'image';}
 
     getDescriptionContent ()
     {
@@ -92,6 +93,37 @@ class TVYContentActionView extends HTMLElement
             new CodeMirrorEditor(element, CodeMirrorEditor.THEME_MATERIAL, CodeMirrorEditor.MODE_JAVASCRIPT,
                         true, descData);
         }
+        else if(type === TVYContentActionView.IMAGE_TYPE){
+            let imageCaption = '';
+            if(descData.caption !== '')
+            {
+                imageCaption = `<strong>Caption:&nbsp;</strong>${descData.caption}`;
+            }
+            let imageUrl = `${this.getAttribute('data-relative-path-image')}${descData.image_file_name}`;
+
+            let divImageContent = document.createElement('div');
+            divImageContent.className = 'imageContent';
+            divImageContent.innerHTML = `
+                <div class="imageView">
+                    <img class="imageFile" src="${imageUrl}"/>
+                    <div class="toolZoomImage">
+                        <i class="fas fa-search-plus"></i>&nbsp;Click to zoom in
+                    </div>
+                </div>
+                <p class="imageCaption">${imageCaption}</p>
+            `;
+            element.appendChild(divImageContent);
+
+            divImageContent.querySelector('.imageView').addEventListener('click', () => this.onClickZoomImage(imageUrl));
+        }
+    }
+
+    onClickZoomImage (imageUrl) {
+        let modalContentHtml = `
+            <img class="imageFile" src="${imageUrl}" style="width: 100%; border-radius: 5px;"/>
+        `;
+        document.querySelector('.ui.basic.modal.modalZoomImage .content').innerHTML = modalContentHtml;
+        $('.ui.basic.modal.modalZoomImage').modal('show');
     }
 }
 
