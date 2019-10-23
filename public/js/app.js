@@ -79535,6 +79535,8 @@ function (_HTMLElement) {
   }, {
     key: "addContent",
     value: function addContent(descData, type) {
+      var _this2 = this;
+
       var element = document.createElement('div');
       element.className = 'descElementForView col-md-12';
       this.viewPart.appendChild(element);
@@ -79543,7 +79545,29 @@ function (_HTMLElement) {
         new _QuillEditor__WEBPACK_IMPORTED_MODULE_0__["default"](element, false, true, descData);
       } else if (type === TVYContentActionView.CODE_TYPE) {
         new _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_1__["default"](element, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_1__["default"].THEME_MATERIAL, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_1__["default"].MODE_JAVASCRIPT, true, descData);
+      } else if (type === TVYContentActionView.IMAGE_TYPE) {
+        var imageCaption = '';
+
+        if (descData.caption !== '') {
+          imageCaption = "<strong>Caption:&nbsp;</strong>".concat(descData.caption);
+        }
+
+        var imageUrl = "".concat(this.getAttribute('data-relative-path-image')).concat(descData.image_file_name);
+        var divImageContent = document.createElement('div');
+        divImageContent.className = 'imageContent';
+        divImageContent.innerHTML = "\n                <div class=\"imageView\">\n                    <img class=\"imageFile\" src=\"".concat(imageUrl, "\"/>\n                    <div class=\"toolZoomImage\">\n                        <i class=\"fas fa-search-plus\"></i>&nbsp;Click to zoom in\n                    </div>\n                </div>\n                <p class=\"imageCaption\">").concat(imageCaption, "</p>\n            ");
+        element.appendChild(divImageContent);
+        divImageContent.querySelector('.imageView').addEventListener('click', function () {
+          return _this2.onClickZoomImage(imageUrl);
+        });
       }
+    }
+  }, {
+    key: "onClickZoomImage",
+    value: function onClickZoomImage(imageUrl) {
+      var modalContentHtml = "\n            <img class=\"imageFile\" src=\"".concat(imageUrl, "\" style=\"width: 100%; border-radius: 5px;\"/>\n        ");
+      document.querySelector('.ui.basic.modal.modalZoomImage .content').innerHTML = modalContentHtml;
+      $('.ui.basic.modal.modalZoomImage').modal('show');
     }
   }], [{
     key: "TEXT_TYPE",
@@ -79554,6 +79578,11 @@ function (_HTMLElement) {
     key: "CODE_TYPE",
     get: function get() {
       return 'code';
+    }
+  }, {
+    key: "IMAGE_TYPE",
+    get: function get() {
+      return 'image';
     }
   }]);
 
