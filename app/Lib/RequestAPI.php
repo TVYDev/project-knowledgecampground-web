@@ -13,8 +13,6 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
-use Illuminate\Http\Request;
-use Symfony\Component\Debug\Exception\FatalThrowableError;
 use function GuzzleHttp\Psr7\str;
 
 trait RequestAPI
@@ -39,7 +37,6 @@ trait RequestAPI
                 'client-secret' => config('client_credentials.client_secret')
             ];
 
-            //'headers' => isset($headers) ? array_merge($clientCredentialsHeaders, $headers) : $clientCredentialsHeaders,
             $response = $http->request($method, $url, [
                 'headers' => isset($headers) ? array_merge($clientCredentialsHeaders, $headers) : $clientCredentialsHeaders,
                 isset($requestOption) ? $requestOption : 'json'  => isset($data) ? $data : []
