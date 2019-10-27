@@ -34,8 +34,14 @@ trait RequestAPI
         try{
             $http = new Client();
 
+            $clientCredentialsHeaders = [
+                'client-id'     => config('client_credentials.client_id'),
+                'client-secret' => config('client_credentials.client_secret')
+            ];
+
+            //'headers' => isset($headers) ? array_merge($clientCredentialsHeaders, $headers) : $clientCredentialsHeaders,
             $response = $http->request($method, $url, [
-                'headers'       => isset($headers) ? $headers : [],
+                'headers' => isset($headers) ? array_merge($clientCredentialsHeaders, $headers) : $clientCredentialsHeaders,
                 isset($requestOption) ? $requestOption : 'json'  => isset($data) ? $data : []
             ]);
 
