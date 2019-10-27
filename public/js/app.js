@@ -79683,7 +79683,7 @@ function (_HTMLElement) {
     _this.btnRemovePreviewImage = _this.imageEditor.querySelector('.btnRemovePreviewImage');
     _this.imageCaption = _this.imageEditor.querySelector('.imageCaption');
     _this.btnAddContent = _this.querySelector('.actionContentEditor .btnAddContent');
-    _this.contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
+    _this.contentOrder = document.querySelector('.askQuestionContent .contentOrder .TVYContentOrder');
     _this.allDescData = [];
 
     _this.tabEditorMovement();
@@ -79693,7 +79693,7 @@ function (_HTMLElement) {
 
     _this.btnAddContent.addEventListener('click', _this.addContentListener.bind(_assertThisInitialized(_this)));
 
-    var tvyContentOrder = document.querySelector('.questionPreview .TVYContentOrder');
+    var tvyContentOrder = document.querySelector('.contentOrder .TVYContentOrder');
     tvyContentOrder.addEventListener('click', function (event) {
       _this.doContentOrderActions(event);
     });
@@ -79993,12 +79993,12 @@ function (_HTMLElement) {
   }, {
     key: "getDescElementByDescIdV2",
     value: function getDescElementByDescIdV2(descId) {
-      return document.querySelector(".questionPreview .TVYContentOrder .descElement[data-desc-id=\"".concat(descId, "\"]"));
+      return document.querySelector(".contentOrder .TVYContentOrder .descElement[data-desc-id=\"".concat(descId, "\"]"));
     }
   }, {
     key: "getDescElementByDescId",
     value: function getDescElementByDescId(descId) {
-      var allDescElements = document.querySelectorAll('.questionPreview .TVYContentOrder .descElement');
+      var allDescElements = document.querySelectorAll('.contentOrder .TVYContentOrder .descElement');
       var wantedElement = null;
       allDescElements.forEach(function (ele) {
         if (ele.getAttribute('data-desc-id') === descId) {
@@ -80080,7 +80080,7 @@ function (_HTMLElement) {
     value: function createDescriptionElementAndAttachEventOfDescTools(descId) {
       var descType = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
       var editor = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-      var contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
+      var contentOrder = document.querySelector('.askQuestionContent .contentOrder .TVYContentOrder');
       var descElement = document.createElement('div');
       descElement.className = 'descElement col-md-12';
       descElement.setAttribute('data-desc-id', descId);
@@ -80092,14 +80092,14 @@ function (_HTMLElement) {
   }, {
     key: "editDescriptionElement",
     value: function editDescriptionElement(editor, descId, descType, descTools) {
-      var beingEditedDescTool = document.querySelector('.questionPreview .TVYContentOrder .descTools.editing');
+      var beingEditedDescTool = document.querySelector('.contentOrder .TVYContentOrder .descTools.editing');
 
       if (beingEditedDescTool !== null) {
         new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, '⚠️You cannot edit this description element because another one is being edited.').show();
         return;
       }
 
-      var allDescTools = document.querySelectorAll('.questionPreview .TVYContentOrder .descTools');
+      var allDescTools = document.querySelectorAll('.contentOrder .TVYContentOrder .descTools');
       editor.setAttribute('data-editing', descId);
       allDescTools.forEach(function (ele) {
         ele.classList.remove('editing');

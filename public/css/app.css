@@ -15282,31 +15282,35 @@ button:focus {
   font-weight: normal;
 }
 
-.askQuestionContent .questionPreview .TVYContentOrder {
+.askQuestionContent .questionContentManagement {
+  border: 1px dashed darkred;
+}
+
+.askQuestionContent .questionContentManagement .contentOrder .TVYContentOrder {
   padding: 0;
   z-index: 333;
 }
 
-.askQuestionContent .questionPreview .TVYContentOrder .descContent {
+.askQuestionContent .questionContentManagement .contentOrder .TVYContentOrder .descContent {
   padding: 5px;
 }
 
-.askQuestionContent .questionPreview .TVYContentOrder .descContent .CodeMirror {
+.askQuestionContent .questionContentManagement .contentOrder .TVYContentOrder .descContent .CodeMirror {
   border-radius: 3px;
   height: auto;
 }
 
-.askQuestionContent .questionPreview .TVYContentOrder .descContent .imageContent {
+.askQuestionContent .questionContentManagement .contentOrder .TVYContentOrder .descContent .imageContent {
   max-width: 650px;
 }
 
-.askQuestionContent .questionPreview .TVYContentOrder .descContent .imageContent .imageFile {
+.askQuestionContent .questionContentManagement .contentOrder .TVYContentOrder .descContent .imageContent .imageFile {
   width: 50%;
   border-radius: 5px;
   display: block;
 }
 
-.askQuestionContent .questionPreview .TVYContentOrder .descContent .imageContent .imageCaption {
+.askQuestionContent .questionContentManagement .contentOrder .TVYContentOrder .descContent .imageContent .imageCaption {
   font-style: italic;
   font-size: 0.8em;
   overflow-x: hidden;

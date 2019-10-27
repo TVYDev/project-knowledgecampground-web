@@ -72,8 +72,12 @@
                 </form>
             </div>
         </div>
-        <div class="questionPreview">
-            <div class="TVYContentOrder col-md-12"></div>
+        <div class="questionContentManagement">
+            <div class="contentPreview">
+            </div>
+            <div class="contentOrder">
+                <div class="TVYContentOrder col-md-12"></div>
+            </div>
         </div>
     </div>
 @endsection
