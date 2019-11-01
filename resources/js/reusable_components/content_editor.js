@@ -107,7 +107,6 @@ class TVYContentEditor extends HTMLElement
         this.innerHTML = html;
 
         this.questionPublicId = this.getAttribute('data-public-id');
-        console.log('constructor', this.questionPublicId);
 
         this.allTabs = this.querySelectorAll('.tabTypeContent button');
         this.allEditors = this.querySelectorAll('.editor > div');
@@ -424,10 +423,7 @@ class TVYContentEditor extends HTMLElement
 
     storeDataContent(dataContent, type, descId) {
         this.allDescData.push({type: type, data: dataContent, desc_id: descId});
-        console.log('Data saved----------');
-        console.log(this.allDescData);
         this.saveDescDataToBackend();
-        console.log('Data saved----------End');
     }
 
     updateDataOfADesc(data, type, descId) {
@@ -644,7 +640,6 @@ class TVYContentEditor extends HTMLElement
         }
         currentDescElement.parentNode.removeChild(currentDescElement);
         this.saveDescDataToBackend();
-        console.log(this.allDescData);
     }
 
     enableAllTabEditors()
@@ -712,20 +707,16 @@ class TVYContentEditor extends HTMLElement
             contentType: false,
             processData: false,
             type: 'POST',
-            success: function(result) {
-                console.log('---Success');
-            },
             error: function(err) {
-                console.log('---Error');
                 console.log(err);
             }
         });
-        console.log(this.allDescData);
+        document.querySelector('.TVYContentManagementPreview .reRender').click();
     }
 
     connectedCallback()
     {
-        console.log('TVYContentEditor is rendered');
+        // console.log('TVYContentEditor is rendered');
     }
 }
 

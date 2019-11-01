@@ -13151,6 +13151,50 @@ button:focus {
   font-size: 2rem;
 }
 
+.TVYContentManagementPreview .form {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.TVYContentManagementPreview .form .chkPreviewQuestion {
+  padding: 5px 10px;
+  border: 1px solid #707070;
+  border-radius: 20px;
+}
+
+.TVYContentManagementPreview .contentOrder .TVYContentOrder {
+  padding: 0;
+  z-index: 333;
+}
+
+.TVYContentManagementPreview .contentOrder .TVYContentOrder .descContent {
+  padding: 5px;
+}
+
+.TVYContentManagementPreview .contentOrder .TVYContentOrder .descContent .CodeMirror {
+  border-radius: 3px;
+  height: auto;
+}
+
+.TVYContentManagementPreview .contentOrder .TVYContentOrder .descContent .imageContent {
+  max-width: 650px;
+}
+
+.TVYContentManagementPreview .contentOrder .TVYContentOrder .descContent .imageContent .imageFile {
+  width: 50%;
+  border-radius: 5px;
+  display: block;
+}
+
+.TVYContentManagementPreview .contentOrder .TVYContentOrder .descContent .imageContent .imageCaption {
+  font-style: italic;
+  font-size: 0.8em;
+  overflow-x: hidden;
+  width: 100%;
+  margin: 0;
+  color: #424242;
+}
+
 .TVYContentEditor {
   margin: 5px 0;
   padding: 0;
@@ -15280,43 +15324,6 @@ button:focus {
 
 .askQuestionContent .questionCreation .askQuestionForm .tagsOfQuestion a.transition.visible .menuSubjectName {
   font-weight: normal;
-}
-
-.askQuestionContent .questionContentManagement {
-  border: 1px dashed darkred;
-}
-
-.askQuestionContent .questionContentManagement .contentOrder .TVYContentOrder {
-  padding: 0;
-  z-index: 333;
-}
-
-.askQuestionContent .questionContentManagement .contentOrder .TVYContentOrder .descContent {
-  padding: 5px;
-}
-
-.askQuestionContent .questionContentManagement .contentOrder .TVYContentOrder .descContent .CodeMirror {
-  border-radius: 3px;
-  height: auto;
-}
-
-.askQuestionContent .questionContentManagement .contentOrder .TVYContentOrder .descContent .imageContent {
-  max-width: 650px;
-}
-
-.askQuestionContent .questionContentManagement .contentOrder .TVYContentOrder .descContent .imageContent .imageFile {
-  width: 50%;
-  border-radius: 5px;
-  display: block;
-}
-
-.askQuestionContent .questionContentManagement .contentOrder .TVYContentOrder .descContent .imageContent .imageCaption {
-  font-style: italic;
-  font-size: 0.8em;
-  overflow-x: hidden;
-  width: 100%;
-  margin: 0;
-  color: #424242;
 }
 
 .pageViewQuestion {

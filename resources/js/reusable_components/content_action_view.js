@@ -3,6 +3,7 @@ import CodeMirrorEditor from "../CodeMirrorEditor";
 
 const html = `
 <div class="TVYContentActionView">
+    <input type="hidden" name="reRender" class="reRender" />
     <div class="viewPart"></div>
     <div class="actionPart">
         <div class="vote">
@@ -25,16 +26,19 @@ class TVYContentActionView extends HTMLElement
         super();
         this.innerHTML = html;
 
+        this.descriptionContent = null;
+
         this.viewPart = this.querySelector('.viewPart');
         this.actionPart = this.querySelector('.actionPart');
         this.askedOrEditedDate = this.actionPart.querySelector('.askedOrEditedDate');
         this.author = this.actionPart.querySelector('.authorIdentity .authorInfo');
         this.avatar = this.actionPart.querySelector('.authorIdentity .authorAvatar');
+        this.reRenderHidden = this.querySelector('.reRender');
+
+        this.reRenderHidden.addEventListener('click', this.getDescriptionContent.bind(this));
 
         this.fillInfoOfActionPart();
-
-        this.descriptionContent = JSON.parse(this.getDescriptionContent());
-        this.fillTheContent();
+        this.getDescriptionContent();
     }
 
     static get TEXT_TYPE()  {return 'text';}
@@ -44,27 +48,26 @@ class TVYContentActionView extends HTMLElement
     getDescriptionContent ()
     {
         let url = window.location.origin + '/question/description-of/' + this.getAttribute('data-question-public-id');
-        let descriptionContent = null;
         $.ajax({
-            async: false,
             url: url,
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             type: 'GET',
-            success: function(result) {
-                descriptionContent = result;
+            success: (result) => {
+                if(result){
+                    this.descriptionContent = JSON.parse(result);
+                    this.fillTheContent();
+                }
             },
             error: function(err) {
                 console.log('---Error');
                 console.log(err);
             }
         });
-        return descriptionContent;
     }
 
     fillInfoOfActionPart ()
     {
         this.askedOrEditedDate.textContent = this.getAttribute('data-readable-time');
-        console.log(this.getAttribute('data-readable-time'));
         this.author.setAttribute('data-author-id', this.getAttribute('data-author-id'));
         this.author.textContent = this.getAttribute('data-author-name');
         this.avatar.setAttribute('data-author-id', this.getAttribute('data-author-id'));
@@ -73,10 +76,12 @@ class TVYContentActionView extends HTMLElement
 
     fillTheContent ()
     {
-        let descCount = this.descriptionContent.length;
-        for (let i=0; i<descCount; i++){
-            let description = this.descriptionContent[i];
-            this.addContent(description.data, description.type);
+        if(this.descriptionContent != null) {
+            this.viewPart.innerHTML = '';
+            for (let i=0; i<this.descriptionContent.length; i++){
+                let description = this.descriptionContent[i];
+                this.addContent(description.data, description.type);
+            }
         }
     }
 

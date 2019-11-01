@@ -1,0 +1,40 @@
+.TVYContentManagementPreview {
+    .form {
+        margin-top: 10px;
+        text-align: center;
+        .chkPreviewQuestion {
+            padding: 5px 10px;
+            border: 1px solid $secondary-gray;
+            border-radius: 20px;
+        }
+    }
+    .contentOrder {
+        .TVYContentOrder {
+            padding: 0;
+            z-index: 333;
+            .descContent {
+                padding: 5px;
+                .CodeMirror {
+                    border-radius: 3px;
+                    height: auto;
+                }
+                .imageContent {
+                    max-width: 650px;
+                    .imageFile {
+                        width: 50%;
+                        border-radius: 5px;
+                        display: block;
+                    }
+                    .imageCaption {
+                        font-style: italic;
+                        font-size: 0.8em;
+                        overflow-x: hidden;
+                        width: 100%;
+                        margin: 0;
+                        color: $main-gray;
+                    }
+                }
+            }
+        }
+    }
+}

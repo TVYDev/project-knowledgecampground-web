@@ -6,6 +6,7 @@
         .headAskQuestion {
             display: grid;
             grid-template-columns: 8% 92%;
+
             div:first-child {
                 text-align: center;
                 background-color: $page-background;
@@ -14,6 +15,7 @@
                 border: 3px solid $main-green;
                 padding: 6px;
             }
+
             div:last-child {
                 font-weight: bold;
                 color: $main-gray;
@@ -21,74 +23,52 @@
                 border-bottom: 3px solid $main-green;
                 align-self: end;
                 padding-bottom: 6px;
+
                 span {
                     margin-left: 10px;
                 }
             }
         }
+
         .questionTips {
             margin-top: 10px;
             border: 1px solid $main-green;
             padding: 10px;
             border-radius: 10px;
+
             .tipText {
                 padding-left: 20px;
             }
         }
+
         .askQuestionForm {
             margin-top: 10px;
+
             tvy-content-editor {
                 padding: 0;
             }
+
             .tagsOfQuestion {
                 .menu {
                     .menuSubjectName {
                         font-weight: bold;
                     }
+
                     .menuSubjectDesc {
                         font-size: 0.8em;
                     }
                 }
+
                 a.transition.visible {
                     border-radius: 20px;
                     box-shadow: none;
+
                     .menuNewLine, .menuSubjectDesc {
                         display: none;
                     }
+
                     .menuSubjectName {
                         font-weight: normal;
-                    }
-                }
-            }
-        }
-    }
-    .questionContentManagement {
-        border: 1px dashed darkred;
-        .contentOrder {
-            .TVYContentOrder {
-                padding: 0;
-                z-index: 333;
-                .descContent {
-                    padding: 5px;
-                    .CodeMirror {
-                        border-radius: 3px;
-                        height: auto;
-                    }
-                    .imageContent {
-                        max-width: 650px;
-                        .imageFile {
-                            width: 50%;
-                            border-radius: 5px;
-                            display: block;
-                        }
-                        .imageCaption {
-                            font-style: italic;
-                            font-size: 0.8em;
-                            overflow-x: hidden;
-                            width: 100%;
-                            margin: 0;
-                            color: $main-gray;
-                        }
                     }
                 }
             }

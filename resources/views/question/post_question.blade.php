@@ -73,11 +73,10 @@
             </div>
         </div>
         <div class="questionContentManagement">
-            <div class="contentPreview">
-            </div>
-            <div class="contentOrder">
-                <div class="TVYContentOrder col-md-12"></div>
-            </div>
+            <tvy-content-management-preview
+                data-content-type="question"
+                data-public-id="{{ $publicId }}"
+            />
         </div>
     </div>
 @endsection
