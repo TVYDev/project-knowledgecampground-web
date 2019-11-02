@@ -29,6 +29,7 @@ trait RequestAPI
      **********************************************************************************************/
     public function call (string $url, $method, $data = null, $headers = null, $requestOption = null)
     {
+        $clientCredentialsHeaders = [];
         try{
             $http = new Client();
 
@@ -52,7 +53,7 @@ trait RequestAPI
                 if(isset($response) && strpos(str($exception->getResponse()), HttpConstants::ERROR_CODE_TOKEN_EXPIRED)){
                     $httpNew = new Client();
                     $responseNew = $httpNew->request('POST', self::getApiRequestUrl('user.refresh_token'), [
-                        'headers'   => self::getAuthorizationHeader()
+                        'headers'   => array_merge(self::getAuthorizationHeader(), $clientCredentialsHeaders)
                     ]);
                     $dataResponseNew = json_decode($responseNew->getBody()->getContents());
 
@@ -62,7 +63,7 @@ trait RequestAPI
                         $httpResendToResource = new Client();
 
                         $responseAfterResend = $httpResendToResource->request($method, $url, [
-                            'headers'   => self::getAuthorizationHeader(),
+                            'headers'   => array_merge(self::getAuthorizationHeader(), $clientCredentialsHeaders),
                             'json'      => isset($data) ? $data : []
                         ]);
 

@@ -3,6 +3,7 @@ import CodeMirrorEditor from "../CodeMirrorEditor";
 
 const html = `
 <div class="TVYContentActionView">
+    <input type="hidden" name="reRender" class="reRender" />
     <div class="viewPart"></div>
     <div class="actionPart">
         <div class="vote">
@@ -25,16 +26,24 @@ class TVYContentActionView extends HTMLElement
         super();
         this.innerHTML = html;
 
+        this.descriptionContent = null;
+        this.relativePathStoreImages = null;
+
         this.viewPart = this.querySelector('.viewPart');
         this.actionPart = this.querySelector('.actionPart');
         this.askedOrEditedDate = this.actionPart.querySelector('.askedOrEditedDate');
         this.author = this.actionPart.querySelector('.authorIdentity .authorInfo');
         this.avatar = this.actionPart.querySelector('.authorIdentity .authorAvatar');
+        this.reRenderHidden = this.querySelector('.reRender');
+
+        this.loaderContent = document.createElement('div');
+        this.loaderContent.className = 'ui active centered inline text loader loaderContent';
+        this.loaderContent.innerHTML = 'Loading';
+
+        this.reRenderHidden.addEventListener('click', this.getDescriptionContent.bind(this));
 
         this.fillInfoOfActionPart();
-
-        this.descriptionContent = JSON.parse(this.getDescriptionContent());
-        this.fillTheContent();
+        this.getDescriptionContent();
     }
 
     static get TEXT_TYPE()  {return 'text';}
@@ -44,27 +53,34 @@ class TVYContentActionView extends HTMLElement
     getDescriptionContent ()
     {
         let url = window.location.origin + '/question/description-of/' + this.getAttribute('data-question-public-id');
-        let descriptionContent = null;
         $.ajax({
-            async: false,
             url: url,
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             type: 'GET',
-            success: function(result) {
-                descriptionContent = result;
+            beforeSend: (xhr) => {
+                this.viewPart.innerHTML = '';
+                this.viewPart.appendChild(this.loaderContent);
+            },
+            success: (result) => {
+                this.viewPart.removeChild(this.loaderContent);
+                if(result.success){
+                    this.descriptionContent = JSON.parse(result.data);
+                    this.relativePathStoreImages = result.relative_path_store_images;
+                    this.fillTheContent();
+                }else {
+                    this.addWarningNoContent();
+                }
             },
             error: function(err) {
                 console.log('---Error');
                 console.log(err);
             }
         });
-        return descriptionContent;
     }
 
     fillInfoOfActionPart ()
     {
         this.askedOrEditedDate.textContent = this.getAttribute('data-readable-time');
-        console.log(this.getAttribute('data-readable-time'));
         this.author.setAttribute('data-author-id', this.getAttribute('data-author-id'));
         this.author.textContent = this.getAttribute('data-author-name');
         this.avatar.setAttribute('data-author-id', this.getAttribute('data-author-id'));
@@ -73,11 +89,28 @@ class TVYContentActionView extends HTMLElement
 
     fillTheContent ()
     {
-        let descCount = this.descriptionContent.length;
-        for (let i=0; i<descCount; i++){
-            let description = this.descriptionContent[i];
-            this.addContent(description.data, description.type);
+        this.viewPart.innerHTML = '';
+        if(this.descriptionContent != null && this.descriptionContent.length > 0) {
+            for (let i=0; i<this.descriptionContent.length; i++){
+                let description = this.descriptionContent[i];
+                this.addContent(description.data, description.type);
+            }
+        }else {
+            this.addWarningNoContent();
         }
+    }
+
+    addWarningNoContent () {
+        let element = document.createElement('div');
+        element.className = 'ui warning floating message';
+        let html = `
+            <div class="header">
+                No content to preview
+            </div>
+            Please add some description!
+        `;
+        element.innerHTML = html;
+        this.viewPart.appendChild(element);
     }
 
     addContent (descData, type)
@@ -99,13 +132,16 @@ class TVYContentActionView extends HTMLElement
             {
                 imageCaption = `<strong>Caption:&nbsp;</strong>${descData.caption}`;
             }
-            let imageUrl = `${this.getAttribute('data-relative-path-image')}${descData.image_file_name}`;
+            let imageUrl = `${this.relativePathStoreImages}${descData.image_file_name}`;
+            // suffix with image url to prevent image from caching, otherwise the same url will point to cache image rather than image in the server
+            let currentTimeStamp = Date.now();
+            let imageUrlWithTimeStamp = `${imageUrl}?${currentTimeStamp}`;
 
             let divImageContent = document.createElement('div');
             divImageContent.className = 'imageContent';
             divImageContent.innerHTML = `
                 <div class="imageView">
-                    <img class="imageFile" src="${imageUrl}"/>
+                    <img class="imageFile" src="${imageUrlWithTimeStamp}"/>
                     <div class="toolZoomImage">
                         <i class="fas fa-search-plus"></i>&nbsp;Click to zoom in
                     </div>

@@ -13136,6 +13136,11 @@ button:focus {
   background-color: #54D0E6;
 }
 
+.ui.toggle.checkbox input:checked ~ label:before,
+.ui.toggle.checkbox input:focus:checked ~ label:before {
+  background-color: #17CCA9 !important;
+}
+
 .far,
 .fas,
 .fab {
@@ -13149,6 +13154,50 @@ button:focus {
 
 .fa-2x {
   font-size: 2rem;
+}
+
+.TVYContentManagementPreview .form {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.TVYContentManagementPreview .form .chkPreviewQuestion {
+  padding: 5px 10px;
+  border: 1px solid #707070;
+  border-radius: 20px;
+}
+
+.TVYContentManagementPreview .contentOrder .TVYContentOrder {
+  padding: 0;
+  z-index: 333;
+}
+
+.TVYContentManagementPreview .contentOrder .TVYContentOrder .descContent {
+  padding: 5px;
+}
+
+.TVYContentManagementPreview .contentOrder .TVYContentOrder .descContent .CodeMirror {
+  border-radius: 3px;
+  height: auto;
+}
+
+.TVYContentManagementPreview .contentOrder .TVYContentOrder .descContent .imageContent {
+  max-width: 650px;
+}
+
+.TVYContentManagementPreview .contentOrder .TVYContentOrder .descContent .imageContent .imageFile {
+  width: 50%;
+  border-radius: 5px;
+  display: block;
+}
+
+.TVYContentManagementPreview .contentOrder .TVYContentOrder .descContent .imageContent .imageCaption {
+  font-style: italic;
+  font-size: 0.8em;
+  overflow-x: hidden;
+  width: 100%;
+  margin: 0;
+  color: #424242;
 }
 
 .TVYContentEditor {
@@ -13425,6 +13474,20 @@ button:focus {
 .TVYContentActionView .viewPart {
   border-top: 1px solid #D8D8D8;
   padding-top: 20px;
+}
+
+.TVYContentActionView .viewPart .descElementForView {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.TVYContentActionView .viewPart .descElementForView .CodeMirror {
+  border-radius: 10px;
+  height: auto;
+}
+
+.TVYContentActionView .viewPart .descElementForView .CodeMirror .CodeMirror-cursors {
+  display: none;
 }
 
 .TVYContentActionView .viewPart .ql-container {
@@ -15282,37 +15345,8 @@ button:focus {
   font-weight: normal;
 }
 
-.askQuestionContent .questionPreview .TVYContentOrder {
-  padding: 0;
-  z-index: 333;
-}
-
-.askQuestionContent .questionPreview .TVYContentOrder .descContent {
-  padding: 5px;
-}
-
-.askQuestionContent .questionPreview .TVYContentOrder .descContent .CodeMirror {
-  border-radius: 3px;
-  height: auto;
-}
-
-.askQuestionContent .questionPreview .TVYContentOrder .descContent .imageContent {
-  max-width: 650px;
-}
-
-.askQuestionContent .questionPreview .TVYContentOrder .descContent .imageContent .imageFile {
-  width: 50%;
-  border-radius: 5px;
-  display: block;
-}
-
-.askQuestionContent .questionPreview .TVYContentOrder .descContent .imageContent .imageCaption {
-  font-style: italic;
-  font-size: 0.8em;
-  overflow-x: hidden;
-  width: 100%;
-  margin: 0;
-  color: #424242;
+.askQuestionContent .questionContentManagement .TVYContentManagementPreview .form {
+  padding-top: 20px;
 }
 
 .pageViewQuestion {
@@ -15394,20 +15428,6 @@ button:focus {
 
 .pageViewQuestion .viewQuestionContent .subjectTagSeparator {
   color: #707070;
-}
-
-.pageViewQuestion .viewQuestionContent .descElementForView {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.pageViewQuestion .viewQuestionContent .descElementForView .CodeMirror {
-  border-radius: 10px;
-  height: auto;
-}
-
-.pageViewQuestion .viewQuestionContent .descElementForView .CodeMirror .CodeMirror-cursors {
-  display: none;
 }
 
 .pageViewQuestion .rightExtraSpace {
