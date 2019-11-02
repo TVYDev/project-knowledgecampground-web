@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Lib\RequestAPI;
+use App\Lib\RouteConstants;
 use Closure;
 
 class PreventLoginOrRegisterAfterAuthenticated
@@ -19,6 +20,7 @@ class PreventLoginOrRegisterAfterAuthenticated
     {
         try
         {
+            $previousUrl = url()->previous();
             $response = $this->get($this->getApiRequestUrl('user.verify_authentication'),null,null, [
                 'Authorization' => $this->getAccessToken($request)
             ]);
@@ -26,6 +28,9 @@ class PreventLoginOrRegisterAfterAuthenticated
             if($response->success == true){
                 $uri = $request->getRequestUri();
                 if($uri == '/auth/login' || $uri == '/auth/register'){
+                    if(strpos($previousUrl, '/auth/login') !== false || strpos($previousUrl, '/auth/register') !== false){
+                        return redirect()->route(RouteConstants::HOME);
+                    }
                     return redirect()->back()->withInfo('You are already logged in')->withInput();
                 }
             }

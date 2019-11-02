@@ -107,7 +107,6 @@ class TVYContentEditor extends HTMLElement
         this.innerHTML = html;
 
         this.questionPublicId = this.getAttribute('data-public-id');
-        console.log('constructor', this.questionPublicId);
 
         this.allTabs = this.querySelectorAll('.tabTypeContent button');
         this.allEditors = this.querySelectorAll('.editor > div');
@@ -144,7 +143,7 @@ class TVYContentEditor extends HTMLElement
         this.imageCaption = this.imageEditor.querySelector('.imageCaption');
 
         this.btnAddContent = this.querySelector('.actionContentEditor .btnAddContent');
-        this.contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
+        this.contentOrder = document.querySelector('.askQuestionContent .contentOrder .TVYContentOrder');
 
         this.allDescData = [];
 
@@ -157,7 +156,7 @@ class TVYContentEditor extends HTMLElement
 
         this.btnAddContent.addEventListener('click', this.addContentListener.bind(this));
 
-        let tvyContentOrder = document.querySelector('.questionPreview .TVYContentOrder');
+        let tvyContentOrder = document.querySelector('.contentOrder .TVYContentOrder');
         tvyContentOrder.addEventListener('click', (event) => {
             this.doContentOrderActions(event);
         });
@@ -424,10 +423,7 @@ class TVYContentEditor extends HTMLElement
 
     storeDataContent(dataContent, type, descId) {
         this.allDescData.push({type: type, data: dataContent, desc_id: descId});
-        console.log('Data saved----------');
-        console.log(this.allDescData);
         this.saveDescDataToBackend();
-        console.log('Data saved----------End');
     }
 
     updateDataOfADesc(data, type, descId) {
@@ -456,11 +452,11 @@ class TVYContentEditor extends HTMLElement
     }
 
     getDescElementByDescIdV2 (descId) {
-        return document.querySelector(`.questionPreview .TVYContentOrder .descElement[data-desc-id="${descId}"]`);
+        return document.querySelector(`.contentOrder .TVYContentOrder .descElement[data-desc-id="${descId}"]`);
     }
 
     getDescElementByDescId (descId) {
-        let allDescElements = document.querySelectorAll('.questionPreview .TVYContentOrder .descElement');
+        let allDescElements = document.querySelectorAll('.contentOrder .TVYContentOrder .descElement');
         let wantedElement = null;
         allDescElements.forEach(ele => {
            if(ele.getAttribute('data-desc-id') === descId){
@@ -540,7 +536,7 @@ class TVYContentEditor extends HTMLElement
 
     createDescriptionElementAndAttachEventOfDescTools (descId, descType = null, editor = null)
     {
-        let contentOrder = document.querySelector('.askQuestionContent .questionPreview .TVYContentOrder');
+        let contentOrder = document.querySelector('.askQuestionContent .contentOrder .TVYContentOrder');
 
         let descElement = document.createElement('div');
         descElement.className = 'descElement col-md-12';
@@ -554,13 +550,13 @@ class TVYContentEditor extends HTMLElement
 
     editDescriptionElement (editor, descId, descType, descTools)
     {
-        let beingEditedDescTool = document.querySelector('.questionPreview .TVYContentOrder .descTools.editing');
+        let beingEditedDescTool = document.querySelector('.contentOrder .TVYContentOrder .descTools.editing');
         if(beingEditedDescTool !== null) {
             new NotyAlertMessage(NotyAlertMessage.WARNING, '⚠️You cannot edit this description element because another one is being edited.').show();
             return;
         }
 
-        let allDescTools = document.querySelectorAll('.questionPreview .TVYContentOrder .descTools');
+        let allDescTools = document.querySelectorAll('.contentOrder .TVYContentOrder .descTools');
         editor.setAttribute('data-editing', descId);
         allDescTools.forEach(ele => {
             ele.classList.remove('editing');
@@ -644,7 +640,6 @@ class TVYContentEditor extends HTMLElement
         }
         currentDescElement.parentNode.removeChild(currentDescElement);
         this.saveDescDataToBackend();
-        console.log(this.allDescData);
     }
 
     enableAllTabEditors()
@@ -713,19 +708,17 @@ class TVYContentEditor extends HTMLElement
             processData: false,
             type: 'POST',
             success: function(result) {
-                console.log('---Success');
+                document.querySelector('.TVYContentManagementPreview .reRender').click();
             },
             error: function(err) {
-                console.log('---Error');
                 console.log(err);
             }
         });
-        console.log(this.allDescData);
     }
 
     connectedCallback()
     {
-        console.log('TVYContentEditor is rendered');
+        // console.log('TVYContentEditor is rendered');
     }
 }
 

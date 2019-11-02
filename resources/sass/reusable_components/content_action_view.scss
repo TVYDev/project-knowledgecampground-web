@@ -6,6 +6,17 @@
     .viewPart {
         border-top: 1px solid $thirdly-gray;
         padding-top: 20px;
+        .descElementForView {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            .CodeMirror {
+                border-radius: 10px;
+                height: auto;
+                .CodeMirror-cursors {
+                    display: none;
+                }
+            }
+        }
         .ql-container {
             border: none;
             padding: 0;
