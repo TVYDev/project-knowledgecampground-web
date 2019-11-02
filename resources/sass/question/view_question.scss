@@ -60,17 +60,6 @@
         .subjectTagSeparator {
             color: $secondary-gray;
         }
-        .descElementForView {
-            margin-top: 10px;
-            margin-bottom: 10px;
-            .CodeMirror {
-                border-radius: 10px;
-                height: auto;
-                .CodeMirror-cursors {
-                    display: none;
-                }
-            }
-        }
     }
     .rightExtraSpace {
         border: 1px dashed mediumpurple;

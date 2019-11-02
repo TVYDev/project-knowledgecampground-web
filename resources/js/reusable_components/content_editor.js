@@ -707,11 +707,13 @@ class TVYContentEditor extends HTMLElement
             contentType: false,
             processData: false,
             type: 'POST',
+            success: function(result) {
+                document.querySelector('.TVYContentManagementPreview .reRender').click();
+            },
             error: function(err) {
                 console.log(err);
             }
         });
-        document.querySelector('.TVYContentManagementPreview .reRender').click();
     }
 
     connectedCallback()

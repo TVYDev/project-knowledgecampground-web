@@ -13471,6 +13471,20 @@ button:focus {
   padding-top: 20px;
 }
 
+.TVYContentActionView .viewPart .descElementForView {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.TVYContentActionView .viewPart .descElementForView .CodeMirror {
+  border-radius: 10px;
+  height: auto;
+}
+
+.TVYContentActionView .viewPart .descElementForView .CodeMirror .CodeMirror-cursors {
+  display: none;
+}
+
 .TVYContentActionView .viewPart .ql-container {
   border: none;
   padding: 0;
@@ -15405,20 +15419,6 @@ button:focus {
 
 .pageViewQuestion .viewQuestionContent .subjectTagSeparator {
   color: #707070;
-}
-
-.pageViewQuestion .viewQuestionContent .descElementForView {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-.pageViewQuestion .viewQuestionContent .descElementForView .CodeMirror {
-  border-radius: 10px;
-  height: auto;
-}
-
-.pageViewQuestion .viewQuestionContent .descElementForView .CodeMirror .CodeMirror-cursors {
-  display: none;
 }
 
 .pageViewQuestion .rightExtraSpace {

@@ -26,6 +26,9 @@ class TVYContentManagementPreview extends HTMLElement
         this.innerHTML = html;
 
         this.publicId = this.getAttribute('data-public-id');
+        this.avatarUrl = this.getAttribute('data-avatar-url');
+        this.authorName = this.getAttribute('data-author-name');
+        this.dataContentType = this.getAttribute('data-content-type');
 
         this.contentPreview = this.querySelector('.contentPreview');
         this.reRenderHidden = this.querySelector('.reRender');
@@ -35,9 +38,6 @@ class TVYContentManagementPreview extends HTMLElement
         this.handlePreviewCheckBox();
         this.handleContentPreview();
     }
-
-    static get CONTENT_TYPE_QUESTION()   {return 'content_type_question';}
-    static get CONTENT_TYPE_ANSWER()     {return 'content_type_answer';}
 
     handlePreviewCheckBox () {
         $('.TVYContentManagementPreview .chkPreviewQuestion').checkbox({
@@ -58,6 +58,10 @@ class TVYContentManagementPreview extends HTMLElement
         }else {
             let mockedContentActionView = document.createElement('tvy-content-action-view');
             mockedContentActionView.setAttribute('data-question-public-id', this.publicId);
+            mockedContentActionView.setAttribute('data-avatar-url', this.avatarUrl);
+            mockedContentActionView.setAttribute('data-author-name', this.authorName);
+            mockedContentActionView.setAttribute('data-readable-time', 'asked 6 seconds ago');
+            mockedContentActionView.setAttribute('data-content-type', this.dataContentType);
             this.contentPreview.appendChild(mockedContentActionView);
         }
     }

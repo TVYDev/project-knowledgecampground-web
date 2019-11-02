@@ -7,6 +7,7 @@ use App\Lib\HttpConstants;
 use App\Lib\RequestAPI;
 use App\Lib\ResponseEndPoint;
 use App\Lib\RouteConstants;
+use http\Exception\UnexpectedValueException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -206,6 +207,7 @@ class QuestionController extends Controller
 
     public function getDescriptionOf ($publicId)
     {
+        $tempDataResponse = [];
         try
         {
             $response = $this->get(
@@ -216,13 +218,20 @@ class QuestionController extends Controller
             );
 
             if($response->success == true){
-                return $response->data->data;
+                $data = $response->data;
+                $tempDataResponse['success'] = true;
+                $tempDataResponse['data'] = $data->data;
+                $tempDataResponse['relative_path_store_images'] = HttpConstants::HOST_URL . $data->relative_path_store_images;
             }
-            return null;
+            else{
+                throw new UnexpectedValueException('Get description failed');
+            }
         }
         catch(\Exception $exception)
         {
-            return null;
+            $tempDataResponse['success'] = false;
+            $tempDataResponse['error_message'] = $exception->getMessage();
         }
+        return response()->json($tempDataResponse);
     }
 }

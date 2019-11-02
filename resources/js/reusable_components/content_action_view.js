@@ -27,6 +27,7 @@ class TVYContentActionView extends HTMLElement
         this.innerHTML = html;
 
         this.descriptionContent = null;
+        this.relativePathStoreImages = null;
 
         this.viewPart = this.querySelector('.viewPart');
         this.actionPart = this.querySelector('.actionPart');
@@ -53,8 +54,9 @@ class TVYContentActionView extends HTMLElement
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             type: 'GET',
             success: (result) => {
-                if(result){
-                    this.descriptionContent = JSON.parse(result);
+                if(result.success){
+                    this.descriptionContent = JSON.parse(result.data);
+                    this.relativePathStoreImages = result.relative_path_store_images;
                     this.fillTheContent();
                 }
             },
@@ -104,7 +106,7 @@ class TVYContentActionView extends HTMLElement
             {
                 imageCaption = `<strong>Caption:&nbsp;</strong>${descData.caption}`;
             }
-            let imageUrl = `${this.getAttribute('data-relative-path-image')}${descData.image_file_name}`;
+            let imageUrl = `${this.relativePathStoreImages}${descData.image_file_name}`;
 
             let divImageContent = document.createElement('div');
             divImageContent.className = 'imageContent';

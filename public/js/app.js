@@ -66986,6 +66986,7 @@ function (_HTMLElement) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(TVYContentActionView).call(this));
     _this.innerHTML = html;
     _this.descriptionContent = null;
+    _this.relativePathStoreImages = null;
     _this.viewPart = _this.querySelector('.viewPart');
     _this.actionPart = _this.querySelector('.actionPart');
     _this.askedOrEditedDate = _this.actionPart.querySelector('.askedOrEditedDate');
@@ -67015,8 +67016,9 @@ function (_HTMLElement) {
         },
         type: 'GET',
         success: function success(result) {
-          if (result) {
-            _this2.descriptionContent = JSON.parse(result);
+          if (result.success) {
+            _this2.descriptionContent = JSON.parse(result.data);
+            _this2.relativePathStoreImages = result.relative_path_store_images;
 
             _this2.fillTheContent();
           }
@@ -67068,7 +67070,7 @@ function (_HTMLElement) {
           imageCaption = "<strong>Caption:&nbsp;</strong>".concat(descData.caption);
         }
 
-        var imageUrl = "".concat(this.getAttribute('data-relative-path-image')).concat(descData.image_file_name);
+        var imageUrl = "".concat(this.relativePathStoreImages).concat(descData.image_file_name);
         var divImageContent = document.createElement('div');
         divImageContent.className = 'imageContent';
         divImageContent.innerHTML = "\n                <div class=\"imageView\">\n                    <img class=\"imageFile\" src=\"".concat(imageUrl, "\"/>\n                    <div class=\"toolZoomImage\">\n                        <i class=\"fas fa-search-plus\"></i>&nbsp;Click to zoom in\n                    </div>\n                </div>\n                <p class=\"imageCaption\">").concat(imageCaption, "</p>\n            ");
@@ -67756,11 +67758,13 @@ function (_HTMLElement) {
         contentType: false,
         processData: false,
         type: 'POST',
+        success: function success(result) {
+          document.querySelector('.TVYContentManagementPreview .reRender').click();
+        },
         error: function error(err) {
           console.log(err);
         }
       });
-      document.querySelector('.TVYContentManagementPreview .reRender').click();
     }
   }, {
     key: "connectedCallback",
@@ -67898,6 +67902,9 @@ function (_HTMLElement) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(TVYContentManagementPreview).call(this));
     _this.innerHTML = html;
     _this.publicId = _this.getAttribute('data-public-id');
+    _this.avatarUrl = _this.getAttribute('data-avatar-url');
+    _this.authorName = _this.getAttribute('data-author-name');
+    _this.dataContentType = _this.getAttribute('data-content-type');
     _this.contentPreview = _this.querySelector('.contentPreview');
     _this.reRenderHidden = _this.querySelector('.reRender');
 
@@ -67932,18 +67939,12 @@ function (_HTMLElement) {
       } else {
         var mockedContentActionView = document.createElement('tvy-content-action-view');
         mockedContentActionView.setAttribute('data-question-public-id', this.publicId);
+        mockedContentActionView.setAttribute('data-avatar-url', this.avatarUrl);
+        mockedContentActionView.setAttribute('data-author-name', this.authorName);
+        mockedContentActionView.setAttribute('data-readable-time', 'asked 6 seconds ago');
+        mockedContentActionView.setAttribute('data-content-type', this.dataContentType);
         this.contentPreview.appendChild(mockedContentActionView);
       }
-    }
-  }], [{
-    key: "CONTENT_TYPE_QUESTION",
-    get: function get() {
-      return 'content_type_question';
-    }
-  }, {
-    key: "CONTENT_TYPE_ANSWER",
-    get: function get() {
-      return 'content_type_answer';
     }
   }]);
 

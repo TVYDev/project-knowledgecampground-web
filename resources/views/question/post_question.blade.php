@@ -3,6 +3,12 @@
 @section('title', 'Ask Question')
 
 @section('content')
+    <?php
+    $ua = session(\App\Lib\UserConstants::KEY_TO_USER_AVATAR);
+    $default_avatar_url = $ua[\App\Lib\UserConstants::USER_AVATAR_SVG_URL];
+    $username = $ua[\App\Lib\UserConstants::USER_NAME];
+    ?>
+
     <div class="askQuestionContent">
         <div class="questionCreation">
             <div class="headAskQuestion">
@@ -74,8 +80,10 @@
         </div>
         <div class="questionContentManagement">
             <tvy-content-management-preview
-                data-content-type="question"
+                data-content-type="desc-question-content"
                 data-public-id="{{ $publicId }}"
+                data-avatar-url="{{$default_avatar_url}}"
+                data-author-name="{{$username}}"
             />
         </div>
     </div>
