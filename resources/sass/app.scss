@@ -190,6 +190,11 @@ button:focus {
     }
 }
 
+.ui.toggle.checkbox input:checked~label:before,
+.ui.toggle.checkbox input:focus:checked~label:before {
+    background-color: $secondary-green !important;
+}
+
 //-----Font awesome icons
 .far, .fas, .fab{
     vertical-align: middle;

@@ -4,7 +4,7 @@ const html = `
             <div class="inline field">
                 <div class="ui toggle checkbox chkPreviewQuestion">
                     <input type="checkbox" name="chkPreviewQuestion" tabindex="0" class="hidden">
-                    <label>Preview question</label>
+                    <label>Preview question description</label>
                 </div>
             </div>
         </div>

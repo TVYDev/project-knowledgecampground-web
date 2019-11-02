@@ -13136,6 +13136,11 @@ button:focus {
   background-color: #54D0E6;
 }
 
+.ui.toggle.checkbox input:checked ~ label:before,
+.ui.toggle.checkbox input:focus:checked ~ label:before {
+  background-color: #17CCA9 !important;
+}
+
 .far,
 .fas,
 .fab {
@@ -13152,7 +13157,7 @@ button:focus {
 }
 
 .TVYContentManagementPreview .form {
-  margin-top: 10px;
+  margin-bottom: 10px;
   text-align: center;
 }
 
@@ -15338,6 +15343,10 @@ button:focus {
 
 .askQuestionContent .questionCreation .askQuestionForm .tagsOfQuestion a.transition.visible .menuSubjectName {
   font-weight: normal;
+}
+
+.askQuestionContent .questionContentManagement .TVYContentManagementPreview .form {
+  padding-top: 20px;
 }
 
 .pageViewQuestion {

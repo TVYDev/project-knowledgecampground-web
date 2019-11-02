@@ -66993,6 +66993,9 @@ function (_HTMLElement) {
     _this.author = _this.actionPart.querySelector('.authorIdentity .authorInfo');
     _this.avatar = _this.actionPart.querySelector('.authorIdentity .authorAvatar');
     _this.reRenderHidden = _this.querySelector('.reRender');
+    _this.loaderContent = document.createElement('div');
+    _this.loaderContent.className = 'ui active centered inline text loader loaderContent';
+    _this.loaderContent.innerHTML = 'Loading';
 
     _this.reRenderHidden.addEventListener('click', _this.getDescriptionContent.bind(_assertThisInitialized(_this)));
 
@@ -67015,12 +67018,21 @@ function (_HTMLElement) {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         type: 'GET',
+        beforeSend: function beforeSend(xhr) {
+          _this2.viewPart.innerHTML = '';
+
+          _this2.viewPart.appendChild(_this2.loaderContent);
+        },
         success: function success(result) {
+          _this2.viewPart.removeChild(_this2.loaderContent);
+
           if (result.success) {
             _this2.descriptionContent = JSON.parse(result.data);
             _this2.relativePathStoreImages = result.relative_path_store_images;
 
             _this2.fillTheContent();
+          } else {
+            _this2.addWarningNoContent();
           }
         },
         error: function error(err) {
@@ -67041,14 +67053,25 @@ function (_HTMLElement) {
   }, {
     key: "fillTheContent",
     value: function fillTheContent() {
-      if (this.descriptionContent != null) {
-        this.viewPart.innerHTML = '';
+      this.viewPart.innerHTML = '';
 
+      if (this.descriptionContent != null && this.descriptionContent.length > 0) {
         for (var i = 0; i < this.descriptionContent.length; i++) {
           var description = this.descriptionContent[i];
           this.addContent(description.data, description.type);
         }
+      } else {
+        this.addWarningNoContent();
       }
+    }
+  }, {
+    key: "addWarningNoContent",
+    value: function addWarningNoContent() {
+      var element = document.createElement('div');
+      element.className = 'ui warning floating message';
+      var html = "\n            <div class=\"header\">\n                No content to preview\n            </div>\n            Please add some description!\n        ";
+      element.innerHTML = html;
+      this.viewPart.appendChild(element);
     }
   }, {
     key: "addContent",
@@ -67070,10 +67093,13 @@ function (_HTMLElement) {
           imageCaption = "<strong>Caption:&nbsp;</strong>".concat(descData.caption);
         }
 
-        var imageUrl = "".concat(this.relativePathStoreImages).concat(descData.image_file_name);
+        var imageUrl = "".concat(this.relativePathStoreImages).concat(descData.image_file_name); // suffix with image url to prevent image from caching, otherwise the same url will point to cache image rather than image in the server
+
+        var currentTimeStamp = Date.now();
+        var imageUrlWithTimeStamp = "".concat(imageUrl, "?").concat(currentTimeStamp);
         var divImageContent = document.createElement('div');
         divImageContent.className = 'imageContent';
-        divImageContent.innerHTML = "\n                <div class=\"imageView\">\n                    <img class=\"imageFile\" src=\"".concat(imageUrl, "\"/>\n                    <div class=\"toolZoomImage\">\n                        <i class=\"fas fa-search-plus\"></i>&nbsp;Click to zoom in\n                    </div>\n                </div>\n                <p class=\"imageCaption\">").concat(imageCaption, "</p>\n            ");
+        divImageContent.innerHTML = "\n                <div class=\"imageView\">\n                    <img class=\"imageFile\" src=\"".concat(imageUrlWithTimeStamp, "\"/>\n                    <div class=\"toolZoomImage\">\n                        <i class=\"fas fa-search-plus\"></i>&nbsp;Click to zoom in\n                    </div>\n                </div>\n                <p class=\"imageCaption\">").concat(imageCaption, "</p>\n            ");
         element.appendChild(divImageContent);
         divImageContent.querySelector('.imageView').addEventListener('click', function () {
           return _this3.onClickZoomImage(imageUrl);
@@ -67887,7 +67913,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var html = "\n    <div class=\"TVYContentManagementPreview\">\n        <div class=\"ui form\">\n            <div class=\"inline field\">\n                <div class=\"ui toggle checkbox chkPreviewQuestion\">\n                    <input type=\"checkbox\" name=\"chkPreviewQuestion\" tabindex=\"0\" class=\"hidden\">\n                    <label>Preview question</label>\n                </div>\n            </div>\n        </div>\n        <div class=\"orderAndPreview\">\n            <input type=\"hidden\" name=\"reRender\" class=\"reRender\"/>\n            <div class=\"contentPreview\" hidden=\"hidden\">    \n            </div>\n            <div class=\"contentOrder\">\n                <div class=\"TVYContentOrder col-md-12\"></div>\n            </div>\n        </div>\n    </div>\n";
+var html = "\n    <div class=\"TVYContentManagementPreview\">\n        <div class=\"ui form\">\n            <div class=\"inline field\">\n                <div class=\"ui toggle checkbox chkPreviewQuestion\">\n                    <input type=\"checkbox\" name=\"chkPreviewQuestion\" tabindex=\"0\" class=\"hidden\">\n                    <label>Preview question description</label>\n                </div>\n            </div>\n        </div>\n        <div class=\"orderAndPreview\">\n            <input type=\"hidden\" name=\"reRender\" class=\"reRender\"/>\n            <div class=\"contentPreview\" hidden=\"hidden\">    \n            </div>\n            <div class=\"contentOrder\">\n                <div class=\"TVYContentOrder col-md-12\"></div>\n            </div>\n        </div>\n    </div>\n";
 
 var TVYContentManagementPreview =
 /*#__PURE__*/
