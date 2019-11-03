@@ -29,6 +29,23 @@
                 data-avatar-url="{{ $avatarUrl }}"
                 data-relative-path-image="{{ $relativePathStoreImagesOfQuestion }}">
             </tvy-content-action-view>
+            <div class="answerBlock">
+                <div class="headerAnswerBlock">
+                    <div>
+                        <i class="fas fa-lightbulb"></i>
+                        <span>0 Answer</span>
+                    </div>
+                    <div>
+                        Sort by:&nbsp;
+                        <button class="btn btnMostHelpful active">Most helpful</button>
+                        &nbsp;|&nbsp;
+                        <button class="btn btnMostDated">Most dated</button>
+                    </div>
+                </div>
+                <button type="button" class="ui button btnWriteYourAnswer btnFormPrimary">
+                    <span>Write your answer</span>&nbsp;&nbsp;&nbsp;<i class="fas fa-pen-alt"></i>
+                </button>
+            </div>
         </div>
         <div class="rightExtraSpace"></div>
     </div>

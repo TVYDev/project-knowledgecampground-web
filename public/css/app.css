@@ -13465,15 +13465,14 @@ button:focus {
 }
 
 .TVYContentActionView {
+  margin-top: 5px;
   display: grid;
   grid-template-columns: 1fr;
   grid-row-gap: 20px;
-  padding: 5px;
 }
 
 .TVYContentActionView .viewPart {
-  border-top: 1px solid #D8D8D8;
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
 .TVYContentActionView .viewPart .descElementForView {
@@ -13549,8 +13548,8 @@ button:focus {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   padding: 5px 10px;
-  border-top: 1px solid #D8D8D8;
-  border-bottom: 1px solid #D8D8D8;
+  border: 1px solid #D8D8D8;
+  border-radius: 20px;
 }
 
 .TVYContentActionView .actionPart .vote {
@@ -15357,6 +15356,7 @@ button:focus {
 
 .pageViewQuestion .leftExtraSpace {
   border: 1px dashed yellowgreen;
+  border-right: 1px solid #D8D8D8;
 }
 
 .pageViewQuestion .viewQuestionContent .titleBlock {
@@ -15430,7 +15430,65 @@ button:focus {
   color: #707070;
 }
 
+.pageViewQuestion .viewQuestionContent .answerBlock .headerAnswerBlock {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 5px solid #0A5748;
+}
+
+.pageViewQuestion .viewQuestionContent .answerBlock .headerAnswerBlock div:first-child i {
+  border-radius: 8px 8px 0 0;
+  border: 2px solid #0A5748;
+  border-bottom: none;
+  color: #0A5748;
+  padding: 5px;
+  font-size: 2em;
+}
+
+.pageViewQuestion .viewQuestionContent .answerBlock .headerAnswerBlock div:first-child span {
+  margin-left: 10px;
+  vertical-align: middle;
+  color: #0A5748;
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+.pageViewQuestion .viewQuestionContent .answerBlock .headerAnswerBlock div:last-child {
+  justify-self: right;
+  align-self: center;
+}
+
+.pageViewQuestion .viewQuestionContent .answerBlock .headerAnswerBlock div:last-child .btnMostHelpful,
+.pageViewQuestion .viewQuestionContent .answerBlock .headerAnswerBlock div:last-child .btnMostDated {
+  padding: 5px 10px;
+  background: none;
+  border: none;
+  color: #424242;
+}
+
+.pageViewQuestion .viewQuestionContent .answerBlock .headerAnswerBlock div:last-child .btnMostHelpful:hover,
+.pageViewQuestion .viewQuestionContent .answerBlock .headerAnswerBlock div:last-child .btnMostHelpful:focus,
+.pageViewQuestion .viewQuestionContent .answerBlock .headerAnswerBlock div:last-child .btnMostDated:hover,
+.pageViewQuestion .viewQuestionContent .answerBlock .headerAnswerBlock div:last-child .btnMostDated:focus {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.pageViewQuestion .viewQuestionContent .answerBlock .headerAnswerBlock div:last-child .btnMostHelpful.active,
+.pageViewQuestion .viewQuestionContent .answerBlock .headerAnswerBlock div:last-child .btnMostDated.active {
+  border-radius: 20px;
+  border: 1px solid #707070;
+  color: white;
+  background-color: #707070;
+}
+
+.pageViewQuestion .viewQuestionContent .answerBlock .btnWriteYourAnswer {
+  margin-top: 10px;
+}
+
 .pageViewQuestion .rightExtraSpace {
   border: 1px dashed mediumpurple;
+  border-left: 1px solid #D8D8D8;
 }
 
