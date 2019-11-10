@@ -75,6 +75,23 @@ return [
             'url'   => $host.'/api/question/description-of'
         ]
     ],
+    'answer' => [
+        'save'  =>  [
+            'method'=> 'put',
+            'path'  => '/api/answer/save/{publicId}',
+            'url'   => $host.'/api/answer/save'
+        ],
+        'save_during_editing' => [
+            'method' => 'post',
+            'path'  => '/api/answer/save-during-editing',
+            'url'   => $host.'/api/answer/save-during-editing'
+        ],
+        'description' => [
+            'method'=> 'get',
+            'paht'  => '/api/answer/description-of/{publicId}',
+            'url'   => $host.'/api/answer/description-of'
+        ]
+    ],
     'subject' => [
         'get_all_subjects' => [
             'method' => 'get',

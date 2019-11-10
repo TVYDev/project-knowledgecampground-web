@@ -13548,7 +13548,7 @@ button:focus {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   padding: 5px 10px;
-  border: 1px solid #D8D8D8;
+  border: 1px solid #707070;
   border-radius: 20px;
 }
 
@@ -14713,6 +14713,13 @@ button:focus {
   }
 }
 
+.kcFooter {
+  margin-top: 100px;
+  height: 200px;
+  background-color: #D8D8D8;
+  border-top: 1px solid #707070;
+}
+
 .ui.button.fluid.btnSocialMedia {
   padding: 0 10px;
   margin-top: 10px;
@@ -15490,5 +15497,23 @@ button:focus {
 .pageViewQuestion .rightExtraSpace {
   border: 1px dashed mediumpurple;
   border-left: 1px solid #D8D8D8;
+}
+
+.answerQuestionBlock {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 10px;
+  margin-top: 30px;
+  padding: 20px 3px;
+  background-color: #D8D8D8;
+  border-radius: 5px;
+}
+
+.answerQuestionBlock .answerCreation h4 {
+  text-align: center;
+}
+
+.answerQuestionBlock .answerCreation > button {
+  margin-top: 15px;
 }
 

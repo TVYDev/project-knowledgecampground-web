@@ -29,6 +29,13 @@ class TVYContentActionView extends HTMLElement
         this.descriptionContent = null;
         this.relativePathStoreImages = null;
 
+        let contentType = this.getAttribute('data-content-type');
+        if(contentType === 'answer') {
+            this.contentType = TVYContentActionView.ANSWER_CONTENT_TYPE;
+        }else {
+            this.contentType = TVYContentActionView.QUESTION_CONTENT_TYPE;
+        }
+
         this.viewPart = this.querySelector('.viewPart');
         this.actionPart = this.querySelector('.actionPart');
         this.askedOrEditedDate = this.actionPart.querySelector('.askedOrEditedDate');
@@ -50,9 +57,18 @@ class TVYContentActionView extends HTMLElement
     static get CODE_TYPE()  {return 'code';}
     static get IMAGE_TYPE() {return 'image';}
 
+    static get QUESTION_CONTENT_TYPE()  {return 'question';}
+    static get ANSWER_CONTENT_TYPE()    {return 'answer';}
+
     getDescriptionContent ()
     {
-        let url = window.location.origin + '/question/description-of/' + this.getAttribute('data-question-public-id');
+        let routePath = null;
+        if(this.contentType === TVYContentActionView.QUESTION_CONTENT_TYPE) {
+            routePath = '/question/description-of/';
+        }else {
+            routePath = '/answer/description-of/';
+        }
+        let url = window.location.origin + routePath + this.getAttribute('data-public-id');
         $.ajax({
             url: url,
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },

@@ -66987,6 +66987,15 @@ function (_HTMLElement) {
     _this.innerHTML = html;
     _this.descriptionContent = null;
     _this.relativePathStoreImages = null;
+
+    var contentType = _this.getAttribute('data-content-type');
+
+    if (contentType === 'answer') {
+      _this.contentType = TVYContentActionView.ANSWER_CONTENT_TYPE;
+    } else {
+      _this.contentType = TVYContentActionView.QUESTION_CONTENT_TYPE;
+    }
+
     _this.viewPart = _this.querySelector('.viewPart');
     _this.actionPart = _this.querySelector('.actionPart');
     _this.askedOrEditedDate = _this.actionPart.querySelector('.askedOrEditedDate');
@@ -67011,7 +67020,15 @@ function (_HTMLElement) {
     value: function getDescriptionContent() {
       var _this2 = this;
 
-      var url = window.location.origin + '/question/description-of/' + this.getAttribute('data-question-public-id');
+      var routePath = null;
+
+      if (this.contentType === TVYContentActionView.QUESTION_CONTENT_TYPE) {
+        routePath = '/question/description-of/';
+      } else {
+        routePath = '/answer/description-of/';
+      }
+
+      var url = window.location.origin + routePath + this.getAttribute('data-public-id');
       $.ajax({
         url: url,
         headers: {
@@ -67128,6 +67145,16 @@ function (_HTMLElement) {
     get: function get() {
       return 'image';
     }
+  }, {
+    key: "QUESTION_CONTENT_TYPE",
+    get: function get() {
+      return 'question';
+    }
+  }, {
+    key: "ANSWER_CONTENT_TYPE",
+    get: function get() {
+      return 'answer';
+    }
   }]);
 
   return TVYContentActionView;
@@ -67193,7 +67220,17 @@ function (_HTMLElement) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(TVYContentEditor).call(this));
     _this.innerHTML = html;
-    _this.questionPublicId = _this.getAttribute('data-public-id');
+    _this.publicId = _this.getAttribute('data-public-id');
+    _this.referencePublicId = _this.getAttribute('data-reference-public-id');
+
+    var editorContentType = _this.getAttribute('data-content-type');
+
+    if (editorContentType === 'answer') {
+      _this.contentType = TVYContentEditor.ANSWER_CONTENT_TYPE;
+    } else {
+      _this.contentType = TVYContentEditor.QUESTION_CONTENT_TYPE;
+    }
+
     _this.allTabs = _this.querySelectorAll('.tabTypeContent button');
     _this.allEditors = _this.querySelectorAll('.editor > div');
     _this.textEditor = _this.querySelector('.editor #TVYTextEditor');
@@ -67226,7 +67263,7 @@ function (_HTMLElement) {
     _this.btnRemovePreviewImage = _this.imageEditor.querySelector('.btnRemovePreviewImage');
     _this.imageCaption = _this.imageEditor.querySelector('.imageCaption');
     _this.btnAddContent = _this.querySelector('.actionContentEditor .btnAddContent');
-    _this.contentOrder = document.querySelector('.askQuestionContent .contentOrder .TVYContentOrder');
+    _this.contentOrder = document.querySelector('.contentOrder .TVYContentOrder');
     _this.allDescData = [];
 
     _this.tabEditorMovement();
@@ -67444,7 +67481,7 @@ function (_HTMLElement) {
             _descContent.querySelector('.imageContent .imageFile').setAttribute('src', this.uploadedImagePreivew.getAttribute('src'));
 
             _descContent.querySelector('.imageContent .imageCaption').innerHTML = this.imageCaption.value;
-            var imageFileName = this.questionPublicId + '_' + imageDataEditing + '.' + imageExtension;
+            var imageFileName = this.publicId + '_' + imageDataEditing + '.' + imageExtension;
             this.nameFileImageToUpload = imageFileName;
             this.updateDataOfADesc({
               caption: this.imageCaption.value,
@@ -67468,7 +67505,7 @@ function (_HTMLElement) {
             var imageContentHTML = "\n                        <div class=\"imageContent\">\n                            <img \n                                class=\"imageFile\" \n                                src=".concat(this.uploadedImagePreivew.getAttribute('src'), " \n                                data-image-extension=").concat(this.fileImageExtension, " />\n                            <p class=\"imageCaption\">").concat(imageCaptionToView, "</p>\n                        </div>\n                    ");
             imageDescContent.innerHTML = imageContentHTML;
 
-            var _imageFileName = this.questionPublicId + '_' + randomDescId + '.' + this.fileImageExtension;
+            var _imageFileName = this.publicId + '_' + randomDescId + '.' + this.fileImageExtension;
 
             this.nameFileImageToUpload = _imageFileName;
             this.storeDataContent({
@@ -67620,7 +67657,7 @@ function (_HTMLElement) {
     value: function createDescriptionElementAndAttachEventOfDescTools(descId) {
       var descType = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
       var editor = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-      var contentOrder = document.querySelector('.askQuestionContent .contentOrder .TVYContentOrder');
+      var contentOrder = document.querySelector('.contentOrder .TVYContentOrder');
       var descElement = document.createElement('div');
       descElement.className = 'descElement col-md-12';
       descElement.setAttribute('data-desc-id', descId);
@@ -67763,24 +67800,42 @@ function (_HTMLElement) {
       this.allDescData = arrayDescDataExcludedCurrentDesc;
     }
   }, {
-    key: "saveDescDataToBackend",
-    value: function saveDescDataToBackend() {
-      var url = window.location.origin + '/question/save-during-editing';
-      var titleQuestion = $('#formAskQuestion .questionTitle').val();
+    key: "prepareFormDataToSaveToBackend",
+    value: function prepareFormDataToSaveToBackend(contentType) {
+      var baseUrl = window.location.origin;
+      var url = null;
       var formData = new FormData();
-      formData.append('title', titleQuestion != '' ? titleQuestion : 'sample title');
-      formData.append('public_id', this.questionPublicId);
+
+      if (contentType === TVYContentEditor.QUESTION_CONTENT_TYPE) {
+        url = baseUrl + '/question/save-during-editing';
+        var titleQuestion = $('#formAskQuestion .questionTitle').val();
+        formData.append('title', titleQuestion != '' ? titleQuestion : 'sample title');
+      } else {
+        url = baseUrl + '/answer/save-during-editing';
+        formData.append('question_public_id', this.referencePublicId);
+      }
+
+      formData.append('public_id', this.publicId);
       formData.append('desc_data', JSON.stringify(this.allDescData));
       formData.append('image_file_upload', this.fileImageToUpload);
       formData.append('image_file_name', this.nameFileImageToUpload);
       this.fileImageToUpload = null;
       this.nameFileImageToUpload = null;
+      return {
+        'url': url,
+        'formData': formData
+      };
+    }
+  }, {
+    key: "saveDescDataToBackend",
+    value: function saveDescDataToBackend() {
+      var dataToSave = this.prepareFormDataToSaveToBackend(this.contentType);
       $.ajax({
-        url: url,
+        url: dataToSave['url'],
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        data: formData,
+        data: dataToSave['formData'],
         contentType: false,
         processData: false,
         type: 'POST',
@@ -67807,6 +67862,16 @@ function (_HTMLElement) {
       return this.quillTextObj.getContent();
     }
   }], [{
+    key: "QUESTION_CONTENT_TYPE",
+    get: function get() {
+      return 'question';
+    }
+  }, {
+    key: "ANSWER_CONTENT_TYPE",
+    get: function get() {
+      return 'answer';
+    }
+  }, {
     key: "TEXT_TYPE",
     get: function get() {
       return 'text';
@@ -67964,7 +68029,7 @@ function (_HTMLElement) {
         this.querySelector('.TVYContentActionView .reRender').click();
       } else {
         var mockedContentActionView = document.createElement('tvy-content-action-view');
-        mockedContentActionView.setAttribute('data-question-public-id', this.publicId);
+        mockedContentActionView.setAttribute('data-public-id', this.publicId);
         mockedContentActionView.setAttribute('data-avatar-url', this.avatarUrl);
         mockedContentActionView.setAttribute('data-author-name', this.authorName);
         mockedContentActionView.setAttribute('data-readable-time', 'asked 6 seconds ago');

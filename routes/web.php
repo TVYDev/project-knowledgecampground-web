@@ -68,6 +68,17 @@ Route::group([
 });
 
 Route::group([
+    'prefix' => 'answer'
+    ], function() {
+    Route::post('/post', 'AnswerController@postPost')
+        ->name(RouteConstants::ANSWER_POST_POST);
+    Route::post('/save-during-editing', 'AnswerController@postSaveDuringEditing')
+        ->name(RouteConstants::ANSWER_POST_SAVE_DURING_EDITING);
+    Route::get('/description-of/{publicId}', 'AnswerController@getDescriptionOf')
+        ->name(RouteConstants::ANSWER_GET_DESCRIPTION_OF);
+});
+
+Route::group([
     'prefix' => 'tag'
     ], function (){
     Route::get('/get_tags_of_subject/{subjectId}', 'TagController@getTagsOfSubject')

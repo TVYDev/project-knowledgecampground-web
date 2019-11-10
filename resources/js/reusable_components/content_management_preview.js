@@ -57,7 +57,7 @@ class TVYContentManagementPreview extends HTMLElement
             this.querySelector('.TVYContentActionView .reRender').click();
         }else {
             let mockedContentActionView = document.createElement('tvy-content-action-view');
-            mockedContentActionView.setAttribute('data-question-public-id', this.publicId);
+            mockedContentActionView.setAttribute('data-public-id', this.publicId);
             mockedContentActionView.setAttribute('data-avatar-url', this.avatarUrl);
             mockedContentActionView.setAttribute('data-author-name', this.authorName);
             mockedContentActionView.setAttribute('data-readable-time', 'asked 6 seconds ago');

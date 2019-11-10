@@ -182,8 +182,11 @@ class QuestionController extends Controller
                     }
                 }
 
+                $newAnswerPublicId = $this->supporter->doGeneratePublicId();
+
                 return view('question.view_question')
-                    ->with('publicId', $publicId)
+                    ->with('questionPublicId', $publicId)
+                    ->with('answerPublicId', $newAnswerPublicId)
                     ->with('title', $data->title)
                     ->with('readableTime', $data->readable_time_en)
                     ->with('authorName', $data->author_name)
