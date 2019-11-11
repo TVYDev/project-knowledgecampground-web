@@ -7,7 +7,7 @@
         display: grid;
         grid-template-columns: 1fr 5fr;
         grid-template-rows: 45px;
-        background: transparent;
+        background: $page-background;
         z-index: 999;
         #sideMenu {
             display: none;

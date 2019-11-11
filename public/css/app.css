@@ -12970,10 +12970,6 @@ readers do not read off random characters that represent icons */
   font-family: "Font Awesome 5 Brands";
 }
 
-.CodeMirror {
-  width: 700px;
-}
-
 .CodeMirror * {
   font-family: "Source Code Pro", monospace;
   font-size: 12px;
@@ -13161,7 +13157,7 @@ button:focus {
   text-align: center;
 }
 
-.TVYContentManagementPreview .form .chkPreviewQuestion {
+.TVYContentManagementPreview .form .chkPreviewContent {
   padding: 5px 10px;
   border: 1px solid #707070;
   border-radius: 20px;
@@ -13238,6 +13234,7 @@ button:focus {
 }
 
 .TVYContentEditor .editor {
+  max-width: 695px;
   border: 1px solid #D8D8D8;
   border-top: none;
   border-bottom: none;
@@ -13622,7 +13619,7 @@ button:focus {
     display: grid;
     grid-template-columns: 1fr 5fr;
     grid-template-rows: 45px;
-    background: transparent;
+    background: #F3F3F3;
     z-index: 999;
   }
 

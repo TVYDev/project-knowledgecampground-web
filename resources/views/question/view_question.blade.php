@@ -48,9 +48,9 @@
     </div>
     <div class="answerQuestionBlock">
         <div class="answerCreation">
+            <h4><i class="fas fa-pen-alt"></i>&nbsp;&nbsp;Write your answer here</h4>
             <form action="{{ route(\App\Lib\RouteConstants::ANSWER_POST_POST) }}" method="POST" id="formAnswerQuestion">
                 @csrf
-                <h4><i class="fas fa-pen-alt"></i>&nbsp;&nbsp;Write your answer here</h4>
                 <input type="hidden" name="publicId" value="{{ $answerPublicId }}">
                 <input type="hidden" name="referencePublicId" value="{{ $questionPublicId }}">
                 <tvy-content-editor
@@ -60,7 +60,7 @@
                     data-content-type="answer"
                 ></tvy-content-editor>
                 <button type="submit" name="submit" value="post" class="ui button btnPostQuestion btnFormPrimary">
-                    <span>{{ __('Post my question') }}</span>&nbsp;&nbsp;&nbsp;<i class="far fa-paper-plane"></i>
+                    <span>{{ __('Post my answer') }}</span>&nbsp;&nbsp;&nbsp;<i class="far fa-paper-plane"></i>
                 </button>
                 <button type="submit" name="submit" value="draft" class="ui button btnSaveDraftQuestion btnFormSecondary">
                     <span>{{ __('Save as draft') }}</span>&nbsp;&nbsp;&nbsp;<i class="far fa-save"></i>
@@ -73,7 +73,7 @@
                 data-public-id="{{ $answerPublicId }}"
                 data-avatar-url="{{ $avatarUrl }}"
                 data-author-name="{{ $authorName }}"
-            />
+            ></tvy-content-management-preview>
         </div>
     </div>
 @endsection

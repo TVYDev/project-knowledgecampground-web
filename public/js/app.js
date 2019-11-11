@@ -67978,7 +67978,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var html = "\n    <div class=\"TVYContentManagementPreview\">\n        <div class=\"ui form\">\n            <div class=\"inline field\">\n                <div class=\"ui toggle checkbox chkPreviewQuestion\">\n                    <input type=\"checkbox\" name=\"chkPreviewQuestion\" tabindex=\"0\" class=\"hidden\">\n                    <label>Preview question description</label>\n                </div>\n            </div>\n        </div>\n        <div class=\"orderAndPreview\">\n            <input type=\"hidden\" name=\"reRender\" class=\"reRender\"/>\n            <div class=\"contentPreview\" hidden=\"hidden\">    \n            </div>\n            <div class=\"contentOrder\">\n                <div class=\"TVYContentOrder col-md-12\"></div>\n            </div>\n        </div>\n    </div>\n";
+var html = "\n    <div class=\"TVYContentManagementPreview\">\n        <div class=\"ui form\">\n            <div class=\"inline field\">\n                <div class=\"ui toggle checkbox chkPreviewContent\">\n                    <input type=\"checkbox\" name=\"chkPreviewContent\" tabindex=\"0\" class=\"hidden\">\n                    <label class=\"lblPreviewContent\"></label>\n                </div>\n            </div>\n        </div>\n        <div class=\"orderAndPreview\">\n            <input type=\"hidden\" name=\"reRender\" class=\"reRender\"/>\n            <div class=\"contentPreview\" hidden=\"hidden\">    \n            </div>\n            <div class=\"contentOrder\">\n                <div class=\"TVYContentOrder col-md-12\"></div>\n            </div>\n        </div>\n    </div>\n";
 
 var TVYContentManagementPreview =
 /*#__PURE__*/
@@ -67995,11 +67995,22 @@ function (_HTMLElement) {
     _this.publicId = _this.getAttribute('data-public-id');
     _this.avatarUrl = _this.getAttribute('data-avatar-url');
     _this.authorName = _this.getAttribute('data-author-name');
-    _this.dataContentType = _this.getAttribute('data-content-type');
+
+    var dataContentType = _this.getAttribute('data-content-type');
+
+    if (dataContentType === 'question') {
+      _this.contentType = TVYContentManagementPreview.QUESTION_CONTENT_TYPE;
+    } else {
+      _this.contentType = TVYContentManagementPreview.ANSWER_CONTENT_TYPE;
+    }
+
     _this.contentPreview = _this.querySelector('.contentPreview');
     _this.reRenderHidden = _this.querySelector('.reRender');
+    _this.lblPreviewContent = _this.querySelector('.lblPreviewContent');
 
     _this.reRenderHidden.addEventListener('click', _this.handleContentPreview.bind(_assertThisInitialized(_this)));
+
+    _this.setLabelTextPreviewContent();
 
     _this.handlePreviewCheckBox();
 
@@ -68009,9 +68020,22 @@ function (_HTMLElement) {
   }
 
   _createClass(TVYContentManagementPreview, [{
+    key: "setLabelTextPreviewContent",
+    value: function setLabelTextPreviewContent() {
+      var text = '';
+
+      if (this.contentType === TVYContentManagementPreview.QUESTION_CONTENT_TYPE) {
+        text = 'Preview your question';
+      } else {
+        text = 'Preview your answer';
+      }
+
+      this.lblPreviewContent.innerHTML = text;
+    }
+  }, {
     key: "handlePreviewCheckBox",
     value: function handlePreviewCheckBox() {
-      $('.TVYContentManagementPreview .chkPreviewQuestion').checkbox({
+      $('.TVYContentManagementPreview .chkPreviewContent').checkbox({
         onChecked: function onChecked() {
           $('.TVYContentManagementPreview .contentPreview').removeAttr('hidden');
           $('.TVYContentManagementPreview .contentOrder').attr('hidden', 'hidden');
@@ -68028,14 +68052,25 @@ function (_HTMLElement) {
       if (this.querySelector('tvy-content-action-view')) {
         this.querySelector('.TVYContentActionView .reRender').click();
       } else {
+        var readableTime = (this.contentType === TVYContentManagementPreview.QUESTION_CONTENT_TYPE ? 'asked' : 'answered') + ' 6 seconds ago';
         var mockedContentActionView = document.createElement('tvy-content-action-view');
         mockedContentActionView.setAttribute('data-public-id', this.publicId);
         mockedContentActionView.setAttribute('data-avatar-url', this.avatarUrl);
         mockedContentActionView.setAttribute('data-author-name', this.authorName);
-        mockedContentActionView.setAttribute('data-readable-time', 'asked 6 seconds ago');
-        mockedContentActionView.setAttribute('data-content-type', this.dataContentType);
+        mockedContentActionView.setAttribute('data-readable-time', readableTime);
+        mockedContentActionView.setAttribute('data-content-type', this.contentType);
         this.contentPreview.appendChild(mockedContentActionView);
       }
+    }
+  }], [{
+    key: "QUESTION_CONTENT_TYPE",
+    get: function get() {
+      return 'question';
+    }
+  }, {
+    key: "ANSWER_CONTENT_TYPE",
+    get: function get() {
+      return 'answer';
     }
   }]);
 
