@@ -142,4 +142,16 @@ class AnswerController extends Controller
         }
         return response()->json($tempDataResponse);
     }
+
+    public function getListPostedAnswersOf ($questionPublicId)
+    {
+        try
+        {
+
+        }
+        catch(\Exception $exception)
+        {
+
+        }
+    }
 }

@@ -66653,6 +66653,8 @@ __webpack_require__(/*! ./reusable_components/content_editor */ "./resources/js/
 
 __webpack_require__(/*! ./reusable_components/content_action_view */ "./resources/js/reusable_components/content_action_view.js");
 
+__webpack_require__(/*! ./reusable_components/list_content_action_view */ "./resources/js/reusable_components/list_content_action_view.js");
+
 /***/ }),
 
 /***/ "./resources/js/auth/login.js":
@@ -68078,6 +68080,100 @@ function (_HTMLElement) {
 }(_wrapNativeSuper(HTMLElement));
 
 window.customElements.define('tvy-content-management-preview', TVYContentManagementPreview);
+
+/***/ }),
+
+/***/ "./resources/js/reusable_components/list_content_action_view.js":
+/*!**********************************************************************!*\
+  !*** ./resources/js/reusable_components/list_content_action_view.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _wrapNativeSuper(Class) { var _cache = typeof Map === "function" ? new Map() : undefined; _wrapNativeSuper = function _wrapNativeSuper(Class) { if (Class === null || !_isNativeFunction(Class)) return Class; if (typeof Class !== "function") { throw new TypeError("Super expression must either be null or a function"); } if (typeof _cache !== "undefined") { if (_cache.has(Class)) return _cache.get(Class); _cache.set(Class, Wrapper); } function Wrapper() { return _construct(Class, arguments, _getPrototypeOf(this).constructor); } Wrapper.prototype = Object.create(Class.prototype, { constructor: { value: Wrapper, enumerable: false, writable: true, configurable: true } }); return _setPrototypeOf(Wrapper, Class); }; return _wrapNativeSuper(Class); }
+
+function isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _construct(Parent, args, Class) { if (isNativeReflectConstruct()) { _construct = Reflect.construct; } else { _construct = function _construct(Parent, args, Class) { var a = [null]; a.push.apply(a, args); var Constructor = Function.bind.apply(Parent, a); var instance = new Constructor(); if (Class) _setPrototypeOf(instance, Class.prototype); return instance; }; } return _construct.apply(null, arguments); }
+
+function _isNativeFunction(fn) { return Function.toString.call(fn).indexOf("[native code]") !== -1; }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+var html = "\n    <div class=\"TVYListContentActionView\">\n        \n    </div>\n";
+
+var TVYListContentActionView =
+/*#__PURE__*/
+function (_HTMLElement) {
+  _inherits(TVYListContentActionView, _HTMLElement);
+
+  function TVYListContentActionView() {
+    var _this;
+
+    _classCallCheck(this, TVYListContentActionView);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(TVYListContentActionView).call(this));
+    _this.innerHTML = html;
+    _this.referencePublicId = _this.getAttribute('data-reference-public-id');
+
+    var contentType = _this.getAttribute('data-content-type');
+
+    if (contentType === 'question') {
+      _this.contentType = TVYListContentActionView.QUESTION_CONTENT_TYPE;
+    } else {
+      _this.contentType = TVYListContentActionView.ANSWER_CONTENT_TYPE;
+    }
+
+    return _this;
+  }
+
+  _createClass(TVYListContentActionView, [{
+    key: "renderList",
+    value: function renderList() {
+      for (var i = 0; i < 3; i++) {}
+    }
+  }, {
+    key: "createContentActionViewElement",
+    value: function createContentActionViewElement(publicId, avatarUrl, authorName, readableTime, contentType) {// let mockedContentActionView = document.createElement('tvy-content-action-view');
+      // mockedContentActionView.setAttribute('data-public-id', this.publicId);
+      // mockedContentActionView.setAttribute('data-avatar-url', this.avatarUrl);
+      // mockedContentActionView.setAttribute('data-author-name', this.authorName);
+      // mockedContentActionView.setAttribute('data-readable-time', readableTime);
+      // mockedContentActionView.setAttribute('data-content-type', this.contentType);
+      // this.contentPreview.appendChild(mockedContentActionView);
+    }
+  }], [{
+    key: "QUESTION_CONTENT_TYPE",
+    get: function get() {
+      return 'question';
+    }
+  }, {
+    key: "ANSWER_CONTENT_TYPE",
+    get: function get() {
+      return 'answer';
+    }
+  }]);
+
+  return TVYListContentActionView;
+}(_wrapNativeSuper(HTMLElement));
+
+window.customElements.define('tvy-list-content-action-view', TVYListContentActionView);
 
 /***/ }),
 

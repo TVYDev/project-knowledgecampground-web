@@ -82,3 +82,4 @@ require('./question/post_question');
 require('./reusable_components/content_management_preview');
 require('./reusable_components/content_editor');
 require('./reusable_components/content_action_view');
+require('./reusable_components/list_content_action_view');

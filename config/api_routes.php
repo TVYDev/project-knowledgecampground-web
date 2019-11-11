@@ -88,8 +88,13 @@ return [
         ],
         'description' => [
             'method'=> 'get',
-            'paht'  => '/api/answer/description-of/{publicId}',
+            'path'  => '/api/answer/description-of/{publicId}',
             'url'   => $host.'/api/answer/description-of'
+        ],
+        'list_posted_answers' => [
+            'method'=> 'get',
+            'path'  => '/api/answer/list-posted-answers-of/{questionPublicId}',
+            'url'   => $host.'/api/answer/list-posted-answers-of'
         ]
     ],
     'subject' => [

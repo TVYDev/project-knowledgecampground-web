@@ -42,6 +42,10 @@
                         <button class="btn btnMostDated">Most dated</button>
                     </div>
                 </div>
+                <tvy-list-content-action-view
+                    data-reference-public-id="{{ $questionPublicId }}"
+                    data-content-type="answer">
+                </tvy-list-content-action-view>
             </div>
         </div>
         <div class="rightExtraSpace"></div>

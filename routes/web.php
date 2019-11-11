@@ -76,6 +76,8 @@ Route::group([
         ->name(RouteConstants::ANSWER_POST_SAVE_DURING_EDITING);
     Route::get('/description-of/{publicId}', 'AnswerController@getDescriptionOf')
         ->name(RouteConstants::ANSWER_GET_DESCRIPTION_OF);
+    Route::get('/list-posted-answers-of/{questionPublicId}', 'AnswerController@getListPostedAnswersOf')
+        ->name(RouteConstants::ANSWER_GET_LIST_POSTED_ANSWERS_OF);
 });
 
 Route::group([
