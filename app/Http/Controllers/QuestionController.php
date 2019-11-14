@@ -208,26 +208,45 @@ class QuestionController extends Controller
         }
     }
 
-    public function getDescriptionOf ($publicId)
+    public function getContentOfQuestion ($publicId)
     {
         $tempDataResponse = [];
         try
         {
-            $response = $this->get(
-                $this->getApiRequestUrl('question.description'),
+            $resultQuestion = $this->get(
+                $this->getApiRequestUrl('question.view'),
                 $publicId,
                 null,
                 $this->getAuthorizationHeader()
             );
 
-            if($response->success == true){
-                $data = $response->data;
-                $tempDataResponse['success'] = true;
-                $tempDataResponse['data'] = $data->data;
-                $tempDataResponse['relative_path_store_images'] = HttpConstants::HOST_URL . $data->relative_path_store_images;
+            if($resultQuestion->success == true) {
+                $dataQuestion = $resultQuestion->data;
+                $tempDataResponse['author_name'] = $dataQuestion->author_name;
+                $tempDataResponse['author_id'] = $dataQuestion->author_id;
+                $tempDataResponse['avatar_url'] = HttpConstants::HOST_URL . $dataQuestion->avatar_url;
+                $tempDataResponse['readable_time'] = $dataQuestion->readable_time_en;
+
+                $response = $this->get(
+                    $this->getApiRequestUrl('question.description'),
+                    $publicId,
+                    null,
+                    $this->getAuthorizationHeader()
+                );
+
+                if($response->success == true){
+                    $data = $response->data;
+                    $tempDataResponse['success'] = true;
+                    $tempDataResponse['data'] = $data->data;
+                    $tempDataResponse['relative_path_store_images'] = HttpConstants::HOST_URL . $data->relative_path_store_images;
+                }
+                else{
+                    throw new UnexpectedValueException('Get description failed');
+                }
             }
-            else{
-                throw new UnexpectedValueException('Get description failed');
+            else
+            {
+                throw new UnexpectedValueException('Question not found');
             }
         }
         catch(\Exception $exception)

@@ -21,14 +21,7 @@
                     </span>
                 @endforeach
             @endif
-            <tvy-content-action-view
-                data-public-id="{{ $questionPublicId }}"
-                data-readable-time="{{ $readableTime }}"
-                data-author-name="{{ $authorName }}"
-                data-author-id="{{ $authorId }}"
-                data-avatar-url="{{ $avatarUrl }}"
-                data-relative-path-image="{{ $relativePathStoreImagesOfQuestion }}">
-            </tvy-content-action-view>
+            <tvy-content-action-view data-public-id="{{ $questionPublicId }}"></tvy-content-action-view>
             <div class="answerBlock">
                 <div class="headerAnswerBlock">
                     <div>

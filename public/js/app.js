@@ -67010,8 +67010,6 @@ function (_HTMLElement) {
 
     _this.reRenderHidden.addEventListener('click', _this.getDescriptionContent.bind(_assertThisInitialized(_this)));
 
-    _this.fillInfoOfActionPart();
-
     _this.getDescriptionContent();
 
     return _this;
@@ -67025,7 +67023,7 @@ function (_HTMLElement) {
       var routePath = null;
 
       if (this.contentType === TVYContentActionView.QUESTION_CONTENT_TYPE) {
-        routePath = '/question/description-of/';
+        routePath = '/question/content-of-question/';
       } else {
         routePath = '/answer/description-of/';
       }
@@ -67041,6 +67039,8 @@ function (_HTMLElement) {
           _this2.viewPart.innerHTML = '';
 
           _this2.viewPart.appendChild(_this2.loaderContent);
+
+          _this2.actionPart.style.visibility = 'hidden';
         },
         success: function success(result) {
           _this2.viewPart.removeChild(_this2.loaderContent);
@@ -67050,6 +67050,10 @@ function (_HTMLElement) {
             _this2.relativePathStoreImages = result.relative_path_store_images;
 
             _this2.fillTheContent();
+
+            _this2.fillInfoOfActionPart(result.readable_time, result.author_id, result.author_name, result.avatar_url);
+
+            _this2.actionPart.style.visibility = 'visible';
           } else {
             _this2.addWarningNoContent();
           }
@@ -67062,12 +67066,12 @@ function (_HTMLElement) {
     }
   }, {
     key: "fillInfoOfActionPart",
-    value: function fillInfoOfActionPart() {
-      this.askedOrEditedDate.textContent = this.getAttribute('data-readable-time');
-      this.author.setAttribute('data-author-id', this.getAttribute('data-author-id'));
-      this.author.textContent = this.getAttribute('data-author-name');
-      this.avatar.setAttribute('data-author-id', this.getAttribute('data-author-id'));
-      this.avatar.setAttribute('src', this.getAttribute('data-avatar-url'));
+    value: function fillInfoOfActionPart(readableTime, authorId, authorName, avatarUrl) {
+      this.askedOrEditedDate.textContent = readableTime;
+      this.author.setAttribute('data-author-id', authorId);
+      this.author.textContent = authorName;
+      this.avatar.setAttribute('data-author-id', authorId);
+      this.avatar.setAttribute('src', avatarUrl);
     }
   }, {
     key: "fillTheContent",

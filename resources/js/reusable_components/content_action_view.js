@@ -49,7 +49,6 @@ class TVYContentActionView extends HTMLElement
 
         this.reRenderHidden.addEventListener('click', this.getDescriptionContent.bind(this));
 
-        this.fillInfoOfActionPart();
         this.getDescriptionContent();
     }
 
@@ -64,7 +63,7 @@ class TVYContentActionView extends HTMLElement
     {
         let routePath = null;
         if(this.contentType === TVYContentActionView.QUESTION_CONTENT_TYPE) {
-            routePath = '/question/description-of/';
+            routePath = '/question/content-of-question/';
         }else {
             routePath = '/answer/description-of/';
         }
@@ -76,6 +75,7 @@ class TVYContentActionView extends HTMLElement
             beforeSend: (xhr) => {
                 this.viewPart.innerHTML = '';
                 this.viewPart.appendChild(this.loaderContent);
+                this.actionPart.style.visibility = 'hidden';
             },
             success: (result) => {
                 this.viewPart.removeChild(this.loaderContent);
@@ -83,6 +83,9 @@ class TVYContentActionView extends HTMLElement
                     this.descriptionContent = JSON.parse(result.data);
                     this.relativePathStoreImages = result.relative_path_store_images;
                     this.fillTheContent();
+
+                    this.fillInfoOfActionPart(result.readable_time, result.author_id, result.author_name, result.avatar_url);
+                    this.actionPart.style.visibility = 'visible';
                 }else {
                     this.addWarningNoContent();
                 }
@@ -94,13 +97,13 @@ class TVYContentActionView extends HTMLElement
         });
     }
 
-    fillInfoOfActionPart ()
+    fillInfoOfActionPart (readableTime, authorId, authorName, avatarUrl)
     {
-        this.askedOrEditedDate.textContent = this.getAttribute('data-readable-time');
-        this.author.setAttribute('data-author-id', this.getAttribute('data-author-id'));
-        this.author.textContent = this.getAttribute('data-author-name');
-        this.avatar.setAttribute('data-author-id', this.getAttribute('data-author-id'));
-        this.avatar.setAttribute('src', this.getAttribute('data-avatar-url'));
+        this.askedOrEditedDate.textContent = readableTime;
+        this.author.setAttribute('data-author-id', authorId);
+        this.author.textContent = authorName;
+        this.avatar.setAttribute('data-author-id', authorId);
+        this.avatar.setAttribute('src', avatarUrl);
     }
 
     fillTheContent ()
