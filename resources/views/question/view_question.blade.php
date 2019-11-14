@@ -21,15 +21,39 @@
                     </span>
                 @endforeach
             @endif
-            <tvy-content-action-view
-                data-question-public-id="{{ $publicId }}"
-                data-readable-time="{{ $readableTime }}"
-                data-author-name="{{ $authorName }}"
-                data-author-id="{{ $authorId }}"
-                data-avatar-url="{{ $avatarUrl }}"
-                data-relative-path-image="{{ $relativePathStoreImagesOfQuestion }}">
-            </tvy-content-action-view>
+            <tvy-content-action-view data-public-id="{{ $questionPublicId }}" data-content-type="question"></tvy-content-action-view>
+            <div class="answerBlock">
+                <tvy-list-content-action-view
+                    data-reference-public-id="{{ $questionPublicId }}"
+                    data-content-type="answer">
+                </tvy-list-content-action-view>
+            </div>
         </div>
         <div class="rightExtraSpace"></div>
+    </div>
+    <div class="answerQuestionBlock">
+        <div class="answerCreation">
+            <h4><i class="fas fa-pen-alt"></i>&nbsp;&nbsp;Write your answer here</h4>
+            <form action="{{ route(\App\Lib\RouteConstants::ANSWER_POST_POST) }}" method="POST" id="formAnswerQuestion">
+                @csrf
+                <input type="hidden" name="publicId" value="{{ $answerPublicId }}">
+                <input type="hidden" name="referencePublicId" value="{{ $questionPublicId }}">
+                <tvy-content-editor
+                    class="col-md-12"
+                    data-public-id="{{ $answerPublicId }}"
+                    data-reference-public-id="{{ $questionPublicId  }}"
+                    data-content-type="answer">
+                </tvy-content-editor>
+                <button type="submit" name="submit" value="post" class="ui button btnPostQuestion btnFormPrimary">
+                    <span>{{ __('Post my answer') }}</span>&nbsp;&nbsp;&nbsp;<i class="far fa-paper-plane"></i>
+                </button>
+                <button type="submit" name="submit" value="draft" class="ui button btnSaveDraftQuestion btnFormSecondary">
+                    <span>{{ __('Save as draft') }}</span>&nbsp;&nbsp;&nbsp;<i class="far fa-save"></i>
+                </button>
+            </form>
+        </div>
+        <div class="answerContentManagement">
+            <tvy-content-management-preview data-content-type="answer" data-public-id="{{ $answerPublicId }}"></tvy-content-management-preview>
+        </div>
     </div>
 @endsection

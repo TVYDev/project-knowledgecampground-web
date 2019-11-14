@@ -71,20 +71,12 @@
                         <button type="submit" name="submit" value="draft" class="ui button btnSaveDraftQuestion btnFormSecondary">
                             <span>{{ __('Save as draft') }}</span>&nbsp;&nbsp;&nbsp;<i class="far fa-save"></i>
                         </button>
-                        <button class="ui button btnDiscardQuestion btnFormThirdly">
-                            <span>{{ __('Discard') }}</span>&nbsp;&nbsp;&nbsp;<i class="fas fa-ban"></i>
-                        </button>
                     </div>
                 </form>
             </div>
         </div>
         <div class="questionContentManagement">
-            <tvy-content-management-preview
-                data-content-type="desc-question-content"
-                data-public-id="{{ $publicId }}"
-                data-avatar-url="{{$default_avatar_url}}"
-                data-author-name="{{$username}}"
-            />
+            <tvy-content-management-preview data-content-type="question" data-public-id="{{ $publicId }}"></tvy-content-management-preview>
         </div>
     </div>
 @endsection

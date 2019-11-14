@@ -1,0 +1,45 @@
+.TVYListContentActionView {
+    .headerBlock {
+        margin-top: 30px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border-bottom: 5px solid $main-green;
+        div:first-child {
+            i {
+                border-radius: 8px 8px 0 0;
+                border: 2px solid $main-green;
+                border-bottom: none;
+                color: $main-green;
+                padding: 5px;
+                font-size: 2em;
+            }
+            span {
+                margin-left: 10px;
+                vertical-align: middle;
+                color: $main-green;
+                font-weight: bold;
+                font-size: 1.3em;
+            }
+        }
+        div:last-child {
+            justify-self: right;
+            align-self: center;
+            .btnMostHelpful, .btnMostDated {
+                padding: 5px 10px;
+                background: none;
+                border: none;
+                color: $main-gray;
+            }
+            .btnMostHelpful:hover, .btnMostHelpful:focus, .btnMostDated:hover, .btnMostDated:focus {
+                font-weight: bold;
+                cursor: pointer;
+            }
+            .btnMostHelpful.active, .btnMostDated.active {
+                border-radius: 20px;
+                border: 1px solid $secondary-gray;
+                color: $white;
+                background-color: $secondary-gray;
+            }
+        }
+    }
+}

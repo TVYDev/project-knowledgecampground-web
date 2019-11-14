@@ -16,6 +16,7 @@
     <div id="mainContent" class="container">
         @yield('content')
     </div>
+    @include('layouts.partials._footer')
     <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
     @yield('pageScript')
 </body>

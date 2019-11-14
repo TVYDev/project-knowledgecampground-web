@@ -63,8 +63,21 @@ Route::group([
     Route::get('/view/{publicId}', 'QuestionController@getView')
         ->name(RouteConstants::QUESTION_GET_VIEW);
 
-    Route::get('/description-of/{publicId}', 'QuestionController@getDescriptionOf')
+    Route::get('/content-of-question/{publicId}', 'QuestionController@getContentOfQuestion')
         ->name(RouteConstants::QUESTION_GET_DESCRIPTION_OF);
+});
+
+Route::group([
+    'prefix' => 'answer'
+    ], function() {
+    Route::post('/post', 'AnswerController@postPost')
+        ->name(RouteConstants::ANSWER_POST_POST);
+    Route::post('/save-during-editing', 'AnswerController@postSaveDuringEditing')
+        ->name(RouteConstants::ANSWER_POST_SAVE_DURING_EDITING);
+    Route::get('/content-of-answer/{publicId}', 'AnswerController@getContentOfAnswer')
+        ->name(RouteConstants::ANSWER_GET_DESCRIPTION_OF);
+    Route::get('/list-posted-answers-of-question/{questionPublicId}/{sortedType}', 'AnswerController@getListPostedAnswersOfQuestion')
+        ->name(RouteConstants::ANSWER_GET_LIST_POSTED_ANSWERS_OF);
 });
 
 Route::group([

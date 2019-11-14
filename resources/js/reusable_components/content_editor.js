@@ -106,7 +106,14 @@ class TVYContentEditor extends HTMLElement
         super();
         this.innerHTML = html;
 
-        this.questionPublicId = this.getAttribute('data-public-id');
+        this.publicId = this.getAttribute('data-public-id');
+        this.referencePublicId = this.getAttribute('data-reference-public-id');
+        let editorContentType = this.getAttribute('data-content-type');
+        if(editorContentType === 'answer') {
+            this.contentType = TVYContentEditor.ANSWER_CONTENT_TYPE;
+        }else {
+            this.contentType = TVYContentEditor.QUESTION_CONTENT_TYPE;
+        }
 
         this.allTabs = this.querySelectorAll('.tabTypeContent button');
         this.allEditors = this.querySelectorAll('.editor > div');
@@ -143,7 +150,7 @@ class TVYContentEditor extends HTMLElement
         this.imageCaption = this.imageEditor.querySelector('.imageCaption');
 
         this.btnAddContent = this.querySelector('.actionContentEditor .btnAddContent');
-        this.contentOrder = document.querySelector('.askQuestionContent .contentOrder .TVYContentOrder');
+        this.contentOrder = document.querySelector('.contentOrder .TVYContentOrder');
 
         this.allDescData = [];
 
@@ -174,6 +181,9 @@ class TVYContentEditor extends HTMLElement
 
         this.quillTextObj.setFocus();
     }
+
+    static get QUESTION_CONTENT_TYPE()  {return 'question';}
+    static get ANSWER_CONTENT_TYPE()    {return 'answer';}
 
     static get TEXT_TYPE()   {return 'text';}
     static get CODE_TYPE()   {return 'code';}
@@ -357,7 +367,7 @@ class TVYContentEditor extends HTMLElement
                     descContent.querySelector('.imageContent .imageFile').setAttribute('src', this.uploadedImagePreivew.getAttribute('src'));
                     descContent.querySelector('.imageContent .imageCaption').innerHTML = this.imageCaption.value;
 
-                    let imageFileName = this.questionPublicId + '_' + imageDataEditing + '.' + imageExtension;
+                    let imageFileName = this.publicId + '_' + imageDataEditing + '.' + imageExtension;
                     this.nameFileImageToUpload = imageFileName;
                     this.updateDataOfADesc(
                         {
@@ -391,7 +401,7 @@ class TVYContentEditor extends HTMLElement
                     `;
                     imageDescContent.innerHTML = imageContentHTML;
 
-                    let imageFileName = this.questionPublicId + '_' + randomDescId + '.' + this.fileImageExtension;
+                    let imageFileName = this.publicId + '_' + randomDescId + '.' + this.fileImageExtension;
                     this.nameFileImageToUpload = imageFileName;
                     this.storeDataContent(
                         {
@@ -536,7 +546,7 @@ class TVYContentEditor extends HTMLElement
 
     createDescriptionElementAndAttachEventOfDescTools (descId, descType = null, editor = null)
     {
-        let contentOrder = document.querySelector('.askQuestionContent .contentOrder .TVYContentOrder');
+        let contentOrder = document.querySelector('.contentOrder .TVYContentOrder');
 
         let descElement = document.createElement('div');
         descElement.className = 'descElement col-md-12';
@@ -687,23 +697,37 @@ class TVYContentEditor extends HTMLElement
         this.allDescData = arrayDescDataExcludedCurrentDesc;
     }
 
-    saveDescDataToBackend () {
-        let url = window.location.origin + '/question/save-during-editing';
-        let titleQuestion = $('#formAskQuestion .questionTitle').val();
-
+    prepareFormDataToSaveToBackend (contentType) {
+        let baseUrl = window.location.origin;
+        let url = null;
         let formData = new FormData();
-        formData.append('title', titleQuestion != '' ? titleQuestion : 'sample title');
-        formData.append('public_id', this.questionPublicId);
+        if(contentType === TVYContentEditor.QUESTION_CONTENT_TYPE) {
+            url = baseUrl + '/question/save-during-editing';
+            let titleQuestion = $('#formAskQuestion .questionTitle').val();
+            formData.append('title', titleQuestion != '' ? titleQuestion : 'sample title');
+        }else {
+            url = baseUrl + '/answer/save-during-editing';
+            formData.append('question_public_id', this.referencePublicId);
+        }
+        formData.append('public_id', this.publicId);
         formData.append('desc_data', JSON.stringify(this.allDescData));
         formData.append('image_file_upload', this.fileImageToUpload);
         formData.append('image_file_name', this.nameFileImageToUpload);
         this.fileImageToUpload = null;
         this.nameFileImageToUpload = null;
 
+        return {
+            'url': url,
+            'formData': formData
+        };
+    }
+
+    saveDescDataToBackend () {
+        let dataToSave = this.prepareFormDataToSaveToBackend(this.contentType);
         $.ajax({
-            url: url,
+            url: dataToSave['url'],
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-            data: formData,
+            data: dataToSave['formData'],
             contentType: false,
             processData: false,
             type: 'POST',

@@ -15,7 +15,7 @@ $username = $ua[\App\Lib\UserConstants::USER_NAME];
             <span>{{ __('ask question') }}</span><i class="fas fa-pencil-alt"></i>
         </button>
         <div class="navMenu">
-            <button class="btnSubjects btnNavMenu active">
+            <button class="btnSubjects btnNavMenu">
                 <span>{{ __('subjects') }}</span><i class="fas fa-graduation-cap"></i>
             </button>
             <button class="btnQuestions btnNavMenu">
