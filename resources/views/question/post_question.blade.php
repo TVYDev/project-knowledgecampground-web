@@ -76,12 +76,7 @@
             </div>
         </div>
         <div class="questionContentManagement">
-            <tvy-content-management-preview
-                data-content-type="question"
-                data-public-id="{{ $publicId }}"
-                data-avatar-url="{{$default_avatar_url}}"
-                data-author-name="{{$username}}"
-            />
+            <tvy-content-management-preview data-content-type="question" data-public-id="{{ $publicId }}"></tvy-content-management-preview>
         </div>
     </div>
 @endsection

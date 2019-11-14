@@ -71,7 +71,7 @@ return [
         ],
         'description' => [
             'method'=> 'get',
-            'paht'  => '/api/question/description-of/{publicId}',
+            'path'  => '/api/question/description-of/{publicId}',
             'url'   => $host.'/api/question/description-of'
         ]
     ],
@@ -85,6 +85,11 @@ return [
             'method' => 'post',
             'path'  => '/api/answer/save-during-editing',
             'url'   => $host.'/api/answer/save-during-editing'
+        ],
+        'view' => [
+            'method'=> 'get',
+            'path'  => '/api/answer/view/{publicId}',
+            'url'   => $host.'/api/answer/view'
         ],
         'description' => [
             'method'=> 'get',

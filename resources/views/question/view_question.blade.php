@@ -21,20 +21,8 @@
                     </span>
                 @endforeach
             @endif
-            <tvy-content-action-view data-public-id="{{ $questionPublicId }}"></tvy-content-action-view>
+            <tvy-content-action-view data-public-id="{{ $questionPublicId }}" data-content-type="question"></tvy-content-action-view>
             <div class="answerBlock">
-                <div class="headerAnswerBlock">
-                    <div>
-                        <i class="fas fa-lightbulb"></i>
-                        <span>0 Answer</span>
-                    </div>
-                    <div>
-                        Sort by:&nbsp;
-                        <button class="btn btnMostHelpful active">Most helpful</button>
-                        &nbsp;|&nbsp;
-                        <button class="btn btnMostDated">Most dated</button>
-                    </div>
-                </div>
                 <tvy-list-content-action-view
                     data-reference-public-id="{{ $questionPublicId }}"
                     data-content-type="answer">
@@ -54,8 +42,8 @@
                     class="col-md-12"
                     data-public-id="{{ $answerPublicId }}"
                     data-reference-public-id="{{ $questionPublicId  }}"
-                    data-content-type="answer"
-                ></tvy-content-editor>
+                    data-content-type="answer">
+                </tvy-content-editor>
                 <button type="submit" name="submit" value="post" class="ui button btnPostQuestion btnFormPrimary">
                     <span>{{ __('Post my answer') }}</span>&nbsp;&nbsp;&nbsp;<i class="far fa-paper-plane"></i>
                 </button>
@@ -65,12 +53,7 @@
             </form>
         </div>
         <div class="answerContentManagement">
-            <tvy-content-management-preview
-                data-content-type="answer"
-                data-public-id="{{ $answerPublicId }}"
-                data-avatar-url="{{ $avatarUrl }}"
-                data-author-name="{{ $authorName }}"
-            ></tvy-content-management-preview>
+            <tvy-content-management-preview data-content-type="answer" data-public-id="{{ $answerPublicId }}"></tvy-content-management-preview>
         </div>
     </div>
 @endsection

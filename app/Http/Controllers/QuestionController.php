@@ -159,10 +159,12 @@ class QuestionController extends Controller
     {
         try
         {
-            $response = $this->get($this->getApiRequestUrl('question.view'), $publicId, null, $this->getAuthorizationHeader());
+            $response = $this->get($this->getApiRequestUrl('question.view'), [$publicId], null, $this->getAuthorizationHeader());
 
             if($response->success) {
                 $data = $response->data;
+
+                // Prepare subject of the question
                 $subject = [
                     'public_id' => $data->subject->public_id,
                     'name_en'   => $data->subject->name_en,
@@ -170,6 +172,7 @@ class QuestionController extends Controller
                     'img_url'   => HttpConstants::HOST_URL . $data->subject->img_url
                 ];
 
+                // Prepare tags of the question
                 $tags = [];
                 if(isset($data->tags)){
                     foreach ($data->tags as $t){
@@ -194,7 +197,7 @@ class QuestionController extends Controller
                     ->with('avatarUrl', HttpConstants::HOST_URL . $data->avatar_url)
                     ->with('subject', $subject)
                     ->with('tags', $tags)
-                    ->with('relativePathStoreImagesOfQuestion', HttpConstants::HOST_URL . $data->relative_path_store_images_of_question);
+                    ->with('relativePathStoreImagesOfQuestion', HttpConstants::HOST_URL . $data->description->relative_path_store_images);
             }
         }
         catch(\Exception $exception)
@@ -215,34 +218,20 @@ class QuestionController extends Controller
         {
             $resultQuestion = $this->get(
                 $this->getApiRequestUrl('question.view'),
-                $publicId,
+                [$publicId],
                 null,
                 $this->getAuthorizationHeader()
             );
 
             if($resultQuestion->success == true) {
                 $dataQuestion = $resultQuestion->data;
+                $tempDataResponse['success'] = true;
                 $tempDataResponse['author_name'] = $dataQuestion->author_name;
                 $tempDataResponse['author_id'] = $dataQuestion->author_id;
                 $tempDataResponse['avatar_url'] = HttpConstants::HOST_URL . $dataQuestion->avatar_url;
                 $tempDataResponse['readable_time'] = $dataQuestion->readable_time_en;
-
-                $response = $this->get(
-                    $this->getApiRequestUrl('question.description'),
-                    $publicId,
-                    null,
-                    $this->getAuthorizationHeader()
-                );
-
-                if($response->success == true){
-                    $data = $response->data;
-                    $tempDataResponse['success'] = true;
-                    $tempDataResponse['data'] = $data->data;
-                    $tempDataResponse['relative_path_store_images'] = HttpConstants::HOST_URL . $data->relative_path_store_images;
-                }
-                else{
-                    throw new UnexpectedValueException('Get description failed');
-                }
+                $tempDataResponse['data'] = $dataQuestion->description->data;
+                $tempDataResponse['relative_path_store_images'] = HttpConstants::HOST_URL . $dataQuestion->description->relative_path_store_images;
             }
             else
             {

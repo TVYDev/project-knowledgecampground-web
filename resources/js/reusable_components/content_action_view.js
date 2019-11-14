@@ -30,10 +30,10 @@ class TVYContentActionView extends HTMLElement
         this.relativePathStoreImages = null;
 
         let contentType = this.getAttribute('data-content-type');
-        if(contentType === 'answer') {
-            this.contentType = TVYContentActionView.ANSWER_CONTENT_TYPE;
-        }else {
+        if(contentType === 'question') {
             this.contentType = TVYContentActionView.QUESTION_CONTENT_TYPE;
+        }else {
+            this.contentType = TVYContentActionView.ANSWER_CONTENT_TYPE;
         }
 
         this.viewPart = this.querySelector('.viewPart');
@@ -65,7 +65,7 @@ class TVYContentActionView extends HTMLElement
         if(this.contentType === TVYContentActionView.QUESTION_CONTENT_TYPE) {
             routePath = '/question/content-of-question/';
         }else {
-            routePath = '/answer/description-of/';
+            routePath = '/answer/content-of-answer/';
         }
         let url = window.location.origin + routePath + this.getAttribute('data-public-id');
         $.ajax({

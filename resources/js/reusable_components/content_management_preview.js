@@ -26,8 +26,6 @@ class TVYContentManagementPreview extends HTMLElement
         this.innerHTML = html;
 
         this.publicId = this.getAttribute('data-public-id');
-        this.avatarUrl = this.getAttribute('data-avatar-url');
-        this.authorName = this.getAttribute('data-author-name');
         let dataContentType = this.getAttribute('data-content-type');
         if(dataContentType === 'question') {
             this.contentType = TVYContentManagementPreview.QUESTION_CONTENT_TYPE;
@@ -76,13 +74,8 @@ class TVYContentManagementPreview extends HTMLElement
         if(this.querySelector('tvy-content-action-view')){
             this.querySelector('.TVYContentActionView .reRender').click();
         }else {
-            let readableTime = (this.contentType === TVYContentManagementPreview.QUESTION_CONTENT_TYPE ? 'asked' : 'answered') + ' 6 seconds ago';
-
             let mockedContentActionView = document.createElement('tvy-content-action-view');
             mockedContentActionView.setAttribute('data-public-id', this.publicId);
-            mockedContentActionView.setAttribute('data-avatar-url', this.avatarUrl);
-            mockedContentActionView.setAttribute('data-author-name', this.authorName);
-            mockedContentActionView.setAttribute('data-readable-time', readableTime);
             mockedContentActionView.setAttribute('data-content-type', this.contentType);
             this.contentPreview.appendChild(mockedContentActionView);
         }

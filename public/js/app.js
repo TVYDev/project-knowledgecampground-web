@@ -66992,10 +66992,10 @@ function (_HTMLElement) {
 
     var contentType = _this.getAttribute('data-content-type');
 
-    if (contentType === 'answer') {
-      _this.contentType = TVYContentActionView.ANSWER_CONTENT_TYPE;
-    } else {
+    if (contentType === 'question') {
       _this.contentType = TVYContentActionView.QUESTION_CONTENT_TYPE;
+    } else {
+      _this.contentType = TVYContentActionView.ANSWER_CONTENT_TYPE;
     }
 
     _this.viewPart = _this.querySelector('.viewPart');
@@ -67025,7 +67025,7 @@ function (_HTMLElement) {
       if (this.contentType === TVYContentActionView.QUESTION_CONTENT_TYPE) {
         routePath = '/question/content-of-question/';
       } else {
-        routePath = '/answer/description-of/';
+        routePath = '/answer/content-of-answer/';
       }
 
       var url = window.location.origin + routePath + this.getAttribute('data-public-id');
@@ -67999,8 +67999,6 @@ function (_HTMLElement) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(TVYContentManagementPreview).call(this));
     _this.innerHTML = html;
     _this.publicId = _this.getAttribute('data-public-id');
-    _this.avatarUrl = _this.getAttribute('data-avatar-url');
-    _this.authorName = _this.getAttribute('data-author-name');
 
     var dataContentType = _this.getAttribute('data-content-type');
 
@@ -68058,12 +68056,8 @@ function (_HTMLElement) {
       if (this.querySelector('tvy-content-action-view')) {
         this.querySelector('.TVYContentActionView .reRender').click();
       } else {
-        var readableTime = (this.contentType === TVYContentManagementPreview.QUESTION_CONTENT_TYPE ? 'asked' : 'answered') + ' 6 seconds ago';
         var mockedContentActionView = document.createElement('tvy-content-action-view');
         mockedContentActionView.setAttribute('data-public-id', this.publicId);
-        mockedContentActionView.setAttribute('data-avatar-url', this.avatarUrl);
-        mockedContentActionView.setAttribute('data-author-name', this.authorName);
-        mockedContentActionView.setAttribute('data-readable-time', readableTime);
         mockedContentActionView.setAttribute('data-content-type', this.contentType);
         this.contentPreview.appendChild(mockedContentActionView);
       }
@@ -68120,7 +68114,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var html = "\n    <div class=\"TVYListContentActionView\">\n        \n    </div>\n";
+var html = "\n    <div class=\"TVYListContentActionView\">\n        <div class=\"headerBlock\">\n            <div>\n                <i class=\"fas fa-lightbulb\"></i>\n                <span class=\"numRecords\"></span>\n            </div>\n            <div>\n                Sort by:&nbsp;\n                <button class=\"btn btnMostDated\">Most dated</button>\n                &nbsp;|&nbsp;\n                <button class=\"btn btnMostHelpful\">Most helpful</button>\n            </div>\n        </div>\n        <div class=\"list\"></div>   \n    </div>\n";
 
 var TVYListContentActionView =
 /*#__PURE__*/
@@ -68134,6 +68128,7 @@ function (_HTMLElement) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(TVYListContentActionView).call(this));
     _this.innerHTML = html;
+    _this.sortedType = TVYListContentActionView.MOST_DATED_SORTED;
     _this.referencePublicId = _this.getAttribute('data-reference-public-id');
 
     var contentType = _this.getAttribute('data-content-type');
@@ -68144,25 +68139,106 @@ function (_HTMLElement) {
       _this.contentType = TVYListContentActionView.ANSWER_CONTENT_TYPE;
     }
 
+    _this.listContentActionView = _this.querySelector('.TVYListContentActionView .list');
+    _this.headerBlock = _this.querySelector('.headerBlock');
+    _this.numRecords = _this.querySelector('.numRecords');
+    _this.btnMostHelpful = _this.querySelector('.btnMostHelpful');
+    _this.btnMostDated = _this.querySelector('.btnMostDated');
+
+    _this.handleSortRecords(_this.sortedType);
+
+    _this.btnMostDated.addEventListener('click', function () {
+      return _this.handleSortRecords(TVYListContentActionView.MOST_DATED_SORTED);
+    });
+
+    _this.btnMostHelpful.addEventListener('click', function () {
+      return _this.handleSortRecords(TVYListContentActionView.MOST_HELPFUL_SORTED);
+    });
+
+    _this.headerBlock.style.visibility = 'hidden';
+
+    _this.renderList();
+
     return _this;
   }
 
   _createClass(TVYListContentActionView, [{
-    key: "renderList",
-    value: function renderList() {
-      for (var i = 0; i < 3; i++) {}
+    key: "handleSortRecords",
+    value: function handleSortRecords(sortedType) {
+      if (this.sortedType !== sortedType) {
+        this.sortedType = sortedType;
+        this.renderList();
+      }
+
+      if (sortedType === TVYListContentActionView.MOST_DATED_SORTED) {
+        this.btnMostDated.classList.add('active');
+        this.btnMostHelpful.classList.remove('active');
+      } else {
+        this.btnMostHelpful.classList.add('active');
+        this.btnMostDated.classList.remove('active');
+      }
     }
   }, {
-    key: "createContentActionViewElement",
-    value: function createContentActionViewElement(publicId, avatarUrl, authorName, readableTime, contentType) {// let mockedContentActionView = document.createElement('tvy-content-action-view');
-      // mockedContentActionView.setAttribute('data-public-id', this.publicId);
-      // mockedContentActionView.setAttribute('data-avatar-url', this.avatarUrl);
-      // mockedContentActionView.setAttribute('data-author-name', this.authorName);
-      // mockedContentActionView.setAttribute('data-readable-time', readableTime);
-      // mockedContentActionView.setAttribute('data-content-type', this.contentType);
-      // this.contentPreview.appendChild(mockedContentActionView);
+    key: "renderList",
+    value: function renderList() {
+      var _this2 = this;
+
+      var url = window.location.origin + '/answer/list-posted-answers-of-question/' + this.referencePublicId + '/' + this.sortedType;
+      $.ajax({
+        url: url,
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'GET',
+        success: function success(result) {
+          _this2.updateInfoOfHeaderBlock(result.length);
+
+          _this2.createContentActionViewElements(result);
+        },
+        error: function error(err) {
+          console.log('---Error');
+          console.log(err);
+        }
+      });
+    }
+  }, {
+    key: "updateInfoOfHeaderBlock",
+    value: function updateInfoOfHeaderBlock(numRecords) {
+      var typeRecord = '';
+
+      if (this.contentType === TVYListContentActionView.ANSWER_CONTENT_TYPE) {
+        typeRecord = 'Answer';
+      } else {
+        typeRecord = 'Question';
+      }
+
+      var pluralOrNot = numRecords > 1 ? 's' : '';
+      this.numRecords.innerHTML = "".concat(numRecords, " ").concat(typeRecord).concat(pluralOrNot);
+      this.headerBlock.style.visibility = 'visible';
+    }
+  }, {
+    key: "createContentActionViewElements",
+    value: function createContentActionViewElements(arrayPublicIds) {
+      this.listContentActionView.innerHTML = '';
+      var tempHtml = '';
+
+      for (var i = 0; i < arrayPublicIds.length; i++) {
+        tempHtml += "<tvy-content-action-view data-public-id=\"".concat(arrayPublicIds[i], "\" data-content-type=\"").concat(this.contentType, "\"></tvy-content-action-view>");
+      }
+
+      this.listContentActionView.innerHTML = tempHtml;
     }
   }], [{
+    key: "MOST_HELPFUL_SORTED",
+    get: function get() {
+      return 'helpful';
+    }
+  }, {
+    key: "MOST_DATED_SORTED",
+    get: function get() {
+      return 'dated';
+    }
+  }, {
     key: "QUESTION_CONTENT_TYPE",
     get: function get() {
       return 'question';

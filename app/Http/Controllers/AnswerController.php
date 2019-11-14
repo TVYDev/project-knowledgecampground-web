@@ -114,25 +114,31 @@ class AnswerController extends Controller
         }
     }
 
-    public function getDescriptionOf ($publicId)
+    public function getContentOfAnswer ($publicId)
     {
+        $tempDataResponse = [];
         try
         {
-            $response = $this->get(
-                $this->getApiRequestUrl('answer.description'),
-                $publicId,
+            $resultAnswer = $this->get(
+                $this->getApiRequestUrl('answer.view'),
+                [$publicId],
                 null,
                 $this->getAuthorizationHeader()
             );
 
-            if($response->success == true){
-                $data = $response->data;
+            if($resultAnswer->success == true) {
+                $dataAnswer = $resultAnswer->data;
                 $tempDataResponse['success'] = true;
-                $tempDataResponse['data'] = $data->data;
-                $tempDataResponse['relative_path_store_images'] = HttpConstants::HOST_URL . $data->relative_path_store_images;
+                $tempDataResponse['author_name'] = $dataAnswer->author_name;
+                $tempDataResponse['author_id'] = $dataAnswer->author_id;
+                $tempDataResponse['avatar_url'] = HttpConstants::HOST_URL . $dataAnswer->avatar_url;
+                $tempDataResponse['readable_time'] = $dataAnswer->readable_time_en;
+                $tempDataResponse['data'] = $dataAnswer->description->data;
+                $tempDataResponse['relative_path_store_images'] = HttpConstants::HOST_URL . $dataAnswer->description->relative_path_store_images;
             }
-            else{
-                throw new UnexpectedValueException('Get description failed');
+            else
+            {
+                throw new UnexpectedValueException('Answer not found');
             }
         }
         catch(\Exception $exception)
@@ -143,15 +149,30 @@ class AnswerController extends Controller
         return response()->json($tempDataResponse);
     }
 
-    public function getListPostedAnswersOf ($questionPublicId)
+    public function getListPostedAnswersOfQuestion ($questionPublicId, $sortedType)
     {
         try
         {
+            $answers = $this->get(
+                $this->getApiRequestUrl('answer.list_posted_answers'),
+                [$questionPublicId, $sortedType],
+                null,
+                $this->getAuthorizationHeader()
+            );
 
+            if($answers->success == true) {
+                $publicIds = [];
+                foreach ($answers->data as $ans) {
+                    array_push($publicIds, $ans->public_id);
+                }
+                return response()->json($publicIds);
+            }else {
+                throw new UnexpectedValueException('Question not found');
+            }
         }
         catch(\Exception $exception)
         {
-
+            return response()->json(['errorMessage' => $exception->getMessage()]);
         }
     }
 }

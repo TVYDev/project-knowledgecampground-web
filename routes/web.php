@@ -74,9 +74,9 @@ Route::group([
         ->name(RouteConstants::ANSWER_POST_POST);
     Route::post('/save-during-editing', 'AnswerController@postSaveDuringEditing')
         ->name(RouteConstants::ANSWER_POST_SAVE_DURING_EDITING);
-    Route::get('/description-of/{publicId}', 'AnswerController@getDescriptionOf')
+    Route::get('/content-of-answer/{publicId}', 'AnswerController@getContentOfAnswer')
         ->name(RouteConstants::ANSWER_GET_DESCRIPTION_OF);
-    Route::get('/list-posted-answers-of/{questionPublicId}', 'AnswerController@getListPostedAnswersOf')
+    Route::get('/list-posted-answers-of-question/{questionPublicId}/{sortedType}', 'AnswerController@getListPostedAnswersOfQuestion')
         ->name(RouteConstants::ANSWER_GET_LIST_POSTED_ANSWERS_OF);
 });
 
