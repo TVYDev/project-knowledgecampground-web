@@ -3,7 +3,8 @@
     grid-template-columns: 1fr 2fr 1fr;
     grid-column-gap: 10px;
     .leftExtraSpace {
-        border: 1px dashed yellowgreen;
+        //border: 1px dashed yellowgreen;
+        border-right: 1px solid $thirdly-gray;
     }
     .viewQuestionContent {
         .titleBlock {
@@ -62,6 +63,27 @@
         }
     }
     .rightExtraSpace {
-        border: 1px dashed mediumpurple;
+        //border: 1px dashed mediumpurple;
+        //border-left: 1px solid $thirdly-gray;
+    }
+}
+.answerQuestionBlock {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 10px;
+    margin-top: 30px;
+    padding: 20px 3px;
+    background-color: $thirdly-gray;
+    border-radius: 5px;
+    .answerCreation {
+        h4 {
+            text-align: center;
+        }
+        >button {
+            margin-top: 15px;
+        }
+    }
+    .answerContentManagement {
+
     }
 }

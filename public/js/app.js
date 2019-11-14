@@ -66653,6 +66653,8 @@ __webpack_require__(/*! ./reusable_components/content_editor */ "./resources/js/
 
 __webpack_require__(/*! ./reusable_components/content_action_view */ "./resources/js/reusable_components/content_action_view.js");
 
+__webpack_require__(/*! ./reusable_components/list_content_action_view */ "./resources/js/reusable_components/list_content_action_view.js");
+
 /***/ }),
 
 /***/ "./resources/js/auth/login.js":
@@ -66987,6 +66989,15 @@ function (_HTMLElement) {
     _this.innerHTML = html;
     _this.descriptionContent = null;
     _this.relativePathStoreImages = null;
+
+    var contentType = _this.getAttribute('data-content-type');
+
+    if (contentType === 'question') {
+      _this.contentType = TVYContentActionView.QUESTION_CONTENT_TYPE;
+    } else {
+      _this.contentType = TVYContentActionView.ANSWER_CONTENT_TYPE;
+    }
+
     _this.viewPart = _this.querySelector('.viewPart');
     _this.actionPart = _this.querySelector('.actionPart');
     _this.askedOrEditedDate = _this.actionPart.querySelector('.askedOrEditedDate');
@@ -66999,8 +67010,6 @@ function (_HTMLElement) {
 
     _this.reRenderHidden.addEventListener('click', _this.getDescriptionContent.bind(_assertThisInitialized(_this)));
 
-    _this.fillInfoOfActionPart();
-
     _this.getDescriptionContent();
 
     return _this;
@@ -67011,7 +67020,15 @@ function (_HTMLElement) {
     value: function getDescriptionContent() {
       var _this2 = this;
 
-      var url = window.location.origin + '/question/description-of/' + this.getAttribute('data-question-public-id');
+      var routePath = null;
+
+      if (this.contentType === TVYContentActionView.QUESTION_CONTENT_TYPE) {
+        routePath = '/question/content-of-question/';
+      } else {
+        routePath = '/answer/content-of-answer/';
+      }
+
+      var url = window.location.origin + routePath + this.getAttribute('data-public-id');
       $.ajax({
         url: url,
         headers: {
@@ -67022,6 +67039,8 @@ function (_HTMLElement) {
           _this2.viewPart.innerHTML = '';
 
           _this2.viewPart.appendChild(_this2.loaderContent);
+
+          _this2.actionPart.style.visibility = 'hidden';
         },
         success: function success(result) {
           _this2.viewPart.removeChild(_this2.loaderContent);
@@ -67031,6 +67050,10 @@ function (_HTMLElement) {
             _this2.relativePathStoreImages = result.relative_path_store_images;
 
             _this2.fillTheContent();
+
+            _this2.fillInfoOfActionPart(result.readable_time, result.author_id, result.author_name, result.avatar_url);
+
+            _this2.actionPart.style.visibility = 'visible';
           } else {
             _this2.addWarningNoContent();
           }
@@ -67043,12 +67066,12 @@ function (_HTMLElement) {
     }
   }, {
     key: "fillInfoOfActionPart",
-    value: function fillInfoOfActionPart() {
-      this.askedOrEditedDate.textContent = this.getAttribute('data-readable-time');
-      this.author.setAttribute('data-author-id', this.getAttribute('data-author-id'));
-      this.author.textContent = this.getAttribute('data-author-name');
-      this.avatar.setAttribute('data-author-id', this.getAttribute('data-author-id'));
-      this.avatar.setAttribute('src', this.getAttribute('data-avatar-url'));
+    value: function fillInfoOfActionPart(readableTime, authorId, authorName, avatarUrl) {
+      this.askedOrEditedDate.textContent = readableTime;
+      this.author.setAttribute('data-author-id', authorId);
+      this.author.textContent = authorName;
+      this.avatar.setAttribute('data-author-id', authorId);
+      this.avatar.setAttribute('src', avatarUrl);
     }
   }, {
     key: "fillTheContent",
@@ -67128,6 +67151,16 @@ function (_HTMLElement) {
     get: function get() {
       return 'image';
     }
+  }, {
+    key: "QUESTION_CONTENT_TYPE",
+    get: function get() {
+      return 'question';
+    }
+  }, {
+    key: "ANSWER_CONTENT_TYPE",
+    get: function get() {
+      return 'answer';
+    }
   }]);
 
   return TVYContentActionView;
@@ -67193,7 +67226,17 @@ function (_HTMLElement) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(TVYContentEditor).call(this));
     _this.innerHTML = html;
-    _this.questionPublicId = _this.getAttribute('data-public-id');
+    _this.publicId = _this.getAttribute('data-public-id');
+    _this.referencePublicId = _this.getAttribute('data-reference-public-id');
+
+    var editorContentType = _this.getAttribute('data-content-type');
+
+    if (editorContentType === 'answer') {
+      _this.contentType = TVYContentEditor.ANSWER_CONTENT_TYPE;
+    } else {
+      _this.contentType = TVYContentEditor.QUESTION_CONTENT_TYPE;
+    }
+
     _this.allTabs = _this.querySelectorAll('.tabTypeContent button');
     _this.allEditors = _this.querySelectorAll('.editor > div');
     _this.textEditor = _this.querySelector('.editor #TVYTextEditor');
@@ -67226,7 +67269,7 @@ function (_HTMLElement) {
     _this.btnRemovePreviewImage = _this.imageEditor.querySelector('.btnRemovePreviewImage');
     _this.imageCaption = _this.imageEditor.querySelector('.imageCaption');
     _this.btnAddContent = _this.querySelector('.actionContentEditor .btnAddContent');
-    _this.contentOrder = document.querySelector('.askQuestionContent .contentOrder .TVYContentOrder');
+    _this.contentOrder = document.querySelector('.contentOrder .TVYContentOrder');
     _this.allDescData = [];
 
     _this.tabEditorMovement();
@@ -67444,7 +67487,7 @@ function (_HTMLElement) {
             _descContent.querySelector('.imageContent .imageFile').setAttribute('src', this.uploadedImagePreivew.getAttribute('src'));
 
             _descContent.querySelector('.imageContent .imageCaption').innerHTML = this.imageCaption.value;
-            var imageFileName = this.questionPublicId + '_' + imageDataEditing + '.' + imageExtension;
+            var imageFileName = this.publicId + '_' + imageDataEditing + '.' + imageExtension;
             this.nameFileImageToUpload = imageFileName;
             this.updateDataOfADesc({
               caption: this.imageCaption.value,
@@ -67468,7 +67511,7 @@ function (_HTMLElement) {
             var imageContentHTML = "\n                        <div class=\"imageContent\">\n                            <img \n                                class=\"imageFile\" \n                                src=".concat(this.uploadedImagePreivew.getAttribute('src'), " \n                                data-image-extension=").concat(this.fileImageExtension, " />\n                            <p class=\"imageCaption\">").concat(imageCaptionToView, "</p>\n                        </div>\n                    ");
             imageDescContent.innerHTML = imageContentHTML;
 
-            var _imageFileName = this.questionPublicId + '_' + randomDescId + '.' + this.fileImageExtension;
+            var _imageFileName = this.publicId + '_' + randomDescId + '.' + this.fileImageExtension;
 
             this.nameFileImageToUpload = _imageFileName;
             this.storeDataContent({
@@ -67620,7 +67663,7 @@ function (_HTMLElement) {
     value: function createDescriptionElementAndAttachEventOfDescTools(descId) {
       var descType = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
       var editor = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-      var contentOrder = document.querySelector('.askQuestionContent .contentOrder .TVYContentOrder');
+      var contentOrder = document.querySelector('.contentOrder .TVYContentOrder');
       var descElement = document.createElement('div');
       descElement.className = 'descElement col-md-12';
       descElement.setAttribute('data-desc-id', descId);
@@ -67763,24 +67806,42 @@ function (_HTMLElement) {
       this.allDescData = arrayDescDataExcludedCurrentDesc;
     }
   }, {
-    key: "saveDescDataToBackend",
-    value: function saveDescDataToBackend() {
-      var url = window.location.origin + '/question/save-during-editing';
-      var titleQuestion = $('#formAskQuestion .questionTitle').val();
+    key: "prepareFormDataToSaveToBackend",
+    value: function prepareFormDataToSaveToBackend(contentType) {
+      var baseUrl = window.location.origin;
+      var url = null;
       var formData = new FormData();
-      formData.append('title', titleQuestion != '' ? titleQuestion : 'sample title');
-      formData.append('public_id', this.questionPublicId);
+
+      if (contentType === TVYContentEditor.QUESTION_CONTENT_TYPE) {
+        url = baseUrl + '/question/save-during-editing';
+        var titleQuestion = $('#formAskQuestion .questionTitle').val();
+        formData.append('title', titleQuestion != '' ? titleQuestion : 'sample title');
+      } else {
+        url = baseUrl + '/answer/save-during-editing';
+        formData.append('question_public_id', this.referencePublicId);
+      }
+
+      formData.append('public_id', this.publicId);
       formData.append('desc_data', JSON.stringify(this.allDescData));
       formData.append('image_file_upload', this.fileImageToUpload);
       formData.append('image_file_name', this.nameFileImageToUpload);
       this.fileImageToUpload = null;
       this.nameFileImageToUpload = null;
+      return {
+        'url': url,
+        'formData': formData
+      };
+    }
+  }, {
+    key: "saveDescDataToBackend",
+    value: function saveDescDataToBackend() {
+      var dataToSave = this.prepareFormDataToSaveToBackend(this.contentType);
       $.ajax({
-        url: url,
+        url: dataToSave['url'],
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        data: formData,
+        data: dataToSave['formData'],
         contentType: false,
         processData: false,
         type: 'POST',
@@ -67807,6 +67868,16 @@ function (_HTMLElement) {
       return this.quillTextObj.getContent();
     }
   }], [{
+    key: "QUESTION_CONTENT_TYPE",
+    get: function get() {
+      return 'question';
+    }
+  }, {
+    key: "ANSWER_CONTENT_TYPE",
+    get: function get() {
+      return 'answer';
+    }
+  }, {
     key: "TEXT_TYPE",
     get: function get() {
       return 'text';
@@ -67913,7 +67984,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-var html = "\n    <div class=\"TVYContentManagementPreview\">\n        <div class=\"ui form\">\n            <div class=\"inline field\">\n                <div class=\"ui toggle checkbox chkPreviewQuestion\">\n                    <input type=\"checkbox\" name=\"chkPreviewQuestion\" tabindex=\"0\" class=\"hidden\">\n                    <label>Preview question description</label>\n                </div>\n            </div>\n        </div>\n        <div class=\"orderAndPreview\">\n            <input type=\"hidden\" name=\"reRender\" class=\"reRender\"/>\n            <div class=\"contentPreview\" hidden=\"hidden\">    \n            </div>\n            <div class=\"contentOrder\">\n                <div class=\"TVYContentOrder col-md-12\"></div>\n            </div>\n        </div>\n    </div>\n";
+var html = "\n    <div class=\"TVYContentManagementPreview\">\n        <div class=\"ui form\">\n            <div class=\"inline field\">\n                <div class=\"ui toggle checkbox chkPreviewContent\">\n                    <input type=\"checkbox\" name=\"chkPreviewContent\" tabindex=\"0\" class=\"hidden\">\n                    <label class=\"lblPreviewContent\"></label>\n                </div>\n            </div>\n        </div>\n        <div class=\"orderAndPreview\">\n            <input type=\"hidden\" name=\"reRender\" class=\"reRender\"/>\n            <div class=\"contentPreview\" hidden=\"hidden\">    \n            </div>\n            <div class=\"contentOrder\">\n                <div class=\"TVYContentOrder col-md-12\"></div>\n            </div>\n        </div>\n    </div>\n";
 
 var TVYContentManagementPreview =
 /*#__PURE__*/
@@ -67928,13 +67999,22 @@ function (_HTMLElement) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(TVYContentManagementPreview).call(this));
     _this.innerHTML = html;
     _this.publicId = _this.getAttribute('data-public-id');
-    _this.avatarUrl = _this.getAttribute('data-avatar-url');
-    _this.authorName = _this.getAttribute('data-author-name');
-    _this.dataContentType = _this.getAttribute('data-content-type');
+
+    var dataContentType = _this.getAttribute('data-content-type');
+
+    if (dataContentType === 'question') {
+      _this.contentType = TVYContentManagementPreview.QUESTION_CONTENT_TYPE;
+    } else {
+      _this.contentType = TVYContentManagementPreview.ANSWER_CONTENT_TYPE;
+    }
+
     _this.contentPreview = _this.querySelector('.contentPreview');
     _this.reRenderHidden = _this.querySelector('.reRender');
+    _this.lblPreviewContent = _this.querySelector('.lblPreviewContent');
 
     _this.reRenderHidden.addEventListener('click', _this.handleContentPreview.bind(_assertThisInitialized(_this)));
+
+    _this.setLabelTextPreviewContent();
 
     _this.handlePreviewCheckBox();
 
@@ -67944,9 +68024,22 @@ function (_HTMLElement) {
   }
 
   _createClass(TVYContentManagementPreview, [{
+    key: "setLabelTextPreviewContent",
+    value: function setLabelTextPreviewContent() {
+      var text = '';
+
+      if (this.contentType === TVYContentManagementPreview.QUESTION_CONTENT_TYPE) {
+        text = 'Preview your question';
+      } else {
+        text = 'Preview your answer';
+      }
+
+      this.lblPreviewContent.innerHTML = text;
+    }
+  }, {
     key: "handlePreviewCheckBox",
     value: function handlePreviewCheckBox() {
-      $('.TVYContentManagementPreview .chkPreviewQuestion').checkbox({
+      $('.TVYContentManagementPreview .chkPreviewContent').checkbox({
         onChecked: function onChecked() {
           $('.TVYContentManagementPreview .contentPreview').removeAttr('hidden');
           $('.TVYContentManagementPreview .contentOrder').attr('hidden', 'hidden');
@@ -67964,13 +68057,20 @@ function (_HTMLElement) {
         this.querySelector('.TVYContentActionView .reRender').click();
       } else {
         var mockedContentActionView = document.createElement('tvy-content-action-view');
-        mockedContentActionView.setAttribute('data-question-public-id', this.publicId);
-        mockedContentActionView.setAttribute('data-avatar-url', this.avatarUrl);
-        mockedContentActionView.setAttribute('data-author-name', this.authorName);
-        mockedContentActionView.setAttribute('data-readable-time', 'asked 6 seconds ago');
-        mockedContentActionView.setAttribute('data-content-type', this.dataContentType);
+        mockedContentActionView.setAttribute('data-public-id', this.publicId);
+        mockedContentActionView.setAttribute('data-content-type', this.contentType);
         this.contentPreview.appendChild(mockedContentActionView);
       }
+    }
+  }], [{
+    key: "QUESTION_CONTENT_TYPE",
+    get: function get() {
+      return 'question';
+    }
+  }, {
+    key: "ANSWER_CONTENT_TYPE",
+    get: function get() {
+      return 'answer';
     }
   }]);
 
@@ -67978,6 +68078,182 @@ function (_HTMLElement) {
 }(_wrapNativeSuper(HTMLElement));
 
 window.customElements.define('tvy-content-management-preview', TVYContentManagementPreview);
+
+/***/ }),
+
+/***/ "./resources/js/reusable_components/list_content_action_view.js":
+/*!**********************************************************************!*\
+  !*** ./resources/js/reusable_components/list_content_action_view.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _wrapNativeSuper(Class) { var _cache = typeof Map === "function" ? new Map() : undefined; _wrapNativeSuper = function _wrapNativeSuper(Class) { if (Class === null || !_isNativeFunction(Class)) return Class; if (typeof Class !== "function") { throw new TypeError("Super expression must either be null or a function"); } if (typeof _cache !== "undefined") { if (_cache.has(Class)) return _cache.get(Class); _cache.set(Class, Wrapper); } function Wrapper() { return _construct(Class, arguments, _getPrototypeOf(this).constructor); } Wrapper.prototype = Object.create(Class.prototype, { constructor: { value: Wrapper, enumerable: false, writable: true, configurable: true } }); return _setPrototypeOf(Wrapper, Class); }; return _wrapNativeSuper(Class); }
+
+function isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _construct(Parent, args, Class) { if (isNativeReflectConstruct()) { _construct = Reflect.construct; } else { _construct = function _construct(Parent, args, Class) { var a = [null]; a.push.apply(a, args); var Constructor = Function.bind.apply(Parent, a); var instance = new Constructor(); if (Class) _setPrototypeOf(instance, Class.prototype); return instance; }; } return _construct.apply(null, arguments); }
+
+function _isNativeFunction(fn) { return Function.toString.call(fn).indexOf("[native code]") !== -1; }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+var html = "\n    <div class=\"TVYListContentActionView\">\n        <div class=\"headerBlock\">\n            <div>\n                <i class=\"fas fa-lightbulb\"></i>\n                <span class=\"numRecords\"></span>\n            </div>\n            <div>\n                Sort by:&nbsp;\n                <button class=\"btn btnMostDated\">Most dated</button>\n                &nbsp;|&nbsp;\n                <button class=\"btn btnMostHelpful\">Most helpful</button>\n            </div>\n        </div>\n        <div class=\"list\"></div>   \n    </div>\n";
+
+var TVYListContentActionView =
+/*#__PURE__*/
+function (_HTMLElement) {
+  _inherits(TVYListContentActionView, _HTMLElement);
+
+  function TVYListContentActionView() {
+    var _this;
+
+    _classCallCheck(this, TVYListContentActionView);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(TVYListContentActionView).call(this));
+    _this.innerHTML = html;
+    _this.sortedType = TVYListContentActionView.MOST_DATED_SORTED;
+    _this.referencePublicId = _this.getAttribute('data-reference-public-id');
+
+    var contentType = _this.getAttribute('data-content-type');
+
+    if (contentType === 'question') {
+      _this.contentType = TVYListContentActionView.QUESTION_CONTENT_TYPE;
+    } else {
+      _this.contentType = TVYListContentActionView.ANSWER_CONTENT_TYPE;
+    }
+
+    _this.listContentActionView = _this.querySelector('.TVYListContentActionView .list');
+    _this.headerBlock = _this.querySelector('.headerBlock');
+    _this.numRecords = _this.querySelector('.numRecords');
+    _this.btnMostHelpful = _this.querySelector('.btnMostHelpful');
+    _this.btnMostDated = _this.querySelector('.btnMostDated');
+
+    _this.handleSortRecords(_this.sortedType);
+
+    _this.btnMostDated.addEventListener('click', function () {
+      return _this.handleSortRecords(TVYListContentActionView.MOST_DATED_SORTED);
+    });
+
+    _this.btnMostHelpful.addEventListener('click', function () {
+      return _this.handleSortRecords(TVYListContentActionView.MOST_HELPFUL_SORTED);
+    });
+
+    _this.headerBlock.style.visibility = 'hidden';
+
+    _this.renderList();
+
+    return _this;
+  }
+
+  _createClass(TVYListContentActionView, [{
+    key: "handleSortRecords",
+    value: function handleSortRecords(sortedType) {
+      if (this.sortedType !== sortedType) {
+        this.sortedType = sortedType;
+        this.renderList();
+      }
+
+      if (sortedType === TVYListContentActionView.MOST_DATED_SORTED) {
+        this.btnMostDated.classList.add('active');
+        this.btnMostHelpful.classList.remove('active');
+      } else {
+        this.btnMostHelpful.classList.add('active');
+        this.btnMostDated.classList.remove('active');
+      }
+    }
+  }, {
+    key: "renderList",
+    value: function renderList() {
+      var _this2 = this;
+
+      var url = window.location.origin + '/answer/list-posted-answers-of-question/' + this.referencePublicId + '/' + this.sortedType;
+      $.ajax({
+        url: url,
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'GET',
+        success: function success(result) {
+          _this2.updateInfoOfHeaderBlock(result.length);
+
+          _this2.createContentActionViewElements(result);
+        },
+        error: function error(err) {
+          console.log('---Error');
+          console.log(err);
+        }
+      });
+    }
+  }, {
+    key: "updateInfoOfHeaderBlock",
+    value: function updateInfoOfHeaderBlock(numRecords) {
+      var typeRecord = '';
+
+      if (this.contentType === TVYListContentActionView.ANSWER_CONTENT_TYPE) {
+        typeRecord = 'Answer';
+      } else {
+        typeRecord = 'Question';
+      }
+
+      var pluralOrNot = numRecords > 1 ? 's' : '';
+      this.numRecords.innerHTML = "".concat(numRecords, " ").concat(typeRecord).concat(pluralOrNot);
+      this.headerBlock.style.visibility = 'visible';
+    }
+  }, {
+    key: "createContentActionViewElements",
+    value: function createContentActionViewElements(arrayPublicIds) {
+      this.listContentActionView.innerHTML = '';
+      var tempHtml = '';
+
+      for (var i = 0; i < arrayPublicIds.length; i++) {
+        tempHtml += "<tvy-content-action-view data-public-id=\"".concat(arrayPublicIds[i], "\" data-content-type=\"").concat(this.contentType, "\"></tvy-content-action-view>");
+      }
+
+      this.listContentActionView.innerHTML = tempHtml;
+    }
+  }], [{
+    key: "MOST_HELPFUL_SORTED",
+    get: function get() {
+      return 'helpful';
+    }
+  }, {
+    key: "MOST_DATED_SORTED",
+    get: function get() {
+      return 'dated';
+    }
+  }, {
+    key: "QUESTION_CONTENT_TYPE",
+    get: function get() {
+      return 'question';
+    }
+  }, {
+    key: "ANSWER_CONTENT_TYPE",
+    get: function get() {
+      return 'answer';
+    }
+  }]);
+
+  return TVYListContentActionView;
+}(_wrapNativeSuper(HTMLElement));
+
+window.customElements.define('tvy-list-content-action-view', TVYListContentActionView);
 
 /***/ }),
 

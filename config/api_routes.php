@@ -71,8 +71,35 @@ return [
         ],
         'description' => [
             'method'=> 'get',
-            'paht'  => '/api/question/description-of/{publicId}',
+            'path'  => '/api/question/description-of/{publicId}',
             'url'   => $host.'/api/question/description-of'
+        ]
+    ],
+    'answer' => [
+        'save'  =>  [
+            'method'=> 'put',
+            'path'  => '/api/answer/save/{publicId}',
+            'url'   => $host.'/api/answer/save'
+        ],
+        'save_during_editing' => [
+            'method' => 'post',
+            'path'  => '/api/answer/save-during-editing',
+            'url'   => $host.'/api/answer/save-during-editing'
+        ],
+        'view' => [
+            'method'=> 'get',
+            'path'  => '/api/answer/view/{publicId}',
+            'url'   => $host.'/api/answer/view'
+        ],
+        'description' => [
+            'method'=> 'get',
+            'path'  => '/api/answer/description-of/{publicId}',
+            'url'   => $host.'/api/answer/description-of'
+        ],
+        'list_posted_answers' => [
+            'method'=> 'get',
+            'path'  => '/api/answer/list-posted-answers-of/{questionPublicId}',
+            'url'   => $host.'/api/answer/list-posted-answers-of'
         ]
     ],
     'subject' => [

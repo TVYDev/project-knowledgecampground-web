@@ -12970,10 +12970,6 @@ readers do not read off random characters that represent icons */
   font-family: "Font Awesome 5 Brands";
 }
 
-.CodeMirror {
-  width: 700px;
-}
-
 .CodeMirror * {
   font-family: "Source Code Pro", monospace;
   font-size: 12px;
@@ -13156,12 +13152,65 @@ button:focus {
   font-size: 2rem;
 }
 
+.TVYListContentActionView .headerBlock {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 5px solid #0A5748;
+}
+
+.TVYListContentActionView .headerBlock div:first-child i {
+  border-radius: 8px 8px 0 0;
+  border: 2px solid #0A5748;
+  border-bottom: none;
+  color: #0A5748;
+  padding: 5px;
+  font-size: 2em;
+}
+
+.TVYListContentActionView .headerBlock div:first-child span {
+  margin-left: 10px;
+  vertical-align: middle;
+  color: #0A5748;
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+.TVYListContentActionView .headerBlock div:last-child {
+  justify-self: right;
+  align-self: center;
+}
+
+.TVYListContentActionView .headerBlock div:last-child .btnMostHelpful,
+.TVYListContentActionView .headerBlock div:last-child .btnMostDated {
+  padding: 5px 10px;
+  background: none;
+  border: none;
+  color: #424242;
+}
+
+.TVYListContentActionView .headerBlock div:last-child .btnMostHelpful:hover,
+.TVYListContentActionView .headerBlock div:last-child .btnMostHelpful:focus,
+.TVYListContentActionView .headerBlock div:last-child .btnMostDated:hover,
+.TVYListContentActionView .headerBlock div:last-child .btnMostDated:focus {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.TVYListContentActionView .headerBlock div:last-child .btnMostHelpful.active,
+.TVYListContentActionView .headerBlock div:last-child .btnMostDated.active {
+  border-radius: 20px;
+  border: 1px solid #707070;
+  color: white;
+  background-color: #707070;
+}
+
 .TVYContentManagementPreview .form {
   margin-bottom: 10px;
   text-align: center;
 }
 
-.TVYContentManagementPreview .form .chkPreviewQuestion {
+.TVYContentManagementPreview .form .chkPreviewContent {
   padding: 5px 10px;
   border: 1px solid #707070;
   border-radius: 20px;
@@ -13238,6 +13287,7 @@ button:focus {
 }
 
 .TVYContentEditor .editor {
+  max-width: 695px;
   border: 1px solid #D8D8D8;
   border-top: none;
   border-bottom: none;
@@ -13465,15 +13515,15 @@ button:focus {
 }
 
 .TVYContentActionView {
+  margin-top: 5px;
+  margin-bottom: 25px;
   display: grid;
   grid-template-columns: 1fr;
   grid-row-gap: 20px;
-  padding: 5px;
 }
 
 .TVYContentActionView .viewPart {
-  border-top: 1px solid #D8D8D8;
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
 .TVYContentActionView .viewPart .descElementForView {
@@ -13550,7 +13600,7 @@ button:focus {
   grid-template-columns: 1fr 2fr 1fr;
   padding: 5px 10px;
   border-top: 1px solid #D8D8D8;
-  border-bottom: 1px solid #D8D8D8;
+  border-bottom: 1px solid #707070;
 }
 
 .TVYContentActionView .actionPart .vote {
@@ -13623,7 +13673,7 @@ button:focus {
     display: grid;
     grid-template-columns: 1fr 5fr;
     grid-template-rows: 45px;
-    background: transparent;
+    background: #F3F3F3;
     z-index: 999;
   }
 
@@ -14714,6 +14764,13 @@ button:focus {
   }
 }
 
+.kcFooter {
+  margin-top: 100px;
+  height: 200px;
+  background-color: #D8D8D8;
+  border-top: 1px solid #707070;
+}
+
 .ui.button.fluid.btnSocialMedia {
   padding: 0 10px;
   margin-top: 10px;
@@ -15356,7 +15413,7 @@ button:focus {
 }
 
 .pageViewQuestion .leftExtraSpace {
-  border: 1px dashed yellowgreen;
+  border-right: 1px solid #D8D8D8;
 }
 
 .pageViewQuestion .viewQuestionContent .titleBlock {
@@ -15430,7 +15487,21 @@ button:focus {
   color: #707070;
 }
 
-.pageViewQuestion .rightExtraSpace {
-  border: 1px dashed mediumpurple;
+.answerQuestionBlock {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 10px;
+  margin-top: 30px;
+  padding: 20px 3px;
+  background-color: #D8D8D8;
+  border-radius: 5px;
+}
+
+.answerQuestionBlock .answerCreation h4 {
+  text-align: center;
+}
+
+.answerQuestionBlock .answerCreation > button {
+  margin-top: 15px;
 }
 

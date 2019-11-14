@@ -2,9 +2,9 @@ const html = `
     <div class="TVYContentManagementPreview">
         <div class="ui form">
             <div class="inline field">
-                <div class="ui toggle checkbox chkPreviewQuestion">
-                    <input type="checkbox" name="chkPreviewQuestion" tabindex="0" class="hidden">
-                    <label>Preview question description</label>
+                <div class="ui toggle checkbox chkPreviewContent">
+                    <input type="checkbox" name="chkPreviewContent" tabindex="0" class="hidden">
+                    <label class="lblPreviewContent"></label>
                 </div>
             </div>
         </div>
@@ -26,21 +26,39 @@ class TVYContentManagementPreview extends HTMLElement
         this.innerHTML = html;
 
         this.publicId = this.getAttribute('data-public-id');
-        this.avatarUrl = this.getAttribute('data-avatar-url');
-        this.authorName = this.getAttribute('data-author-name');
-        this.dataContentType = this.getAttribute('data-content-type');
+        let dataContentType = this.getAttribute('data-content-type');
+        if(dataContentType === 'question') {
+            this.contentType = TVYContentManagementPreview.QUESTION_CONTENT_TYPE;
+        }else {
+            this.contentType = TVYContentManagementPreview.ANSWER_CONTENT_TYPE;
+        }
 
         this.contentPreview = this.querySelector('.contentPreview');
         this.reRenderHidden = this.querySelector('.reRender');
+        this.lblPreviewContent = this.querySelector('.lblPreviewContent');
 
         this.reRenderHidden.addEventListener('click', this.handleContentPreview.bind(this));
 
+        this.setLabelTextPreviewContent();
         this.handlePreviewCheckBox();
         this.handleContentPreview();
     }
 
+    static get QUESTION_CONTENT_TYPE()  {return 'question';}
+    static get ANSWER_CONTENT_TYPE()    {return 'answer';}
+
+    setLabelTextPreviewContent () {
+        let text = '';
+        if(this.contentType === TVYContentManagementPreview.QUESTION_CONTENT_TYPE) {
+            text = 'Preview your question';
+        }else {
+            text = 'Preview your answer';
+        }
+        this.lblPreviewContent.innerHTML = text;
+    }
+
     handlePreviewCheckBox () {
-        $('.TVYContentManagementPreview .chkPreviewQuestion').checkbox({
+        $('.TVYContentManagementPreview .chkPreviewContent').checkbox({
             onChecked: function() {
                 $('.TVYContentManagementPreview .contentPreview').removeAttr('hidden');
                 $('.TVYContentManagementPreview .contentOrder').attr('hidden', 'hidden');
@@ -57,11 +75,8 @@ class TVYContentManagementPreview extends HTMLElement
             this.querySelector('.TVYContentActionView .reRender').click();
         }else {
             let mockedContentActionView = document.createElement('tvy-content-action-view');
-            mockedContentActionView.setAttribute('data-question-public-id', this.publicId);
-            mockedContentActionView.setAttribute('data-avatar-url', this.avatarUrl);
-            mockedContentActionView.setAttribute('data-author-name', this.authorName);
-            mockedContentActionView.setAttribute('data-readable-time', 'asked 6 seconds ago');
-            mockedContentActionView.setAttribute('data-content-type', this.dataContentType);
+            mockedContentActionView.setAttribute('data-public-id', this.publicId);
+            mockedContentActionView.setAttribute('data-content-type', this.contentType);
             this.contentPreview.appendChild(mockedContentActionView);
         }
     }

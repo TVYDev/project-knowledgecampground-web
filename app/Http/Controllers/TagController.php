@@ -15,7 +15,7 @@ class TagController extends Controller
         try
         {
             $resultTags = $this->get($this->getApiRequestUrl('tag.get_tags_of_subject'),
-                $subjectId, null, $this->getAuthorizationHeader());
+                [$subjectId], null, $this->getAuthorizationHeader());
 
             $tagsDataToReturn = [];
             if($resultTags->success == true){
