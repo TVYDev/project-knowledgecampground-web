@@ -13287,7 +13287,7 @@ button:focus {
 }
 
 .TVYContentEditor .editor {
-  max-width: 695px;
+  max-width: 700px;
   border: 1px solid #D8D8D8;
   border-top: none;
   border-bottom: none;
@@ -13520,10 +13520,12 @@ button:focus {
   display: grid;
   grid-template-columns: 1fr;
   grid-row-gap: 20px;
+  border: 1px solid #D8D8D8;
+  border-radius: 10px;
 }
 
 .TVYContentActionView .viewPart {
-  padding-top: 10px;
+  padding: 5px;
 }
 
 .TVYContentActionView .viewPart .descElementForView {
@@ -13600,7 +13602,6 @@ button:focus {
   grid-template-columns: 1fr 2fr 1fr;
   padding: 5px 10px;
   border-top: 1px solid #D8D8D8;
-  border-bottom: 1px solid #707070;
 }
 
 .TVYContentActionView .actionPart .vote {
@@ -15412,10 +15413,6 @@ button:focus {
   grid-column-gap: 10px;
 }
 
-.pageViewQuestion .leftExtraSpace {
-  border-right: 1px solid #D8D8D8;
-}
-
 .pageViewQuestion .viewQuestionContent .titleBlock {
   color: #424242;
   display: grid;
@@ -15487,14 +15484,15 @@ button:focus {
   color: #707070;
 }
 
+.headerWriteYourAnswer {
+  color: #0A5748;
+  border-bottom: 2px solid #0A5748;
+}
+
 .answerQuestionBlock {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 10px;
-  margin-top: 30px;
-  padding: 20px 3px;
-  background-color: #D8D8D8;
-  border-radius: 5px;
 }
 
 .answerQuestionBlock .answerCreation h4 {

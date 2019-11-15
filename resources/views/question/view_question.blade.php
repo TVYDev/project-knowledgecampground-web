@@ -31,9 +31,9 @@
         </div>
         <div class="rightExtraSpace"></div>
     </div>
+    <h3 class="headerWriteYourAnswer"><i class="fas fa-pen-alt"></i>&nbsp;&nbsp;Write your own answer below</h3>
     <div class="answerQuestionBlock">
         <div class="answerCreation">
-            <h4><i class="fas fa-pen-alt"></i>&nbsp;&nbsp;Write your answer here</h4>
             <form action="{{ route(\App\Lib\RouteConstants::ANSWER_POST_POST) }}" method="POST" id="formAnswerQuestion">
                 @csrf
                 <input type="hidden" name="publicId" value="{{ $answerPublicId }}">
