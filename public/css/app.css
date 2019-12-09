@@ -12991,7 +12991,8 @@ h5,
 h6,
 .ui.button,
 .ui.form input[type=text],
-.ui.form textarea {
+.ui.form textarea,
+.ui.input input[type=text] {
   font-family: "Taprom", "Comfortaa", sans-serif;
 }
 
@@ -13519,9 +13520,10 @@ button:focus {
   margin-bottom: 25px;
   display: grid;
   grid-template-columns: 1fr;
-  grid-row-gap: 20px;
+  grid-row-gap: 10px;
   border: 1px solid #D8D8D8;
   border-radius: 10px;
+  padding-bottom: 10px;
 }
 
 .TVYContentActionView .viewPart {
@@ -13602,6 +13604,7 @@ button:focus {
   grid-template-columns: 1fr 2fr 1fr;
   padding: 5px 10px;
   border-top: 1px solid #D8D8D8;
+  border-bottom: 1px solid #D8D8D8;
 }
 
 .TVYContentActionView .actionPart .vote {
@@ -13662,6 +13665,61 @@ button:focus {
   border-radius: 40px;
   border: 1.5px solid #0A5748;
   padding: 1px;
+  cursor: pointer;
+}
+
+.TVYContentActionView .commentsBlock {
+  padding: 5px;
+}
+
+.TVYContentActionView .commentsBlock .addNewCommentBlock {
+  display: grid;
+  grid-template-columns: 40px auto;
+}
+
+.TVYContentActionView .commentsBlock .addNewCommentBlock div:first-child {
+  align-self: center;
+  justify-self: left;
+}
+
+.TVYContentActionView .commentsBlock .addNewCommentBlock div:first-child .authorAvatar {
+  vertical-align: middle;
+  height: 30px;
+  border-radius: 40px;
+  border: 1.5px solid #0A5748;
+  padding: 1px;
+}
+
+.TVYContentActionView .commentsBlock .addNewCommentBlock .commentBody {
+  border: 1px solid #D8D8D8;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: auto 30px;
+}
+
+.TVYContentActionView .commentsBlock .addNewCommentBlock .commentBody .commentInput {
+  width: 100%;
+}
+
+.TVYContentActionView .commentsBlock .addNewCommentBlock .commentBody .commentInput .txtComment {
+  width: 100%;
+  border: none;
+  background: transparent;
+}
+
+.TVYContentActionView .commentsBlock .addNewCommentBlock .commentBody .commentButton {
+  align-self: center;
+  justify-self: center;
+}
+
+.TVYContentActionView .commentsBlock .addNewCommentBlock .commentBody .commentButton i {
+  color: #17CCA9;
+  font-size: 2em;
+}
+
+.TVYContentActionView .commentsBlock .addNewCommentBlock .commentBody .commentButton i:focus,
+.TVYContentActionView .commentsBlock .addNewCommentBlock .commentBody .commentButton i:hover {
+  color: #0A5748;
   cursor: pointer;
 }
 

@@ -66973,7 +66973,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-var html = "\n<div class=\"TVYContentActionView\">\n    <input type=\"hidden\" name=\"reRender\" class=\"reRender\" />\n    <div class=\"viewPart\"></div>\n    <div class=\"actionPart\">\n        <div class=\"vote\">\n            <i class=\"far fa-thumbs-up selected\"></i>\n            <span class=\"numVote\">23</span>\n            <i class=\"far fa-thumbs-down\"></i>\n        </div>\n        <div class=\"askedOrEditedDate\"></div>\n        <div class=\"authorIdentity\">\n            <div><a href=\"#\" class=\"authorInfo\"></a></div>\n            <div><img class=\"authorAvatar\" src=\"\" alt=\"avatar\"></div>    \n        </div>\n    </div>\n</div>\n";
+var html = "\n<div class=\"TVYContentActionView\">\n    <input type=\"hidden\" name=\"reRender\" class=\"reRender\" />\n    <div class=\"viewPart\"></div>\n    <div class=\"actionPart\">\n        <div class=\"vote\">\n            <i class=\"far fa-thumbs-up selected\"></i>\n            <span class=\"numVote\">23</span>\n            <i class=\"far fa-thumbs-down\"></i>\n        </div>\n        <div class=\"askedOrEditedDate\"></div>\n        <div class=\"authorIdentity\">\n            <div><a href=\"#\" class=\"authorInfo\"></a></div>\n            <div><img class=\"authorAvatar\" src=\"\" alt=\"avatar\"></div>    \n        </div>\n    </div>\n    <div class=\"commentsBlock\">\n        <div class=\"listOfComments\"></div>\n        <div class=\"addNewCommentBlock\">\n            <div><img class=\"authorAvatar\" src=\"\" alt=\"avatar\"></div>    \n            <div class=\"commentBody\">\n                <div class=\"ui input commentInput\">\n                    <input type=\"text\" class=\"txtComment\"/>\n                </div>\n                <div class=\"commentButton\"><i class=\"fas fa-chevron-circle-right\"></i></div>\n            </div>\n        </div>\n    </div>\n</div>\n";
 
 var TVYContentActionView =
 /*#__PURE__*/
@@ -67004,11 +67004,16 @@ function (_HTMLElement) {
     _this.author = _this.actionPart.querySelector('.authorIdentity .authorInfo');
     _this.avatar = _this.actionPart.querySelector('.authorIdentity .authorAvatar');
     _this.reRenderHidden = _this.querySelector('.reRender');
+    _this.avatarAddComment = _this.querySelector('.addNewCommentBlock .authorAvatar');
+    _this.txtComment = _this.querySelector('.txtComment');
+    _this.btnComment = _this.querySelector('.commentButton');
     _this.loaderContent = document.createElement('div');
     _this.loaderContent.className = 'ui active centered inline text loader loaderContent';
     _this.loaderContent.innerHTML = 'Loading';
 
     _this.reRenderHidden.addEventListener('click', _this.getDescriptionContent.bind(_assertThisInitialized(_this)));
+
+    _this.btnComment.addEventListener('click', _this.saveComment.bind(_assertThisInitialized(_this)));
 
     _this.getDescriptionContent();
 
@@ -67016,9 +67021,37 @@ function (_HTMLElement) {
   }
 
   _createClass(TVYContentActionView, [{
+    key: "saveComment",
+    value: function saveComment() {
+      var _this2 = this;
+
+      console.log('save comment', this.txtComment.value);
+      var preparedData = {
+        'commentable_public_id': this.getAttribute('data-public-id'),
+        'commentable_type': this.contentType,
+        'body': this.txtComment.value
+      };
+      var url = window.location.origin + '/comment/post';
+      $.ajax({
+        url: url,
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: preparedData,
+        type: 'POST',
+        success: function success(result) {
+          _this2.txtComment.value = '';
+        },
+        error: function error(err) {
+          console.log('---Error');
+          console.log(err);
+        }
+      });
+    }
+  }, {
     key: "getDescriptionContent",
     value: function getDescriptionContent() {
-      var _this2 = this;
+      var _this3 = this;
 
       var routePath = null;
 
@@ -67036,26 +67069,26 @@ function (_HTMLElement) {
         },
         type: 'GET',
         beforeSend: function beforeSend(xhr) {
-          _this2.viewPart.innerHTML = '';
+          _this3.viewPart.innerHTML = '';
 
-          _this2.viewPart.appendChild(_this2.loaderContent);
+          _this3.viewPart.appendChild(_this3.loaderContent);
 
-          _this2.actionPart.style.visibility = 'hidden';
+          _this3.actionPart.style.visibility = 'hidden';
         },
         success: function success(result) {
-          _this2.viewPart.removeChild(_this2.loaderContent);
+          _this3.viewPart.removeChild(_this3.loaderContent);
 
           if (result.success) {
-            _this2.descriptionContent = JSON.parse(result.data);
-            _this2.relativePathStoreImages = result.relative_path_store_images;
+            _this3.descriptionContent = JSON.parse(result.data);
+            _this3.relativePathStoreImages = result.relative_path_store_images;
 
-            _this2.fillTheContent();
+            _this3.fillTheContent();
 
-            _this2.fillInfoOfActionPart(result.readable_time, result.author_id, result.author_name, result.avatar_url);
+            _this3.fillInfoOfActionPart(result.readable_time, result.author_id, result.author_name, result.avatar_url);
 
-            _this2.actionPart.style.visibility = 'visible';
+            _this3.actionPart.style.visibility = 'visible';
           } else {
-            _this2.addWarningNoContent();
+            _this3.addWarningNoContent();
           }
         },
         error: function error(err) {
@@ -67072,6 +67105,7 @@ function (_HTMLElement) {
       this.author.textContent = authorName;
       this.avatar.setAttribute('data-author-id', authorId);
       this.avatar.setAttribute('src', avatarUrl);
+      this.avatarAddComment.setAttribute('src', avatarUrl);
     }
   }, {
     key: "fillTheContent",
@@ -67099,7 +67133,7 @@ function (_HTMLElement) {
   }, {
     key: "addContent",
     value: function addContent(descData, type) {
-      var _this3 = this;
+      var _this4 = this;
 
       var element = document.createElement('div');
       element.className = 'descElementForView col-md-12';
@@ -67125,7 +67159,7 @@ function (_HTMLElement) {
         divImageContent.innerHTML = "\n                <div class=\"imageView\">\n                    <img class=\"imageFile\" src=\"".concat(imageUrlWithTimeStamp, "\"/>\n                    <div class=\"toolZoomImage\">\n                        <i class=\"fas fa-search-plus\"></i>&nbsp;Click to zoom in\n                    </div>\n                </div>\n                <p class=\"imageCaption\">").concat(imageCaption, "</p>\n            ");
         element.appendChild(divImageContent);
         divImageContent.querySelector('.imageView').addEventListener('click', function () {
-          return _this3.onClickZoomImage(imageUrl);
+          return _this4.onClickZoomImage(imageUrl);
         });
       }
     }

@@ -81,6 +81,13 @@ Route::group([
 });
 
 Route::group([
+    'prefix' => 'comment'
+    ], function() {
+    Route::post('/post', 'CommentController@postPost')
+        ->name(RouteConstants::COMMENT_POST_POST);
+});
+
+Route::group([
     'prefix' => 'tag'
     ], function (){
     Route::get('/get_tags_of_subject/{subjectId}', 'TagController@getTagsOfSubject')

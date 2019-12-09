@@ -17,6 +17,18 @@ const html = `
             <div><img class="authorAvatar" src="" alt="avatar"></div>    
         </div>
     </div>
+    <div class="commentsBlock">
+        <div class="listOfComments"></div>
+        <div class="addNewCommentBlock">
+            <div><img class="authorAvatar" src="" alt="avatar"></div>    
+            <div class="commentBody">
+                <div class="ui input commentInput">
+                    <input type="text" class="txtComment"/>
+                </div>
+                <div class="commentButton"><i class="fas fa-chevron-circle-right"></i></div>
+            </div>
+        </div>
+    </div>
 </div>
 `;
 
@@ -42,12 +54,16 @@ class TVYContentActionView extends HTMLElement
         this.author = this.actionPart.querySelector('.authorIdentity .authorInfo');
         this.avatar = this.actionPart.querySelector('.authorIdentity .authorAvatar');
         this.reRenderHidden = this.querySelector('.reRender');
+        this.avatarAddComment = this.querySelector('.addNewCommentBlock .authorAvatar');
+        this.txtComment = this.querySelector('.txtComment');
+        this.btnComment = this.querySelector('.commentButton');
 
         this.loaderContent = document.createElement('div');
         this.loaderContent.className = 'ui active centered inline text loader loaderContent';
         this.loaderContent.innerHTML = 'Loading';
 
         this.reRenderHidden.addEventListener('click', this.getDescriptionContent.bind(this));
+        this.btnComment.addEventListener('click', this.saveComment.bind(this));
 
         this.getDescriptionContent();
     }
@@ -58,6 +74,29 @@ class TVYContentActionView extends HTMLElement
 
     static get QUESTION_CONTENT_TYPE()  {return 'question';}
     static get ANSWER_CONTENT_TYPE()    {return 'answer';}
+
+    saveComment() {
+        console.log('save comment', this.txtComment.value);
+        let preparedData = {
+            'commentable_public_id': this.getAttribute('data-public-id'),
+            'commentable_type': this.contentType,
+            'body': this.txtComment.value
+        };
+        let url = window.location.origin + '/comment/post';
+        $.ajax({
+            url: url,
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            data: preparedData,
+            type: 'POST',
+            success: (result) => {
+                this.txtComment.value = '';
+            },
+            error: function(err) {
+                console.log('---Error');
+                console.log(err);
+            }
+        });
+    }
 
     getDescriptionContent ()
     {
@@ -104,6 +143,7 @@ class TVYContentActionView extends HTMLElement
         this.author.textContent = authorName;
         this.avatar.setAttribute('data-author-id', authorId);
         this.avatar.setAttribute('src', avatarUrl);
+        this.avatarAddComment.setAttribute('src', avatarUrl);
     }
 
     fillTheContent ()

@@ -102,6 +102,13 @@ return [
             'url'   => $host.'/api/answer/list-posted-answers-of'
         ]
     ],
+    'comment' => [
+        'save' => [
+            'method'=> 'post',
+            'path'  => '/api/comment/save',
+            'url'   => $host.'/api/comment/save'
+        ]
+    ],
     'subject' => [
         'get_all_subjects' => [
             'method' => 'get',
