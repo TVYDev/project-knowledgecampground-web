@@ -3,9 +3,12 @@
     margin-bottom: 25px;
     display: grid;
     grid-template-columns: 1fr;
-    grid-row-gap: 20px;
+    grid-row-gap: 10px;
+    border: 1px solid $thirdly-gray;
+    border-radius: 10px;
+    padding-bottom: 10px;
     .viewPart {
-        padding-top: 10px;
+        padding: 5px;
         .descElementForView {
             margin-top: 10px;
             margin-bottom: 10px;
@@ -71,7 +74,7 @@
         grid-template-columns: 1fr 2fr 1fr;
         padding: 5px 10px;
         border-top: 1px solid $thirdly-gray;
-        border-bottom: 1px solid $secondary-gray;
+        border-bottom: 1px solid $thirdly-gray;
         .vote {
             justify-self: left;
             align-self: center;
@@ -119,6 +122,73 @@
                 border: 1.5px solid $main-green;
                 padding: 1px;
                 cursor: pointer;
+            }
+        }
+    }
+    .commentsBlock {
+        padding: 5px;
+        .listOfComments {
+            .singleComment {
+                display: grid;
+                grid-template-columns: 40px auto;
+                margin-bottom: 10px;
+                .authorName {
+                    text-decoration: none;
+                    font-weight: bold;
+                    color: $main-green;
+                }
+                .commentDateTime {
+                    font-size: 0.8em;
+                    color: $secondary-gray;
+                }
+                .authorAvatar {
+                    vertical-align: middle;
+                    height: 30px;
+                    border-radius: 40px;
+                    border: 1.5px solid $main-green;
+                    padding: 1px;
+                }
+            }
+        }
+        .addNewCommentBlock {
+            display: grid;
+            grid-template-columns: 40px auto;
+            div:first-child {
+                align-self: center;
+                justify-self: left;
+                .authorAvatar {
+                    vertical-align: middle;
+                    height: 30px;
+                    border-radius: 40px;
+                    border: 1.5px solid $main-green;
+                    padding: 1px;
+                }
+            }
+            .commentBody {
+                border: 1px solid $thirdly-gray;
+                border-radius: 10px;
+                display: grid;
+                grid-template-columns: auto 30px;
+                .commentInput {
+                    width: 100%;
+                    .txtComment {
+                        width: 100%;
+                        border: none;
+                        background: transparent;
+                    }
+                }
+                .commentButton {
+                    align-self: center;
+                    justify-self: center;
+                    i {
+                        color: $secondary-green;
+                        font-size: 2em;
+                    }
+                    i:focus, i:hover {
+                        color: $main-green;
+                        cursor: pointer;
+                    }
+                }
             }
         }
     }
