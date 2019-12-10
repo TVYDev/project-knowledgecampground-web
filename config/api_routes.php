@@ -102,6 +102,18 @@ return [
             'url'   => $host.'/api/answer/list-posted-answers-of'
         ]
     ],
+    'comment' => [
+        'save' => [
+            'method'=> 'post',
+            'path'  => '/api/comment/save',
+            'url'   => $host.'/api/comment/save'
+        ],
+        'list_posted_comments' => [
+            'method'=> 'get',
+            'path'  => '/api/comment/list-posted-comments-of/{commentableType}/{commentablePublicId}',
+            'url'   => $host.'/api/comment/list-posted-comments-of'
+        ]
+    ],
     'subject' => [
         'get_all_subjects' => [
             'method' => 'get',

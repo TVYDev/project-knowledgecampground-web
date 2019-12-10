@@ -24,6 +24,8 @@ class TVYListContentActionView extends HTMLElement
         this.innerHTML = html;
 
         this.sortedType = TVYListContentActionView.MOST_DATED_SORTED;
+        this.currentAvatarUrl = this.getAttribute('data-current-avatar-url');
+        this.currentUsername = this.getAttribute('data-current-username');
         this.referencePublicId = this.getAttribute('data-reference-public-id');
         let contentType = this.getAttribute('data-content-type');
         if(contentType === 'question') {
@@ -103,7 +105,14 @@ class TVYListContentActionView extends HTMLElement
         this.listContentActionView.innerHTML = '';
         let tempHtml = '';
         for(let i=0; i<arrayPublicIds.length; i++) {
-            tempHtml += `<tvy-content-action-view data-public-id="${arrayPublicIds[i]}" data-content-type="${this.contentType}"></tvy-content-action-view>`;
+            tempHtml += `
+                <tvy-content-action-view 
+                    data-public-id="${arrayPublicIds[i]}" 
+                    data-content-type="${this.contentType}"
+                    data-current-avatar-url="${this.currentAvatarUrl}"
+                    data-current-username="${this.currentUsername}">
+                </tvy-content-action-view>
+            `;
         }
         this.listContentActionView.innerHTML = tempHtml;
     }

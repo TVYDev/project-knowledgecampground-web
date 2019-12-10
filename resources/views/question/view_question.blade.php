@@ -3,6 +3,11 @@
 @section('title', 'View Question')
 
 @section('content')
+<?php
+$ua = session(\App\Lib\UserConstants::KEY_TO_USER_AVATAR);
+$default_avatar_url = $ua[\App\Lib\UserConstants::USER_AVATAR_SVG_URL];
+$username = $ua[\App\Lib\UserConstants::USER_NAME];
+?>
     <div class="pageViewQuestion">
         <div class="leftExtraSpace"></div>
         <div class="viewQuestionContent">
@@ -21,19 +26,26 @@
                     </span>
                 @endforeach
             @endif
-            <tvy-content-action-view data-public-id="{{ $questionPublicId }}" data-content-type="question"></tvy-content-action-view>
+            <tvy-content-action-view
+                data-public-id="{{ $questionPublicId }}"
+                data-content-type="question"
+                data-current-avatar-url="{{ $default_avatar_url }}"
+                data-current-username="{{ $username }}">
+            </tvy-content-action-view>
             <div class="answerBlock">
                 <tvy-list-content-action-view
                     data-reference-public-id="{{ $questionPublicId }}"
-                    data-content-type="answer">
+                    data-content-type="answer"
+                    data-current-avatar-url="{{ $default_avatar_url }}"
+                    data-current-username="{{ $username }}">
                 </tvy-list-content-action-view>
             </div>
         </div>
         <div class="rightExtraSpace"></div>
     </div>
+    <h3 class="headerWriteYourAnswer"><i class="fas fa-pen-alt"></i>&nbsp;&nbsp;Write your own answer below</h3>
     <div class="answerQuestionBlock">
         <div class="answerCreation">
-            <h4><i class="fas fa-pen-alt"></i>&nbsp;&nbsp;Write your answer here</h4>
             <form action="{{ route(\App\Lib\RouteConstants::ANSWER_POST_POST) }}" method="POST" id="formAnswerQuestion">
                 @csrf
                 <input type="hidden" name="publicId" value="{{ $answerPublicId }}">
