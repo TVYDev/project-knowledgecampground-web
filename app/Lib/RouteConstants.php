@@ -54,5 +54,6 @@ class RouteConstants
      * Route for CommentController
      ***********************************************************/
     const COMMENT_POST_POST  = 'comment.postPost';
+    const COMMENT_GET_LIST_POSTED_COMMENTS_OF = 'comment.getListPostedCommentsOf';
     /***********************************************************/
 }

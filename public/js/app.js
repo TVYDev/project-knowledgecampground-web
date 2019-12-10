@@ -66989,6 +66989,11 @@ function (_HTMLElement) {
     _this.innerHTML = html;
     _this.descriptionContent = null;
     _this.relativePathStoreImages = null;
+    _this.authorId = null;
+    _this.authorName = null;
+    _this.avatarUrl = null;
+    _this.currentAvatarUrl = _this.getAttribute('data-current-avatar-url');
+    _this.currentUsername = _this.getAttribute('data-current-username');
 
     var contentType = _this.getAttribute('data-content-type');
 
@@ -67007,6 +67012,7 @@ function (_HTMLElement) {
     _this.avatarAddComment = _this.querySelector('.addNewCommentBlock .authorAvatar');
     _this.txtComment = _this.querySelector('.txtComment');
     _this.btnComment = _this.querySelector('.commentButton');
+    _this.listOfComments = _this.querySelector('.commentsBlock .listOfComments');
     _this.loaderContent = document.createElement('div');
     _this.loaderContent.className = 'ui active centered inline text loader loaderContent';
     _this.loaderContent.innerHTML = 'Loading';
@@ -67017,6 +67023,8 @@ function (_HTMLElement) {
 
     _this.getDescriptionContent();
 
+    _this.getListOfPostedComments();
+
     return _this;
   }
 
@@ -67025,7 +67033,6 @@ function (_HTMLElement) {
     value: function saveComment() {
       var _this2 = this;
 
-      console.log('save comment', this.txtComment.value);
       var preparedData = {
         'commentable_public_id': this.getAttribute('data-public-id'),
         'commentable_type': this.contentType,
@@ -67040,13 +67047,26 @@ function (_HTMLElement) {
         data: preparedData,
         type: 'POST',
         success: function success(result) {
-          _this2.txtComment.value = '';
+          if (result.success == true) {
+            _this2.txtComment.value = '';
+
+            _this2.displayNewlyAddedComment(_this2.currentAvatarUrl, _this2.currentUsername, _this2.authorId, result.data.readable_time_en, result.data.body);
+          }
         },
         error: function error(err) {
           console.log('---Error');
           console.log(err);
         }
       });
+    }
+  }, {
+    key: "displayNewlyAddedComment",
+    value: function displayNewlyAddedComment(avatarUrl, authorName, authorId, readableTime, body) {
+      var divSingleComment = document.createElement('div');
+      divSingleComment.className = 'singleComment';
+      var markup = "\n            <div><img class=\"authorAvatar\" src=\"".concat(avatarUrl, "\" alt=\"avatar\"></div>\n            <div>\n                <div><a href=\"#").concat(authorId, "\" class=\"authorName\">").concat(authorName, "</a>&nbsp;&nbsp;&nbsp;<span class=\"commentDateTime\">").concat(readableTime, "</span></div>\n                <div>").concat(body, "</div>\n            </div>\n        ");
+      divSingleComment.innerHTML = markup;
+      this.listOfComments.appendChild(divSingleComment);
     }
   }, {
     key: "getDescriptionContent",
@@ -67086,9 +67106,39 @@ function (_HTMLElement) {
 
             _this3.fillInfoOfActionPart(result.readable_time, result.author_id, result.author_name, result.avatar_url);
 
+            _this3.authorId = result.author_id;
+            _this3.authorName = result.author_name;
+            _this3.avatarUrl = result.avatar_url;
             _this3.actionPart.style.visibility = 'visible';
           } else {
             _this3.addWarningNoContent();
+          }
+        },
+        error: function error(err) {
+          console.log('---Error');
+          console.log(err);
+        }
+      });
+    }
+  }, {
+    key: "getListOfPostedComments",
+    value: function getListOfPostedComments() {
+      var _this4 = this;
+
+      var url = "".concat(window.location.origin, "/comment/list-posted-comments-of/").concat(this.contentType, "/").concat(this.getAttribute('data-public-id'));
+      $.ajax({
+        url: url,
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'GET',
+        success: function success(result) {
+          if (result.success === true) {
+            for (var i = 0; i < result.data.length; i++) {
+              var d = result.data[i];
+
+              _this4.displayNewlyAddedComment(result.host_url + d.avatar_url, d.author_name, d.author_id, d.readable_time_en, d.body);
+            }
           }
         },
         error: function error(err) {
@@ -67105,7 +67155,7 @@ function (_HTMLElement) {
       this.author.textContent = authorName;
       this.avatar.setAttribute('data-author-id', authorId);
       this.avatar.setAttribute('src', avatarUrl);
-      this.avatarAddComment.setAttribute('src', avatarUrl);
+      this.avatarAddComment.setAttribute('src', this.currentAvatarUrl);
     }
   }, {
     key: "fillTheContent",
@@ -67133,7 +67183,7 @@ function (_HTMLElement) {
   }, {
     key: "addContent",
     value: function addContent(descData, type) {
-      var _this4 = this;
+      var _this5 = this;
 
       var element = document.createElement('div');
       element.className = 'descElementForView col-md-12';
@@ -67159,7 +67209,7 @@ function (_HTMLElement) {
         divImageContent.innerHTML = "\n                <div class=\"imageView\">\n                    <img class=\"imageFile\" src=\"".concat(imageUrlWithTimeStamp, "\"/>\n                    <div class=\"toolZoomImage\">\n                        <i class=\"fas fa-search-plus\"></i>&nbsp;Click to zoom in\n                    </div>\n                </div>\n                <p class=\"imageCaption\">").concat(imageCaption, "</p>\n            ");
         element.appendChild(divImageContent);
         divImageContent.querySelector('.imageView').addEventListener('click', function () {
-          return _this4.onClickZoomImage(imageUrl);
+          return _this5.onClickZoomImage(imageUrl);
         });
       }
     }
@@ -68163,6 +68213,8 @@ function (_HTMLElement) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(TVYListContentActionView).call(this));
     _this.innerHTML = html;
     _this.sortedType = TVYListContentActionView.MOST_DATED_SORTED;
+    _this.currentAvatarUrl = _this.getAttribute('data-current-avatar-url');
+    _this.currentUsername = _this.getAttribute('data-current-username');
     _this.referencePublicId = _this.getAttribute('data-reference-public-id');
 
     var contentType = _this.getAttribute('data-content-type');
@@ -68257,7 +68309,7 @@ function (_HTMLElement) {
       var tempHtml = '';
 
       for (var i = 0; i < arrayPublicIds.length; i++) {
-        tempHtml += "<tvy-content-action-view data-public-id=\"".concat(arrayPublicIds[i], "\" data-content-type=\"").concat(this.contentType, "\"></tvy-content-action-view>");
+        tempHtml += "\n                <tvy-content-action-view \n                    data-public-id=\"".concat(arrayPublicIds[i], "\" \n                    data-content-type=\"").concat(this.contentType, "\"\n                    data-current-avatar-url=\"").concat(this.currentAvatarUrl, "\"\n                    data-current-username=\"").concat(this.currentUsername, "\">\n                </tvy-content-action-view>\n            ");
       }
 
       this.listContentActionView.innerHTML = tempHtml;

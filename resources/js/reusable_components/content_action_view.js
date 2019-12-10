@@ -40,7 +40,12 @@ class TVYContentActionView extends HTMLElement
 
         this.descriptionContent = null;
         this.relativePathStoreImages = null;
+        this.authorId = null;
+        this.authorName = null;
+        this.avatarUrl = null;
 
+        this.currentAvatarUrl = this.getAttribute('data-current-avatar-url');
+        this.currentUsername = this.getAttribute('data-current-username');
         let contentType = this.getAttribute('data-content-type');
         if(contentType === 'question') {
             this.contentType = TVYContentActionView.QUESTION_CONTENT_TYPE;
@@ -58,6 +63,8 @@ class TVYContentActionView extends HTMLElement
         this.txtComment = this.querySelector('.txtComment');
         this.btnComment = this.querySelector('.commentButton');
 
+        this.listOfComments = this.querySelector('.commentsBlock .listOfComments');
+
         this.loaderContent = document.createElement('div');
         this.loaderContent.className = 'ui active centered inline text loader loaderContent';
         this.loaderContent.innerHTML = 'Loading';
@@ -66,6 +73,7 @@ class TVYContentActionView extends HTMLElement
         this.btnComment.addEventListener('click', this.saveComment.bind(this));
 
         this.getDescriptionContent();
+        this.getListOfPostedComments();
     }
 
     static get TEXT_TYPE()  {return 'text';}
@@ -76,7 +84,6 @@ class TVYContentActionView extends HTMLElement
     static get ANSWER_CONTENT_TYPE()    {return 'answer';}
 
     saveComment() {
-        console.log('save comment', this.txtComment.value);
         let preparedData = {
             'commentable_public_id': this.getAttribute('data-public-id'),
             'commentable_type': this.contentType,
@@ -89,13 +96,37 @@ class TVYContentActionView extends HTMLElement
             data: preparedData,
             type: 'POST',
             success: (result) => {
-                this.txtComment.value = '';
+                if(result.success == true) {
+                    this.txtComment.value = '';
+                    this.displayNewlyAddedComment(
+                        this.currentAvatarUrl,
+                        this.currentUsername,
+                        this.authorId,
+                        result.data.readable_time_en,
+                        result.data.body
+                    );
+                }
             },
             error: function(err) {
                 console.log('---Error');
                 console.log(err);
             }
         });
+    }
+
+    displayNewlyAddedComment (avatarUrl, authorName, authorId,readableTime, body) {
+        let divSingleComment = document.createElement('div');
+        divSingleComment.className = 'singleComment';
+        const markup = `
+            <div><img class="authorAvatar" src="${avatarUrl}" alt="avatar"></div>
+            <div>
+                <div><a href="#${authorId}" class="authorName">${authorName}</a>&nbsp;&nbsp;&nbsp;<span class="commentDateTime">${readableTime}</span></div>
+                <div>${body}</div>
+            </div>
+        `;
+        divSingleComment.innerHTML = markup;
+
+        this.listOfComments.appendChild(divSingleComment);
     }
 
     getDescriptionContent ()
@@ -124,9 +155,36 @@ class TVYContentActionView extends HTMLElement
                     this.fillTheContent();
 
                     this.fillInfoOfActionPart(result.readable_time, result.author_id, result.author_name, result.avatar_url);
+                    this.authorId = result.author_id;
+                    this.authorName = result.author_name;
+                    this.avatarUrl = result.avatar_url;
                     this.actionPart.style.visibility = 'visible';
                 }else {
                     this.addWarningNoContent();
+                }
+            },
+            error: function(err) {
+                console.log('---Error');
+                console.log(err);
+            }
+        });
+    }
+
+    getListOfPostedComments ()
+    {
+        let url = `${window.location.origin}/comment/list-posted-comments-of/${this.contentType}/${this.getAttribute('data-public-id')}`;
+        $.ajax({
+            url: url,
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            type: 'GET',
+            success: result => {
+                if(result.success === true)
+                {
+                    for(let i=0; i<result.data.length; i++)
+                    {
+                        const d = result.data[i];
+                        this.displayNewlyAddedComment(result.host_url + d.avatar_url, d.author_name, d.author_id, d.readable_time_en, d.body);
+                    }
                 }
             },
             error: function(err) {
@@ -143,7 +201,7 @@ class TVYContentActionView extends HTMLElement
         this.author.textContent = authorName;
         this.avatar.setAttribute('data-author-id', authorId);
         this.avatar.setAttribute('src', avatarUrl);
-        this.avatarAddComment.setAttribute('src', avatarUrl);
+        this.avatarAddComment.setAttribute('src', this.currentAvatarUrl);
     }
 
     fillTheContent ()

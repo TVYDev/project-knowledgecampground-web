@@ -85,6 +85,8 @@ Route::group([
     ], function() {
     Route::post('/post', 'CommentController@postPost')
         ->name(RouteConstants::COMMENT_POST_POST);
+    Route::get('/list-posted-comments-of/{commentableType}/{commentablePublicId}', 'CommentController@getListPostedCommentsOf')
+        ->name(RouteConstants::COMMENT_GET_LIST_POSTED_COMMENTS_OF);
 });
 
 Route::group([
