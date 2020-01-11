@@ -62,6 +62,16 @@ body {
     font-size: 13px;
     background: $page-background;
 }
+@media screen and (max-width: $tablet) and (min-width: $above-mobile-L) {
+    body {
+        display: none;
+    }
+}
+@media screen and (max-width: $above-mobile-L) {
+    body {
+        display: none;
+    }
+}
 
 *,
 button,

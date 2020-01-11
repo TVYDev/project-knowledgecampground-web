@@ -68361,8 +68361,8 @@ window.customElements.define('tvy-list-content-action-view', TVYListContentActio
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Vannyou\xampp\htdocs\kc_web\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\Vannyou\xampp\htdocs\kc_web\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\Vannyou\KC\kc_web\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\Vannyou\KC\kc_web\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
