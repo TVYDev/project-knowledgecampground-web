@@ -65,6 +65,9 @@ Route::group([
 
     Route::get('/content-of-question/{publicId}', 'QuestionController@getContentOfQuestion')
         ->name(RouteConstants::QUESTION_GET_DESCRIPTION_OF);
+
+    Route::get('/list', 'QuestionController@getList')
+        ->name(RouteConstants::QUESTION_GET_LIST);
 });
 
 Route::group([

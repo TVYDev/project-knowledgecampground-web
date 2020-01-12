@@ -18,7 +18,7 @@ $username = $ua[\App\Lib\UserConstants::USER_NAME];
             <button class="btnSubjects btnNavMenu">
                 <span>{{ __('subjects') }}</span><i class="fas fa-graduation-cap"></i>
             </button>
-            <button class="btnQuestions btnNavMenu">
+            <button class="btnQuestions btnNavMenu" data-url="{{ route(\App\Lib\RouteConstants::QUESTION_GET_LIST) }}">
                 <span>{{ __('questions') }}</span><i class="fas fa-book"></i>
             </button>
             <button class="btnNotifications btnNavMenu">
