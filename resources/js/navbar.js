@@ -1,45 +1,49 @@
 $(document).ready(function (){
-   $('#KCNavbar .btnNavMenu').click(function (){
-       $('#KCNavbar .btnNavMenu').removeClass('active');
-       $(this).addClass('active');
-   });
+    let btnNavMenu = document.querySelectorAll('#KCNavbar .btnNavMenu');
+    btnNavMenu.forEach(btn => {
+        if(btn.getAttribute('data-url') === window.location.href) {
+            btn.classList.add('active');
+        }else {
+            btn.classList.remove('active');
+        }
+    });
 
-   $('#KCNavbar .btnLogin, #KCNavbar .btnAsk').click(function () {
+    $('#KCNavbar .btnLogin, #KCNavbar .btnAsk, #KCNavbar .btnNavMenu').click(function () {
         window.location.href = $(this).attr('data-url');
-   });
+    });
 
     let profileMenuList = $('#KCNavbar .profileMenuList');
-   $('#KCNavbar .avatar_name, #KCNavbar .avatar_img').click(function (){
-       profileMenuList.removeAttr('hidden');
+    $('#KCNavbar .avatar_name, #KCNavbar .avatar_img').click(function (){
+        profileMenuList.removeAttr('hidden');
         if(profileMenuList.hasClass('flipInX')){
             profileMenuList.removeClass('flipInX').addClass('flipOutX');
         }
         else{
             profileMenuList.removeClass('flipOutX').addClass('flipInX');
         }
-   });
-   $('#KCNavbar .userProfileBtn').focusout(function (){
-       profileMenuList.removeClass('flipInX').addClass('flipOutX');
-   });
+        });
+        $('#KCNavbar .userProfileBtn').focusout(function (){
+            profileMenuList.removeClass('flipInX').addClass('flipOutX');
+        });
 
-   $('#KCNavbar .menuBtns li').click(function(e){
-        window.location.href = $(this).attr('data-url');
-   });
+        $('#KCNavbar .menuBtns li').click(function(e){
+            window.location.href = $(this).attr('data-url');
+        });
 
-   $('#KCNavbar .btnLang').click(function(e){
-       let lang = $('html').attr('lang');
-       let currentLang = 'en';
-       if(lang === 'en'){
-           currentLang = 'kh';
-       }
-       changeLangOfProgram(currentLang);
-   });
+        $('#KCNavbar .btnLang').click(function(e){
+            let lang = $('html').attr('lang');
+            let currentLang = 'en';
+            if(lang === 'en'){
+            currentLang = 'kh';
+        }
+        changeLangOfProgram(currentLang);
+    });
 
-   $('#KCNavbar #sideMenu .selLanguages​').change(function(){
+    $('#KCNavbar #sideMenu .selLanguages​').change(function(){
         changeLangOfProgram($(this).val());
-   });
+    });
 
-   navigateSideMenuForMobileScreen();
+    navigateSideMenuForMobileScreen();
 });
 
 function changeLangOfProgram (lang) {

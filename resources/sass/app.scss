@@ -218,6 +218,33 @@ button:focus {
     font-size: 2rem;
 }
 
+.headOfPage {
+    display: grid;
+    grid-template-columns: 8% 92%;
+
+    div:first-child {
+        text-align: center;
+        background-color: $page-background;
+        color: $main-green;
+        border-radius: 30px 30px 0 30px;
+        border: 3px solid $main-green;
+        padding: 6px;
+    }
+
+    div:last-child {
+        font-weight: bold;
+        color: $main-gray;
+        font-size: 1.5em;
+        border-bottom: 3px solid $main-green;
+        align-self: end;
+        padding-bottom: 6px;
+
+        span {
+            margin-left: 10px;
+        }
+    }
+}
+
 @import '_animate.css';
 @import 'reusable_components/list_content_action_view';
 @import 'reusable_components/content_management_preview';
@@ -227,9 +254,12 @@ button:focus {
 
 @import 'navbar';
 @import 'footer';
+@import 'layouts/partials/subject_tags';
+@import 'layouts/partials/list_of_items';
 @import 'auth/social_login.scss';
 @import 'auth/login';
 @import 'auth/user_profile';
 @import 'auth/change_password';
 @import 'question/post_question';
 @import 'question/view_question';
+@import 'question/list_question';

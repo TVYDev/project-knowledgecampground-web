@@ -1,0 +1,36 @@
+.listOfItems {
+    padding-left: 15px;
+    .item {
+        border-bottom: 1px solid $thirdly-gray;
+        padding: 10px 0;
+        display: grid;
+        grid-template-columns: auto 100px;
+        align-items: center;
+        .basicInfo {
+            border-right: 1px solid $thirdly-gray;
+            padding-right: 10px;
+            .title {
+                margin-bottom: 5px;
+                a {
+                    color: $secondary-green;
+                    font-size: 1.3em;
+                }
+                a:focus, a:hover {
+                    font-weight: bold;
+                    color: $main-green;
+                }
+            }
+            .authorInfo {
+                a {
+                    font-weight: bold;
+                }
+                a:hover, a:focus {
+                    color: $secondary-green
+                }
+            }
+        }
+        .stats {
+            justify-self: center;
+        }
+    }
+}

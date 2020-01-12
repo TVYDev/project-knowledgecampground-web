@@ -33,6 +33,7 @@ class RouteConstants
     const QUESTION_POST_SAVE_DURING_EDITING = 'question.postSaveDuringEditing';
     const QUESTION_GET_VIEW = 'question.getView';
     const QUESTION_GET_DESCRIPTION_OF = 'question.getDescriptionOf';
+    const QUESTION_GET_LIST = 'question.getList';
     /***********************************************************/
 
     /************************************************************

@@ -13165,6 +13165,33 @@ button:focus {
   font-size: 2rem;
 }
 
+.headOfPage {
+  display: grid;
+  grid-template-columns: 8% 92%;
+}
+
+.headOfPage div:first-child {
+  text-align: center;
+  background-color: #F3F3F3;
+  color: #0A5748;
+  border-radius: 30px 30px 0 30px;
+  border: 3px solid #0A5748;
+  padding: 6px;
+}
+
+.headOfPage div:last-child {
+  font-weight: bold;
+  color: #424242;
+  font-size: 1.5em;
+  border-bottom: 3px solid #0A5748;
+  align-self: end;
+  padding-bottom: 6px;
+}
+
+.headOfPage div:last-child span {
+  margin-left: 10px;
+}
+
 .TVYListContentActionView .headerBlock {
   margin-top: 30px;
   display: grid;
@@ -14887,6 +14914,98 @@ button:focus {
   border-top: 1px solid #707070;
 }
 
+.subjectAndTags .subjectTag,
+.subjectAndTags .tagTag {
+  font-size: 0.8em;
+  margin-top: 10px;
+  margin-bottom: 2px;
+  display: inline-block;
+  padding: 2px 5px;
+  cursor: pointer;
+}
+
+.subjectAndTags .subjectTag img,
+.subjectAndTags .tagTag img {
+  vertical-align: middle;
+  height: 16px;
+}
+
+.subjectAndTags .subjectTag {
+  color: white;
+  border: 1px solid #005273;
+  background-color: #005273;
+  border-radius: 20px;
+}
+
+.subjectAndTags .tagTag {
+  color: #005273;
+  border: 1px solid #005273;
+  background-color: transparent;
+  border-radius: 5px;
+}
+
+.subjectAndTags .subjectTag:hover,
+.subjectAndTags .subjectTag:focus {
+  background-color: white;
+  color: #424242;
+  font-weight: bold;
+}
+
+.subjectAndTags .tagTag:hover,
+.subjectAndTags .tagTag:focus {
+  background-color: #54D0E6;
+  color: white;
+}
+
+.subjectAndTags .subjectTagSeparator {
+  color: #707070;
+}
+
+.listOfItems {
+  padding-left: 15px;
+}
+
+.listOfItems .item {
+  border-bottom: 1px solid #D8D8D8;
+  padding: 10px 0;
+  display: grid;
+  grid-template-columns: auto 100px;
+  align-items: center;
+}
+
+.listOfItems .item .basicInfo {
+  border-right: 1px solid #D8D8D8;
+  padding-right: 10px;
+}
+
+.listOfItems .item .basicInfo .title {
+  margin-bottom: 5px;
+}
+
+.listOfItems .item .basicInfo .title a {
+  color: #17CCA9;
+  font-size: 1.3em;
+}
+
+.listOfItems .item .basicInfo .title a:focus,
+.listOfItems .item .basicInfo .title a:hover {
+  font-weight: bold;
+  color: #0A5748;
+}
+
+.listOfItems .item .basicInfo .authorInfo a {
+  font-weight: bold;
+}
+
+.listOfItems .item .basicInfo .authorInfo a:hover,
+.listOfItems .item .basicInfo .authorInfo a:focus {
+  color: #17CCA9;
+}
+
+.listOfItems .item .stats {
+  justify-self: center;
+}
+
 .ui.button.fluid.btnSocialMedia {
   padding: 0 10px;
   margin-top: 10px;
@@ -15616,5 +15735,14 @@ button:focus {
 
 .answerQuestionBlock .answerCreation > button {
   margin-top: 15px;
+}
+
+.listQuestionContent {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+}
+
+.listQuestionContent .headListQuestion {
+  margin-bottom: 20px;
 }
 
