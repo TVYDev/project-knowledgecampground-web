@@ -1,0 +1,7 @@
+.listQuestionContent {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    .headListQuestion {
+        margin-bottom: 20px;
+    }
+}

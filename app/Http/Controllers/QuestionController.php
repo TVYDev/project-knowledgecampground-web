@@ -245,4 +245,27 @@ class QuestionController extends Controller
         }
         return response()->json($tempDataResponse);
     }
+
+    public function getList()
+    {
+        try
+        {
+            $tempDataResponse = [];
+            $resultQuestions = $this->get(
+                $this->getApiRequestUrl('question.list'),
+                null,
+                null,
+                $this->getAuthorizationHeader()
+            );
+
+            if($resultQuestions->success === true) {
+                $tempDataResponse =$resultQuestions->data;
+            }
+            return view('question.list_question')->with('items', $tempDataResponse);
+        }
+        catch(\Exception $exception)
+        {
+            dd($exception->getMessage());
+        }
+    }
 }

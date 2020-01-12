@@ -66810,11 +66810,15 @@ $(document).ready(function () {
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
-  $('#KCNavbar .btnNavMenu').click(function () {
-    $('#KCNavbar .btnNavMenu').removeClass('active');
-    $(this).addClass('active');
+  var btnNavMenu = document.querySelectorAll('#KCNavbar .btnNavMenu');
+  btnNavMenu.forEach(function (btn) {
+    if (btn.getAttribute('data-url') === window.location.href) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
   });
-  $('#KCNavbar .btnLogin, #KCNavbar .btnAsk').click(function () {
+  $('#KCNavbar .btnLogin, #KCNavbar .btnAsk, #KCNavbar .btnNavMenu').click(function () {
     window.location.href = $(this).attr('data-url');
   });
   var profileMenuList = $('#KCNavbar .profileMenuList');

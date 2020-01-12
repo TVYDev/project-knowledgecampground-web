@@ -73,6 +73,11 @@ return [
             'method'=> 'get',
             'path'  => '/api/question/description-of/{publicId}',
             'url'   => $host.'/api/question/description-of'
+        ],
+        'list' => [
+            'method'=> 'get',
+            'path'  => '/api/question/list',
+            'url'   => $host.'/api/question/list'
         ]
     ],
     'answer' => [

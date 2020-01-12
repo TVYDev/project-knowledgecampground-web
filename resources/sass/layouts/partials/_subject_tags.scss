@@ -1,0 +1,38 @@
+.subjectAndTags {
+    .subjectTag, .tagTag {
+        font-size: 0.8em;
+        margin-top: 10px;
+        margin-bottom: 2px;
+        display: inline-block;
+        padding: 2px 5px;
+        cursor: pointer;
+        img {
+            vertical-align: middle;
+            height: 16px;
+        }
+    }
+    .subjectTag {
+        color: white;
+        border: 1px solid $main-blue;
+        background-color: $main-blue;
+        border-radius: 20px;
+    }
+    .tagTag {
+        color: $main-blue;
+        border: 1px solid $main-blue;
+        background-color: transparent;
+        border-radius: 5px;
+    }
+    .subjectTag:hover, .subjectTag:focus {
+        background-color: $white;
+        color: $main-gray;
+        font-weight: bold;
+    }
+    .tagTag:hover, .tagTag:focus {
+        background-color: $secondary-blue;
+        color: white;
+    }
+    .subjectTagSeparator {
+        color: $secondary-gray;
+    }
+}
