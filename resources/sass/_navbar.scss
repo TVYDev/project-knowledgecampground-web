@@ -1,492 +1,171 @@
-@media screen and (min-width: $laptop-L){
-    #KCNavbar{
-        width: 100%;
-        position: fixed;
-        top: 0;
-        left: 0;
-        display: grid;
-        grid-template-columns: 1fr 5fr;
-        grid-template-rows: 45px;
-        background: $page-background;
-        z-index: 999;
-        #sideMenu {
+#KCNavbar{
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: grid;
+    grid-template-columns: 1fr 6fr;
+    grid-template-rows: 45px;
+    background: $prim;
+    z-index: 999;
+    #sideMenu {
+        display: none;
+    }
+    #navLogo {
+        border: none;
+        background-color: $prim;
+        border-top: 0.2rem solid $prim;
+        border-bottom: 0.2rem solid $prim;
+        div div:nth-child(1) {
             display: none;
         }
-        #navLogo {
-            border: none;
-            background-color: $main-green;
-            border-bottom-right-radius: 40px;
-            border-top: 0.2rem solid $main-green;
-            border-bottom: 0.2rem solid $main-green;
-            color: $white;
-            div div:nth-child(1) {
-                display: none;
-            }
-            .KCLogo {
-                height: 40px;
-            }
-        }
-
-        #navContent {
-            background-color: transparent;
-            display: grid;
-            grid-template-columns: 1fr 4fr 1fr;
-            grid-template-rows: minmax(45px, 45px);
-            .navMenu{
-                display: grid;
-                grid-template-columns: 2fr 2fr 2fr 2fr 1fr;
-                .btnNavMenu {
-                    margin: 0px;
-                    border: none;
-                    background-color: transparent;
-                    color: $main-gray;
-                    text-transform: uppercase;
-                    border-bottom: 0.2rem solid $main-green;
-                    span::after {
-                        content: '  ';
-                    }
-                    i {
-                        transition: all 0.5s ease-in-out;
-                    }
-                }
-                .btnNavMenu.active {
-                    cursor: pointer;
-                    border-top-right-radius: 50px;
-                    border-top-left-radius: 50px;
-                    border-bottom: none;
-                    border-top: 0.2rem solid $main-green;
-                    background-color: rgba($page-background, 0.8);
-                }
-                .btnNavMenu:hover {
-                    border-bottom: 0.1rem dotted $main-green;
-                    cursor: pointer;
-                    font-weight: bold;
-                    i {
-                        transform: rotate(360deg);
-                    }
-                }
-                .btnLogo {
-                    display: none;
-                }
-                .navTools{
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    border-bottom: 0.2rem solid $main-green;
-                    > button {
-                        margin: 0px;
-                        border: none;
-                        background-color: transparent;
-                        color: $main-green;
-                        cursor: pointer;
-                    }
-                    .btnSearch {
-                        justify-self: center;
-                        align-self: center;
-                        border-radius: 5px;
-                        border: 2px solid transparent;
-                        padding: 2px 7px;
-                        transition: all 0.5s ease-in-out;
-                    }
-                    .btnSearch:hover, .btnSearch:focus {
-                        border-color: $main-green;
-                        background-color: $main-green;
-                        color: white;
-                        transform: rotate(360deg);
-                    }
-                    .btnLang {
-                        align-self: center;
-                        justify-self: center;
-                        border: 2px solid $main-green;
-                        padding: 5px 7px;
-                        border-radius: 5px;
-                        display: block;
-                        transition: all 0.5s ease-in-out;
-                    }
-                    .btnLang:hover, .btnLang:focus {
-                        background-color: $main-green;
-                        color: white;
-                        transform: rotate(360deg);
-                    }
-                }
-            }
-            .btnAsk {
-                background: transparent;
-                border: none;
-                cursor: pointer;
-                border-top: 0.2rem solid $main-green;
-                border-bottom: 0.2rem solid $main-green;
-                text-transform: uppercase;
-                border-bottom-left-radius: 40px;
-                border-top-right-radius: 40px;
-                span::after {
-                    content: '  ';
-                }
-                i {
-                    transition: all 0.5s ease-in-out;
-                }
-            }
-            .btnAsk:hover, .btnAsk:focus {
-                border-bottom: 0.2rem solid $main-green;
-                background-color: $main-green;
-                color: white;
-            }
-            .btnLogin {
-                background: transparent;
-                text-transform: uppercase;
-                border: none;
-                cursor: pointer;
-                border-top: 0.2rem solid $main-green;
-                border-bottom: 0.2rem solid $main-green;
-                border-top-left-radius: 40px;
-                span::after {
-                    content: '  ';
-                }
-                i {
-                    transition: all 0.5s ease-in-out;
-                }
-            }
-
-            .btnLogin:hover, .btnLogin:focus {
-                background-color: $main-green;
-                color: white;
-            }
-
-            .btnAsk:hover i, .btnAsk:focus i, .btnLogin:hover i, .btnLogin:focus i {
-                transform: rotate(360deg);
-            }
-
-            .userProfileBtn {
-                background: none;
-                border: none;
-                padding: 0;
-                position: relative;
-                display: block;
-                border-bottom: 0.2rem solid $main-green;
-                .blockProfile {
-                    border-top-left-radius: 40px;
-                    border-bottom-right-radius: 40px;
-                    display: grid;
-                    grid-template-columns: repeat(13, 1fr);
-                    padding: 0.2rem 1.5rem;
-                    .avatar_img_block {
-                        z-index: 6;
-                        cursor: pointer;
-                        grid-column-start: 1;
-                        grid-column-end: 4;
-                        grid-row-start: 1;
-                        .avatar_img {
-                            background-color: $page-background;
-                            border: 1.5px solid $main-green;
-                            border-radius: 20px;
-                            padding: 1px;
-                            height: 30px;
-                        }
-                    }
-                    .avatar_name {
-                        z-index: 5;
-                        cursor: pointer;
-                        grid-column-start: 3;
-                        grid-column-end: 14;
-                        grid-row-start: 1;
-                        text-align: center;
-                        border: 1.5px solid $main-green;
-                        font-weight: bold;
-                        border-radius: 15px;
-                        align-self: center;
-                        padding-top: 3px;
-                        padding-bottom: 3px;
-                    }
-                }
-                .profileMenuList {
-                    position: absolute;
-                    top: 30px;
-                    left: 5px;
-                    z-index: 999;
-                    right: 5px;
-                    div {
-                        i {
-                            margin: 0;
-                            padding: 0;
-                            height: 0;
-                            color: $main-gray;
-                        }
-                        ul {
-                            margin: 0;
-                            font-size: 10px;
-                            border: 2px solid $main-gray;
-                            background-color: white;
-                            padding: 5px;
-                            border-radius: 10px;
-                            padding: 0;
-                            margin: 0;
-                            li {
-                                margin: 2px;
-                                text-align: center;
-                                padding: 8px 8px;
-                                list-style: none;
-                                width: auto;
-                                cursor: pointer;
-                                border-radius: 8px;
-                            }
-                            li:nth-child(2) {
-                                border-top: 1px solid $thirdly-gray;
-                                border-bottom: 1px solid $thirdly-gray;
-                            }
-                            li:hover, li:focus {
-                                background-color: $secondary-green;
-                                color: white;
-                            }
-                            li.btnLogout:hover, li.btnLogout:focus {
-                                background-color: $main-red;
-                            }
-                        }
-                    }
-                }
-            }
+        .KCLogo {
+            height: 40px;
         }
     }
-}
-@media screen and (max-width: $below-laptop-L) and (min-width: $above-tablet){
-    #KCNavbar{
-        width: 100%;
-        position: fixed;
-        top: 0;
-        left: 0;
+
+    #navContent {
+        background-color: transparent;
         display: grid;
-        grid-template-columns: 1fr 5fr;
-        grid-template-rows: 45px;
-        background: $page-background;
-        z-index: 999;
-        #sideMenu {
-            display: none;
+        grid-column-gap: 10px;
+        grid-template-columns: 1fr 4fr 1.5fr 0.7fr;
+        grid-template-rows: minmax(45px, 45px);
+        .navSearchBar {
+            border-top: 0.3rem solid transparent;
+            border-bottom: 0.2rem solid $prim;
+            input {
+                border-radius: 20px;
+            }
         }
-        #navLogo {
-            border: none;
-            background-color: $main-green;
-            border-bottom-right-radius: 40px;
-            border-top: 0.2rem solid $main-green;
-            border-bottom: 0.2rem solid $main-green;
-            color: $white;
-            div div:nth-child(1) {
+        .navMenu{
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            .btnNavMenu {
+                margin: 0px;
+                border: none;
+                background-color: transparent;
+                color: $main-background;
+                text-transform: uppercase;
+                border-bottom: 0.2rem solid $prim;
+                span::after {
+                    content: '  ';
+                }
+                i {
+                    transition: all 0.5s ease-in-out;
+                }
+            }
+            .btnNavMenu.active {
+                cursor: pointer;
+                border-top-right-radius: 50px;
+                border-top-left-radius: 50px;
+                border-bottom: none;
+                border-top: 0.2rem solid $contrast-prim;
+                background-color: $contrast-prim-light;
+                color: $prim    ;
+            }
+            .btnNavMenu:hover {
+                border-bottom: 0.2rem solid $contrast-prim;
+                cursor: pointer;
+                font-weight: bold;
+                i {
+                    transform: rotate(360deg);
+                }
+            }
+            .btnLogo {
                 display: none;
             }
-            .KCLogo {
-                height: 40px;
+        }
+        .btnAsk {
+            background: $main-background;
+            color: $prim;
+            cursor: pointer;
+            border: 0.2rem solid $contrast-prim;
+            border-radius: 40px;
+            span::after {
+                content: '  ';
+            }
+            i {
+                transition: all 0.5s ease-in-out;
+            }
+        }
+        .btnLogin {
+            background: $main-background;
+            cursor: pointer;
+            color: $prim;
+            border: 0.2rem solid $contrast-prim;
+            border-bottom-left-radius: 40px;
+            border-top-left-radius: 40px;
+            span::after {
+                content: '  ';
+            }
+            i {
+                transition: all 0.5s ease-in-out;
             }
         }
 
-        #navContent {
-            background-color: transparent;
-            display: grid;
-            grid-template-columns: 1fr 4fr 1fr;
-            grid-template-rows: minmax(45px, 45px);
-            .navMenu{
-                display: grid;
-                grid-template-columns: 2fr 2fr 2fr 2fr 1fr;
-                .btnNavMenu {
-                    margin: 0px;
-                    border: none;
-                    background-color: transparent;
-                    color: $main-gray;
-                    text-transform: uppercase;
-                    border-bottom: 0.2rem solid $main-green;
-                    span::after {
-                        content: '  ';
-                    }
+        .btnAsk:hover i, .btnAsk:focus i, .btnLogin:hover i, .btnLogin:focus i {
+            transform: rotate(360deg);
+        }
+
+        .blockAvatarImg {
+            align-self: center;
+            justify-self: center;
+            .avatarImg {
+                height: 30px;
+                border-radius: 5px;
+                border: 0.1em solid white;
+            }
+        }
+
+        .userProfileBtn {
+            background: none;
+            border: none;
+            padding: 0;
+            position: relative;
+            display: block;
+            border-bottom: 0.2rem solid $main-green;
+
+            .profileMenuList {
+                position: absolute;
+                top: 30px;
+                left: 5px;
+                z-index: 999;
+                right: 5px;
+                div {
                     i {
-                        transition: all 0.5s ease-in-out;
+                        margin: 0;
+                        padding: 0;
+                        height: 0;
+                        color: $main-gray;
                     }
-                }
-                .btnNavMenu.active {
-                    cursor: pointer;
-                    border-top-right-radius: 50px;
-                    border-top-left-radius: 50px;
-                    border-bottom: none;
-                    border-top: 0.2rem solid $main-green;
-                    background-color: rgba($page-background, 0.8);
-                }
-                .btnNavMenu:hover {
-                    border-bottom: 0.1rem dotted $main-green;
-                    cursor: pointer;
-                    font-weight: bold;
-                    i {
-                        transform: rotate(360deg);
-                    }
-                }
-                .btnLogo {
-                    display: none;
-                }
-                .navTools{
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    border-bottom: 0.2rem solid $main-green;
-                    > button {
-                        margin: 0px;
-                        border: none;
-                        background-color: transparent;
-                        color: $main-green;
-                        cursor: pointer;
-                    }
-                    .btnSearch {
-                        justify-self: center;
-                        align-self: center;
-                        border-radius: 5px;
-                        border: 2px solid transparent;
-                        padding: 2px 7px;
-                        transition: all 0.5s ease-in-out;
-                    }
-                    .btnSearch:hover, .btnSearch:focus {
-                        border-color: $main-green;
-                        background-color: $main-green;
-                        color: white;
-                        transform: rotate(360deg);
-                    }
-                    .btnLang {
-                        align-self: center;
-                        justify-self: center;
-                        border: 2px solid $main-green;
-                        padding: 5px 7px;
-                        border-radius: 5px;
-                        display: block;
-                        transition: all 0.5s ease-in-out;
-                    }
-                    .btnLang:hover, .btnLang:focus {
-                        background-color: $main-green;
-                        color: white;
-                        transform: rotate(360deg);
-                    }
-                }
-            }
-            .btnAsk {
-                background: transparent;
-                border: none;
-                cursor: pointer;
-                border-top: 0.2rem solid $main-green;
-                border-bottom: 0.2rem solid $main-green;
-                text-transform: uppercase;
-                border-bottom-left-radius: 40px;
-                border-top-right-radius: 40px;
-                span::after {
-                    content: '  ';
-                }
-                i {
-                    transition: all 0.5s ease-in-out;
-                }
-            }
-            .btnAsk:hover, .btnAsk:focus {
-                border-bottom: 0.2rem solid $main-green;
-                background-color: $main-green;
-                color: white;
-            }
-            .btnLogin {
-                background: transparent;
-                text-transform: uppercase;
-                border: none;
-                cursor: pointer;
-                border-top: 0.2rem solid $main-green;
-                border-bottom: 0.2rem solid $main-green;
-                border-top-left-radius: 40px;
-                span::after {
-                    content: '  ';
-                }
-                i {
-                    transition: all 0.5s ease-in-out;
-                }
-            }
-
-            .btnLogin:hover, .btnLogin:focus {
-                background-color: $main-green;
-                color: white;
-            }
-
-            .btnAsk:hover i, .btnAsk:focus i, .btnLogin:hover i, .btnLogin:focus i {
-                transform: rotate(360deg);
-            }
-
-            .userProfileBtn {
-                background: none;
-                border: none;
-                padding: 0;
-                position: relative;
-                display: block;
-                border-bottom: 0.2rem solid $main-green;
-                .blockProfile {
-                    border-top-left-radius: 40px;
-                    border-bottom-right-radius: 40px;
-                    display: grid;
-                    grid-template-columns: repeat(13, 1fr);
-                    padding: 0.2rem 1.5rem;
-                    .avatar_img_block {
-                        z-index: 6;
-                        cursor: pointer;
-                        grid-column-start: 1;
-                        grid-column-end: 4;
-                        grid-row-start: 1;
-                        .avatar_img {
-                            background-color: $page-background;
-                            border: 1.5px solid $main-green;
-                            border-radius: 20px;
-                            padding: 1px;
-                            height: 30px;
+                    ul {
+                        margin: 0;
+                        font-size: 10px;
+                        border: 2px solid $main-gray;
+                        background-color: white;
+                        padding: 5px;
+                        border-radius: 10px;
+                        padding: 0;
+                        margin: 0;
+                        li {
+                            margin: 2px;
+                            text-align: center;
+                            padding: 8px 8px;
+                            list-style: none;
+                            width: auto;
+                            cursor: pointer;
+                            border-radius: 8px;
                         }
-                    }
-                    .avatar_name {
-                        z-index: 5;
-                        cursor: pointer;
-                        grid-column-start: 3;
-                        grid-column-end: 14;
-                        grid-row-start: 1;
-                        text-align: center;
-                        border: 1.5px solid $main-green;
-                        font-weight: bold;
-                        border-radius: 15px;
-                        align-self: center;
-                        padding-top: 3px;
-                        padding-bottom: 3px;
-                    }
-                }
-                .profileMenuList {
-                    position: absolute;
-                    top: 30px;
-                    left: 5px;
-                    z-index: 999;
-                    right: 5px;
-                    div {
-                        i {
-                            margin: 0;
-                            padding: 0;
-                            height: 0;
-                            color: $main-gray;
+                        li:nth-child(2) {
+                            border-top: 1px solid $thirdly-gray;
+                            border-bottom: 1px solid $thirdly-gray;
                         }
-                        ul {
-                            margin: 0;
-                            font-size: 10px;
-                            border: 2px solid $main-gray;
-                            background-color: white;
-                            padding: 5px;
-                            border-radius: 10px;
-                            padding: 0;
-                            margin: 0;
-                            li {
-                                margin: 2px;
-                                text-align: center;
-                                padding: 8px 8px;
-                                list-style: none;
-                                width: auto;
-                                cursor: pointer;
-                                border-radius: 8px;
-                            }
-                            li:nth-child(2) {
-                                border-top: 1px solid $thirdly-gray;
-                                border-bottom: 1px solid $thirdly-gray;
-                            }
-                            li:hover, li:focus {
-                                background-color: $secondary-green;
-                                color: white;
-                            }
-                            li.btnLogout:hover, li.btnLogout:focus {
-                                background-color: $main-red;
-                            }
+                        li:hover, li:focus {
+                            background-color: $secondary-green;
+                            color: white;
+                        }
+                        li.btnLogout:hover, li.btnLogout:focus {
+                            background-color: $main-red;
                         }
                     }
                 }

@@ -12978,7 +12978,7 @@ readers do not read off random characters that represent icons */
 body {
   padding-top: 4rem;
   font-size: 13px;
-  background: #F3F3F3;
+  background: #FFF;
 }
 
 @media screen and (max-width: 768px) and (min-width: 426px) {
@@ -13787,596 +13787,212 @@ button:focus {
   cursor: pointer;
 }
 
-@media screen and (min-width: 1440px) {
-  #KCNavbar {
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: grid;
-    grid-template-columns: 1fr 5fr;
-    grid-template-rows: 45px;
-    background: #F3F3F3;
-    z-index: 999;
-  }
-
-  #KCNavbar #sideMenu {
-    display: none;
-  }
-
-  #KCNavbar #navLogo {
-    border: none;
-    background-color: #0A5748;
-    border-bottom-right-radius: 40px;
-    border-top: 0.2rem solid #0A5748;
-    border-bottom: 0.2rem solid #0A5748;
-    color: white;
-  }
-
-  #KCNavbar #navLogo div div:nth-child(1) {
-    display: none;
-  }
-
-  #KCNavbar #navLogo .KCLogo {
-    height: 40px;
-  }
-
-  #KCNavbar #navContent {
-    background-color: transparent;
-    display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
-    grid-template-rows: minmax(45px, 45px);
-  }
-
-  #KCNavbar #navContent .navMenu {
-    display: grid;
-    grid-template-columns: 2fr 2fr 2fr 2fr 1fr;
-  }
-
-  #KCNavbar #navContent .navMenu .btnNavMenu {
-    margin: 0px;
-    border: none;
-    background-color: transparent;
-    color: #424242;
-    text-transform: uppercase;
-    border-bottom: 0.2rem solid #0A5748;
-  }
-
-  #KCNavbar #navContent .navMenu .btnNavMenu span::after {
-    content: "  ";
-  }
-
-  #KCNavbar #navContent .navMenu .btnNavMenu i {
-    transition: all 0.5s ease-in-out;
-  }
-
-  #KCNavbar #navContent .navMenu .btnNavMenu.active {
-    cursor: pointer;
-    border-top-right-radius: 50px;
-    border-top-left-radius: 50px;
-    border-bottom: none;
-    border-top: 0.2rem solid #0A5748;
-    background-color: rgba(243, 243, 243, 0.8);
-  }
-
-  #KCNavbar #navContent .navMenu .btnNavMenu:hover {
-    border-bottom: 0.1rem dotted #0A5748;
-    cursor: pointer;
-    font-weight: bold;
-  }
-
-  #KCNavbar #navContent .navMenu .btnNavMenu:hover i {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
-
-  #KCNavbar #navContent .navMenu .btnLogo {
-    display: none;
-  }
-
-  #KCNavbar #navContent .navMenu .navTools {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    border-bottom: 0.2rem solid #0A5748;
-  }
-
-  #KCNavbar #navContent .navMenu .navTools > button {
-    margin: 0px;
-    border: none;
-    background-color: transparent;
-    color: #0A5748;
-    cursor: pointer;
-  }
-
-  #KCNavbar #navContent .navMenu .navTools .btnSearch {
-    justify-self: center;
-    align-self: center;
-    border-radius: 5px;
-    border: 2px solid transparent;
-    padding: 2px 7px;
-    transition: all 0.5s ease-in-out;
-  }
-
-  #KCNavbar #navContent .navMenu .navTools .btnSearch:hover,
-  #KCNavbar #navContent .navMenu .navTools .btnSearch:focus {
-    border-color: #0A5748;
-    background-color: #0A5748;
-    color: white;
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
-
-  #KCNavbar #navContent .navMenu .navTools .btnLang {
-    align-self: center;
-    justify-self: center;
-    border: 2px solid #0A5748;
-    padding: 5px 7px;
-    border-radius: 5px;
-    display: block;
-    transition: all 0.5s ease-in-out;
-  }
-
-  #KCNavbar #navContent .navMenu .navTools .btnLang:hover,
-  #KCNavbar #navContent .navMenu .navTools .btnLang:focus {
-    background-color: #0A5748;
-    color: white;
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
-
-  #KCNavbar #navContent .btnAsk {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    border-top: 0.2rem solid #0A5748;
-    border-bottom: 0.2rem solid #0A5748;
-    text-transform: uppercase;
-    border-bottom-left-radius: 40px;
-    border-top-right-radius: 40px;
-  }
-
-  #KCNavbar #navContent .btnAsk span::after {
-    content: "  ";
-  }
-
-  #KCNavbar #navContent .btnAsk i {
-    transition: all 0.5s ease-in-out;
-  }
-
-  #KCNavbar #navContent .btnAsk:hover,
-  #KCNavbar #navContent .btnAsk:focus {
-    border-bottom: 0.2rem solid #0A5748;
-    background-color: #0A5748;
-    color: white;
-  }
-
-  #KCNavbar #navContent .btnLogin {
-    background: transparent;
-    text-transform: uppercase;
-    border: none;
-    cursor: pointer;
-    border-top: 0.2rem solid #0A5748;
-    border-bottom: 0.2rem solid #0A5748;
-    border-top-left-radius: 40px;
-  }
-
-  #KCNavbar #navContent .btnLogin span::after {
-    content: "  ";
-  }
-
-  #KCNavbar #navContent .btnLogin i {
-    transition: all 0.5s ease-in-out;
-  }
-
-  #KCNavbar #navContent .btnLogin:hover,
-  #KCNavbar #navContent .btnLogin:focus {
-    background-color: #0A5748;
-    color: white;
-  }
-
-  #KCNavbar #navContent .btnAsk:hover i,
-  #KCNavbar #navContent .btnAsk:focus i,
-  #KCNavbar #navContent .btnLogin:hover i,
-  #KCNavbar #navContent .btnLogin:focus i {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
-
-  #KCNavbar #navContent .userProfileBtn {
-    background: none;
-    border: none;
-    padding: 0;
-    position: relative;
-    display: block;
-    border-bottom: 0.2rem solid #0A5748;
-  }
-
-  #KCNavbar #navContent .userProfileBtn .blockProfile {
-    border-top-left-radius: 40px;
-    border-bottom-right-radius: 40px;
-    display: grid;
-    grid-template-columns: repeat(13, 1fr);
-    padding: 0.2rem 1.5rem;
-  }
-
-  #KCNavbar #navContent .userProfileBtn .blockProfile .avatar_img_block {
-    z-index: 6;
-    cursor: pointer;
-    grid-column-start: 1;
-    grid-column-end: 4;
-    grid-row-start: 1;
-  }
-
-  #KCNavbar #navContent .userProfileBtn .blockProfile .avatar_img_block .avatar_img {
-    background-color: #F3F3F3;
-    border: 1.5px solid #0A5748;
-    border-radius: 20px;
-    padding: 1px;
-    height: 30px;
-  }
-
-  #KCNavbar #navContent .userProfileBtn .blockProfile .avatar_name {
-    z-index: 5;
-    cursor: pointer;
-    grid-column-start: 3;
-    grid-column-end: 14;
-    grid-row-start: 1;
-    text-align: center;
-    border: 1.5px solid #0A5748;
-    font-weight: bold;
-    border-radius: 15px;
-    align-self: center;
-    padding-top: 3px;
-    padding-bottom: 3px;
-  }
-
-  #KCNavbar #navContent .userProfileBtn .profileMenuList {
-    position: absolute;
-    top: 30px;
-    left: 5px;
-    z-index: 999;
-    right: 5px;
-  }
-
-  #KCNavbar #navContent .userProfileBtn .profileMenuList div i {
-    margin: 0;
-    padding: 0;
-    height: 0;
-    color: #424242;
-  }
-
-  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul {
-    margin: 0;
-    font-size: 10px;
-    border: 2px solid #424242;
-    background-color: white;
-    padding: 5px;
-    border-radius: 10px;
-    padding: 0;
-    margin: 0;
-  }
-
-  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li {
-    margin: 2px;
-    text-align: center;
-    padding: 8px 8px;
-    list-style: none;
-    width: auto;
-    cursor: pointer;
-    border-radius: 8px;
-  }
-
-  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:nth-child(2) {
-    border-top: 1px solid #D8D8D8;
-    border-bottom: 1px solid #D8D8D8;
-  }
-
-  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:hover,
-  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:focus {
-    background-color: #17CCA9;
-    color: white;
-  }
-
-  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li.btnLogout:hover,
-  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li.btnLogout:focus {
-    background-color: #FF5654;
-  }
+#KCNavbar {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: grid;
+  grid-template-columns: 1fr 6fr;
+  grid-template-rows: 45px;
+  background: #026670;
+  z-index: 999;
 }
 
-@media screen and (max-width: 1439px) and (min-width: 769px) {
-  #KCNavbar {
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: grid;
-    grid-template-columns: 1fr 5fr;
-    grid-template-rows: 45px;
-    background: #F3F3F3;
-    z-index: 999;
-  }
+#KCNavbar #sideMenu {
+  display: none;
+}
 
-  #KCNavbar #sideMenu {
-    display: none;
-  }
+#KCNavbar #navLogo {
+  border: none;
+  background-color: #026670;
+  border-top: 0.2rem solid #026670;
+  border-bottom: 0.2rem solid #026670;
+}
 
-  #KCNavbar #navLogo {
-    border: none;
-    background-color: #0A5748;
-    border-bottom-right-radius: 40px;
-    border-top: 0.2rem solid #0A5748;
-    border-bottom: 0.2rem solid #0A5748;
-    color: white;
-  }
+#KCNavbar #navLogo div div:nth-child(1) {
+  display: none;
+}
 
-  #KCNavbar #navLogo div div:nth-child(1) {
-    display: none;
-  }
+#KCNavbar #navLogo .KCLogo {
+  height: 40px;
+}
 
-  #KCNavbar #navLogo .KCLogo {
-    height: 40px;
-  }
+#KCNavbar #navContent {
+  background-color: transparent;
+  display: grid;
+  grid-column-gap: 10px;
+  grid-template-columns: 1fr 4fr 1.5fr 0.7fr;
+  grid-template-rows: minmax(45px, 45px);
+}
 
-  #KCNavbar #navContent {
-    background-color: transparent;
-    display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
-    grid-template-rows: minmax(45px, 45px);
-  }
+#KCNavbar #navContent .navSearchBar {
+  border-top: 0.3rem solid transparent;
+  border-bottom: 0.2rem solid #026670;
+}
 
-  #KCNavbar #navContent .navMenu {
-    display: grid;
-    grid-template-columns: 2fr 2fr 2fr 2fr 1fr;
-  }
+#KCNavbar #navContent .navSearchBar input {
+  border-radius: 20px;
+}
 
-  #KCNavbar #navContent .navMenu .btnNavMenu {
-    margin: 0px;
-    border: none;
-    background-color: transparent;
-    color: #424242;
-    text-transform: uppercase;
-    border-bottom: 0.2rem solid #0A5748;
-  }
+#KCNavbar #navContent .navMenu {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
 
-  #KCNavbar #navContent .navMenu .btnNavMenu span::after {
-    content: "  ";
-  }
+#KCNavbar #navContent .navMenu .btnNavMenu {
+  margin: 0px;
+  border: none;
+  background-color: transparent;
+  color: #FFF;
+  text-transform: uppercase;
+  border-bottom: 0.2rem solid #026670;
+}
 
-  #KCNavbar #navContent .navMenu .btnNavMenu i {
-    transition: all 0.5s ease-in-out;
-  }
+#KCNavbar #navContent .navMenu .btnNavMenu span::after {
+  content: "  ";
+}
 
-  #KCNavbar #navContent .navMenu .btnNavMenu.active {
-    cursor: pointer;
-    border-top-right-radius: 50px;
-    border-top-left-radius: 50px;
-    border-bottom: none;
-    border-top: 0.2rem solid #0A5748;
-    background-color: rgba(243, 243, 243, 0.8);
-  }
+#KCNavbar #navContent .navMenu .btnNavMenu i {
+  transition: all 0.5s ease-in-out;
+}
 
-  #KCNavbar #navContent .navMenu .btnNavMenu:hover {
-    border-bottom: 0.1rem dotted #0A5748;
-    cursor: pointer;
-    font-weight: bold;
-  }
+#KCNavbar #navContent .navMenu .btnNavMenu.active {
+  cursor: pointer;
+  border-top-right-radius: 50px;
+  border-top-left-radius: 50px;
+  border-bottom: none;
+  border-top: 0.2rem solid #fcc45e;
+  background-color: #eafec9;
+  color: #026670;
+}
 
-  #KCNavbar #navContent .navMenu .btnNavMenu:hover i {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
+#KCNavbar #navContent .navMenu .btnNavMenu:hover {
+  border-bottom: 0.2rem solid #fcc45e;
+  cursor: pointer;
+  font-weight: bold;
+}
 
-  #KCNavbar #navContent .navMenu .btnLogo {
-    display: none;
-  }
+#KCNavbar #navContent .navMenu .btnNavMenu:hover i {
+  -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+}
 
-  #KCNavbar #navContent .navMenu .navTools {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    border-bottom: 0.2rem solid #0A5748;
-  }
+#KCNavbar #navContent .navMenu .btnLogo {
+  display: none;
+}
 
-  #KCNavbar #navContent .navMenu .navTools > button {
-    margin: 0px;
-    border: none;
-    background-color: transparent;
-    color: #0A5748;
-    cursor: pointer;
-  }
+#KCNavbar #navContent .btnAsk {
+  background: #FFF;
+  color: #026670;
+  cursor: pointer;
+  border: 0.2rem solid #fcc45e;
+  border-radius: 40px;
+}
 
-  #KCNavbar #navContent .navMenu .navTools .btnSearch {
-    justify-self: center;
-    align-self: center;
-    border-radius: 5px;
-    border: 2px solid transparent;
-    padding: 2px 7px;
-    transition: all 0.5s ease-in-out;
-  }
+#KCNavbar #navContent .btnAsk span::after {
+  content: "  ";
+}
 
-  #KCNavbar #navContent .navMenu .navTools .btnSearch:hover,
-  #KCNavbar #navContent .navMenu .navTools .btnSearch:focus {
-    border-color: #0A5748;
-    background-color: #0A5748;
-    color: white;
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
+#KCNavbar #navContent .btnAsk i {
+  transition: all 0.5s ease-in-out;
+}
 
-  #KCNavbar #navContent .navMenu .navTools .btnLang {
-    align-self: center;
-    justify-self: center;
-    border: 2px solid #0A5748;
-    padding: 5px 7px;
-    border-radius: 5px;
-    display: block;
-    transition: all 0.5s ease-in-out;
-  }
+#KCNavbar #navContent .btnLogin {
+  background: #FFF;
+  cursor: pointer;
+  color: #026670;
+  border: 0.2rem solid #fcc45e;
+  border-bottom-left-radius: 40px;
+  border-top-left-radius: 40px;
+}
 
-  #KCNavbar #navContent .navMenu .navTools .btnLang:hover,
-  #KCNavbar #navContent .navMenu .navTools .btnLang:focus {
-    background-color: #0A5748;
-    color: white;
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
+#KCNavbar #navContent .btnLogin span::after {
+  content: "  ";
+}
 
-  #KCNavbar #navContent .btnAsk {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    border-top: 0.2rem solid #0A5748;
-    border-bottom: 0.2rem solid #0A5748;
-    text-transform: uppercase;
-    border-bottom-left-radius: 40px;
-    border-top-right-radius: 40px;
-  }
+#KCNavbar #navContent .btnLogin i {
+  transition: all 0.5s ease-in-out;
+}
 
-  #KCNavbar #navContent .btnAsk span::after {
-    content: "  ";
-  }
+#KCNavbar #navContent .btnAsk:hover i,
+#KCNavbar #navContent .btnAsk:focus i,
+#KCNavbar #navContent .btnLogin:hover i,
+#KCNavbar #navContent .btnLogin:focus i {
+  -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+}
 
-  #KCNavbar #navContent .btnAsk i {
-    transition: all 0.5s ease-in-out;
-  }
+#KCNavbar #navContent .blockAvatarImg {
+  align-self: center;
+  justify-self: center;
+}
 
-  #KCNavbar #navContent .btnAsk:hover,
-  #KCNavbar #navContent .btnAsk:focus {
-    border-bottom: 0.2rem solid #0A5748;
-    background-color: #0A5748;
-    color: white;
-  }
+#KCNavbar #navContent .blockAvatarImg .avatarImg {
+  height: 30px;
+  border-radius: 5px;
+  border: 0.1em solid white;
+}
 
-  #KCNavbar #navContent .btnLogin {
-    background: transparent;
-    text-transform: uppercase;
-    border: none;
-    cursor: pointer;
-    border-top: 0.2rem solid #0A5748;
-    border-bottom: 0.2rem solid #0A5748;
-    border-top-left-radius: 40px;
-  }
+#KCNavbar #navContent .userProfileBtn {
+  background: none;
+  border: none;
+  padding: 0;
+  position: relative;
+  display: block;
+  border-bottom: 0.2rem solid #0A5748;
+}
 
-  #KCNavbar #navContent .btnLogin span::after {
-    content: "  ";
-  }
+#KCNavbar #navContent .userProfileBtn .profileMenuList {
+  position: absolute;
+  top: 30px;
+  left: 5px;
+  z-index: 999;
+  right: 5px;
+}
 
-  #KCNavbar #navContent .btnLogin i {
-    transition: all 0.5s ease-in-out;
-  }
+#KCNavbar #navContent .userProfileBtn .profileMenuList div i {
+  margin: 0;
+  padding: 0;
+  height: 0;
+  color: #424242;
+}
 
-  #KCNavbar #navContent .btnLogin:hover,
-  #KCNavbar #navContent .btnLogin:focus {
-    background-color: #0A5748;
-    color: white;
-  }
+#KCNavbar #navContent .userProfileBtn .profileMenuList div ul {
+  margin: 0;
+  font-size: 10px;
+  border: 2px solid #424242;
+  background-color: white;
+  padding: 5px;
+  border-radius: 10px;
+  padding: 0;
+  margin: 0;
+}
 
-  #KCNavbar #navContent .btnAsk:hover i,
-  #KCNavbar #navContent .btnAsk:focus i,
-  #KCNavbar #navContent .btnLogin:hover i,
-  #KCNavbar #navContent .btnLogin:focus i {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
-  }
+#KCNavbar #navContent .userProfileBtn .profileMenuList div ul li {
+  margin: 2px;
+  text-align: center;
+  padding: 8px 8px;
+  list-style: none;
+  width: auto;
+  cursor: pointer;
+  border-radius: 8px;
+}
 
-  #KCNavbar #navContent .userProfileBtn {
-    background: none;
-    border: none;
-    padding: 0;
-    position: relative;
-    display: block;
-    border-bottom: 0.2rem solid #0A5748;
-  }
+#KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:nth-child(2) {
+  border-top: 1px solid #D8D8D8;
+  border-bottom: 1px solid #D8D8D8;
+}
 
-  #KCNavbar #navContent .userProfileBtn .blockProfile {
-    border-top-left-radius: 40px;
-    border-bottom-right-radius: 40px;
-    display: grid;
-    grid-template-columns: repeat(13, 1fr);
-    padding: 0.2rem 1.5rem;
-  }
+#KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:hover,
+#KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:focus {
+  background-color: #17CCA9;
+  color: white;
+}
 
-  #KCNavbar #navContent .userProfileBtn .blockProfile .avatar_img_block {
-    z-index: 6;
-    cursor: pointer;
-    grid-column-start: 1;
-    grid-column-end: 4;
-    grid-row-start: 1;
-  }
-
-  #KCNavbar #navContent .userProfileBtn .blockProfile .avatar_img_block .avatar_img {
-    background-color: #F3F3F3;
-    border: 1.5px solid #0A5748;
-    border-radius: 20px;
-    padding: 1px;
-    height: 30px;
-  }
-
-  #KCNavbar #navContent .userProfileBtn .blockProfile .avatar_name {
-    z-index: 5;
-    cursor: pointer;
-    grid-column-start: 3;
-    grid-column-end: 14;
-    grid-row-start: 1;
-    text-align: center;
-    border: 1.5px solid #0A5748;
-    font-weight: bold;
-    border-radius: 15px;
-    align-self: center;
-    padding-top: 3px;
-    padding-bottom: 3px;
-  }
-
-  #KCNavbar #navContent .userProfileBtn .profileMenuList {
-    position: absolute;
-    top: 30px;
-    left: 5px;
-    z-index: 999;
-    right: 5px;
-  }
-
-  #KCNavbar #navContent .userProfileBtn .profileMenuList div i {
-    margin: 0;
-    padding: 0;
-    height: 0;
-    color: #424242;
-  }
-
-  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul {
-    margin: 0;
-    font-size: 10px;
-    border: 2px solid #424242;
-    background-color: white;
-    padding: 5px;
-    border-radius: 10px;
-    padding: 0;
-    margin: 0;
-  }
-
-  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li {
-    margin: 2px;
-    text-align: center;
-    padding: 8px 8px;
-    list-style: none;
-    width: auto;
-    cursor: pointer;
-    border-radius: 8px;
-  }
-
-  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:nth-child(2) {
-    border-top: 1px solid #D8D8D8;
-    border-bottom: 1px solid #D8D8D8;
-  }
-
-  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:hover,
-  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:focus {
-    background-color: #17CCA9;
-    color: white;
-  }
-
-  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li.btnLogout:hover,
-  #KCNavbar #navContent .userProfileBtn .profileMenuList div ul li.btnLogout:focus {
-    background-color: #FF5654;
-  }
+#KCNavbar #navContent .userProfileBtn .profileMenuList div ul li.btnLogout:hover,
+#KCNavbar #navContent .userProfileBtn .profileMenuList div ul li.btnLogout:focus {
+  background-color: #FF5654;
 }
 
 @media screen and (max-width: 768px) and (min-width: 426px) {
