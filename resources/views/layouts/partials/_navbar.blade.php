@@ -16,22 +16,22 @@ $username = $ua[\App\Lib\UserConstants::USER_NAME];
         </button>
         <div class="navSearchBar">
             <div class="ui fluid icon input">
-                <input type="text" placeholder="Search...">
+                <input type="text" placeholder="{{ __('Search...') }}">
                 <i class="search icon"></i>
             </div>
         </div>
         <div class="navMenu">
             <button class="btnQuestions btnNavMenu btnWithToolTip" data-url="{{ route(\App\Lib\RouteConstants::QUESTION_GET_LIST) }}"
-                data-content="All Questions" data-position="bottom center" data-variation="mini">
+                data-content="{{ __('All Questions') }}" data-position="bottom center" data-variation="mini">
                 <i class="fas fa-book"></i>
             </button>
-            <button class="btnTags btnNavMenu btnWithToolTip" data-content="All Tags" data-position="bottom center" data-variation="mini">
+            <button class="btnTags btnNavMenu btnWithToolTip" data-content="{{ __('All Tags') }}" data-position="bottom center" data-variation="mini">
                 <i class="fas fa-tags"></i>
             </button>
-            <button class="btnNotifications btnNavMenu btnWithToolTip" data-content="Notifications" data-position="bottom center" data-variation="mini">
+            <button class="btnNotifications btnNavMenu btnWithToolTip" data-content="{{ __('Notifications') }}" data-position="bottom center" data-variation="mini">
                 <i class="fas fa-bell"></i>
             </button>
-            <button class="btnGuide btnNavMenu btnWithToolTip" data-content="Guide" data-position="bottom center" data-variation="mini">
+            <button class="btnGuide btnNavMenu btnWithToolTip" data-content="{{ __('Guide') }}" data-position="bottom center" data-variation="mini">
                 <i class="fas fa-question-circle"></i>
             </button>
             <button class="btnLang btnNavMenu btnWithToolTip">
@@ -44,6 +44,7 @@ $username = $ua[\App\Lib\UserConstants::USER_NAME];
         </div>
         @if(session(\App\Lib\HttpConstants::KEY_TO_KC_USER_AUTHENTICATED) === \App\Lib\HttpConstants::KC_USER_VALID)
             <div class="blockAvatarImg"><img class="avatarImg" src="{{$default_avatar_url}}" alt="avatar_image"></div>
+            @include('layouts.partials._user_profile_menu')
         @else
             <button type="button" class="btnLogin btn-primary" data-url="{{ route(\App\Lib\RouteConstants::USER_GET_LOGIN) }}">
                 <span>{{ __('Log In') }}</span><i class="fas fa-sign-in-alt"></i>

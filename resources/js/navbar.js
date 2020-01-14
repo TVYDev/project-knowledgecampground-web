@@ -29,6 +29,18 @@ $(document).ready(function (){
         changeLangOfProgram(currentLang);
     });
 
+    // Button user profile after login
+    $('.blockAvatarImg').popup({
+        inline     : true,
+        hoverable  : true,
+        position   : 'bottom center',
+        transition : 'vertical flip',
+        delay: {
+            show: 0,
+            hide: 1000
+        }
+    });
+
     $('#KCNavbar .btnLogin, #KCNavbar .btnAsk').click(function () {
         window.location.href = $(this).attr('data-url');
     });

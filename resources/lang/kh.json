@@ -1,11 +1,13 @@
 {
-    "ask question": "សួរសំណួរ",
-    "log in": "ចូលកម្មវិធី",
+    "Ask Question": "សួរសំណួរ",
     "Log In": "ចូលកម្មវិធី",
-    "subjects": "មុខវិជ្ជា",
-    "questions": "កម្រងសំណួរ",
-    "notifications": "ដំណឹង",
-    "guide": "ជំនួយ",
+    "All Questions": "កម្រងសំណួរ",
+    "All Tags": "ស្ខាក",
+    "Notifications": "ដំណឹង",
+    "Guide": "ជំនួយ",
+    "Search...": "ស្វែងរក...",
+
+
     "View Profile": "ព័ត៌មានផ្ទាល់ខ្លួន",
     "Change Password": "ប្តូរពាក្យសម្ងាត់",
     "Log Out": "ចាកចេញ",
@@ -22,7 +24,6 @@
     "Or continue signing with": "ឬក៏បន្តភ្ជាប់ជាមួយគណនី",
     "Main Features": "មុខងារសំខាន់",
     "Settings": "ការកំណត់របស់កម្មវិធី",
-    "Search...": "ស្វែងរក...",
     "Language options": "ជម្រើសភាសាកម្មវិធី",
     "Current password": "ពាក្យសម្ងាត់បច្ចុប្បន្ន",
     "New password": "ពាក្យសម្ងាត់ថ្មី",

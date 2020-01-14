@@ -1,0 +1,38 @@
+.ui.custom.popup.userProfileMenu {
+    padding: 15px 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    background-color: $prim;
+    .username {
+        text-align: center;
+        color: white;
+        border-bottom: 3px solid $contrast-prim;
+        padding-bottom: 10px;
+    }
+    .menuBtns {
+        font-size: 0.8em;
+        margin: 0;
+        background-color: white;
+        padding: 5px;
+        li {
+            margin: 2px;
+            text-align: center;
+            padding: 8px 8px;
+            list-style: none;
+            width: auto;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+        li:nth-child(2) {
+            border-top: 1px solid $thirdly-gray;
+            border-bottom: 1px solid $thirdly-gray;
+        }
+        li:hover, li:focus {
+            background-color: $prim;
+            color: white;
+        }
+        li.btnLogout:hover, li.btnLogout:focus {
+            background-color: $main-red;
+        }
+    }
+}

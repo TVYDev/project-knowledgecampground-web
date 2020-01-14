@@ -13890,6 +13890,12 @@ button:focus {
   border-radius: 40px;
 }
 
+@media screen and (max-width: 1024px) {
+  #KCNavbar #navContent .btnAsk span {
+    display: none;
+  }
+}
+
 #KCNavbar #navContent .btnAsk span::after {
   content: "  ";
 }
@@ -13905,6 +13911,12 @@ button:focus {
   border: 0.2rem solid #fcc45e;
   border-bottom-left-radius: 40px;
   border-top-left-radius: 40px;
+}
+
+@media screen and (max-width: 1024px) {
+  #KCNavbar #navContent .btnLogin span {
+    display: none;
+  }
 }
 
 #KCNavbar #navContent .btnLogin span::after {
@@ -13932,67 +13944,6 @@ button:focus {
   height: 30px;
   border-radius: 5px;
   border: 0.1em solid white;
-}
-
-#KCNavbar #navContent .userProfileBtn {
-  background: none;
-  border: none;
-  padding: 0;
-  position: relative;
-  display: block;
-  border-bottom: 0.2rem solid #0A5748;
-}
-
-#KCNavbar #navContent .userProfileBtn .profileMenuList {
-  position: absolute;
-  top: 30px;
-  left: 5px;
-  z-index: 999;
-  right: 5px;
-}
-
-#KCNavbar #navContent .userProfileBtn .profileMenuList div i {
-  margin: 0;
-  padding: 0;
-  height: 0;
-  color: #424242;
-}
-
-#KCNavbar #navContent .userProfileBtn .profileMenuList div ul {
-  margin: 0;
-  font-size: 10px;
-  border: 2px solid #424242;
-  background-color: white;
-  padding: 5px;
-  border-radius: 10px;
-  padding: 0;
-  margin: 0;
-}
-
-#KCNavbar #navContent .userProfileBtn .profileMenuList div ul li {
-  margin: 2px;
-  text-align: center;
-  padding: 8px 8px;
-  list-style: none;
-  width: auto;
-  cursor: pointer;
-  border-radius: 8px;
-}
-
-#KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:nth-child(2) {
-  border-top: 1px solid #D8D8D8;
-  border-bottom: 1px solid #D8D8D8;
-}
-
-#KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:hover,
-#KCNavbar #navContent .userProfileBtn .profileMenuList div ul li:focus {
-  background-color: #17CCA9;
-  color: white;
-}
-
-#KCNavbar #navContent .userProfileBtn .profileMenuList div ul li.btnLogout:hover,
-#KCNavbar #navContent .userProfileBtn .profileMenuList div ul li.btnLogout:focus {
-  background-color: #FF5654;
 }
 
 @media screen and (max-width: 768px) and (min-width: 426px) {
@@ -14559,6 +14510,53 @@ button:focus {
 
 .ui.popup.languageList div.active {
   border-color: #fcc45e;
+}
+
+.ui.custom.popup.userProfileMenu {
+  padding: 15px 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  background-color: #026670;
+}
+
+.ui.custom.popup.userProfileMenu .username {
+  text-align: center;
+  color: white;
+  border-bottom: 3px solid #fcc45e;
+  padding-bottom: 10px;
+}
+
+.ui.custom.popup.userProfileMenu .menuBtns {
+  font-size: 0.8em;
+  margin: 0;
+  background-color: white;
+  padding: 5px;
+}
+
+.ui.custom.popup.userProfileMenu .menuBtns li {
+  margin: 2px;
+  text-align: center;
+  padding: 8px 8px;
+  list-style: none;
+  width: auto;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.ui.custom.popup.userProfileMenu .menuBtns li:nth-child(2) {
+  border-top: 1px solid #D8D8D8;
+  border-bottom: 1px solid #D8D8D8;
+}
+
+.ui.custom.popup.userProfileMenu .menuBtns li:hover,
+.ui.custom.popup.userProfileMenu .menuBtns li:focus {
+  background-color: #026670;
+  color: white;
+}
+
+.ui.custom.popup.userProfileMenu .menuBtns li.btnLogout:hover,
+.ui.custom.popup.userProfileMenu .menuBtns li.btnLogout:focus {
+  background-color: #FF5654;
 }
 
 .subjectAndTags .subjectTag,
