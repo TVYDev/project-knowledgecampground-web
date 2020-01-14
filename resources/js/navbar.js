@@ -1,4 +1,5 @@
 $(document).ready(function (){
+    // Display if button of the nav menu is selected
     let btnNavMenu = document.querySelectorAll('#KCNavbar .btnNavMenu');
     btnNavMenu.forEach(btn => {
         if(btn.getAttribute('data-url') === window.location.href) {
@@ -8,7 +9,27 @@ $(document).ready(function (){
         }
     });
 
-    $('#KCNavbar .btnLogin, #KCNavbar .btnAsk, #KCNavbar .btnNavMenu').click(function () {
+    // Button change language on the navbar
+    $('.btnLang').popup({
+        inline     : true,
+        hoverable  : true,
+        position   : 'bottom center',
+        transition : 'vertical flip',
+        delay: {
+            show: 0,
+            hide: 1000
+        }
+    });
+    $('#KCNavbar .languageList div').click(function(e){
+        let lang = $('html').attr('lang');
+        let currentLang = 'en';
+        if(lang === 'en'){
+            currentLang = 'kh';
+        }
+        changeLangOfProgram(currentLang);
+    });
+
+    $('#KCNavbar .btnLogin, #KCNavbar .btnAsk').click(function () {
         window.location.href = $(this).attr('data-url');
     });
 
@@ -30,14 +51,7 @@ $(document).ready(function (){
             window.location.href = $(this).attr('data-url');
         });
 
-        $('#KCNavbar .btnLang').click(function(e){
-            let lang = $('html').attr('lang');
-            let currentLang = 'en';
-            if(lang === 'en'){
-            currentLang = 'kh';
-        }
-        changeLangOfProgram(currentLang);
-    });
+
 
     $('#KCNavbar #sideMenu .selLanguages​').change(function(){
         changeLangOfProgram($(this).val());
@@ -46,6 +60,7 @@ $(document).ready(function (){
     navigateSideMenuForMobileScreen();
 });
 
+// ---------Helper functions
 function changeLangOfProgram (lang) {
     window.location.href = '/locale/' + lang;
 }

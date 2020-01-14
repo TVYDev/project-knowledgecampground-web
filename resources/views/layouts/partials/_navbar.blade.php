@@ -21,21 +21,23 @@ $username = $ua[\App\Lib\UserConstants::USER_NAME];
             </div>
         </div>
         <div class="navMenu">
-            <button class="btnQuestions btnNavMenu" data-url="{{ route(\App\Lib\RouteConstants::QUESTION_GET_LIST) }}">
+            <button class="btnQuestions btnNavMenu btnWithToolTip" data-url="{{ route(\App\Lib\RouteConstants::QUESTION_GET_LIST) }}"
+                data-content="All Questions" data-position="bottom center" data-variation="mini">
                 <i class="fas fa-book"></i>
             </button>
-            <button class="btnTags btnNavMenu">
+            <button class="btnTags btnNavMenu btnWithToolTip" data-content="All Tags" data-position="bottom center" data-variation="mini">
                 <i class="fas fa-tags"></i>
             </button>
-            <button class="btnNotifications btnNavMenu">
+            <button class="btnNotifications btnNavMenu btnWithToolTip" data-content="Notifications" data-position="bottom center" data-variation="mini">
                 <i class="fas fa-bell"></i>
             </button>
-            <button class="btnGuide btnNavMenu">
+            <button class="btnGuide btnNavMenu btnWithToolTip" data-content="Guide" data-position="bottom center" data-variation="mini">
                 <i class="fas fa-question-circle"></i>
             </button>
-            <button class="btnLang btnNavMenu">
+            <button class="btnLang btnNavMenu btnWithToolTip">
                 <i class="fas fa-keyboard"></i>
             </button>
+            @include('layouts.partials._language_list')
             <button class="btnLogo btnNavMenu">
                 <img src="{{ asset('icons/logos/KC_black_standard.png') }}" alt="KC" class="KCLogo">
             </button>

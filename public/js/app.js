@@ -66586,10 +66586,11 @@ __webpack_require__(/*! semantic-ui/dist/semantic.min */ "./node_modules/semanti
 //     $('.ui.dropdown').dropdown();
 // };
 
+
+$('.btnWithToolTip').popup();
 /**
  * CodeMirror scripts
  */
-
 
 __webpack_require__(/*! codemirror/mode/css/css */ "./node_modules/codemirror/mode/css/css.js");
 
@@ -66810,6 +66811,7 @@ $(document).ready(function () {
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
+  // Display if button of the nav menu is selected
   var btnNavMenu = document.querySelectorAll('#KCNavbar .btnNavMenu');
   btnNavMenu.forEach(function (btn) {
     if (btn.getAttribute('data-url') === window.location.href) {
@@ -66817,8 +66819,29 @@ $(document).ready(function () {
     } else {
       btn.classList.remove('active');
     }
+  }); // Button change language on the navbar
+
+  $('.btnLang').popup({
+    inline: true,
+    hoverable: true,
+    position: 'bottom center',
+    transition: 'vertical flip',
+    delay: {
+      show: 0,
+      hide: 1000
+    }
   });
-  $('#KCNavbar .btnLogin, #KCNavbar .btnAsk, #KCNavbar .btnNavMenu').click(function () {
+  $('#KCNavbar .languageList div').click(function (e) {
+    var lang = $('html').attr('lang');
+    var currentLang = 'en';
+
+    if (lang === 'en') {
+      currentLang = 'kh';
+    }
+
+    changeLangOfProgram(currentLang);
+  });
+  $('#KCNavbar .btnLogin, #KCNavbar .btnAsk').click(function () {
     window.location.href = $(this).attr('data-url');
   });
   var profileMenuList = $('#KCNavbar .profileMenuList');
@@ -66837,21 +66860,11 @@ $(document).ready(function () {
   $('#KCNavbar .menuBtns li').click(function (e) {
     window.location.href = $(this).attr('data-url');
   });
-  $('#KCNavbar .btnLang').click(function (e) {
-    var lang = $('html').attr('lang');
-    var currentLang = 'en';
-
-    if (lang === 'en') {
-      currentLang = 'kh';
-    }
-
-    changeLangOfProgram(currentLang);
-  });
   $('#KCNavbar #sideMenu .selLanguages​').change(function () {
     changeLangOfProgram($(this).val());
   });
   navigateSideMenuForMobileScreen();
-});
+}); // ---------Helper functions
 
 function changeLangOfProgram(lang) {
   window.location.href = '/locale/' + lang;
