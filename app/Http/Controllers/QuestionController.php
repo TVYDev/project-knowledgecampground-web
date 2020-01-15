@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Support\Paginator;
 use App\Http\Support\Supporter;
 use App\Lib\HttpConstants;
 use App\Lib\MiddlewareConstants;
@@ -252,15 +253,26 @@ class QuestionController extends Controller
     {
         try
         {
+            $perPage = 10;
             $tempDataResponse = [];
+            $currentPage = isset($request->page) ? $request->page : 1;
             $resultQuestions = $this->get($this->getApiRequestUrl('question.list'),null,[
-                'search' => $request->search
+                'search' => $request->search,
+                'per_page' => $perPage,
+                'page' => $currentPage
             ]);
 
+            $paginator = null;
             if($resultQuestions->success === true) {
-                $tempDataResponse =$resultQuestions->data;
+                $tempDataResponse =$resultQuestions->data->data;
+                $paginationResponse = $resultQuestions->data->pagination;
+
+                $paginator = new Paginator($paginationResponse->total_records, $perPage, $currentPage, $request);
             }
-            return view('question.list_question')->with('items', $tempDataResponse);
+
+            return view('question.list_question')
+                ->with('items', $tempDataResponse)
+                ->with('paginator', $paginator);
         }
         catch(\Exception $exception)
         {

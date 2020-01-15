@@ -33,4 +33,48 @@
             justify-self: center;
         }
     }
+    .KCPagination {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        padding-left: 0;
+        list-style: none;
+        display: inline-block;
+        >li {
+            margin-left: 3px;
+            margin-right: 3px;
+            display: inline;
+            >a, >span {
+                padding: 8px 12px;
+                text-decoration: none;
+                color: $prim;
+            }
+            >span.disabled:hover {
+                cursor: not-allowed;
+            }
+            >a:focus, >a:hover, >span:focus, >span:hover {
+                background-color: $contrast-prim-light;
+            }
+        }
+        >li.active {
+            >a, >span {
+                background-color: $contrast-prim;
+                color: $prim;
+                border: 1px solid $contrast-prim;
+            }
+        }
+        >li.next {
+            >a, >span {
+                border-radius: 0 20px 20px 0;
+                border: 1px solid $contrast-prim;
+                border-right-width: 5px;
+            }
+        }
+        >li.previous {
+            >a, >span {
+                border-radius: 20px 0 0 20px;
+                border: 1px solid $contrast-prim;
+                border-left-width: 5px;
+            }
+        }
+    }
 }

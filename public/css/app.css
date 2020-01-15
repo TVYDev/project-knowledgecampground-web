@@ -14658,6 +14658,59 @@ button:focus {
   justify-self: center;
 }
 
+.listOfItems .KCPagination {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-left: 0;
+  list-style: none;
+  display: inline-block;
+}
+
+.listOfItems .KCPagination > li {
+  margin-left: 3px;
+  margin-right: 3px;
+  display: inline;
+}
+
+.listOfItems .KCPagination > li > a,
+.listOfItems .KCPagination > li > span {
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #026670;
+}
+
+.listOfItems .KCPagination > li > span.disabled:hover {
+  cursor: not-allowed;
+}
+
+.listOfItems .KCPagination > li > a:focus,
+.listOfItems .KCPagination > li > a:hover,
+.listOfItems .KCPagination > li > span:focus,
+.listOfItems .KCPagination > li > span:hover {
+  background-color: #eafec9;
+}
+
+.listOfItems .KCPagination > li.active > a,
+.listOfItems .KCPagination > li.active > span {
+  background-color: #fcc45e;
+  color: #026670;
+  border: 1px solid #fcc45e;
+}
+
+.listOfItems .KCPagination > li.next > a,
+.listOfItems .KCPagination > li.next > span {
+  border-radius: 0 20px 20px 0;
+  border: 1px solid #fcc45e;
+  border-right-width: 5px;
+}
+
+.listOfItems .KCPagination > li.previous > a,
+.listOfItems .KCPagination > li.previous > span {
+  border-radius: 20px 0 0 20px;
+  border: 1px solid #fcc45e;
+  border-left-width: 5px;
+}
+
 .ui.button.fluid.btnSocialMedia {
   padding: 0 10px;
   margin-top: 10px;
