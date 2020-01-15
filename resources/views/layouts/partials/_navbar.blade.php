@@ -16,7 +16,8 @@ $username = $ua[\App\Lib\UserConstants::USER_NAME];
         </button>
         <div class="navSearchBar">
             <div class="ui fluid icon input">
-                <input type="text" placeholder="{{ __('Search...') }}">
+                <input type="text" placeholder="{{ __('Search Question...') }}" class="txtSearch"
+                    data-url="{{ route(\App\Lib\RouteConstants::QUESTION_GET_LIST) }}" value="{{\Illuminate\Support\Facades\Input::get('search')}}">
                 <i class="search icon"></i>
             </div>
         </div>

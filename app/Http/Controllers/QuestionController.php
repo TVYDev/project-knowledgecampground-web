@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Support\Supporter;
 use App\Lib\HttpConstants;
+use App\Lib\MiddlewareConstants;
 use App\Lib\RequestAPI;
 use App\Lib\ResponseEndPoint;
 use App\Lib\RouteConstants;
 use http\Exception\UnexpectedValueException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Input;
 
 class QuestionController extends Controller
 {
@@ -19,7 +21,7 @@ class QuestionController extends Controller
 
     public function __construct()
     {
-        $this->middleware('verify_access_token');
+        $this->middleware(MiddlewareConstants::VERIFY_ACCESS_TOKEN, ['except' => ['getList']]);
         $this->supporter = new Supporter();
     }
 
@@ -246,17 +248,14 @@ class QuestionController extends Controller
         return response()->json($tempDataResponse);
     }
 
-    public function getList()
+    public function getList(Request $request)
     {
         try
         {
             $tempDataResponse = [];
-            $resultQuestions = $this->get(
-                $this->getApiRequestUrl('question.list'),
-                null,
-                null,
-                $this->getAuthorizationHeader()
-            );
+            $resultQuestions = $this->get($this->getApiRequestUrl('question.list'),null,[
+                'search' => $request->search
+            ]);
 
             if($resultQuestions->success === true) {
                 $tempDataResponse =$resultQuestions->data;

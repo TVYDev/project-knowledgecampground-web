@@ -13165,30 +13165,35 @@ button:focus {
   font-size: 2rem;
 }
 
-.headOfPage {
+.pageTitle {
   display: grid;
   grid-template-columns: 8% 92%;
 }
 
-.headOfPage div:first-child {
+.pageTitle div:first-child {
   text-align: center;
-  background-color: #F3F3F3;
-  color: #0A5748;
+  color: #026670;
   border-radius: 30px 30px 0 30px;
-  border: 3px solid #0A5748;
+  border: 3px solid #fcc45e;
+  border-bottom-width: 1px;
+  border-right-width: 1px;
   padding: 6px;
 }
 
-.headOfPage div:last-child {
+.pageTitle div:first-child i {
+  color: #026670;
+}
+
+.pageTitle div:last-child {
   font-weight: bold;
-  color: #424242;
+  color: #555;
   font-size: 1.5em;
-  border-bottom: 3px solid #0A5748;
+  border-bottom: 1px solid #fcc45e;
   align-self: end;
   padding-bottom: 6px;
 }
 
-.headOfPage div:last-child span {
+.pageTitle div:last-child span {
   margin-left: 10px;
 }
 
@@ -13788,6 +13793,7 @@ button:focus {
 }
 
 #KCNavbar {
+  font-size: 0.9em;
   width: 100%;
   position: fixed;
   top: 0;
@@ -13841,7 +13847,7 @@ button:focus {
 }
 
 #KCNavbar #navContent .navMenu .btnNavMenu {
-  margin: 0px;
+  margin: 0;
   border: none;
   background-color: transparent;
   color: #FFF;
@@ -13936,6 +13942,7 @@ button:focus {
 }
 
 #KCNavbar #navContent .blockAvatarImg {
+  cursor: pointer;
   align-self: center;
   justify-self: center;
 }

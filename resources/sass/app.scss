@@ -217,33 +217,8 @@ button:focus {
 .fa-2x {
     font-size: 2rem;
 }
-
-.headOfPage {
-    display: grid;
-    grid-template-columns: 8% 92%;
-
-    div:first-child {
-        text-align: center;
-        background-color: $page-background;
-        color: $main-green;
-        border-radius: 30px 30px 0 30px;
-        border: 3px solid $main-green;
-        padding: 6px;
-    }
-
-    div:last-child {
-        font-weight: bold;
-        color: $main-gray;
-        font-size: 1.5em;
-        border-bottom: 3px solid $main-green;
-        align-self: end;
-        padding-bottom: 6px;
-
-        span {
-            margin-left: 10px;
-        }
-    }
-}
+// Global
+@import 'layouts/global/page_title';
 
 @import '_animate.css';
 @import 'reusable_components/list_content_action_view';

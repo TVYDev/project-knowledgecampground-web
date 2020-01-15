@@ -1,4 +1,5 @@
 #KCNavbar{
+    font-size: 0.9em;
     width: 100%;
     position: fixed;
     top: 0;
@@ -41,7 +42,7 @@
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             .btnNavMenu {
-                margin: 0px;
+                margin: 0;
                 border: none;
                 background-color: transparent;
                 color: $main-background;
@@ -119,6 +120,7 @@
         }
 
         .blockAvatarImg {
+            cursor: pointer;
             align-self: center;
             justify-self: center;
             .avatarImg {

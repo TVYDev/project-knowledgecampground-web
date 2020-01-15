@@ -14,11 +14,7 @@ $(document).ready(function (){
         inline     : true,
         hoverable  : true,
         position   : 'bottom center',
-        transition : 'vertical flip',
-        delay: {
-            show: 0,
-            hide: 1000
-        }
+        transition : 'vertical flip'
     });
     $('#KCNavbar .languageList div').click(function(e){
         let lang = $('html').attr('lang');
@@ -34,36 +30,27 @@ $(document).ready(function (){
         inline     : true,
         hoverable  : true,
         position   : 'bottom center',
-        transition : 'vertical flip',
-        delay: {
-            show: 0,
-            hide: 1000
-        }
+        transition : 'vertical flip'
     });
 
-    $('#KCNavbar .btnLogin, #KCNavbar .btnAsk').click(function () {
+    $('#KCNavbar .btnLogin, #KCNavbar .btnAsk, #KCNavbar .btnQuestions').click(function () {
         window.location.href = $(this).attr('data-url');
     });
 
-    let profileMenuList = $('#KCNavbar .profileMenuList');
-    $('#KCNavbar .avatar_name, #KCNavbar .avatar_img').click(function (){
-        profileMenuList.removeAttr('hidden');
-        if(profileMenuList.hasClass('flipInX')){
-            profileMenuList.removeClass('flipInX').addClass('flipOutX');
+    $('#KCNavbar .menuBtns li').click(function(e){
+        window.location.href = $(this).attr('data-url');
+    });
+
+    $('#KCNavbar .txtSearch').keypress(function(e){
+        if(e.keyCode === 13) {
+            let value = $(this).val();
+            let max = 2048;
+            if(value.length > max) {
+                value = value.substring(0, max);
+            }
+            window.location.href = $(this).attr('data-url') + '?search=' + value;
         }
-        else{
-            profileMenuList.removeClass('flipOutX').addClass('flipInX');
-        }
-        });
-        $('#KCNavbar .userProfileBtn').focusout(function (){
-            profileMenuList.removeClass('flipInX').addClass('flipOutX');
-        });
-
-        $('#KCNavbar .menuBtns li').click(function(e){
-            window.location.href = $(this).attr('data-url');
-        });
-
-
+    });
 
     $('#KCNavbar #sideMenu .selLanguages​').change(function(){
         changeLangOfProgram($(this).val());
