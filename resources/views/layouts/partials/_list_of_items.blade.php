@@ -19,5 +19,18 @@
                 <div class="stats">123<br/>votes</div>
             </div>
         @endforeach
+        @if(isset($paginator))
+            {!! $paginator->getPaginatedLinks() !!}
+            @php
+                $page = $paginator->getCurrentPage();
+                $perPage = $paginator->getPerPage();
+                $total = $paginator->getTotalRecords();
+                $totalPages = $paginator->getTotalPages();
+                $num = $perPage - ($totalPages * $perPage - $total);
+            @endphp
+            {{ __('Showing') }} {{$num}} {{ __('of') }} {{$total}} {{ __('records') }}
+        @endif
+    @else
+        {{ __('No Records') }}
     @endif
 </div>

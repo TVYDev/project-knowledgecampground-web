@@ -1,0 +1,26 @@
+.ui.popup.languageList {
+    padding: 15px 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    background-color: $prim;
+    div {
+        font-size: 0.9em;
+        padding: 5px 10px;
+        justify-self: stretch;
+        color: white;
+        height: 30px;
+        background: none;
+        border: none;
+        border: 5px solid transparent;
+        border-top: none;
+        border-bottom: none;
+        cursor: pointer;
+    }
+    div:hover, div:focus {
+        background-color: white;
+        color: $prim;
+    }
+    div.active {
+        border-color: $contrast-prim;
+    }
+}
