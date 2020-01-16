@@ -19,7 +19,7 @@
             <div class="kcCard">
                 <div class="frontCard">
                     <div class="content">
-                        <h2 class="formTitle">{{ __('log in') }}</h2>
+                        <h2 class="formTitle">{{ __('Log In') }}</h2>
                         <form method="POST" id="formLogin" action="{{ route('user.postLogin') }}">
                             @csrf
                             <div class="ui form">
@@ -78,9 +78,5 @@
     </div>
 </div>
 
-
-@endsection
-
-@section('pageScript')
 
 @endsection

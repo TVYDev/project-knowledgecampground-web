@@ -12978,7 +12978,6 @@ readers do not read off random characters that represent icons */
 body {
   padding-top: 4rem;
   font-size: 13px;
-  background: #FFF;
 }
 
 @media screen and (max-width: 768px) and (min-width: 426px) {
@@ -13054,27 +13053,27 @@ button:focus {
 }
 
 .ui.button.fluid.btnPrimary {
-  color: white;
-  background-color: #17CCA9;
+  color: #555;
+  background-color: #fcc45e;
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
-  border-left: 5px solid #0A5748;
-  border-right: 5px solid #0A5748;
-  border-radius: 10px;
+  border-left: 3px solid #026670;
+  border-right: 3px solid #026670;
+  border-radius: 15px;
   margin-bottom: 10px;
 }
 
 .ui.button.fluid.btnPrimary:hover,
 .ui.button.fluid.btnPrimary:focus {
-  color: #17CCA9;
-  background-color: #F3F3F3;
-  border-color: #0A5748;
-  border-top: 1px solid #0A5748;
-  border-bottom: 1px solid #0A5748;
+  color: #026670;
+  background-color: #FFF;
+  border-color: #fcc45e;
+  border-top: 1px solid #fcc45e;
+  border-bottom: 1px solid #fcc45e;
 }
 
 .btnLink {
-  color: #17CCA9;
+  color: #fcc45e;
   font-weight: bold;
   border: none;
   background: none;
@@ -13083,13 +13082,12 @@ button:focus {
 .btnLink:hover,
 .btnLink:focus {
   color: #17CCA9;
-  text-decoration: underline;
   font-weight: normal;
   cursor: pointer;
 }
 
 .btnLink:hover::after {
-  content: " \22D9";
+  content: " \2B9E";
 }
 
 .ui.button.btnFormPrimary {
@@ -13793,6 +13791,7 @@ button:focus {
 }
 
 #KCNavbar {
+  border-bottom: 2px solid #FFF;
   font-size: 0.9em;
   width: 100%;
   position: fixed;
@@ -13874,7 +13873,7 @@ button:focus {
   border-top-left-radius: 50px;
   border-bottom: none;
   border-top: 0.2rem solid #fcc45e;
-  background-color: #eafec9;
+  background-color: #17CCA9;
   color: #026670;
 }
 
@@ -13894,6 +13893,9 @@ button:focus {
 }
 
 #KCNavbar #navContent .btnAsk {
+  align-self: center;
+  padding-top: 8px;
+  padding-bottom: 8px;
   background: #FFF;
   color: #026670;
   cursor: pointer;
@@ -13916,6 +13918,9 @@ button:focus {
 }
 
 #KCNavbar #navContent .btnLogin {
+  align-self: center;
+  padding-top: 8px;
+  padding-bottom: 8px;
   background: #FFF;
   cursor: pointer;
   color: #026670;
@@ -14695,7 +14700,7 @@ button:focus {
 .listOfItems .KCPagination > li > a:hover,
 .listOfItems .KCPagination > li > span:focus,
 .listOfItems .KCPagination > li > span:hover {
-  background-color: #eafec9;
+  background-color: #17CCA9;
 }
 
 .listOfItems .KCPagination > li.active > a,
@@ -14719,404 +14724,130 @@ button:focus {
   border-left-width: 5px;
 }
 
-.ui.button.fluid.btnSocialMedia {
-  padding: 0 10px;
-  margin-top: 10px;
-  border-radius: 8px;
-  background-color: white;
+.socialLoginButtons {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 10px;
 }
 
-.ui.button.fluid.btnSocialMedia .socialMediaGo {
-  visibility: hidden;
-}
-
-.ui.button.fluid.btnSocialMedia:hover,
-.ui.button.fluid.btnSocialMedia:focus {
-  border-style: dashed;
+.socialLoginButtons .btnSocialLogin {
+  padding-bottom: 5px;
+  padding-top: 5px;
+  background-color: #FFF;
+  border: 3px solid #fcc45e;
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+  border-radius: 10px;
+  display: block;
   cursor: pointer;
 }
 
-.ui.button.fluid.btnSocialMedia:hover .socialMediaText,
-.ui.button.fluid.btnSocialMedia:focus .socialMediaText {
-  font-weight: bold;
+.socialLoginButtons .btnSocialLogin i {
+  color: #026670;
+  font-size: 1.5em;
 }
 
-.ui.button.fluid.btnSocialMedia:hover .socialMediaGo,
-.ui.button.fluid.btnSocialMedia:focus .socialMediaGo {
-  visibility: visible;
+.socialLoginButtons .btnSocialLogin:hover,
+.socialLoginButtons .btnSocialLogin:focus {
+  background-color: #026670;
 }
 
-.ui.button.fluid.btnFacebook {
-  border: 1px solid #3b5998;
+.socialLoginButtons .btnSocialLogin:hover i,
+.socialLoginButtons .btnSocialLogin:focus i {
+  color: #FFF;
 }
 
-.ui.button.fluid.btnFacebook .socialMediaText {
-  color: #3b5998;
-}
-
-.ui.button.fluid.btnTwitter {
-  border: 1px solid #38A1F3;
-}
-
-.ui.button.fluid.btnTwitter .socialMediaText {
-  color: #38A1F3;
-}
-
-.ui.button.fluid.btnGoogle {
-  border: 1px solid #DB4437;
-}
-
-.ui.button.fluid.btnGoogle .socialMediaText {
-  color: #DB4437;
-}
-
-.ui.button.fluid.btnSocialMedia > div {
+.loginContent {
+  margin-top: 30px;
   display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
-  color: white;
-  grid-auto-rows: minmax(30px, 30px);
+  grid-template-columns: 1.5fr 1fr;
+  grid-column-gap: 20px;
+  grid-auto-rows: minmax(540px, 540px);
 }
 
-.ui.button.fluid.btnSocialMedia > div div:nth-child(1) {
+.loginContent .quoteSide {
+  justify-self: center;
   align-self: center;
+  text-align: center;
 }
 
-.ui.button.fluid.btnSocialMedia > div div:nth-child(2) {
-  justify-self: left;
-  align-self: center;
+.loginContent .quoteSide .quoteContent {
+  font-size: 3rem;
+  font-family: "Pacifico", cursive;
+  color: #555;
+  line-height: 60px;
 }
 
-.ui.button.fluid.btnSocialMedia > div div:nth-child(3) {
-  justify-self: right;
-  align-self: center;
+.loginContent .quoteSide .quoteAuthor {
+  font-size: 1rem;
+  font-family: "Happy Monkey", cursive;
+  font-weight: bold;
+  color: #555;
 }
 
-.ui.button.fluid.btnSocialMedia > div .socialMediaImg {
-  width: 25px;
+.loginContent .formSide .cardContainer {
+  position: relative;
+  -webkit-perspective: 3500px;
+          perspective: 3500px;
 }
 
-.ui.button.fluid.btnSocialMedia > div i {
-  color: #424242;
+.loginContent .formSide .cardContainer .kcCard {
+  color: #555;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: all 0.5s linear;
 }
 
-@media screen and (min-width: 1440px) {
-  .loginContent {
-    margin-top: 30px;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-auto-rows: minmax(540px, 540px);
-  }
-
-  .loginContent .quoteSide {
-    justify-self: center;
-    align-self: center;
-    text-align: center;
-  }
-
-  .loginContent .quoteSide .quoteContent {
-    font-size: 3rem;
-    font-family: "Pacifico", cursive;
-    color: #424242;
-  }
-
-  .loginContent .quoteSide .quoteAuthor {
-    font-size: 1rem;
-    font-family: "Happy Monkey", cursive;
-    font-weight: bold;
-    color: #424242;
-  }
-
-  .loginContent .formSide {
-    padding-right: 60px;
-  }
-
-  .loginContent .formSide .cardContainer {
-    position: relative;
-    -webkit-perspective: 3500px;
-            perspective: 3500px;
-  }
-
-  .loginContent .formSide .cardContainer .kcCard {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-    transition: all 1s ease;
-  }
-
-  .loginContent .formSide .cardContainer .kcCard div.frontCard .content {
-    border: 2px solid #0A5748;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #F3F3F3;
-  }
-
-  .loginContent .formSide .cardContainer .kcCard div.backCard .content {
-    border: 2px solid #0A5748;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #F3F3F3;
-  }
-
-  .loginContent .formSide .cardContainer .kcCard div.frontCard,
-  .loginContent .formSide .cardContainer .kcCard div.backCard {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-    transition: all 1s ease;
-  }
-
-  .loginContent .formSide .cardContainer .kcCard div.backCard {
-    -webkit-transform: rotateY(180deg);
-            transform: rotateY(180deg);
-    visibility: hidden;
-  }
-
-  .loginContent .formSide .cardContainer .kcCard .formTitle {
-    text-align: center;
-  }
-
-  .loginContent .formSide .cardContainer .kcCard .forgotPasswordBlock,
-  .loginContent .formSide .cardContainer .kcCard .registerNowBlock,
-  .loginContent .formSide .cardContainer .kcCard .logInNowBlock {
-    text-align: center;
-  }
-
-  .loginContent .formSide .cardContainer #formLogin .btnSubmit,
-  .loginContent .formSide .cardContainer #formRegister .btnSubmit {
-    width: 100%;
-  }
+.loginContent .formSide .cardContainer .kcCard div.frontCard .content,
+.loginContent .formSide .cardContainer .kcCard div.backCard .content {
+  border: 2px solid #026670;
+  border-top-width: 8px;
+  border-bottom-width: 8px;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: #FFF;
 }
 
-@media screen and (max-width: 1439px) and (min-width: 769px) {
-  .loginContent {
-    margin-top: 20px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 20px;
-    grid-auto-rows: minmax(540px, 540px);
-  }
-
-  .loginContent .quoteSide {
-    justify-self: center;
-    align-self: center;
-  }
-
-  .loginContent .quoteSide .quoteContent {
-    font-size: 2rem;
-    font-family: "Pacifico", cursive;
-    color: #424242;
-  }
-
-  .loginContent .quoteSide .quoteAuthor {
-    font-size: 1rem;
-    font-family: "Happy Monkey", cursive;
-    font-weight: bold;
-    color: #424242;
-  }
-
-  .loginContent .formSide {
-    font-family: "Taprom", "Montserrat", sans-serif;
-    font-size: 0.8em;
-    padding-right: 60px;
-  }
-
-  .loginContent .formSide .cardContainer {
-    position: relative;
-    -webkit-perspective: 3500px;
-            perspective: 3500px;
-  }
-
-  .loginContent .formSide .cardContainer .kcCard {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-    transition: all 1s ease;
-  }
-
-  .loginContent .formSide .cardContainer .kcCard div.frontCard .content {
-    border: 2px solid #0A5748;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #F3F3F3;
-  }
-
-  .loginContent .formSide .cardContainer .kcCard div.backCard .content {
-    border: 2px solid #0A5748;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #F3F3F3;
-  }
-
-  .loginContent .formSide .cardContainer .kcCard div.frontCard,
-  .loginContent .formSide .cardContainer .kcCard div.backCard {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-    transition: all 1s ease;
-  }
-
-  .loginContent .formSide .cardContainer .kcCard div.backCard {
-    -webkit-transform: rotateY(180deg);
-            transform: rotateY(180deg);
-    visibility: hidden;
-  }
-
-  .loginContent .formSide .cardContainer #formLogin .btnSubmit,
-  .loginContent .formSide .cardContainer #formRegister .btnSubmit {
-    width: 100%;
-  }
+.loginContent .formSide .cardContainer .kcCard div.frontCard .content label,
+.loginContent .formSide .cardContainer .kcCard div.backCard .content label {
+  color: #555;
 }
 
-@media screen and (max-width: 768px) and (min-width: 426px) {
-  .loginContent {
-    margin-top: 20px;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-auto-rows: minmax(540px, 540px);
-    justify-items: center;
-  }
-
-  .loginContent .quoteSide {
-    display: none;
-  }
-
-  .loginContent .formSide {
-    width: 70%;
-    font-family: "Taprom", "Montserrat", sans-serif;
-    font-size: 0.8em;
-  }
-
-  .loginContent .formSide .cardContainer {
-    position: relative;
-    -webkit-perspective: 3500px;
-            perspective: 3500px;
-  }
-
-  .loginContent .formSide .cardContainer .kcCard {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-    transition: all 1s ease;
-  }
-
-  .loginContent .formSide .cardContainer .kcCard div.frontCard .content {
-    border: 2px solid #0A5748;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #F3F3F3;
-  }
-
-  .loginContent .formSide .cardContainer .kcCard div.backCard .content {
-    border: 2px solid #0A5748;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #F3F3F3;
-  }
-
-  .loginContent .formSide .cardContainer .kcCard div.frontCard,
-  .loginContent .formSide .cardContainer .kcCard div.backCard {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-    transition: all 1s ease;
-  }
-
-  .loginContent .formSide .cardContainer .kcCard div.backCard {
-    -webkit-transform: rotateY(180deg);
-            transform: rotateY(180deg);
-    visibility: hidden;
-  }
-
-  .loginContent .formSide .cardContainer #formLogin .btnSubmit,
-  .loginContent .formSide .cardContainer #formRegister .btnSubmit {
-    width: 100%;
-  }
+.loginContent .formSide .cardContainer .kcCard div.frontCard,
+.loginContent .formSide .cardContainer .kcCard div.backCard {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  transition: all 0.5s linear;
 }
 
-@media screen and (max-width: 426px) {
-  .loginContent {
-    margin-top: 5px;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-auto-rows: minmax(540px, 540px);
-    justify-items: center;
-  }
+.loginContent .formSide .cardContainer .kcCard div.backCard {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+}
 
-  .loginContent .quoteSide {
-    display: none;
-  }
+.loginContent .formSide .cardContainer .kcCard div.frontCard {
+  -webkit-transform: rotateY(0deg);
+          transform: rotateY(0deg);
+}
 
-  .loginContent .formSide {
-    width: 100%;
-    font-family: "Taprom", "Montserrat", sans-serif;
-    font-size: 0.7em;
-  }
+.loginContent .formSide .cardContainer .kcCard .formTitle {
+  text-align: center;
+}
 
-  .loginContent .formSide .cardContainer {
-    position: relative;
-    -webkit-perspective: 3500px;
-            perspective: 3500px;
-  }
+.loginContent .formSide .cardContainer .kcCard .forgotPasswordBlock,
+.loginContent .formSide .cardContainer .kcCard .registerNowBlock,
+.loginContent .formSide .cardContainer .kcCard .logInNowBlock {
+  text-align: center;
+  margin-bottom: 5px;
+}
 
-  .loginContent .formSide .cardContainer .kcCard {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
-    transition: all 1s ease;
-  }
-
-  .loginContent .formSide .cardContainer .kcCard .formTitle {
-    margin-bottom: 0;
-  }
-
-  .loginContent .formSide .cardContainer .kcCard div.frontCard .content {
-    border: 2px solid #0A5748;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #F3F3F3;
-  }
-
-  .loginContent .formSide .cardContainer .kcCard div.backCard .content {
-    border: 2px solid #0A5748;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: #F3F3F3;
-  }
-
-  .loginContent .formSide .cardContainer .kcCard div.frontCard,
-  .loginContent .formSide .cardContainer .kcCard div.backCard {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-    transition: all 1s ease;
-  }
-
-  .loginContent .formSide .cardContainer .kcCard div.backCard {
-    -webkit-transform: rotateY(180deg);
-            transform: rotateY(180deg);
-    visibility: hidden;
-  }
-
-  .loginContent .formSide .cardContainer #formLogin .btnSubmit,
-  .loginContent .formSide .cardContainer #formRegister .btnSubmit {
-    width: 100%;
-  }
+.loginContent .formSide .cardContainer #formLogin .btnSubmit,
+.loginContent .formSide .cardContainer #formRegister .btnSubmit {
+  width: 100%;
 }
 
 .userProfileContent {

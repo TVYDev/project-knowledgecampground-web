@@ -1,253 +1,71 @@
-@media screen and (min-width: $laptop-L){
-    .loginContent {
-        margin-top: 30px;
-        display: grid;
-        grid-template-columns: 2fr 1fr;
-        grid-auto-rows: minmax(540px, 540px);
-        .quoteSide {
-            justify-self: center;
-            align-self: center;
-            text-align: center;
-            .quoteContent {
-                font-size: 3rem;
-                font-family: 'Pacifico', cursive;
-                color: $main-gray;
-            }
-            .quoteAuthor {
-                font-size: 1rem;
-                font-family: 'Happy Monkey', cursive;
-                font-weight: bold;
-                color: $main-gray;
-            }
+.loginContent {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    grid-column-gap: 20px;
+    grid-auto-rows: minmax(540px, 540px);
+    .quoteSide {
+        justify-self: center;
+        align-self: center;
+        text-align: center;
+        .quoteContent {
+            font-size: 3rem;
+            font-family: 'Pacifico', cursive;
+            color: $main-front;
+            line-height: 60px;
         }
-        .formSide {
-            padding-right: 60px;
-            .cardContainer {
-                position: relative;
-                perspective: 3500px;
-                .kcCard {
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                    transform-style: preserve-3d;
-                    transition: all 1s ease;
-                    div.frontCard .content{
-                        border: 2px solid $main-green;
-                        padding: 20px;
-                        border-radius: 10px;
-                        background-color: $page-background;
-                    }
-                    div.backCard .content{
-                        border: 2px solid $main-green;
-                        padding: 20px;
-                        border-radius: 10px;
-                        background-color: $page-background;
-                    }
-                    div.frontCard, div.backCard {
-                        position: absolute;
-                        width: 100%;
-                        height: 100%;
-                        backface-visibility: hidden;
-                        transition: all 1s ease;
-                    }
-                    div.backCard {
-                        transform: rotateY(180deg);
-                        visibility: hidden;
-                    }
-                    .formTitle {
-                        text-align: center;
-                    }
-                    .forgotPasswordBlock, .registerNowBlock, .logInNowBlock {
-                        text-align: center;
-                    }
-                }
-                #formLogin, #formRegister {
-                    .btnSubmit {
-                        width: 100%;
-                    }
-                }
-            }
+        .quoteAuthor {
+            font-size: 1rem;
+            font-family: 'Happy Monkey', cursive;
+            font-weight: bold;
+            color: $main-front;
         }
     }
-}
-@media screen and (max-width: $below-laptop-L) and (min-width: $above-tablet){
-    .loginContent {
-        margin-top: 20px;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-column-gap: 20px;
-        grid-auto-rows: minmax(540px, 540px);
-        .quoteSide {
-            justify-self: center;
-            align-self: center;
-            .quoteContent {
-                font-size: 2rem;
-                font-family: 'Pacifico', cursive;
-                color: $main-gray;
-            }
-            .quoteAuthor {
-                font-size: 1rem;
-                font-family: 'Happy Monkey', cursive;
-                font-weight: bold;
-                color: $main-gray;
-            }
-        }
-        .formSide {
-            font-family: 'Taprom','Montserrat', sans-serif;
-            font-size: 0.8em;
-            padding-right: 60px;
-            .cardContainer {
-                position: relative;
-                perspective: 3500px;
-                .kcCard {
+    .formSide {
+        .cardContainer {
+            position: relative;
+            perspective: 3500px;
+            .kcCard {
+                color: $main-front;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                transition: all 0.5s linear;
+                div.frontCard .content, div.backCard .content{
+                    border: 2px solid $prim;
+                    border-top-width: 8px;
+                    border-bottom-width: 8px;
+                    padding: 20px;
+                    border-radius: 20px;
+                    background-color: $main-background;
+                    label {
+                        color: $main-front;
+                    }
+                }
+                div.frontCard, div.backCard {
                     position: absolute;
                     width: 100%;
                     height: 100%;
-                    transform-style: preserve-3d;
-                    transition: all 1s ease;
-                    div.frontCard .content{
-                        border: 2px solid $main-green;
-                        padding: 20px;
-                        border-radius: 10px;
-                        background-color: $page-background;
-                    }
-                    div.backCard .content{
-                        border: 2px solid $main-green;
-                        padding: 20px;
-                        border-radius: 10px;
-                        background-color: $page-background;
-                    }
-                    div.frontCard, div.backCard {
-                        position: absolute;
-                        width: 100%;
-                        height: 100%;
-                        backface-visibility: hidden;
-                        transition: all 1s ease;
-                    }
-                    div.backCard {
-                        transform: rotateY(180deg);
-                        visibility: hidden;
-                    }
+                    backface-visibility: hidden;
+                    transition: all 0.5s linear;
                 }
-                #formLogin, #formRegister {
-                    .btnSubmit {
-                        width: 100%;
-                    }
+                div.backCard {
+                    transform: rotateY(180deg);
+                }
+                div.frontCard {
+                    transform: rotateY(0deg);
+                }
+                .formTitle {
+                    text-align: center;
+                }
+                .forgotPasswordBlock, .registerNowBlock, .logInNowBlock {
+                    text-align: center;
+                    margin-bottom: 5px;
                 }
             }
-        }
-    }
-}
-@media screen and (max-width: $tablet) and (min-width: $above-mobile-L){
-    .loginContent {
-        margin-top: 20px;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-auto-rows: minmax(540px, 540px);
-        justify-items: center;
-        .quoteSide {
-            display: none;
-        }
-        .formSide {
-            width: 70%;
-            font-family: 'Taprom','Montserrat', sans-serif;
-            font-size: 0.8em;
-            .cardContainer {
-                position: relative;
-                perspective: 3500px;
-                .kcCard {
-                    position: absolute;
+            #formLogin, #formRegister {
+                .btnSubmit {
                     width: 100%;
-                    height: 100%;
-                    transform-style: preserve-3d;
-                    transition: all 1s ease;
-                    div.frontCard .content{
-                        border: 2px solid $main-green;
-                        padding: 20px;
-                        border-radius: 10px;
-                        background-color: $page-background;
-                    }
-                    div.backCard .content{
-                        border: 2px solid $main-green;
-                        padding: 20px;
-                        border-radius: 10px;
-                        background-color: $page-background;
-                    }
-                    div.frontCard, div.backCard {
-                        position: absolute;
-                        width: 100%;
-                        height: 100%;
-                        backface-visibility: hidden;
-                        transition: all 1s ease;
-                    }
-                    div.backCard {
-                        transform: rotateY(180deg);
-                        visibility: hidden;
-                    }
-                }
-                #formLogin, #formRegister {
-                    .btnSubmit {
-                        width: 100%;
-                    }
-                }
-            }
-        }
-    }
-}
-@media screen and (max-width: $above-mobile-L){
-    .loginContent {
-        margin-top: 5px;
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-auto-rows: minmax(540px, 540px);
-        justify-items: center;
-        .quoteSide {
-            display: none;
-        }
-        .formSide {
-            width: 100%;
-            font-family: 'Taprom','Montserrat', sans-serif;
-            font-size: 0.7em;
-            .cardContainer {
-                position: relative;
-                perspective: 3500px;
-                .kcCard {
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                    transform-style: preserve-3d;
-                    transition: all 1s ease;
-                    .formTitle {
-                        margin-bottom: 0;
-                    }
-                    div.frontCard .content{
-                        border: 2px solid $main-green;
-                        padding: 20px;
-                        border-radius: 10px;
-                        background-color: $page-background;
-                    }
-                    div.backCard .content{
-                        border: 2px solid $main-green;
-                        padding: 20px;
-                        border-radius: 10px;
-                        background-color: $page-background;
-                    }
-                    div.frontCard, div.backCard {
-                        position: absolute;
-                        width: 100%;
-                        height: 100%;
-                        backface-visibility: hidden;
-                        transition: all 1s ease;
-                    }
-                    div.backCard {
-                        transform: rotateY(180deg);
-                        visibility: hidden;
-                    }
-                }
-                #formLogin, #formRegister {
-                    .btnSubmit {
-                        width: 100%;
-                    }
                 }
             }
         }

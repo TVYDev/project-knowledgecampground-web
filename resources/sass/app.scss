@@ -60,7 +60,6 @@
 body {
     padding-top: 4rem;
     font-size: 13px;
-    background: $main-background;
 }
 @media screen and (max-width: $tablet) and (min-width: $above-mobile-L) {
     body {
@@ -125,36 +124,35 @@ button:focus {
     outline: none;
 }
 .ui.button.fluid.btnPrimary {
-    color: $white;
-    background-color: $secondary-green;
+    color: $main-front;
+    background-color: $contrast-prim;
     border-top: 1px solid transparent;
     border-bottom: 1px solid transparent;
-    border-left: 5px solid $main-green;
-    border-right: 5px solid $main-green;
-    border-radius: 10px;
+    border-left: 3px solid $prim;
+    border-right: 3px solid $prim;
+    border-radius: 15px;
     margin-bottom: 10px;
 }
 .ui.button.fluid.btnPrimary:hover, .ui.button.fluid.btnPrimary:focus {
-    color: $secondary-green;
-    background-color: $page-background;
-    border-color: $main-green;
-    border-top: 1px solid $main-green;
-    border-bottom: 1px solid $main-green;
+    color: $prim;
+    background-color: $main-background;
+    border-color: $contrast-prim;
+    border-top: 1px solid $contrast-prim;
+    border-bottom: 1px solid $contrast-prim;
 }
 .btnLink {
-    color: $secondary-green;
+    color: $contrast-prim;
     font-weight: bold;
     border: none;
     background: none;
 }
 .btnLink:hover, .btnLink:focus {
-    color: $secondary-green;
-    text-decoration: underline;
+    color: $contrast-prim-light;
     font-weight: normal;
     cursor: pointer;
 }
 .btnLink:hover::after {
-    content: ' ⋙';
+    content: ' ⮞';
 }
 .ui.button.btnFormPrimary {
     color: $white;
