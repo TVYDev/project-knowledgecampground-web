@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Support\Paginator;
 use App\Http\Support\Supporter;
 use App\Lib\HttpConstants;
+use App\Lib\MiddlewareConstants;
 use App\Lib\RequestAPI;
 use App\Lib\ResponseEndPoint;
 use App\Lib\RouteConstants;
 use http\Exception\UnexpectedValueException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Input;
 
 class QuestionController extends Controller
 {
@@ -19,7 +22,7 @@ class QuestionController extends Controller
 
     public function __construct()
     {
-        $this->middleware('verify_access_token');
+        $this->middleware(MiddlewareConstants::VERIFY_ACCESS_TOKEN, ['except' => ['getList']]);
         $this->supporter = new Supporter();
     }
 
@@ -246,22 +249,30 @@ class QuestionController extends Controller
         return response()->json($tempDataResponse);
     }
 
-    public function getList()
+    public function getList(Request $request)
     {
         try
         {
+            $perPage = 10;
             $tempDataResponse = [];
-            $resultQuestions = $this->get(
-                $this->getApiRequestUrl('question.list'),
-                null,
-                null,
-                $this->getAuthorizationHeader()
-            );
+            $currentPage = isset($request->page) ? $request->page : 1;
+            $resultQuestions = $this->get($this->getApiRequestUrl('question.list'),null,[
+                'search' => $request->search,
+                'per_page' => $perPage,
+                'page' => $currentPage
+            ]);
 
+            $paginator = null;
             if($resultQuestions->success === true) {
-                $tempDataResponse =$resultQuestions->data;
+                $tempDataResponse =$resultQuestions->data->data;
+                $paginationResponse = $resultQuestions->data->pagination;
+
+                $paginator = new Paginator($paginationResponse->total_records, $perPage, $currentPage, $request);
             }
-            return view('question.list_question')->with('items', $tempDataResponse);
+
+            return view('question.list_question')
+                ->with('items', $tempDataResponse)
+                ->with('paginator', $paginator);
         }
         catch(\Exception $exception)
         {

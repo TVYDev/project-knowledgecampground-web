@@ -12,27 +12,26 @@
         }
     }
     .subjectTag {
-        color: white;
-        border: 1px solid $main-blue;
-        background-color: $main-blue;
+        color: $prim;
+        border: 1px solid $prim;
+        background-color: $main-background;
         border-radius: 20px;
     }
     .tagTag {
-        color: $main-blue;
-        border: 1px solid $main-blue;
-        background-color: transparent;
+        color: $prim;
+        border: 1px solid $prim;
+        background-color: $main-background;
         border-radius: 5px;
     }
     .subjectTag:hover, .subjectTag:focus {
-        background-color: $white;
-        color: $main-gray;
-        font-weight: bold;
+        background-color: $prim;
+        color: $main-background;
     }
     .tagTag:hover, .tagTag:focus {
-        background-color: $secondary-blue;
-        color: white;
+        background-color: $prim;
+        color: $main-background;
     }
     .subjectTagSeparator {
-        color: $secondary-gray;
+        color: $contrast-prim;
     }
 }

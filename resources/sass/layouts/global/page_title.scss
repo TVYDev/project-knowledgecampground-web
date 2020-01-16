@@ -1,0 +1,27 @@
+.pageTitle {
+    display: grid;
+    grid-template-columns: 8% 92%;
+    div:first-child {
+        text-align: center;
+        color: $prim;
+        border-radius: 30px 30px 0 30px;
+        border: 3px solid $contrast-prim;
+        border-bottom-width: 1px;
+        border-right-width: 1px;
+        padding: 6px;
+        i {
+            color: $prim;
+        }
+    }
+    div:last-child {
+        font-weight: bold;
+        color: $main-front;
+        font-size: 1.5em;
+        border-bottom: 1px solid $contrast-prim;
+        align-self: end;
+        padding-bottom: 6px;
+        span {
+            margin-left: 10px;
+        }
+    }
+}

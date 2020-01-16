@@ -1,4 +1,5 @@
 $(document).ready(function (){
+    // Display if button of the nav menu is selected
     let btnNavMenu = document.querySelectorAll('#KCNavbar .btnNavMenu');
     btnNavMenu.forEach(btn => {
         if(btn.getAttribute('data-url') === window.location.href) {
@@ -8,35 +9,47 @@ $(document).ready(function (){
         }
     });
 
-    $('#KCNavbar .btnLogin, #KCNavbar .btnAsk, #KCNavbar .btnNavMenu').click(function () {
-        window.location.href = $(this).attr('data-url');
+    // Button change language on the navbar
+    $('.btnLang').popup({
+        inline     : true,
+        hoverable  : true,
+        position   : 'bottom center',
+        transition : 'vertical flip'
     });
-
-    let profileMenuList = $('#KCNavbar .profileMenuList');
-    $('#KCNavbar .avatar_name, #KCNavbar .avatar_img').click(function (){
-        profileMenuList.removeAttr('hidden');
-        if(profileMenuList.hasClass('flipInX')){
-            profileMenuList.removeClass('flipInX').addClass('flipOutX');
-        }
-        else{
-            profileMenuList.removeClass('flipOutX').addClass('flipInX');
-        }
-        });
-        $('#KCNavbar .userProfileBtn').focusout(function (){
-            profileMenuList.removeClass('flipInX').addClass('flipOutX');
-        });
-
-        $('#KCNavbar .menuBtns li').click(function(e){
-            window.location.href = $(this).attr('data-url');
-        });
-
-        $('#KCNavbar .btnLang').click(function(e){
-            let lang = $('html').attr('lang');
-            let currentLang = 'en';
-            if(lang === 'en'){
+    $('#KCNavbar .languageList div').click(function(e){
+        let lang = $('html').attr('lang');
+        let currentLang = 'en';
+        if(lang === 'en'){
             currentLang = 'kh';
         }
         changeLangOfProgram(currentLang);
+    });
+
+    // Button user profile after login
+    $('.blockAvatarImg').popup({
+        inline     : true,
+        hoverable  : true,
+        position   : 'bottom center',
+        transition : 'vertical flip'
+    });
+
+    $('#KCNavbar .btnLogin, #KCNavbar .btnAsk, #KCNavbar .btnQuestions').click(function () {
+        window.location.href = $(this).attr('data-url');
+    });
+
+    $('#KCNavbar .menuBtns li').click(function(e){
+        window.location.href = $(this).attr('data-url');
+    });
+
+    $('#KCNavbar .txtSearch').keypress(function(e){
+        if(e.keyCode === 13) {
+            let value = $(this).val();
+            let max = 2048;
+            if(value.length > max) {
+                value = value.substring(0, max);
+            }
+            window.location.href = $(this).attr('data-url') + '?search=' + value;
+        }
     });
 
     $('#KCNavbar #sideMenu .selLanguages​').change(function(){
@@ -46,6 +59,7 @@ $(document).ready(function (){
     navigateSideMenuForMobileScreen();
 });
 
+// ---------Helper functions
 function changeLangOfProgram (lang) {
     window.location.href = '/locale/' + lang;
 }

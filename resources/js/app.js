@@ -42,6 +42,8 @@ require('semantic-ui/dist/semantic.min');
 //     $('.ui.dropdown').dropdown();
 // };
 
+$('.btnWithToolTip').popup();
+
 /**
  * CodeMirror scripts
  */

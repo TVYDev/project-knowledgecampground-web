@@ -60,7 +60,7 @@
 body {
     padding-top: 4rem;
     font-size: 13px;
-    background: $page-background;
+    background: $main-background;
 }
 @media screen and (max-width: $tablet) and (min-width: $above-mobile-L) {
     body {
@@ -217,33 +217,8 @@ button:focus {
 .fa-2x {
     font-size: 2rem;
 }
-
-.headOfPage {
-    display: grid;
-    grid-template-columns: 8% 92%;
-
-    div:first-child {
-        text-align: center;
-        background-color: $page-background;
-        color: $main-green;
-        border-radius: 30px 30px 0 30px;
-        border: 3px solid $main-green;
-        padding: 6px;
-    }
-
-    div:last-child {
-        font-weight: bold;
-        color: $main-gray;
-        font-size: 1.5em;
-        border-bottom: 3px solid $main-green;
-        align-self: end;
-        padding-bottom: 6px;
-
-        span {
-            margin-left: 10px;
-        }
-    }
-}
+// Global
+@import 'layouts/global/page_title';
 
 @import '_animate.css';
 @import 'reusable_components/list_content_action_view';
@@ -254,6 +229,8 @@ button:focus {
 
 @import 'navbar';
 @import 'footer';
+@import 'layouts/partials/language_list';
+@import 'layouts/partials/user_profile_menu';
 @import 'layouts/partials/subject_tags';
 @import 'layouts/partials/list_of_items';
 @import 'auth/social_login.scss';
