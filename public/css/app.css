@@ -13833,12 +13833,17 @@ button:focus {
 }
 
 #KCNavbar #navContent .navSearchBar {
+  align-self: center;
   border-top: 0.3rem solid transparent;
   border-bottom: 0.2rem solid #026670;
 }
 
 #KCNavbar #navContent .navSearchBar input {
   border-radius: 20px;
+}
+
+#KCNavbar #navContent .navSearchBar i.icon.search {
+  color: #026670;
 }
 
 #KCNavbar #navContent .navMenu {
@@ -14583,34 +14588,33 @@ button:focus {
 }
 
 .subjectAndTags .subjectTag {
-  color: white;
-  border: 1px solid #005273;
-  background-color: #005273;
+  color: #026670;
+  border: 1px solid #026670;
+  background-color: #FFF;
   border-radius: 20px;
 }
 
 .subjectAndTags .tagTag {
-  color: #005273;
-  border: 1px solid #005273;
-  background-color: transparent;
+  color: #026670;
+  border: 1px solid #026670;
+  background-color: #FFF;
   border-radius: 5px;
 }
 
 .subjectAndTags .subjectTag:hover,
 .subjectAndTags .subjectTag:focus {
-  background-color: white;
-  color: #424242;
-  font-weight: bold;
+  background-color: #026670;
+  color: #FFF;
 }
 
 .subjectAndTags .tagTag:hover,
 .subjectAndTags .tagTag:focus {
-  background-color: #54D0E6;
-  color: white;
+  background-color: #026670;
+  color: #FFF;
 }
 
 .subjectAndTags .subjectTagSeparator {
-  color: #707070;
+  color: #fcc45e;
 }
 
 .listOfItems {
@@ -14635,14 +14639,17 @@ button:focus {
 }
 
 .listOfItems .item .basicInfo .title a {
-  color: #17CCA9;
+  color: #026670;
   font-size: 1.3em;
 }
 
 .listOfItems .item .basicInfo .title a:focus,
 .listOfItems .item .basicInfo .title a:hover {
-  font-weight: bold;
-  color: #0A5748;
+  color: #fcc45e;
+}
+
+.listOfItems .item .basicInfo .authorInfo {
+  color: #555;
 }
 
 .listOfItems .item .basicInfo .authorInfo a {
@@ -14651,10 +14658,11 @@ button:focus {
 
 .listOfItems .item .basicInfo .authorInfo a:hover,
 .listOfItems .item .basicInfo .authorInfo a:focus {
-  color: #17CCA9;
+  color: #fcc45e;
 }
 
 .listOfItems .item .stats {
+  color: #555;
   justify-self: center;
 }
 

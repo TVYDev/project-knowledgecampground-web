@@ -1,11 +1,17 @@
 {
-    "Ask Question": "សួរសំណួរ",
-    "Log In": "ចូលកម្មវិធី",
+    "1": "១",
     "All Questions": "កម្រងសំណួរ",
     "All Tags": "ស្ខាក",
-    "Notifications": "ដំណឹង",
+    "Ask Question": "សួរសំណួរ",
+    "List of Questions": "កម្រងសំណួរ",
+    "Log In": "ចូលកម្មវិធី",
     "Guide": "ជំនួយ",
+    "Notifications": "ដំណឹង",
+    "No Records": "មិនមានទិន្នន័យទេ",
+    "of": "នៃ",
+    "records": "ទិន្នន័យ",
     "Search Question...": "ស្វែងរកសំណួរ...",
+    "Showing": "បង្ហាញ",
 
 
     "View Profile": "ព័ត៌មានផ្ទាល់ខ្លួន",

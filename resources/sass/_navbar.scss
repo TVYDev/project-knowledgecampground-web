@@ -32,10 +32,14 @@
         grid-template-columns: 1fr 4fr 1.5fr 0.7fr;
         grid-template-rows: minmax(45px, 45px);
         .navSearchBar {
+            align-self: center;
             border-top: 0.3rem solid transparent;
             border-bottom: 0.2rem solid $prim;
             input {
                 border-radius: 20px;
+            }
+            i.icon.search {
+                color: $prim;
             }
         }
         .navMenu{

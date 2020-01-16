@@ -28,9 +28,9 @@
                 $totalPages = $paginator->getTotalPages();
                 $num = $perPage - ($totalPages * $perPage - $total);
             @endphp
-            Showing {{$num}} of {{$total}}
+            {{ __('Showing') }} {{$num}} {{ __('of') }} {{$total}} {{ __('records') }}
         @endif
     @else
-        No Records.
+        {{ __('No Records') }}
     @endif
 </div>

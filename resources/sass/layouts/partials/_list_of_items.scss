@@ -12,24 +12,25 @@
             .title {
                 margin-bottom: 5px;
                 a {
-                    color: $secondary-green;
+                    color: $prim;
                     font-size: 1.3em;
                 }
                 a:focus, a:hover {
-                    font-weight: bold;
-                    color: $main-green;
+                    color: $contrast-prim;
                 }
             }
             .authorInfo {
+                color: $main-front;
                 a {
                     font-weight: bold;
                 }
                 a:hover, a:focus {
-                    color: $secondary-green
+                    color: $contrast-prim
                 }
             }
         }
         .stats {
+            color: $main-front;
             justify-self: center;
         }
     }
