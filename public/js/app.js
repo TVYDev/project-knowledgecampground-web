@@ -66414,7 +66414,7 @@ function () {
         theme: 'relax',
         layout: 'topRight',
         text: this.msg,
-        timeout: '2000',
+        timeout: '1000',
         progressBar: true,
         closeWith: ['click'],
         animation: {
@@ -66666,20 +66666,19 @@ __webpack_require__(/*! ./reusable_components/list_content_action_view */ "./res
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
+  // $('body').css('backgroundColor', '#d2ffe1');
   $('.loginContent .kcCard .frontCard .btnGoToRegister').click(moveCardToRegister);
   $('.loginContent .kcCard .backCard .btnGoToLogin').click(moveCardToLogin);
 });
 
 function moveCardToRegister() {
-  $('.loginContent .formSide .kcCard .frontCard').css('visibility', 'hidden');
-  $('.loginContent .formSide .kcCard .backCard').css('visibility', 'visible');
-  $('.loginContent .formSide .kcCard').css('transform', 'rotateY(180deg)');
+  $('.loginContent .formSide .kcCard .backCard').css('transform', 'rotateY(0deg)');
+  $('.loginContent .formSide .kcCard .frontCard').css('transform', 'rotateY(-180deg)');
 }
 
 function moveCardToLogin() {
-  $('.loginContent .formSide .kcCard .backCard').css('visibility', 'hidden');
-  $('.loginContent .formSide .kcCard .frontCard').css('visibility', 'visible');
-  $('.loginContent .formSide .kcCard').css('transform', 'rotateY(0deg)');
+  $('.loginContent .formSide .kcCard .backCard').css('transform', 'rotateY(180deg)');
+  $('.loginContent .formSide .kcCard .frontCard').css('transform', 'rotateY(0deg)');
 }
 
 /***/ }),
@@ -66776,9 +66775,8 @@ $(document).ready(function () {
 
   if (hasError == 'true') {
     if (errorRegister == 'true') {
-      $('.loginContent .formSide .kcCard .frontCard').css('visibility', 'hidden');
-      $('.loginContent .formSide .kcCard .backCard').css('visibility', 'visible');
-      $('.loginContent .formSide .kcCard').css('transform', 'rotateY(180deg)');
+      $('.loginContent .formSide .kcCard .backCard').css('transform', 'rotateY(0deg)');
+      $('.loginContent .formSide .kcCard .frontCard').css('transform', 'rotateY(-180deg)');
     }
 
     var errorMsg = '';

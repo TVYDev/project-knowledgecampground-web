@@ -8,9 +8,8 @@ $(document).ready(function() {
 
     if(hasError == 'true'){
         if(errorRegister == 'true'){
-            $('.loginContent .formSide .kcCard .frontCard').css('visibility', 'hidden');
-            $('.loginContent .formSide .kcCard .backCard').css('visibility', 'visible');
-            $('.loginContent .formSide .kcCard').css('transform', 'rotateY(180deg)');
+            $('.loginContent .formSide .kcCard .backCard').css('transform', 'rotateY(0deg)');
+            $('.loginContent .formSide .kcCard .frontCard').css('transform', 'rotateY(-180deg)');
         }
 
         let errorMsg = '';
