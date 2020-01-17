@@ -11,13 +11,10 @@
     <div class="changePasswordContent">
         <div class="briefInfo">
             <img class="avatar_img" src="{{$default_avatar_url}}" alt="avatar_image">
-            <h3 class="fullname">TANG Vannyou</h3>
-            <h5 class="username">{{'@'.$username}}</h5>
-            <br>
-            <h5 class="email">vannyou@kc.com</h5>
+            <h3 class="username">{{'@'.$username}}</h3>
         </div>
         <div class="changePasswordForm">
-            <h2>{{ __('Change Password') }}</h2><br>
+            <h2 class="pageName">{{ __('Change Password') }}</h2><br>
             <form action="{{ route(\App\Lib\RouteConstants::USER_POST_CHANGE_PASSWORD) }}" method="post" id="formChangePassword">
                 @csrf
                 <div class="ui form">
