@@ -66414,7 +66414,7 @@ function () {
         theme: 'relax',
         layout: 'topRight',
         text: this.msg,
-        timeout: '1000',
+        timeout: '2000',
         progressBar: true,
         closeWith: ['click'],
         animation: {
@@ -66470,10 +66470,6 @@ function () {
         'indent': '+1'
       }], [{
         'header': [1, 2, 3, 4, 5, 6, false]
-      }], [{
-        'color': []
-      }, {
-        'background': []
       }], [{
         'align': []
       }], ['clean']];
@@ -66900,16 +66896,14 @@ function navigateSideMenuForMobileScreen() {
 /*!************************************************!*\
   !*** ./resources/js/question/post_question.js ***!
   \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../NotyAlertMessage */ "./resources/js/NotyAlertMessage.js");
 
 $(document).ready(function () {
-  // window.addEventListener("dragover",function(e){
-  //     e.preventDefault();
-  // });
-  // window.addEventListener("drop",function(e){
-  //     e.preventDefault();
-  // });
   $('.subjectOfQuestion').dropdown({
     forceSelection: false,
     onChange: function onChange(value) {
@@ -66946,6 +66940,26 @@ $(document).ready(function () {
   });
   $('.tagsOfQuestion').dropdown({
     forceSelection: false
+  });
+  $('#formAskQuestion').submit(function (e) {
+    var canSubmit = true;
+    var valueSubject = $('.subjectOfQuestion').dropdown('get value');
+
+    if (valueSubject === '') {
+      new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, 'Please choose a related subject').show();
+      canSubmit = false;
+    } else {
+      var valueTags = $('.tagsOfQuestion').dropdown('get value');
+
+      if (valueTags === '') {
+        new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, 'Please choose at least one related tag').show();
+        canSubmit = false;
+      }
+    }
+
+    if (!canSubmit) {
+      e.preventDefault();
+    }
   });
 });
 

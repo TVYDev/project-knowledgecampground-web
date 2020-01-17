@@ -13092,30 +13092,32 @@ button:focus {
 
 .ui.button.btnFormPrimary {
   color: white;
-  background-color: #17CCA9;
-  border: 1.5px solid #17CCA9;
+  background-color: #fcc45e;
+  border: 1.5px solid #fcc45e;
   border-radius: 10px;
   padding: 7px 10px;
 }
 
 .ui.button.btnFormPrimary:hover,
 .ui.button.btnFormPrimary:focus {
-  color: #17CCA9;
-  background-color: white;
+  color: #FFF;
+  background-color: #026670;
+  border-left-width: 1px;
+  border-right-width: 1px;
 }
 
 .ui.button.btnFormSecondary {
-  color: white;
-  background-color: #707070;
-  border: 1.5px solid #707070;
+  color: #555;
+  background-color: #FFF;
+  border: 2px solid #555;
   border-radius: 10px;
   padding: 7px 10px;
 }
 
 .ui.button.btnFormSecondary:hover,
 .ui.button.btnFormSecondary:focus {
-  color: #707070;
-  background-color: white;
+  color: #FFF;
+  background-color: #555;
 }
 
 .ui.button.btnFormThirdly {
@@ -13140,6 +13142,11 @@ button:focus {
   color: #555;
 }
 
+.requiredField::after {
+  content: " \273B";
+  color: #FF5654;
+}
+
 .ui.dropdown .menu {
   padding: 5px;
 }
@@ -13149,12 +13156,12 @@ button:focus {
 }
 
 .ui.dropdown .menu .item:hover {
-  background-color: #54D0E6;
+  background-color: #fcc45e;
 }
 
 .ui.toggle.checkbox input:checked ~ label:before,
 .ui.toggle.checkbox input:focus:checked ~ label:before {
-  background-color: #17CCA9 !important;
+  background-color: #fcc45e !important;
 }
 
 .far,
@@ -15031,44 +15038,6 @@ button:focus {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-column-gap: 10px;
-}
-
-.askQuestionContent .questionCreation .headAskQuestion {
-  display: grid;
-  grid-template-columns: 8% 92%;
-}
-
-.askQuestionContent .questionCreation .headAskQuestion div:first-child {
-  text-align: center;
-  background-color: #F3F3F3;
-  color: #0A5748;
-  border-radius: 30px 30px 0 30px;
-  border: 3px solid #0A5748;
-  padding: 6px;
-}
-
-.askQuestionContent .questionCreation .headAskQuestion div:last-child {
-  font-weight: bold;
-  color: #424242;
-  font-size: 1.5em;
-  border-bottom: 3px solid #0A5748;
-  align-self: end;
-  padding-bottom: 6px;
-}
-
-.askQuestionContent .questionCreation .headAskQuestion div:last-child span {
-  margin-left: 10px;
-}
-
-.askQuestionContent .questionCreation .questionTips {
-  margin-top: 10px;
-  border: 1px solid #0A5748;
-  padding: 10px;
-  border-radius: 10px;
-}
-
-.askQuestionContent .questionCreation .questionTips .tipText {
-  padding-left: 20px;
 }
 
 .askQuestionContent .questionCreation .askQuestionForm {

@@ -156,25 +156,27 @@ button:focus {
 }
 .ui.button.btnFormPrimary {
     color: $white;
-    background-color: $secondary-green;
-    border: 1.5px solid $secondary-green;
+    background-color: $contrast-prim;
+    border: 1.5px solid $contrast-prim;
     border-radius: 10px;
     padding: 7px 10px;
 }
 .ui.button.btnFormPrimary:hover, .ui.button.btnFormPrimary:focus {
-    color: $secondary-green;
-    background-color: white;
+    color: $main-background;
+    background-color: $prim;
+    border-left-width: 1px;
+    border-right-width: 1px;
 }
 .ui.button.btnFormSecondary {
-    color: white;
-    background-color: $secondary-gray;
-    border: 1.5px solid $secondary-gray;
+    color: $main-front;
+    background-color: $main-background;
+    border: 2px solid $main-front;
     border-radius: 10px;
     padding: 7px 10px;
 }
 .ui.button.btnFormSecondary:hover, .ui.button.btnFormSecondary:focus {
-    color: $secondary-gray;
-    background-color: white;
+    color: $main-background;
+    background-color: $main-front;
 }
 .ui.button.btnFormThirdly {
     background-color: $thirdly-gray;
@@ -198,6 +200,10 @@ button:focus {
 .pageName {
     color: $main-front;
 }
+.requiredField::after {
+    content: ' ✻';
+    color: $main-danger;
+}
 //------------------------------------------------------------------------Dropdown
 .ui.dropdown {
     .menu {
@@ -206,14 +212,14 @@ button:focus {
             border-radius: 5px;
         }
         .item:hover {
-            background-color: $secondary-blue;
+            background-color: $contrast-prim;
         }
     }
 }
 
 .ui.toggle.checkbox input:checked~label:before,
 .ui.toggle.checkbox input:focus:checked~label:before {
-    background-color: $secondary-green !important;
+    background-color: $contrast-prim !important;
 }
 
 //-----Font awesome icons

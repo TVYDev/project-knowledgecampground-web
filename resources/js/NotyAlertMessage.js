@@ -14,7 +14,7 @@ export default class NotyAlertMessage {
             theme: 'relax',
             layout: 'topRight',
             text: this.msg,
-            timeout: '1000',
+            timeout: '2000',
             progressBar: true,
             closeWith: ['click'],
             animation: {

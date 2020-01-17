@@ -12,7 +12,6 @@ use App\Lib\RouteConstants;
 use http\Exception\UnexpectedValueException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Input;
 
 class QuestionController extends Controller
 {
@@ -43,7 +42,7 @@ class QuestionController extends Controller
                     'public_id' => $s->public_id,
                     'name_en' => $s->name_en,
                     'name_kh' => $s->name_kh,
-                    'img_url' => HttpConstants::HOST_URL . $s->img_url
+                    'img_url' => $s->img_url
                 ]);
             }
 
