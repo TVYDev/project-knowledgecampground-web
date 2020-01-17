@@ -88,8 +88,8 @@ h1, h2, h3, h4, h5, h6,
     top: 3.2rem;
     width: auto;
     .noty_body {
-        font-size: 1.1rem;
-        font-family: "Patrick Hand", sans-serif;
+        font-size: 1rem;
+        font-family: "Taprom","Comfortaa", sans-serif;
         text-align: left;
     }
 }
@@ -185,6 +185,18 @@ button:focus {
 .ui.button.btnFormThirdly:hover, .ui.button.btnFormThirdly:focus {
     color: $secondary-gray;
     background-color: white;
+}
+
+.ui.form {
+    .field {
+        label, input {
+            color: $main-front;
+        }
+    }
+}
+
+.pageName {
+    color: $main-front;
 }
 //------------------------------------------------------------------------Dropdown
 .ui.dropdown {

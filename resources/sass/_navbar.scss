@@ -135,9 +135,11 @@
             align-self: center;
             justify-self: center;
             .avatarImg {
-                height: 30px;
-                border-radius: 5px;
-                border: 0.1em solid white;
+                height: 33px;
+                vertical-align: middle;
+                border-radius: 20px;
+                padding: 2px;
+                border: 1px solid white;
             }
         }
     }

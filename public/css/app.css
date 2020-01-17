@@ -13017,8 +13017,8 @@ h6,
 #noty_layout__topRight .noty_body,
 #noty_layout__topLeft .noty_body,
 #noty_layout__topCenter .noty_body {
-  font-size: 1.1rem;
-  font-family: "Patrick Hand", sans-serif;
+  font-size: 1rem;
+  font-family: "Taprom", "Comfortaa", sans-serif;
   text-align: left;
 }
 
@@ -13129,6 +13129,15 @@ button:focus {
 .ui.button.btnFormThirdly:focus {
   color: #707070;
   background-color: white;
+}
+
+.ui.form .field label,
+.ui.form .field input {
+  color: #555;
+}
+
+.pageName {
+  color: #555;
 }
 
 .ui.dropdown .menu {
@@ -13958,9 +13967,11 @@ button:focus {
 }
 
 #KCNavbar #navContent .blockAvatarImg .avatarImg {
-  height: 30px;
-  border-radius: 5px;
-  border: 0.1em solid white;
+  height: 33px;
+  vertical-align: middle;
+  border-radius: 20px;
+  padding: 2px;
+  border: 1px solid white;
 }
 
 @media screen and (max-width: 768px) and (min-width: 426px) {
@@ -14979,7 +14990,7 @@ button:focus {
 .changePasswordContent {
   margin-top: 50px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr;
   grid-column-gap: 5px;
 }
 
@@ -14988,6 +14999,10 @@ button:focus {
   border-right: 1.2px solid #D8D8D8;
   justify-self: right;
   text-align: center;
+}
+
+.changePasswordContent .briefInfo .username {
+  color: #026670;
 }
 
 .changePasswordContent .briefInfo .avatar_img {
@@ -15005,6 +15020,11 @@ button:focus {
 .changePasswordContent .notice {
   margin-top: 20px;
   font-size: 0.9em;
+}
+
+.changePasswordContent .notice p {
+  line-height: 20px;
+  color: #555;
 }
 
 .askQuestionContent {

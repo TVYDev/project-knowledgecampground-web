@@ -66414,7 +66414,7 @@ function () {
         theme: 'relax',
         layout: 'topRight',
         text: this.msg,
-        timeout: '2000',
+        timeout: '1000',
         progressBar: true,
         closeWith: ['click'],
         animation: {
