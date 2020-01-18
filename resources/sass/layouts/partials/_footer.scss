@@ -1,0 +1,66 @@
+.KCFooter {
+    margin-top: 100px;
+    height: 200px;
+    background-color: $main-front;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    .logoSide {
+        justify-self: center;
+        align-self: center;
+        img {
+            height: 80px;
+        }
+    }
+    .about {
+        border-left: 1px solid $main-background;
+        padding-left: 30px;
+        align-self: center;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        color: $main-background;
+        .appName {
+            font-size: 1.7em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .motto {
+            margin-bottom: 30px;
+        }
+        .developer {
+            a {
+                color: $contrast-prim;
+            }
+            a:hover::after, a:focus::after {
+                content: ' 🤙👍😃';
+            }
+            a:hover, a:focus {
+                font-weight: bold;
+            }
+        }
+    }
+    .contacts {
+        justify-self: center;
+        align-self: center;
+        text-align: center;
+        .spanContact {
+            text-align: center;
+            color: $main-background;
+            margin-bottom: 10px;
+        }
+        a {
+            background-color: $main-background;
+            padding: 10px 25px;
+            border-radius: 20px;
+            margin: 5px;
+            border: none;
+            cursor: pointer;
+            i {
+                font-size: 2em;
+                color: $main-front;
+            }
+        }
+        a:hover i, a:focus i {
+            color: $contrast-prim;
+        }
+    }
+}

@@ -68,7 +68,7 @@ require('codemirror/addon/hint/javascript-hint');
 
 require('codemirror/addon/selection/mark-selection');
 require('codemirror/addon/selection/active-line');
-
+require('codemirror/addon/scroll/simplescrollbars');
 require('codemirror/addon/edit/closebrackets');
 require('codemirror/addon/edit/matchbrackets');
 require('codemirror/addon/edit/closetag');
@@ -81,6 +81,7 @@ require('./navbar');
 require('./auth/login');
 require('./form_alert_message');
 require('./question/post_question');
+require('./question/view_question');
 require('./reusable_components/content_management_preview');
 require('./reusable_components/content_editor');
 require('./reusable_components/content_action_view');

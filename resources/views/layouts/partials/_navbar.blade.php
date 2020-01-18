@@ -12,7 +12,7 @@ $username = $ua[\App\Lib\UserConstants::USER_NAME];
     </button>
     <div id="navContent">
         <button type="button" class="btnAsk btn-primary" data-url="{{ route(\App\Lib\RouteConstants::QUESTION_GET_POST) }}">
-            <span>{{ __('Ask Question') }}</span><i class="fas fa-pencil-alt"></i>
+            <span>{{ __('Ask Question') }}</span><i class="fas fa-feather-alt"></i>
         </button>
         <div class="navSearchBar">
             <div class="ui fluid icon input">
