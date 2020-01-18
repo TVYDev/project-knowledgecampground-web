@@ -13,28 +13,28 @@
         <div class="questionCreation">
             <div class="headAskQuestion pageTitle">
                 <div><i class="fas fa-feather-alt"></i></div>
-                <div><span>Ask a question</span></div>
+                <div><span>{{ __('Ask Question') }}</span></div>
             </div>
             <div class="askQuestionForm">
                 <form action="{{ route(\App\Lib\RouteConstants::QUESTION_POST_POST) }}" method="POST" id="formAskQuestion">
                     @csrf
                     <div class="ui form">
                         <div class="field">
-                            <label for="title" class="requiredField">Title</label>
-                            <input type="text" class="questionTitle" id="title" name="title" placeholder="Keep your title short and simple" required="required">
+                            <label for="title" class="requiredField">{{ __('Title') }}</label>
+                            <input type="text" class="questionTitle" id="title" name="title" placeholder="{{ __('Keep your title short and simple') }}" required="required">
                         </div>
                         <div class="field">
-                            <label for="description" class="requiredField"><strong>Description</strong></label>
+                            <label for="description" class="requiredField"><strong>{{ __('Description') }}</strong></label>
                             <div class="descriptionBlock col-md-12 m-0 p-0"></div>
                             <input type="hidden" name="publicId" value="{{ $publicId }}">
                             <tvy-content-editor class="col-md-12" data-public-id="{{ $publicId }}"></tvy-content-editor>
                         </div>
                         <div class="field">
-                            <label for="subject" class="requiredField">Subject</label>
+                            <label for="subject" class="requiredField">{{ __('Subject') }}</label>
                             <div class="ui fluid selection dropdown subjectOfQuestion">
                                 <input type="hidden" name="subject" value="">
                                 <i class="dropdown icon"></i>
-                                <div class="default text">Choose a subject</div>
+                                <div class="default text">{{ __('Choose a subject') }}</div>
                                 <div class="menu">
                                     @foreach($subjectsData as $s)
                                         <div class="item" data-value="{{$s['public_id']}}">
@@ -46,11 +46,11 @@
                             </div>
                         </div>
                         <div class="field">
-                            <label for="tags" class="requiredField">Tags</label>
+                            <label for="tags" class="requiredField">{{ __('Tags') }}</label>
                             <div class="ui fluid multiple search selection dropdown tagsOfQuestion">
                                 <input type="hidden" name="tags" value="">
                                 <i class="dropdown icon"></i>
-                                <div class="default text">Choose related tags (maximum 3 tags)</div>
+                                <div class="default text">{{ __('Choose related tags (maximum 3 tags)') }}</div>
                                 <div class="menu"></div>
                             </div>
                         </div>

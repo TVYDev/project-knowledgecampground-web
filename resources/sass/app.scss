@@ -161,6 +161,7 @@ button:focus {
     border: 1.5px solid $contrast-prim;
     border-radius: 10px;
     padding: 7px 10px;
+    font-weight: normal;
 }
 .ui.button.btnFormPrimary:hover, .ui.button.btnFormPrimary:focus {
     color: $main-background;
@@ -174,6 +175,7 @@ button:focus {
     border: 2px solid $main-front;
     border-radius: 10px;
     padding: 7px 10px;
+    font-weight: normal;
 }
 .ui.button.btnFormSecondary:hover, .ui.button.btnFormSecondary:focus {
     color: $main-background;
