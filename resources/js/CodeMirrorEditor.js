@@ -18,7 +18,7 @@ export default class CodeMirrorEditor {
             value: "",
             theme: this.theme,
             mode:  this.mode,
-            scrollbarStyle: scrollbar,
+            scrollbarStyle: "overlay",
             readOnly: isReadOnly,
             autoFocus: true,
             lineNumbers: true,

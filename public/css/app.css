@@ -3244,6 +3244,71 @@ li.CodeMirror-hint-active {
   background: #08f;
   color: white;
 }
+.CodeMirror-simplescroll-horizontal div, .CodeMirror-simplescroll-vertical div {
+  position: absolute;
+  background: #ccc;
+  box-sizing: border-box;
+  border: 1px solid #bbb;
+  border-radius: 2px;
+}
+
+.CodeMirror-simplescroll-horizontal, .CodeMirror-simplescroll-vertical {
+  position: absolute;
+  z-index: 6;
+  background: #eee;
+}
+
+.CodeMirror-simplescroll-horizontal {
+  bottom: 0; left: 0;
+  height: 8px;
+}
+.CodeMirror-simplescroll-horizontal div {
+  bottom: 0;
+  height: 100%;
+}
+
+.CodeMirror-simplescroll-vertical {
+  right: 0; top: 0;
+  width: 8px;
+}
+.CodeMirror-simplescroll-vertical div {
+  right: 0;
+  width: 100%;
+}
+
+
+.CodeMirror-overlayscroll .CodeMirror-scrollbar-filler, .CodeMirror-overlayscroll .CodeMirror-gutter-filler {
+  display: none;
+}
+
+.CodeMirror-overlayscroll-horizontal div, .CodeMirror-overlayscroll-vertical div {
+  position: absolute;
+  background: #bcd;
+  border-radius: 3px;
+}
+
+.CodeMirror-overlayscroll-horizontal, .CodeMirror-overlayscroll-vertical {
+  position: absolute;
+  z-index: 6;
+}
+
+.CodeMirror-overlayscroll-horizontal {
+  bottom: 0; left: 0;
+  height: 6px;
+}
+.CodeMirror-overlayscroll-horizontal div {
+  bottom: 0;
+  height: 100%;
+}
+
+.CodeMirror-overlayscroll-vertical {
+  right: 0; top: 0;
+  width: 6px;
+}
+.CodeMirror-overlayscroll-vertical div {
+  right: 0;
+  width: 100%;
+}
 @charset "UTF-8";
 
 /*!
@@ -12970,6 +13035,10 @@ readers do not read off random characters that represent icons */
   font-family: "Font Awesome 5 Brands";
 }
 
+.CodeMirror {
+  width: 615px;
+}
+
 .CodeMirror * {
   font-family: "Source Code Pro", monospace;
   font-size: 12px;
@@ -13309,6 +13378,7 @@ button:focus {
 }
 
 .TVYContentEditor {
+  width: 615px;
   margin: 5px 0;
   padding: 0;
   border-radius: 5px;
@@ -13346,7 +13416,6 @@ button:focus {
 }
 
 .TVYContentEditor .editor {
-  max-width: 700px;
   border: 1px solid #D8D8D8;
   border-top: none;
   border-bottom: none;
@@ -13361,6 +13430,7 @@ button:focus {
 .TVYContentEditor .editor .ql-toolbar {
   border: none;
   border-top: 2px solid #17CCA9;
+  border-bottom: 1px solid #D8D8D8;
   background-color: white;
 }
 
@@ -15036,7 +15106,7 @@ button:focus {
 
 .askQuestionContent {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 615px auto;
   grid-column-gap: 10px;
 }
 

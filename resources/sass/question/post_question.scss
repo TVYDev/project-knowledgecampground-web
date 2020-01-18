@@ -1,6 +1,6 @@
 .askQuestionContent {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: $codeEditorSize auto;
     grid-column-gap: 10px;
     .questionCreation {
         .askQuestionForm {

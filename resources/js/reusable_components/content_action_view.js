@@ -44,6 +44,7 @@ class TVYContentActionView extends HTMLElement
         this.authorName = null;
         this.avatarUrl = null;
 
+        this.defaultSharedAvatarUrl = window.location.protocol + '//' + window.location.host + '/icons/robot.png';
         this.currentAvatarUrl = this.getAttribute('data-current-avatar-url');
         this.currentUsername = this.getAttribute('data-current-username');
         let contentType = this.getAttribute('data-content-type');
@@ -71,6 +72,9 @@ class TVYContentActionView extends HTMLElement
 
         this.reRenderHidden.addEventListener('click', this.getDescriptionContent.bind(this));
         this.btnComment.addEventListener('click', this.saveComment.bind(this));
+
+        this.avatarAddComment.setAttribute('src', this.defaultSharedAvatarUrl);
+        this.avatar.setAttribute('src', this.defaultSharedAvatarUrl);
 
         this.getDescriptionContent();
         this.getListOfPostedComments();
@@ -145,7 +149,6 @@ class TVYContentActionView extends HTMLElement
             beforeSend: (xhr) => {
                 this.viewPart.innerHTML = '';
                 this.viewPart.appendChild(this.loaderContent);
-                this.actionPart.style.visibility = 'hidden';
             },
             success: (result) => {
                 this.viewPart.removeChild(this.loaderContent);
@@ -158,7 +161,6 @@ class TVYContentActionView extends HTMLElement
                     this.authorId = result.author_id;
                     this.authorName = result.author_name;
                     this.avatarUrl = result.avatar_url;
-                    this.actionPart.style.visibility = 'visible';
                 }else {
                     this.addWarningNoContent();
                 }
@@ -200,8 +202,8 @@ class TVYContentActionView extends HTMLElement
         this.author.setAttribute('data-author-id', authorId);
         this.author.textContent = authorName;
         this.avatar.setAttribute('data-author-id', authorId);
-        this.avatar.setAttribute('src', avatarUrl);
-        this.avatarAddComment.setAttribute('src', this.currentAvatarUrl);
+        this.avatar.setAttribute('src', avatarUrl === null ? this.defaultSharedAvatarUrl : avatarUrl);
+        this.avatarAddComment.setAttribute('src', this.currentAvatarUrl === null ? this.defaultSharedAvatarUrl : this.currentAvatarUrl);
     }
 
     fillTheContent ()

@@ -1,5 +1,5 @@
 .TVYContentEditor {
-    //z-index: 334;
+    width: $codeEditorSize;
     margin: 5px 0;
     padding: 0;
     border-radius: 5px;
@@ -30,7 +30,6 @@
         }
     }
     .editor {
-        max-width: 700px;
         border: 1px solid $thirdly-gray;
         border-top: none;
         border-bottom: none;
@@ -42,6 +41,7 @@
         .ql-toolbar {
             border: none;
             border-top: 2px solid $secondary-green;
+            border-bottom: 1px solid $thirdly-gray;
             background-color: white;
         }
         #TVYCodeEditor {

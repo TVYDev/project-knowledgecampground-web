@@ -42,15 +42,22 @@ $(document).ready(function() {
     $('#formAskQuestion').submit(function(e) {
         let canSubmit = true;
         let valueSubject = $('.subjectOfQuestion').dropdown('get value');
-        if(valueSubject === '') {
-            new NotyAlertMessage(NotyAlertMessage.WARNING, 'Please choose a related subject').show();
+        let hasValueDesc = $('tvy-content-editor').attr('data-has-value');
+        let descElements = $('.questionContentManagement .TVYContentOrder').children();
+        if(hasValueDesc !== 'true' || descElements.length < 1) {
+            new NotyAlertMessage(NotyAlertMessage.WARNING, 'Please add description for your question').show();
             canSubmit = false;
-        }
-        else {
-            let valueTags = $('.tagsOfQuestion').dropdown('get value');
-            if(valueTags === '') {
-                new NotyAlertMessage(NotyAlertMessage.WARNING, 'Please choose at least one related tag').show();
+        }else {
+            if(valueSubject === '') {
+                new NotyAlertMessage(NotyAlertMessage.WARNING, 'Please choose a related subject').show();
                 canSubmit = false;
+            }
+            else {
+                let valueTags = $('.tagsOfQuestion').dropdown('get value');
+                if(valueTags === '') {
+                    new NotyAlertMessage(NotyAlertMessage.WARNING, 'Please choose at least one related tag').show();
+                    canSubmit = false;
+                }
             }
         }
         if(!canSubmit) {

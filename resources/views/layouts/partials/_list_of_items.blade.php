@@ -26,7 +26,9 @@
                 $perPage = $paginator->getPerPage();
                 $total = $paginator->getTotalRecords();
                 $totalPages = $paginator->getTotalPages();
-                $num = $perPage - ($totalPages * $perPage - $total);
+                $numWholePages = $total / $perPage;
+                $remaining = $total % $perPage;
+                $num = $page <= $numWholePages ? $perPage : $remaining;
             @endphp
             {{ __('Showing') }} {{$num}} {{ __('of') }} {{$total}} {{ __('records') }}
         @endif
