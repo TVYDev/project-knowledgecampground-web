@@ -24,11 +24,11 @@
                             @csrf
                             <div class="ui form">
                                 <div class="field">
-                                    <label for="emailLogin">{{ __('Email') }}</label>
+                                    <label for="emailLogin" class="requiredField">{{ __('Email') }}</label>
                                     <input type="text" name="emailLogin" required="required" id="emailLogin" value="{{ old('emailLogin') }}">
                                 </div>
                                 <div class="field">
-                                    <label for="passwordLogin">{{ __('Password') }}</label>
+                                    <label for="passwordLogin" class="requiredField">{{ __('Password') }}</label>
                                     <input type="password" name="passwordLogin" id="passwordLogin" required="required">
                                 </div>
                                 <button class="ui button fluid btnPrimary" type="submit">{{ __('Log In') }}</button>
@@ -52,15 +52,15 @@
                             @csrf
                             <div class="ui form">
                                 <div class="field">
-                                    <label for="username">{{ __('Username') }}</label>
+                                    <label for="username" class="requiredField">{{ __('Username') }}</label>
                                     <input type="text" name="username" id="username" required="required" value="{{ old('username') }}">
                                 </div>
                                 <div class="field">
-                                    <label for="emailRegister">{{ __('Email') }}</label>
+                                    <label for="emailRegister" class="requiredField">{{ __('Email') }}</label>
                                     <input type="text" name="emailRegister" id="emailRegister" required="required" value="{{ old('emailRegister') }}">
                                 </div>
                                 <div class="field">
-                                    <label for="passwordRegister">{{ __('Password') }}</label>
+                                    <label for="passwordRegister" class="requiredField">{{ __('Password') }}</label>
                                     <input type="password" name="passwordRegister" id="passwordRegister" required="required">
                                 </div>
                                 <button class="ui button fluid btnPrimary" type="submit">{{ __('Register') }}</button>

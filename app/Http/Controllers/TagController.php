@@ -26,7 +26,7 @@ class TagController extends Controller
                         'name_kh' => $t->name_kh,
                         'desc_en' => $t->description_en,
                         'desc_kh' => $t->description_kh,
-                        'img_url' => HttpConstants::HOST_URL . $t->img_url
+                        'img_url' => $t->img_url
                     ]);
                 }
             }

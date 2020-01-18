@@ -12,7 +12,6 @@ use App\Lib\RouteConstants;
 use http\Exception\UnexpectedValueException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Input;
 
 class QuestionController extends Controller
 {
@@ -43,7 +42,7 @@ class QuestionController extends Controller
                     'public_id' => $s->public_id,
                     'name_en' => $s->name_en,
                     'name_kh' => $s->name_kh,
-                    'img_url' => HttpConstants::HOST_URL . $s->img_url
+                    'img_url' => $s->img_url
                 ]);
             }
 
@@ -167,39 +166,13 @@ class QuestionController extends Controller
             if($response->success) {
                 $data = $response->data;
 
-                // Prepare subject of the question
-                $subject = [
-                    'public_id' => $data->subject->public_id,
-                    'name_en'   => $data->subject->name_en,
-                    'name_kh'   => $data->subject->name_kh,
-                    'img_url'   => HttpConstants::HOST_URL . $data->subject->img_url
-                ];
-
-                // Prepare tags of the question
-                $tags = [];
-                if(isset($data->tags)){
-                    foreach ($data->tags as $t){
-                        array_push($tags, [
-                            'public_id' => $t->public_id,
-                            'name_en'   => $t->name_en,
-                            'name_kh'   => $t->name_kh,
-                            'img_url'   => HttpConstants::HOST_URL . $t->img_url
-                        ]);
-                    }
-                }
-
                 $newAnswerPublicId = $this->supporter->doGeneratePublicId();
 
                 return view('question.view_question')
+                    ->with('data', $data)
                     ->with('questionPublicId', $publicId)
                     ->with('answerPublicId', $newAnswerPublicId)
-                    ->with('title', $data->title)
-                    ->with('readableTime', $data->readable_time_en)
-                    ->with('authorName', $data->author_name)
-                    ->with('authorId', $data->author_id)
                     ->with('avatarUrl', HttpConstants::HOST_URL . $data->avatar_url)
-                    ->with('subject', $subject)
-                    ->with('tags', $tags)
                     ->with('relativePathStoreImagesOfQuestion', HttpConstants::HOST_URL . $data->description->relative_path_store_images);
             }
         }

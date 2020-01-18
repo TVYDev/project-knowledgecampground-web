@@ -5221,6 +5221,166 @@ function isnan (val) {
 
 /***/ }),
 
+/***/ "./node_modules/codemirror/addon/scroll/simplescrollbars.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/codemirror/addon/scroll/simplescrollbars.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// CodeMirror, copyright (c) by Marijn Haverbeke and others
+// Distributed under an MIT license: https://codemirror.net/LICENSE
+
+(function(mod) {
+  if (true) // CommonJS
+    mod(__webpack_require__(/*! ../../lib/codemirror */ "./node_modules/codemirror/lib/codemirror.js"));
+  else {}
+})(function(CodeMirror) {
+  "use strict";
+
+  function Bar(cls, orientation, scroll) {
+    this.orientation = orientation;
+    this.scroll = scroll;
+    this.screen = this.total = this.size = 1;
+    this.pos = 0;
+
+    this.node = document.createElement("div");
+    this.node.className = cls + "-" + orientation;
+    this.inner = this.node.appendChild(document.createElement("div"));
+
+    var self = this;
+    CodeMirror.on(this.inner, "mousedown", function(e) {
+      if (e.which != 1) return;
+      CodeMirror.e_preventDefault(e);
+      var axis = self.orientation == "horizontal" ? "pageX" : "pageY";
+      var start = e[axis], startpos = self.pos;
+      function done() {
+        CodeMirror.off(document, "mousemove", move);
+        CodeMirror.off(document, "mouseup", done);
+      }
+      function move(e) {
+        if (e.which != 1) return done();
+        self.moveTo(startpos + (e[axis] - start) * (self.total / self.size));
+      }
+      CodeMirror.on(document, "mousemove", move);
+      CodeMirror.on(document, "mouseup", done);
+    });
+
+    CodeMirror.on(this.node, "click", function(e) {
+      CodeMirror.e_preventDefault(e);
+      var innerBox = self.inner.getBoundingClientRect(), where;
+      if (self.orientation == "horizontal")
+        where = e.clientX < innerBox.left ? -1 : e.clientX > innerBox.right ? 1 : 0;
+      else
+        where = e.clientY < innerBox.top ? -1 : e.clientY > innerBox.bottom ? 1 : 0;
+      self.moveTo(self.pos + where * self.screen);
+    });
+
+    function onWheel(e) {
+      var moved = CodeMirror.wheelEventPixels(e)[self.orientation == "horizontal" ? "x" : "y"];
+      var oldPos = self.pos;
+      self.moveTo(self.pos + moved);
+      if (self.pos != oldPos) CodeMirror.e_preventDefault(e);
+    }
+    CodeMirror.on(this.node, "mousewheel", onWheel);
+    CodeMirror.on(this.node, "DOMMouseScroll", onWheel);
+  }
+
+  Bar.prototype.setPos = function(pos, force) {
+    if (pos < 0) pos = 0;
+    if (pos > this.total - this.screen) pos = this.total - this.screen;
+    if (!force && pos == this.pos) return false;
+    this.pos = pos;
+    this.inner.style[this.orientation == "horizontal" ? "left" : "top"] =
+      (pos * (this.size / this.total)) + "px";
+    return true
+  };
+
+  Bar.prototype.moveTo = function(pos) {
+    if (this.setPos(pos)) this.scroll(pos, this.orientation);
+  }
+
+  var minButtonSize = 10;
+
+  Bar.prototype.update = function(scrollSize, clientSize, barSize) {
+    var sizeChanged = this.screen != clientSize || this.total != scrollSize || this.size != barSize
+    if (sizeChanged) {
+      this.screen = clientSize;
+      this.total = scrollSize;
+      this.size = barSize;
+    }
+
+    var buttonSize = this.screen * (this.size / this.total);
+    if (buttonSize < minButtonSize) {
+      this.size -= minButtonSize - buttonSize;
+      buttonSize = minButtonSize;
+    }
+    this.inner.style[this.orientation == "horizontal" ? "width" : "height"] =
+      buttonSize + "px";
+    this.setPos(this.pos, sizeChanged);
+  };
+
+  function SimpleScrollbars(cls, place, scroll) {
+    this.addClass = cls;
+    this.horiz = new Bar(cls, "horizontal", scroll);
+    place(this.horiz.node);
+    this.vert = new Bar(cls, "vertical", scroll);
+    place(this.vert.node);
+    this.width = null;
+  }
+
+  SimpleScrollbars.prototype.update = function(measure) {
+    if (this.width == null) {
+      var style = window.getComputedStyle ? window.getComputedStyle(this.horiz.node) : this.horiz.node.currentStyle;
+      if (style) this.width = parseInt(style.height);
+    }
+    var width = this.width || 0;
+
+    var needsH = measure.scrollWidth > measure.clientWidth + 1;
+    var needsV = measure.scrollHeight > measure.clientHeight + 1;
+    this.vert.node.style.display = needsV ? "block" : "none";
+    this.horiz.node.style.display = needsH ? "block" : "none";
+
+    if (needsV) {
+      this.vert.update(measure.scrollHeight, measure.clientHeight,
+                       measure.viewHeight - (needsH ? width : 0));
+      this.vert.node.style.bottom = needsH ? width + "px" : "0";
+    }
+    if (needsH) {
+      this.horiz.update(measure.scrollWidth, measure.clientWidth,
+                        measure.viewWidth - (needsV ? width : 0) - measure.barLeft);
+      this.horiz.node.style.right = needsV ? width + "px" : "0";
+      this.horiz.node.style.left = measure.barLeft + "px";
+    }
+
+    return {right: needsV ? width : 0, bottom: needsH ? width : 0};
+  };
+
+  SimpleScrollbars.prototype.setScrollTop = function(pos) {
+    this.vert.setPos(pos);
+  };
+
+  SimpleScrollbars.prototype.setScrollLeft = function(pos) {
+    this.horiz.setPos(pos);
+  };
+
+  SimpleScrollbars.prototype.clear = function() {
+    var parent = this.horiz.node.parentNode;
+    parent.removeChild(this.horiz.node);
+    parent.removeChild(this.vert.node);
+  };
+
+  CodeMirror.scrollbarModel.simple = function(place, scroll) {
+    return new SimpleScrollbars("CodeMirror-simplescroll", place, scroll);
+  };
+  CodeMirror.scrollbarModel.overlay = function(place, scroll) {
+    return new SimpleScrollbars("CodeMirror-overlayscroll", place, scroll);
+  };
+});
+
+
+/***/ }),
+
 /***/ "./node_modules/codemirror/addon/selection/active-line.js":
 /*!****************************************************************!*\
   !*** ./node_modules/codemirror/addon/selection/active-line.js ***!
@@ -66286,7 +66446,7 @@ function () {
       value: "",
       theme: this.theme,
       mode: this.mode,
-      scrollbarStyle: scrollbar,
+      scrollbarStyle: "overlay",
       readOnly: isReadOnly,
       autoFocus: true,
       lineNumbers: true,
@@ -66414,7 +66574,7 @@ function () {
         theme: 'relax',
         layout: 'topRight',
         text: this.msg,
-        timeout: '1000',
+        timeout: '2000',
         progressBar: true,
         closeWith: ['click'],
         animation: {
@@ -66470,10 +66630,6 @@ function () {
         'indent': '+1'
       }], [{
         'header': [1, 2, 3, 4, 5, 6, false]
-      }], [{
-        'color': []
-      }, {
-        'background': []
       }], [{
         'align': []
       }], ['clean']];
@@ -66628,6 +66784,8 @@ __webpack_require__(/*! codemirror/addon/selection/mark-selection */ "./node_mod
 
 __webpack_require__(/*! codemirror/addon/selection/active-line */ "./node_modules/codemirror/addon/selection/active-line.js");
 
+__webpack_require__(/*! codemirror/addon/scroll/simplescrollbars */ "./node_modules/codemirror/addon/scroll/simplescrollbars.js");
+
 __webpack_require__(/*! codemirror/addon/edit/closebrackets */ "./node_modules/codemirror/addon/edit/closebrackets.js");
 
 __webpack_require__(/*! codemirror/addon/edit/matchbrackets */ "./node_modules/codemirror/addon/edit/matchbrackets.js");
@@ -66647,6 +66805,8 @@ __webpack_require__(/*! ./auth/login */ "./resources/js/auth/login.js");
 __webpack_require__(/*! ./form_alert_message */ "./resources/js/form_alert_message.js");
 
 __webpack_require__(/*! ./question/post_question */ "./resources/js/question/post_question.js");
+
+__webpack_require__(/*! ./question/view_question */ "./resources/js/question/view_question.js");
 
 __webpack_require__(/*! ./reusable_components/content_management_preview */ "./resources/js/reusable_components/content_management_preview.js");
 
@@ -66900,16 +67060,14 @@ function navigateSideMenuForMobileScreen() {
 /*!************************************************!*\
   !*** ./resources/js/question/post_question.js ***!
   \************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../NotyAlertMessage */ "./resources/js/NotyAlertMessage.js");
 
 $(document).ready(function () {
-  // window.addEventListener("dragover",function(e){
-  //     e.preventDefault();
-  // });
-  // window.addEventListener("drop",function(e){
-  //     e.preventDefault();
-  // });
   $('.subjectOfQuestion').dropdown({
     forceSelection: false,
     onChange: function onChange(value) {
@@ -66946,6 +67104,63 @@ $(document).ready(function () {
   });
   $('.tagsOfQuestion').dropdown({
     forceSelection: false
+  });
+  $('#formAskQuestion').submit(function (e) {
+    var canSubmit = true;
+    var valueSubject = $('.subjectOfQuestion').dropdown('get value');
+    var hasValueDesc = $('tvy-content-editor').attr('data-has-value');
+    var descElements = $('.questionContentManagement .TVYContentOrder').children();
+
+    if (hasValueDesc !== 'true' || descElements.length < 1) {
+      new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, 'Please add description for your question').show();
+      canSubmit = false;
+    } else {
+      if (valueSubject === '') {
+        new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, 'Please choose a related subject').show();
+        canSubmit = false;
+      } else {
+        var valueTags = $('.tagsOfQuestion').dropdown('get value');
+
+        if (valueTags === '') {
+          new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, 'Please choose at least one related tag').show();
+          canSubmit = false;
+        }
+      }
+    }
+
+    if (!canSubmit) {
+      e.preventDefault();
+    }
+  });
+});
+
+/***/ }),
+
+/***/ "./resources/js/question/view_question.js":
+/*!************************************************!*\
+  !*** ./resources/js/question/view_question.js ***!
+  \************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../NotyAlertMessage */ "./resources/js/NotyAlertMessage.js");
+
+$(document).ready(function () {
+  $('#formAnswerQuestion').submit(function (e) {
+    var canSubmit = true;
+    var hasValueDesc = $('tvy-content-editor').attr('data-has-value');
+    var descElements = $('.answerContentManagement .TVYContentOrder').children();
+
+    if (hasValueDesc !== 'true' || descElements.length < 1) {
+      new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, 'Please add description for your answer').show();
+      canSubmit = false;
+    }
+
+    if (!canSubmit) {
+      e.preventDefault();
+    }
   });
 });
 
@@ -67009,6 +67224,7 @@ function (_HTMLElement) {
     _this.authorId = null;
     _this.authorName = null;
     _this.avatarUrl = null;
+    _this.defaultSharedAvatarUrl = window.location.protocol + '//' + window.location.host + '/icons/robot.png';
     _this.currentAvatarUrl = _this.getAttribute('data-current-avatar-url');
     _this.currentUsername = _this.getAttribute('data-current-username');
 
@@ -67037,6 +67253,10 @@ function (_HTMLElement) {
     _this.reRenderHidden.addEventListener('click', _this.getDescriptionContent.bind(_assertThisInitialized(_this)));
 
     _this.btnComment.addEventListener('click', _this.saveComment.bind(_assertThisInitialized(_this)));
+
+    _this.avatarAddComment.setAttribute('src', _this.defaultSharedAvatarUrl);
+
+    _this.avatar.setAttribute('src', _this.defaultSharedAvatarUrl);
 
     _this.getDescriptionContent();
 
@@ -67109,8 +67329,6 @@ function (_HTMLElement) {
           _this3.viewPart.innerHTML = '';
 
           _this3.viewPart.appendChild(_this3.loaderContent);
-
-          _this3.actionPart.style.visibility = 'hidden';
         },
         success: function success(result) {
           _this3.viewPart.removeChild(_this3.loaderContent);
@@ -67126,7 +67344,6 @@ function (_HTMLElement) {
             _this3.authorId = result.author_id;
             _this3.authorName = result.author_name;
             _this3.avatarUrl = result.avatar_url;
-            _this3.actionPart.style.visibility = 'visible';
           } else {
             _this3.addWarningNoContent();
           }
@@ -67171,8 +67388,8 @@ function (_HTMLElement) {
       this.author.setAttribute('data-author-id', authorId);
       this.author.textContent = authorName;
       this.avatar.setAttribute('data-author-id', authorId);
-      this.avatar.setAttribute('src', avatarUrl);
-      this.avatarAddComment.setAttribute('src', this.currentAvatarUrl);
+      this.avatar.setAttribute('src', avatarUrl === null ? this.defaultSharedAvatarUrl : avatarUrl);
+      this.avatarAddComment.setAttribute('src', this.currentAvatarUrl === null ? this.defaultSharedAvatarUrl : this.currentAvatarUrl);
     }
   }, {
     key: "fillTheContent",
@@ -67327,6 +67544,7 @@ function (_HTMLElement) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(TVYContentEditor).call(this));
     _this.innerHTML = html;
+    _this.currentAvatarUrl = _this.getAttribute('data-current-avatar-url');
     _this.publicId = _this.getAttribute('data-public-id');
     _this.referencePublicId = _this.getAttribute('data-reference-public-id');
 
@@ -67937,6 +68155,7 @@ function (_HTMLElement) {
     key: "saveDescDataToBackend",
     value: function saveDescDataToBackend() {
       var dataToSave = this.prepareFormDataToSaveToBackend(this.contentType);
+      var currentEditor = this;
       $.ajax({
         url: dataToSave['url'],
         headers: {
@@ -67948,6 +68167,7 @@ function (_HTMLElement) {
         type: 'POST',
         success: function success(result) {
           document.querySelector('.TVYContentManagementPreview .reRender').click();
+          currentEditor.setAttribute('data-has-value', 'true');
         },
         error: function error(err) {
           console.log(err);

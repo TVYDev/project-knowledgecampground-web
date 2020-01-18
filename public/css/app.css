@@ -3244,6 +3244,71 @@ li.CodeMirror-hint-active {
   background: #08f;
   color: white;
 }
+.CodeMirror-simplescroll-horizontal div, .CodeMirror-simplescroll-vertical div {
+  position: absolute;
+  background: #ccc;
+  box-sizing: border-box;
+  border: 1px solid #bbb;
+  border-radius: 2px;
+}
+
+.CodeMirror-simplescroll-horizontal, .CodeMirror-simplescroll-vertical {
+  position: absolute;
+  z-index: 6;
+  background: #eee;
+}
+
+.CodeMirror-simplescroll-horizontal {
+  bottom: 0; left: 0;
+  height: 8px;
+}
+.CodeMirror-simplescroll-horizontal div {
+  bottom: 0;
+  height: 100%;
+}
+
+.CodeMirror-simplescroll-vertical {
+  right: 0; top: 0;
+  width: 8px;
+}
+.CodeMirror-simplescroll-vertical div {
+  right: 0;
+  width: 100%;
+}
+
+
+.CodeMirror-overlayscroll .CodeMirror-scrollbar-filler, .CodeMirror-overlayscroll .CodeMirror-gutter-filler {
+  display: none;
+}
+
+.CodeMirror-overlayscroll-horizontal div, .CodeMirror-overlayscroll-vertical div {
+  position: absolute;
+  background: #bcd;
+  border-radius: 3px;
+}
+
+.CodeMirror-overlayscroll-horizontal, .CodeMirror-overlayscroll-vertical {
+  position: absolute;
+  z-index: 6;
+}
+
+.CodeMirror-overlayscroll-horizontal {
+  bottom: 0; left: 0;
+  height: 6px;
+}
+.CodeMirror-overlayscroll-horizontal div {
+  bottom: 0;
+  height: 100%;
+}
+
+.CodeMirror-overlayscroll-vertical {
+  right: 0; top: 0;
+  width: 6px;
+}
+.CodeMirror-overlayscroll-vertical div {
+  right: 0;
+  width: 100%;
+}
 @charset "UTF-8";
 
 /*!
@@ -12970,6 +13035,10 @@ readers do not read off random characters that represent icons */
   font-family: "Font Awesome 5 Brands";
 }
 
+.CodeMirror {
+  width: 615px;
+}
+
 .CodeMirror * {
   font-family: "Source Code Pro", monospace;
   font-size: 12px;
@@ -13092,30 +13161,34 @@ button:focus {
 
 .ui.button.btnFormPrimary {
   color: white;
-  background-color: #17CCA9;
-  border: 1.5px solid #17CCA9;
+  background-color: #fcc45e;
+  border: 1.5px solid #fcc45e;
   border-radius: 10px;
   padding: 7px 10px;
+  font-weight: normal;
 }
 
 .ui.button.btnFormPrimary:hover,
 .ui.button.btnFormPrimary:focus {
-  color: #17CCA9;
-  background-color: white;
+  color: #FFF;
+  background-color: #026670;
+  border-left-width: 1px;
+  border-right-width: 1px;
 }
 
 .ui.button.btnFormSecondary {
-  color: white;
-  background-color: #707070;
-  border: 1.5px solid #707070;
+  color: #555;
+  background-color: #FFF;
+  border: 2px solid #555;
   border-radius: 10px;
   padding: 7px 10px;
+  font-weight: normal;
 }
 
 .ui.button.btnFormSecondary:hover,
 .ui.button.btnFormSecondary:focus {
-  color: #707070;
-  background-color: white;
+  color: #FFF;
+  background-color: #555;
 }
 
 .ui.button.btnFormThirdly {
@@ -13140,6 +13213,11 @@ button:focus {
   color: #555;
 }
 
+.requiredField::after {
+  content: " \273B";
+  color: #FF5654;
+}
+
 .ui.dropdown .menu {
   padding: 5px;
 }
@@ -13149,12 +13227,12 @@ button:focus {
 }
 
 .ui.dropdown .menu .item:hover {
-  background-color: #54D0E6;
+  background-color: #fcc45e;
 }
 
 .ui.toggle.checkbox input:checked ~ label:before,
 .ui.toggle.checkbox input:focus:checked ~ label:before {
-  background-color: #17CCA9 !important;
+  background-color: #fcc45e !important;
 }
 
 .far,
@@ -13208,14 +13286,14 @@ button:focus {
   margin-top: 30px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border-bottom: 5px solid #0A5748;
+  border-bottom: 5px solid #026670;
 }
 
 .TVYListContentActionView .headerBlock div:first-child i {
   border-radius: 8px 8px 0 0;
-  border: 2px solid #0A5748;
+  border: 2px solid #026670;
   border-bottom: none;
-  color: #0A5748;
+  color: #026670;
   padding: 5px;
   font-size: 2em;
 }
@@ -13223,7 +13301,7 @@ button:focus {
 .TVYListContentActionView .headerBlock div:first-child span {
   margin-left: 10px;
   vertical-align: middle;
-  color: #0A5748;
+  color: #026670;
   font-weight: bold;
   font-size: 1.3em;
 }
@@ -13258,13 +13336,14 @@ button:focus {
 }
 
 .TVYContentManagementPreview .form {
+  color: #555;
   margin-bottom: 10px;
   text-align: center;
 }
 
 .TVYContentManagementPreview .form .chkPreviewContent {
   padding: 5px 10px;
-  border: 1px solid #707070;
+  border: 1px solid #fcc45e;
   border-radius: 20px;
 }
 
@@ -13302,6 +13381,7 @@ button:focus {
 }
 
 .TVYContentEditor {
+  width: 615px;
   margin: 5px 0;
   padding: 0;
   border-radius: 5px;
@@ -13339,7 +13419,6 @@ button:focus {
 }
 
 .TVYContentEditor .editor {
-  max-width: 700px;
   border: 1px solid #D8D8D8;
   border-top: none;
   border-bottom: none;
@@ -13354,6 +13433,7 @@ button:focus {
 .TVYContentEditor .editor .ql-toolbar {
   border: none;
   border-top: 2px solid #17CCA9;
+  border-bottom: 1px solid #D8D8D8;
   background-color: white;
 }
 
@@ -13677,7 +13757,7 @@ button:focus {
 .TVYContentActionView .actionPart .vote i:focus,
 .TVYContentActionView .actionPart .vote i:hover,
 .TVYContentActionView .actionPart .vote i.selected {
-  color: #17CCA9;
+  color: #fcc45e;
 }
 
 .TVYContentActionView .actionPart .askedOrEditedDate {
@@ -13700,13 +13780,13 @@ button:focus {
 
 .TVYContentActionView .actionPart .authorIdentity .authorInfo {
   font-weight: bold;
-  color: #0A5748;
+  color: #026670;
   cursor: pointer;
 }
 
 .TVYContentActionView .actionPart .authorIdentity .authorInfo:hover,
 .TVYContentActionView .actionPart .authorIdentity .authorInfo:focus {
-  color: #17CCA9;
+  color: #026670;
   text-decoration: underline;
 }
 
@@ -13714,7 +13794,7 @@ button:focus {
   vertical-align: middle;
   height: 30px;
   border-radius: 40px;
-  border: 1.5px solid #0A5748;
+  border: 1.5px solid #026670;
   padding: 1px;
   cursor: pointer;
 }
@@ -13732,7 +13812,7 @@ button:focus {
 .TVYContentActionView .commentsBlock .listOfComments .singleComment .authorName {
   text-decoration: none;
   font-weight: bold;
-  color: #0A5748;
+  color: #026670;
 }
 
 .TVYContentActionView .commentsBlock .listOfComments .singleComment .commentDateTime {
@@ -13744,7 +13824,7 @@ button:focus {
   vertical-align: middle;
   height: 30px;
   border-radius: 40px;
-  border: 1.5px solid #0A5748;
+  border: 1.5px solid #026670;
   padding: 1px;
 }
 
@@ -13762,7 +13842,7 @@ button:focus {
   vertical-align: middle;
   height: 30px;
   border-radius: 40px;
-  border: 1.5px solid #0A5748;
+  border: 1.5px solid #026670;
   padding: 1px;
 }
 
@@ -13789,13 +13869,13 @@ button:focus {
 }
 
 .TVYContentActionView .commentsBlock .addNewCommentBlock .commentBody .commentButton i {
-  color: #17CCA9;
+  color: #026670;
   font-size: 2em;
 }
 
 .TVYContentActionView .commentsBlock .addNewCommentBlock .commentBody .commentButton i:focus,
 .TVYContentActionView .commentsBlock .addNewCommentBlock .commentBody .commentButton i:hover {
-  color: #0A5748;
+  color: #fcc45e;
   cursor: pointer;
 }
 
@@ -13882,7 +13962,7 @@ button:focus {
   border-top-left-radius: 50px;
   border-bottom: none;
   border-top: 0.2rem solid #fcc45e;
-  background-color: #17CCA9;
+  background-color: #FFF;
   color: #026670;
 }
 
@@ -14502,13 +14582,6 @@ button:focus {
   }
 }
 
-.kcFooter {
-  margin-top: 100px;
-  height: 200px;
-  background-color: #D8D8D8;
-  border-top: 1px solid #707070;
-}
-
 .ui.popup.languageList {
   padding: 15px 0;
   display: grid;
@@ -14733,6 +14806,87 @@ button:focus {
   border-radius: 20px 0 0 20px;
   border: 1px solid #fcc45e;
   border-left-width: 5px;
+}
+
+.KCFooter {
+  margin-top: 100px;
+  height: 200px;
+  background-color: #555;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.KCFooter .logoSide {
+  justify-self: center;
+  align-self: center;
+}
+
+.KCFooter .logoSide img {
+  height: 80px;
+}
+
+.KCFooter .about {
+  border-left: 1px solid #FFF;
+  padding-left: 30px;
+  align-self: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: #FFF;
+}
+
+.KCFooter .about .appName {
+  font-size: 1.7em;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.KCFooter .about .motto {
+  margin-bottom: 30px;
+}
+
+.KCFooter .about .developer a {
+  color: #fcc45e;
+}
+
+.KCFooter .about .developer a:hover::after,
+.KCFooter .about .developer a:focus::after {
+  content: " \1F919\1F44D\1F603";
+}
+
+.KCFooter .about .developer a:hover,
+.KCFooter .about .developer a:focus {
+  font-weight: bold;
+}
+
+.KCFooter .contacts {
+  justify-self: center;
+  align-self: center;
+  text-align: center;
+}
+
+.KCFooter .contacts .spanContact {
+  text-align: center;
+  color: #FFF;
+  margin-bottom: 10px;
+}
+
+.KCFooter .contacts a {
+  background-color: #FFF;
+  padding: 10px 25px;
+  border-radius: 20px;
+  margin: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.KCFooter .contacts a i {
+  font-size: 2em;
+  color: #555;
+}
+
+.KCFooter .contacts a:hover i,
+.KCFooter .contacts a:focus i {
+  color: #fcc45e;
 }
 
 .socialLoginButtons {
@@ -15029,46 +15183,8 @@ button:focus {
 
 .askQuestionContent {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 615px auto;
   grid-column-gap: 10px;
-}
-
-.askQuestionContent .questionCreation .headAskQuestion {
-  display: grid;
-  grid-template-columns: 8% 92%;
-}
-
-.askQuestionContent .questionCreation .headAskQuestion div:first-child {
-  text-align: center;
-  background-color: #F3F3F3;
-  color: #0A5748;
-  border-radius: 30px 30px 0 30px;
-  border: 3px solid #0A5748;
-  padding: 6px;
-}
-
-.askQuestionContent .questionCreation .headAskQuestion div:last-child {
-  font-weight: bold;
-  color: #424242;
-  font-size: 1.5em;
-  border-bottom: 3px solid #0A5748;
-  align-self: end;
-  padding-bottom: 6px;
-}
-
-.askQuestionContent .questionCreation .headAskQuestion div:last-child span {
-  margin-left: 10px;
-}
-
-.askQuestionContent .questionCreation .questionTips {
-  margin-top: 10px;
-  border: 1px solid #0A5748;
-  padding: 10px;
-  border-radius: 10px;
-}
-
-.askQuestionContent .questionCreation .questionTips .tipText {
-  padding-left: 20px;
 }
 
 .askQuestionContent .questionCreation .askQuestionForm {
@@ -15126,7 +15242,7 @@ button:focus {
 .pageViewQuestion .viewQuestionContent .titleBlock .questionFavorite:focus,
 .pageViewQuestion .viewQuestionContent .titleBlock .questionFavorite.selected {
   cursor: pointer;
-  color: #17CCA9;
+  color: #fcc45e;
 }
 
 .pageViewQuestion .viewQuestionContent .titleBlock .questionTitle {
@@ -15135,56 +15251,9 @@ button:focus {
   margin: 0;
 }
 
-.pageViewQuestion .viewQuestionContent .subjectTag,
-.pageViewQuestion .viewQuestionContent .tagTag {
-  font-size: 0.8em;
-  margin-top: 10px;
-  margin-bottom: 2px;
-  display: inline-block;
-  padding: 2px 5px;
-  cursor: pointer;
-}
-
-.pageViewQuestion .viewQuestionContent .subjectTag img,
-.pageViewQuestion .viewQuestionContent .tagTag img {
-  vertical-align: middle;
-  height: 16px;
-}
-
-.pageViewQuestion .viewQuestionContent .subjectTag {
-  color: white;
-  border: 1px solid #005273;
-  background-color: #005273;
-  border-radius: 20px;
-}
-
-.pageViewQuestion .viewQuestionContent .tagTag {
-  color: #005273;
-  border: 1px solid #005273;
-  background-color: transparent;
-  border-radius: 5px;
-}
-
-.pageViewQuestion .viewQuestionContent .subjectTag:hover,
-.pageViewQuestion .viewQuestionContent .subjectTag:focus {
-  background-color: white;
-  color: #424242;
-  font-weight: bold;
-}
-
-.pageViewQuestion .viewQuestionContent .tagTag:hover,
-.pageViewQuestion .viewQuestionContent .tagTag:focus {
-  background-color: #54D0E6;
-  color: white;
-}
-
-.pageViewQuestion .viewQuestionContent .subjectTagSeparator {
-  color: #707070;
-}
-
 .headerWriteYourAnswer {
-  color: #0A5748;
-  border-bottom: 2px solid #0A5748;
+  color: #fcc45e;
+  border-bottom: 2px solid #fcc45e;
 }
 
 .answerQuestionBlock {

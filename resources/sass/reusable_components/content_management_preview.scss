@@ -1,10 +1,11 @@
 .TVYContentManagementPreview {
     .form {
+        color: $main-front;
         margin-bottom: 10px;
         text-align: center;
         .chkPreviewContent {
             padding: 5px 10px;
-            border: 1px solid $secondary-gray;
+            border: 1px solid $contrast-prim;
             border-radius: 20px;
         }
     }

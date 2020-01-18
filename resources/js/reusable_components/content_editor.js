@@ -106,6 +106,7 @@ class TVYContentEditor extends HTMLElement
         super();
         this.innerHTML = html;
 
+        this.currentAvatarUrl = this.getAttribute('data-current-avatar-url');
         this.publicId = this.getAttribute('data-public-id');
         this.referencePublicId = this.getAttribute('data-reference-public-id');
         let editorContentType = this.getAttribute('data-content-type');
@@ -724,6 +725,7 @@ class TVYContentEditor extends HTMLElement
 
     saveDescDataToBackend () {
         let dataToSave = this.prepareFormDataToSaveToBackend(this.contentType);
+        const currentEditor = this;
         $.ajax({
             url: dataToSave['url'],
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
@@ -733,6 +735,7 @@ class TVYContentEditor extends HTMLElement
             type: 'POST',
             success: function(result) {
                 document.querySelector('.TVYContentManagementPreview .reRender').click();
+                currentEditor.setAttribute('data-has-value', 'true');
             },
             error: function(err) {
                 console.log(err);

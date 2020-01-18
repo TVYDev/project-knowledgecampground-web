@@ -19,15 +19,15 @@
                 @csrf
                 <div class="ui form">
                     <div class="field">
-                        <label for="currentPassword">{{ __('Current password') }}</label>
+                        <label for="currentPassword" class="requiredField">{{ __('Current password') }}</label>
                         <input type="password" name="currentPassword" id="currentPassword" required="required">
                     </div>
                     <div class="field">
-                        <label for="newPassword">{{ __('New password') }}</label>
+                        <label for="newPassword" class="requiredField">{{ __('New password') }}</label>
                         <input type="password" name="newPassword" id="newPassword" required="required">
                     </div>
                     <div class="field">
-                        <label for="newPassword_confirmation">{{ __('Confirm new password') }}</label>
+                        <label for="newPassword_confirmation" class="requiredField">{{ __('Confirm new password') }}</label>
                         <input type="password" name="newPassword_confirmation" id="newPassword_confirmation" required="required">
                     </div>
                     <button class="ui button fluid btnPrimary" type="submit">{{ __('Submit change') }}</button>

@@ -66,8 +66,8 @@
                 border-top-left-radius: 50px;
                 border-bottom: none;
                 border-top: 0.2rem solid $contrast-prim;
-                background-color: $contrast-prim-light;
-                color: $prim    ;
+                background-color: $main-background;
+                color: $prim;
             }
             .btnNavMenu:hover {
                 border-bottom: 0.2rem solid $contrast-prim;

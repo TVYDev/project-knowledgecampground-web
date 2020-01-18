@@ -7,25 +7,18 @@
 $ua = session(\App\Lib\UserConstants::KEY_TO_USER_AVATAR);
 $default_avatar_url = $ua[\App\Lib\UserConstants::USER_AVATAR_SVG_URL];
 $username = $ua[\App\Lib\UserConstants::USER_NAME];
+
+$subject = $data->subject;
+$tags = $data->tags;
 ?>
     <div class="pageViewQuestion">
         <div class="leftExtraSpace"></div>
         <div class="viewQuestionContent">
             <div class="titleBlock">
                 <i class="far fa-star questionFavorite"></i>
-                <h2 class="questionTitle">{{ $title }}</h2>
+                <h2 class="questionTitle">{{ $data->title }}</h2>
             </div>
-            <span class="subjectTag" data-public-id="{{$subject['public_id']}}">
-                <img src="{{$subject['img_url']}}" alt="subject">&nbsp;{{$subject['name_en']}}
-            </span>
-            @if(isset($tags) && count($tags) > 0)
-                <i class="fas fa-angle-double-right subjectTagSeparator"></i>
-                @foreach($tags as $tag)
-                    <span class="tagTag" data-public-id="{{$tag['public_id']}}">
-                        <img src="{{$tag['img_url']}}" alt="tag">&nbsp;{{$tag['name_en']}}
-                    </span>
-                @endforeach
-            @endif
+            @include('layouts.partials._subject_tags')
             <tvy-content-action-view
                 data-public-id="{{ $questionPublicId }}"
                 data-content-type="question"
@@ -59,9 +52,9 @@ $username = $ua[\App\Lib\UserConstants::USER_NAME];
                 <button type="submit" name="submit" value="post" class="ui button btnPostQuestion btnFormPrimary">
                     <span>{{ __('Post my answer') }}</span>&nbsp;&nbsp;&nbsp;<i class="far fa-paper-plane"></i>
                 </button>
-                <button type="submit" name="submit" value="draft" class="ui button btnSaveDraftQuestion btnFormSecondary">
-                    <span>{{ __('Save as draft') }}</span>&nbsp;&nbsp;&nbsp;<i class="far fa-save"></i>
-                </button>
+{{--                <button type="submit" name="submit" value="draft" class="ui button btnSaveDraftQuestion btnFormSecondary">--}}
+{{--                    <span>{{ __('Save as draft') }}</span>&nbsp;&nbsp;&nbsp;<i class="far fa-save"></i>--}}
+{{--                </button>--}}
             </form>
         </div>
         <div class="answerContentManagement">

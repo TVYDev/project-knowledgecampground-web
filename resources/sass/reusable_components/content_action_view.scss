@@ -88,7 +88,7 @@
                 cursor: pointer;
             }
             i:focus, i:hover, i.selected {
-                color: $secondary-green;
+                color: $contrast-prim;
             }
         }
         .askedOrEditedDate {
@@ -108,18 +108,18 @@
             align-items: center;
             .authorInfo {
                 font-weight: bold;
-                color: $main-green;
+                color: $prim;
                 cursor: pointer;
             }
             .authorInfo:hover, .authorInfo:focus {
-                color: $secondary-green;
+                color: $prim;
                 text-decoration: underline;
             }
             .authorAvatar {
                 vertical-align: middle;
                 height: 30px;
                 border-radius: 40px;
-                border: 1.5px solid $main-green;
+                border: 1.5px solid $prim;
                 padding: 1px;
                 cursor: pointer;
             }
@@ -135,7 +135,7 @@
                 .authorName {
                     text-decoration: none;
                     font-weight: bold;
-                    color: $main-green;
+                    color: $prim;
                 }
                 .commentDateTime {
                     font-size: 0.8em;
@@ -145,7 +145,7 @@
                     vertical-align: middle;
                     height: 30px;
                     border-radius: 40px;
-                    border: 1.5px solid $main-green;
+                    border: 1.5px solid $prim;
                     padding: 1px;
                 }
             }
@@ -160,7 +160,7 @@
                     vertical-align: middle;
                     height: 30px;
                     border-radius: 40px;
-                    border: 1.5px solid $main-green;
+                    border: 1.5px solid $prim;
                     padding: 1px;
                 }
             }
@@ -181,11 +181,11 @@
                     align-self: center;
                     justify-self: center;
                     i {
-                        color: $secondary-green;
+                        color: $prim;
                         font-size: 2em;
                     }
                     i:focus, i:hover {
-                        color: $main-green;
+                        color: $contrast-prim;
                         cursor: pointer;
                     }
                 }
