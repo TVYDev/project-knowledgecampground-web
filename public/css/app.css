@@ -13286,14 +13286,14 @@ button:focus {
   margin-top: 30px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border-bottom: 5px solid #0A5748;
+  border-bottom: 5px solid #026670;
 }
 
 .TVYListContentActionView .headerBlock div:first-child i {
   border-radius: 8px 8px 0 0;
-  border: 2px solid #0A5748;
+  border: 2px solid #026670;
   border-bottom: none;
-  color: #0A5748;
+  color: #026670;
   padding: 5px;
   font-size: 2em;
 }
@@ -13301,7 +13301,7 @@ button:focus {
 .TVYListContentActionView .headerBlock div:first-child span {
   margin-left: 10px;
   vertical-align: middle;
-  color: #0A5748;
+  color: #026670;
   font-weight: bold;
   font-size: 1.3em;
 }
@@ -13757,7 +13757,7 @@ button:focus {
 .TVYContentActionView .actionPart .vote i:focus,
 .TVYContentActionView .actionPart .vote i:hover,
 .TVYContentActionView .actionPart .vote i.selected {
-  color: #17CCA9;
+  color: #fcc45e;
 }
 
 .TVYContentActionView .actionPart .askedOrEditedDate {
@@ -13780,13 +13780,13 @@ button:focus {
 
 .TVYContentActionView .actionPart .authorIdentity .authorInfo {
   font-weight: bold;
-  color: #0A5748;
+  color: #026670;
   cursor: pointer;
 }
 
 .TVYContentActionView .actionPart .authorIdentity .authorInfo:hover,
 .TVYContentActionView .actionPart .authorIdentity .authorInfo:focus {
-  color: #17CCA9;
+  color: #026670;
   text-decoration: underline;
 }
 
@@ -13794,7 +13794,7 @@ button:focus {
   vertical-align: middle;
   height: 30px;
   border-radius: 40px;
-  border: 1.5px solid #0A5748;
+  border: 1.5px solid #026670;
   padding: 1px;
   cursor: pointer;
 }
@@ -13812,7 +13812,7 @@ button:focus {
 .TVYContentActionView .commentsBlock .listOfComments .singleComment .authorName {
   text-decoration: none;
   font-weight: bold;
-  color: #0A5748;
+  color: #026670;
 }
 
 .TVYContentActionView .commentsBlock .listOfComments .singleComment .commentDateTime {
@@ -13824,7 +13824,7 @@ button:focus {
   vertical-align: middle;
   height: 30px;
   border-radius: 40px;
-  border: 1.5px solid #0A5748;
+  border: 1.5px solid #026670;
   padding: 1px;
 }
 
@@ -13842,7 +13842,7 @@ button:focus {
   vertical-align: middle;
   height: 30px;
   border-radius: 40px;
-  border: 1.5px solid #0A5748;
+  border: 1.5px solid #026670;
   padding: 1px;
 }
 
@@ -13869,13 +13869,13 @@ button:focus {
 }
 
 .TVYContentActionView .commentsBlock .addNewCommentBlock .commentBody .commentButton i {
-  color: #17CCA9;
+  color: #026670;
   font-size: 2em;
 }
 
 .TVYContentActionView .commentsBlock .addNewCommentBlock .commentBody .commentButton i:focus,
 .TVYContentActionView .commentsBlock .addNewCommentBlock .commentBody .commentButton i:hover {
-  color: #0A5748;
+  color: #fcc45e;
   cursor: pointer;
 }
 
@@ -13962,7 +13962,7 @@ button:focus {
   border-top-left-radius: 50px;
   border-bottom: none;
   border-top: 0.2rem solid #fcc45e;
-  background-color: #17CCA9;
+  background-color: #FFF;
   color: #026670;
 }
 
@@ -14582,13 +14582,6 @@ button:focus {
   }
 }
 
-.kcFooter {
-  margin-top: 100px;
-  height: 200px;
-  background-color: #D8D8D8;
-  border-top: 1px solid #707070;
-}
-
 .ui.popup.languageList {
   padding: 15px 0;
   display: grid;
@@ -14813,6 +14806,87 @@ button:focus {
   border-radius: 20px 0 0 20px;
   border: 1px solid #fcc45e;
   border-left-width: 5px;
+}
+
+.KCFooter {
+  margin-top: 100px;
+  height: 200px;
+  background-color: #555;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.KCFooter .logoSide {
+  justify-self: center;
+  align-self: center;
+}
+
+.KCFooter .logoSide img {
+  height: 80px;
+}
+
+.KCFooter .about {
+  border-left: 1px solid #FFF;
+  padding-left: 30px;
+  align-self: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: #FFF;
+}
+
+.KCFooter .about .appName {
+  font-size: 1.7em;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.KCFooter .about .motto {
+  margin-bottom: 30px;
+}
+
+.KCFooter .about .developer a {
+  color: #fcc45e;
+}
+
+.KCFooter .about .developer a:hover::after,
+.KCFooter .about .developer a:focus::after {
+  content: " \1F919\1F44D\1F603";
+}
+
+.KCFooter .about .developer a:hover,
+.KCFooter .about .developer a:focus {
+  font-weight: bold;
+}
+
+.KCFooter .contacts {
+  justify-self: center;
+  align-self: center;
+  text-align: center;
+}
+
+.KCFooter .contacts .spanContact {
+  text-align: center;
+  color: #FFF;
+  margin-bottom: 10px;
+}
+
+.KCFooter .contacts a {
+  background-color: #FFF;
+  padding: 10px 25px;
+  border-radius: 20px;
+  margin: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.KCFooter .contacts a i {
+  font-size: 2em;
+  color: #555;
+}
+
+.KCFooter .contacts a:hover i,
+.KCFooter .contacts a:focus i {
+  color: #fcc45e;
 }
 
 .socialLoginButtons {
@@ -15168,7 +15242,7 @@ button:focus {
 .pageViewQuestion .viewQuestionContent .titleBlock .questionFavorite:focus,
 .pageViewQuestion .viewQuestionContent .titleBlock .questionFavorite.selected {
   cursor: pointer;
-  color: #17CCA9;
+  color: #fcc45e;
 }
 
 .pageViewQuestion .viewQuestionContent .titleBlock .questionTitle {
@@ -15177,56 +15251,9 @@ button:focus {
   margin: 0;
 }
 
-.pageViewQuestion .viewQuestionContent .subjectTag,
-.pageViewQuestion .viewQuestionContent .tagTag {
-  font-size: 0.8em;
-  margin-top: 10px;
-  margin-bottom: 2px;
-  display: inline-block;
-  padding: 2px 5px;
-  cursor: pointer;
-}
-
-.pageViewQuestion .viewQuestionContent .subjectTag img,
-.pageViewQuestion .viewQuestionContent .tagTag img {
-  vertical-align: middle;
-  height: 16px;
-}
-
-.pageViewQuestion .viewQuestionContent .subjectTag {
-  color: white;
-  border: 1px solid #005273;
-  background-color: #005273;
-  border-radius: 20px;
-}
-
-.pageViewQuestion .viewQuestionContent .tagTag {
-  color: #005273;
-  border: 1px solid #005273;
-  background-color: transparent;
-  border-radius: 5px;
-}
-
-.pageViewQuestion .viewQuestionContent .subjectTag:hover,
-.pageViewQuestion .viewQuestionContent .subjectTag:focus {
-  background-color: white;
-  color: #424242;
-  font-weight: bold;
-}
-
-.pageViewQuestion .viewQuestionContent .tagTag:hover,
-.pageViewQuestion .viewQuestionContent .tagTag:focus {
-  background-color: #54D0E6;
-  color: white;
-}
-
-.pageViewQuestion .viewQuestionContent .subjectTagSeparator {
-  color: #707070;
-}
-
 .headerWriteYourAnswer {
-  color: #0A5748;
-  border-bottom: 2px solid #0A5748;
+  color: #fcc45e;
+  border-bottom: 2px solid #fcc45e;
 }
 
 .answerQuestionBlock {

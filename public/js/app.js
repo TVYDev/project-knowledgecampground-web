@@ -66806,6 +66806,8 @@ __webpack_require__(/*! ./form_alert_message */ "./resources/js/form_alert_messa
 
 __webpack_require__(/*! ./question/post_question */ "./resources/js/question/post_question.js");
 
+__webpack_require__(/*! ./question/view_question */ "./resources/js/question/view_question.js");
+
 __webpack_require__(/*! ./reusable_components/content_management_preview */ "./resources/js/reusable_components/content_management_preview.js");
 
 __webpack_require__(/*! ./reusable_components/content_editor */ "./resources/js/reusable_components/content_editor.js");
@@ -67124,6 +67126,36 @@ $(document).ready(function () {
           canSubmit = false;
         }
       }
+    }
+
+    if (!canSubmit) {
+      e.preventDefault();
+    }
+  });
+});
+
+/***/ }),
+
+/***/ "./resources/js/question/view_question.js":
+/*!************************************************!*\
+  !*** ./resources/js/question/view_question.js ***!
+  \************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../NotyAlertMessage */ "./resources/js/NotyAlertMessage.js");
+
+$(document).ready(function () {
+  $('#formAnswerQuestion').submit(function (e) {
+    var canSubmit = true;
+    var hasValueDesc = $('tvy-content-editor').attr('data-has-value');
+    var descElements = $('.answerContentManagement .TVYContentOrder').children();
+
+    if (hasValueDesc !== 'true' || descElements.length < 1) {
+      new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, 'Please add description for your answer').show();
+      canSubmit = false;
     }
 
     if (!canSubmit) {

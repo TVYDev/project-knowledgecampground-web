@@ -57,9 +57,9 @@
                         <button type="submit" name="submit" value="post" class="ui button btnPostQuestion btnFormPrimary">
                             <span>{{ __('Post my question') }}</span>&nbsp;&nbsp;&nbsp;<i class="far fa-paper-plane"></i>
                         </button>
-                        <button type="submit" name="submit" value="draft" class="ui button btnSaveDraftQuestion btnFormSecondary">
-                            <span>{{ __('Save as draft') }}</span>&nbsp;&nbsp;&nbsp;<i class="far fa-save"></i>
-                        </button>
+{{--                        <button type="submit" name="submit" value="draft" class="ui button btnSaveDraftQuestion btnFormSecondary">--}}
+{{--                            <span>{{ __('Save as draft') }}</span>&nbsp;&nbsp;&nbsp;<i class="far fa-save"></i>--}}
+{{--                        </button>--}}
                     </div>
                 </form>
             </div>

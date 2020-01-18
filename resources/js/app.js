@@ -81,6 +81,7 @@ require('./navbar');
 require('./auth/login');
 require('./form_alert_message');
 require('./question/post_question');
+require('./question/view_question');
 require('./reusable_components/content_management_preview');
 require('./reusable_components/content_editor');
 require('./reusable_components/content_action_view');
