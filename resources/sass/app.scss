@@ -55,6 +55,9 @@
 
 @import 'code_mirror_editor.scss';
 
+// Croppie
+@import '~croppie/croppie.css';
+
 //***************************************
 // Global Style
 //***************************************
@@ -80,7 +83,8 @@ h1, h2, h3, h4, h5, h6,
 .ui.form input[type=text],
 .ui.form textarea,
 .ui.input input[type=text],
-.ui.header
+.ui.header,
+.ui.form input[type=file]
 {
     font-family: 'Taprom', 'Comfortaa', sans-serif;
 }

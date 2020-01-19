@@ -11,15 +11,39 @@
         .username {
             color: $prim;
         }
-        .avatar_img {
-            border: 2px solid $main-green;
-            border-radius: 100px;
-            padding: 5px;
-            width: 180px;
-            height: 180px;
+        .blockAvatar {
+            .avatar_img {
+                border: 2px solid $main-green;
+                border-radius: 100px;
+                padding: 5px;
+                width: 180px;
+                height: 180px;
+            }
+            .btnChangeAvatar {
+                color: $contrast-prim;
+                background: none;
+                border: 1px solid $contrast-prim;
+                padding: 5px 10px;
+                border-radius: 20px;
+                cursor: pointer;
+            }
+            .btnChangeAvatar:hover, .btnChangeAvatar:focus {
+                color: $main-background;
+                background-color: $contrast-prim;
+            }
         }
     }
     .editProfileForm {
         padding-left: 50px;
+    }
+}
+.changeAvatarInModal {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    .actionAvatar {
+        .cropImgBlock {
+            margin-top: 10px;
+            text-align: center;
+        }
     }
 }

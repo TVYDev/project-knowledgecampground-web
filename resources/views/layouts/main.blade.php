@@ -12,6 +12,7 @@
     @include('layouts.partials._navbar')
     @include('layouts.partials._alert_message')
     @include('layouts.partials._basic_modal')
+    @include('layouts.partials._basic_white_modal')
 
     <div id="mainContent" class="container">
         @yield('content')

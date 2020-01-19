@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\KCValidationException;
+use App\Http\Support\Supporter;
 use App\Lib\HttpConstants;
 use App\Lib\RequestAPI;
 use App\Lib\ResponseEndPoint;
 use App\Lib\RouteConstants;
 use App\Http\Support\UserAvatar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,9 +18,12 @@ class UserController extends Controller
 {
     use RequestAPI, ResponseEndPoint;
 
+    protected $supporter;
+
     public function __construct()
     {
         $this->middleware('verify_access_token')->except(['getLogin','postLogin','postRegister']);
+        $this->supporter = new Supporter();
     }
 
     /**-------------------------------------------------------------------------
@@ -235,22 +240,68 @@ class UserController extends Controller
         try
         {
             $requestedData = [
-                'full_name'     => $request->fullName,
-                'country_code'  => $request->country,
-                'position'      => $request->position,
-                'location'      => $request->location,
-                'about_me'      => $request->aboutMe,
-                'website_link'  => $request->websiteLink,
-                'facebook_link' => $request->facebookLink,
-                'twitter_link'  => $request->twitterLink,
-                'telegram_link' => $request->telegramLink
+                [
+                    'name'      => 'full_name',
+                    'contents'  => $request->fullName
+                ],
+                [
+                    'name'      => 'country_code',
+                    'contents'  => $request->country
+                ],
+                [
+                    'name'      => 'position',
+                    'contents'  => $request->position
+                ],
+                [
+                    'name'      => 'location',
+                    'contents'  => $request->location
+                ],
+                [
+                    'name'      => 'about_me',
+                    'contents'  => $request->aboutMe
+                ],
+                [
+                    'name'      => 'website_link',
+                    'contents'  => $request->websiteLink
+                ],
+                [
+                    'name'      => 'facebook_link',
+                    'contents'  => $request->facebookLink
+                ],[
+                    'name'      => 'twitter_link',
+                    'contents'  => $request->twitterLink
+                ],[
+                    'name'      => 'telegram_link',
+                    'contents'  => $request->telegramLink
+                ]
             ];
 
-            $response = $this->put(
+            $file = null;
+            $filename = null;
+            if(isset($request->imgAvatar))
+            {
+                $result = $this->supporter->decodeBase64StringToImageFile($request->imgAvatar);
+                $file = $result['file'];
+                $filename = uniqid() . '.' . $result['extension'];
+
+                $requestedData = array_merge($requestedData, [
+                    [
+                        'name'      => 'img_file_name',
+                        'contents'  => $filename
+                    ],
+                    [
+                        'name' => 'img_upload',
+                        'contents' => $file,
+                        'filename' => 'qwe.jpg'
+                    ]
+                ]);
+            }
+
+            $response = $this->post(
                 $this->getApiRequestUrl('user_profile.update'),
-                null,
                 $requestedData,
-                $this->getAuthorizationHeader()
+                $this->getAuthorizationHeader(true, false),
+                'multipart'
             );
 
             if($response->success == true)

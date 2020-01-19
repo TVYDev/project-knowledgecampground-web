@@ -21243,6 +21243,22 @@ if (!CodeMirror.mimeModes.hasOwnProperty("text/html"))
 
 /***/ }),
 
+/***/ "./node_modules/croppie/croppie.min.js":
+/*!*********************************************!*\
+  !*** ./node_modules/croppie/croppie.min.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(setImmediate) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;!function(e,t){ true?!(__WEBPACK_AMD_DEFINE_FACTORY__ = (t),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) :
+				__WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)):undefined}("undefined"!=typeof self?self:this,function(){"function"!=typeof Promise&&function(e){function n(e,t){return function(){e.apply(t,arguments)}}function r(e){if("object"!=typeof this)throw new TypeError("Promises must be constructed via new");if("function"!=typeof e)throw new TypeError("not a function");this._state=null,this._value=null,this._deferreds=[],u(e,n(i,this),n(o,this))}function a(n){var i=this;return null===this._state?void this._deferreds.push(n):void c(function(){var e=i._state?n.onFulfilled:n.onRejected;if(null!==e){var t;try{t=e(i._value)}catch(e){return void n.reject(e)}n.resolve(t)}else(i._state?n.resolve:n.reject)(i._value)})}function i(e){try{if(e===this)throw new TypeError("A promise cannot be resolved with itself.");if(e&&("object"==typeof e||"function"==typeof e)){var t=e.then;if("function"==typeof t)return void u(n(t,e),n(i,this),n(o,this))}this._state=!0,this._value=e,s.call(this)}catch(e){o.call(this,e)}}function o(e){this._state=!1,this._value=e,s.call(this)}function s(){for(var e=0,t=this._deferreds.length;e<t;e++)a.call(this,this._deferreds[e]);this._deferreds=null}function l(e,t,n,i){this.onFulfilled="function"==typeof e?e:null,this.onRejected="function"==typeof t?t:null,this.resolve=n,this.reject=i}function u(e,t,n){var i=!1;try{e(function(e){i||(i=!0,t(e))},function(e){i||(i=!0,n(e))})}catch(e){if(i)return;i=!0,n(e)}}var t=setTimeout,c="function"==typeof setImmediate&&setImmediate||function(e){t(e,1)},h=Array.isArray||function(e){return"[object Array]"===Object.prototype.toString.call(e)};r.prototype.catch=function(e){return this.then(null,e)},r.prototype.then=function(n,i){var o=this;return new r(function(e,t){a.call(o,new l(n,i,e,t))})},r.all=function(){var s=Array.prototype.slice.call(1===arguments.length&&h(arguments[0])?arguments[0]:arguments);return new r(function(i,o){function r(t,e){try{if(e&&("object"==typeof e||"function"==typeof e)){var n=e.then;if("function"==typeof n)return void n.call(e,function(e){r(t,e)},o)}s[t]=e,0==--a&&i(s)}catch(e){o(e)}}if(0===s.length)return i([]);for(var a=s.length,e=0;e<s.length;e++)r(e,s[e])})},r.resolve=function(t){return t&&"object"==typeof t&&t.constructor===r?t:new r(function(e){e(t)})},r.reject=function(n){return new r(function(e,t){t(n)})},r.race=function(o){return new r(function(e,t){for(var n=0,i=o.length;n<i;n++)o[n].then(e,t)})},r._setImmediateFn=function(e){c=e}, true&&module.exports?module.exports=r:e.Promise||(e.Promise=r)}(this),"function"!=typeof window.CustomEvent&&function(){function e(e,t){t=t||{bubbles:!1,cancelable:!1,detail:void 0};var n=document.createEvent("CustomEvent");return n.initCustomEvent(e,t.bubbles,t.cancelable,t.detail),n}e.prototype=window.Event.prototype,window.CustomEvent=e}(),HTMLCanvasElement.prototype.toBlob||Object.defineProperty(HTMLCanvasElement.prototype,"toBlob",{value:function(e,t,n){for(var i=atob(this.toDataURL(t,n).split(",")[1]),o=i.length,r=new Uint8Array(o),a=0;a<o;a++)r[a]=i.charCodeAt(a);e(new Blob([r],{type:t||"image/png"}))}});var v,g,w,i=["Webkit","Moz","ms"],o=document.createElement("div").style,l=[1,8,3,6],u=[2,7,4,5];function e(e){if(e in o)return e;for(var t=e[0].toUpperCase()+e.slice(1),n=i.length;n--;)if((e=i[n]+t)in o)return e}function p(e,t){for(var n in e=e||{},t)t[n]&&t[n].constructor&&t[n].constructor===Object?(e[n]=e[n]||{},p(e[n],t[n])):e[n]=t[n];return e}function d(e){return p({},e)}function y(e){if("createEvent"in document){var t=document.createEvent("HTMLEvents");t.initEvent("change",!1,!0),e.dispatchEvent(t)}else e.fireEvent("onchange")}function b(e,t,n){if("string"==typeof t){var i=t;(t={})[i]=n}for(var o in t)e.style[o]=t[o]}function x(e,t){e.classList?e.classList.add(t):e.className+=" "+t}function c(e,t){for(var n in t)e.setAttribute(n,t[n])}function C(e){return parseInt(e,10)}function m(e,t){var n=e.naturalWidth,i=e.naturalHeight,o=t||f(e);if(o&&5<=o){var r=n;n=i,i=r}return{width:n,height:i}}g=e("transform"),v=e("transformOrigin"),w=e("userSelect");var t={translate3d:{suffix:", 0px"},translate:{suffix:""}},E=function(e,t,n){this.x=parseFloat(e),this.y=parseFloat(t),this.scale=parseFloat(n)};E.parse=function(e){return e.style?E.parse(e.style[g]):-1<e.indexOf("matrix")||-1<e.indexOf("none")?E.fromMatrix(e):E.fromString(e)},E.fromMatrix=function(e){var t=e.substring(7).split(",");return t.length&&"none"!==e||(t=[1,0,0,1,0,0]),new E(C(t[4]),C(t[5]),parseFloat(t[0]))},E.fromString=function(e){var t=e.split(") "),n=t[0].substring(T.globals.translate.length+1).split(","),i=1<t.length?t[1].substring(6):1,o=1<n.length?n[0]:0,r=1<n.length?n[1]:0;return new E(o,r,i)},E.prototype.toString=function(){var e=t[T.globals.translate].suffix||"";return T.globals.translate+"("+this.x+"px, "+this.y+"px"+e+") scale("+this.scale+")"};var L=function(e){if(!e||!e.style[v])return this.x=0,void(this.y=0);var t=e.style[v].split(" ");this.x=parseFloat(t[0]),this.y=parseFloat(t[1])};function f(e){return e.exifdata&&e.exifdata.Orientation?C(e.exifdata.Orientation):1}function _(e,t,n){var i=t.width,o=t.height,r=e.getContext("2d");switch(e.width=t.width,e.height=t.height,r.save(),n){case 2:r.translate(i,0),r.scale(-1,1);break;case 3:r.translate(i,o),r.rotate(180*Math.PI/180);break;case 4:r.translate(0,o),r.scale(1,-1);break;case 5:e.width=o,e.height=i,r.rotate(90*Math.PI/180),r.scale(1,-1);break;case 6:e.width=o,e.height=i,r.rotate(90*Math.PI/180),r.translate(0,-o);break;case 7:e.width=o,e.height=i,r.rotate(-90*Math.PI/180),r.translate(-i,o),r.scale(1,-1);break;case 8:e.width=o,e.height=i,r.translate(0,i),r.rotate(-90*Math.PI/180)}r.drawImage(t,0,0,i,o),r.restore()}function r(){var e,t,n,i,o,r,a=this,s=a.options.viewport.type?"cr-vp-"+a.options.viewport.type:null;a.options.useCanvas=a.options.enableOrientation||R.call(a),a.data={},a.elements={},e=a.elements.boundary=document.createElement("div"),n=a.elements.viewport=document.createElement("div"),t=a.elements.img=document.createElement("img"),i=a.elements.overlay=document.createElement("div"),a.options.useCanvas?(a.elements.canvas=document.createElement("canvas"),a.elements.preview=a.elements.canvas):a.elements.preview=t,x(e,"cr-boundary"),e.setAttribute("aria-dropeffect","none"),o=a.options.boundary.width,r=a.options.boundary.height,b(e,{width:o+(isNaN(o)?"":"px"),height:r+(isNaN(r)?"":"px")}),x(n,"cr-viewport"),s&&x(n,s),b(n,{width:a.options.viewport.width+"px",height:a.options.viewport.height+"px"}),n.setAttribute("tabindex",0),x(a.elements.preview,"cr-image"),c(a.elements.preview,{alt:"preview","aria-grabbed":"false"}),x(i,"cr-overlay"),a.element.appendChild(e),e.appendChild(a.elements.preview),e.appendChild(n),e.appendChild(i),x(a.element,"croppie-container"),a.options.customClass&&x(a.element,a.options.customClass),function(){var h,p,d,l,m,f=this,n=!1;function v(e,t){var n=f.elements.preview.getBoundingClientRect(),i=m.y+t,o=m.x+e;f.options.enforceBoundary?(l.top>n.top+t&&l.bottom<n.bottom+t&&(m.y=i),l.left>n.left+e&&l.right<n.right+e&&(m.x=o)):(m.y=i,m.x=o)}function i(e){f.elements.preview.setAttribute("aria-grabbed",e),f.elements.boundary.setAttribute("aria-dropeffect",e?"move":"none")}function e(e){if((void 0===e.button||0===e.button)&&(e.preventDefault(),!n)){if(n=!0,h=e.pageX,p=e.pageY,e.touches){var t=e.touches[0];h=t.pageX,p=t.pageY}i(n),m=E.parse(f.elements.preview),window.addEventListener("mousemove",o),window.addEventListener("touchmove",o),window.addEventListener("mouseup",r),window.addEventListener("touchend",r),document.body.style[w]="none",l=f.elements.viewport.getBoundingClientRect()}}function o(e){e.preventDefault();var t=e.pageX,n=e.pageY;if(e.touches){var i=e.touches[0];t=i.pageX,n=i.pageY}var o=t-h,r=n-p,a={};if("touchmove"===e.type&&1<e.touches.length){var s=e.touches[0],l=e.touches[1],u=Math.sqrt((s.pageX-l.pageX)*(s.pageX-l.pageX)+(s.pageY-l.pageY)*(s.pageY-l.pageY));d||(d=u/f._currentZoom);var c=u/d;return B.call(f,c),void y(f.elements.zoomer)}v(o,r),a[g]=m.toString(),b(f.elements.preview,a),z.call(f),p=n,h=t}function r(){i(n=!1),window.removeEventListener("mousemove",o),window.removeEventListener("touchmove",o),window.removeEventListener("mouseup",r),window.removeEventListener("touchend",r),document.body.style[w]="",Z.call(f),F.call(f),d=0}f.elements.overlay.addEventListener("mousedown",e),f.elements.viewport.addEventListener("keydown",function(e){if(!e.shiftKey||38!==e.keyCode&&40!==e.keyCode){if(f.options.enableKeyMovement&&37<=e.keyCode&&e.keyCode<=40){e.preventDefault();var t=s(e.keyCode);m=E.parse(f.elements.preview),document.body.style[w]="none",l=f.elements.viewport.getBoundingClientRect(),o=(i=t)[0],r=i[1],a={},v(o,r),a[g]=m.toString(),b(f.elements.preview,a),z.call(f),document.body.style[w]="",Z.call(f),F.call(f),d=0}}else{var n;n=38===e.keyCode?parseFloat(f.elements.zoomer.value)+parseFloat(f.elements.zoomer.step):parseFloat(f.elements.zoomer.value)-parseFloat(f.elements.zoomer.step),f.setZoom(n)}var i,o,r,a;function s(e){switch(e){case 37:return[1,0];case 38:return[0,1];case 39:return[-1,0];case 40:return[0,-1]}}}),f.elements.overlay.addEventListener("touchstart",e)}.call(this),a.options.enableZoom&&function(){var i=this,e=i.elements.zoomerWrap=document.createElement("div"),t=i.elements.zoomer=document.createElement("input");function o(){(function(e){var t=this,n=e?e.transform:E.parse(t.elements.preview),i=e?e.viewportRect:t.elements.viewport.getBoundingClientRect(),o=e?e.origin:new L(t.elements.preview);function r(){var e={};e[g]=n.toString(),e[v]=o.toString(),b(t.elements.preview,e)}if(t._currentZoom=e?e.value:t._currentZoom,n.scale=t._currentZoom,t.elements.zoomer.setAttribute("aria-valuenow",t._currentZoom),r(),t.options.enforceBoundary){var a=function(e){var t=this._currentZoom,n=e.width,i=e.height,o=this.elements.boundary.clientWidth/2,r=this.elements.boundary.clientHeight/2,a=this.elements.preview.getBoundingClientRect(),s=a.width,l=a.height,u=n/2,c=i/2,h=-1*(u/t-o),p=-1*(c/t-r),d=1/t*u,m=1/t*c;return{translate:{maxX:h,minX:h-(s*(1/t)-n*(1/t)),maxY:p,minY:p-(l*(1/t)-i*(1/t))},origin:{maxX:s*(1/t)-d,minX:d,maxY:l*(1/t)-m,minY:m}}}.call(t,i),s=a.translate,l=a.origin;n.x>=s.maxX&&(o.x=l.minX,n.x=s.maxX),n.x<=s.minX&&(o.x=l.maxX,n.x=s.minX),n.y>=s.maxY&&(o.y=l.minY,n.y=s.maxY),n.y<=s.minY&&(o.y=l.maxY,n.y=s.minY)}r(),I.call(t),F.call(t)}).call(i,{value:parseFloat(t.value),origin:new L(i.elements.preview),viewportRect:i.elements.viewport.getBoundingClientRect(),transform:E.parse(i.elements.preview)})}function n(e){var t,n;if("ctrl"===i.options.mouseWheelZoom&&!0!==e.ctrlKey)return 0;t=e.wheelDelta?e.wheelDelta/1200:e.deltaY?e.deltaY/1060:e.detail?e.detail/-60:0,n=i._currentZoom+t*i._currentZoom,e.preventDefault(),B.call(i,n),o.call(i)}x(e,"cr-slider-wrap"),x(t,"cr-slider"),t.type="range",t.step="0.0001",t.value="1",t.style.display=i.options.showZoomer?"":"none",t.setAttribute("aria-label","zoom"),i.element.appendChild(e),e.appendChild(t),i._currentZoom=1,i.elements.zoomer.addEventListener("input",o),i.elements.zoomer.addEventListener("change",o),i.options.mouseWheelZoom&&(i.elements.boundary.addEventListener("mousewheel",n),i.elements.boundary.addEventListener("DOMMouseScroll",n))}.call(a),a.options.enableResize&&function(){var l,u,c,h,p,e,t,d=this,m=document.createElement("div"),i=!1,f=50;x(m,"cr-resizer"),b(m,{width:this.options.viewport.width+"px",height:this.options.viewport.height+"px"}),this.options.resizeControls.height&&(x(e=document.createElement("div"),"cr-resizer-vertical"),m.appendChild(e));this.options.resizeControls.width&&(x(t=document.createElement("div"),"cr-resizer-horisontal"),m.appendChild(t));function n(e){if((void 0===e.button||0===e.button)&&(e.preventDefault(),!i)){var t=d.elements.overlay.getBoundingClientRect();if(i=!0,u=e.pageX,c=e.pageY,l=-1!==e.currentTarget.className.indexOf("vertical")?"v":"h",h=t.width,p=t.height,e.touches){var n=e.touches[0];u=n.pageX,c=n.pageY}window.addEventListener("mousemove",o),window.addEventListener("touchmove",o),window.addEventListener("mouseup",r),window.addEventListener("touchend",r),document.body.style[w]="none"}}function o(e){var t=e.pageX,n=e.pageY;if(e.preventDefault(),e.touches){var i=e.touches[0];t=i.pageX,n=i.pageY}var o=t-u,r=n-c,a=d.options.viewport.height+r,s=d.options.viewport.width+o;"v"===l&&f<=a&&a<=p?(b(m,{height:a+"px"}),d.options.boundary.height+=r,b(d.elements.boundary,{height:d.options.boundary.height+"px"}),d.options.viewport.height+=r,b(d.elements.viewport,{height:d.options.viewport.height+"px"})):"h"===l&&f<=s&&s<=h&&(b(m,{width:s+"px"}),d.options.boundary.width+=o,b(d.elements.boundary,{width:d.options.boundary.width+"px"}),d.options.viewport.width+=o,b(d.elements.viewport,{width:d.options.viewport.width+"px"})),z.call(d),W.call(d),Z.call(d),F.call(d),c=n,u=t}function r(){i=!1,window.removeEventListener("mousemove",o),window.removeEventListener("touchmove",o),window.removeEventListener("mouseup",r),window.removeEventListener("touchend",r),document.body.style[w]=""}e&&(e.addEventListener("mousedown",n),e.addEventListener("touchstart",n));t&&(t.addEventListener("mousedown",n),t.addEventListener("touchstart",n));this.elements.boundary.appendChild(m)}.call(a)}function R(){return this.options.enableExif&&window.EXIF}function B(e){if(this.options.enableZoom){var t=this.elements.zoomer,n=A(e,4);t.value=Math.max(parseFloat(t.min),Math.min(parseFloat(t.max),n)).toString()}}function Z(e){var t=this,n=t._currentZoom,i=t.elements.preview.getBoundingClientRect(),o=t.elements.viewport.getBoundingClientRect(),r=E.parse(t.elements.preview.style[g]),a=new L(t.elements.preview),s=o.top-i.top+o.height/2,l=o.left-i.left+o.width/2,u={},c={};if(e){var h=a.x,p=a.y,d=r.x,m=r.y;u.y=h,u.x=p,r.y=d,r.x=m}else u.y=s/n,u.x=l/n,c.y=(u.y-a.y)*(1-n),c.x=(u.x-a.x)*(1-n),r.x-=c.x,r.y-=c.y;var f={};f[v]=u.x+"px "+u.y+"px",f[g]=r.toString(),b(t.elements.preview,f)}function z(){if(this.elements){var e=this.elements.boundary.getBoundingClientRect(),t=this.elements.preview.getBoundingClientRect();b(this.elements.overlay,{width:t.width+"px",height:t.height+"px",top:t.top-e.top+"px",left:t.left-e.left+"px"})}}L.prototype.toString=function(){return this.x+"px "+this.y+"px"};var a,s,h,M,I=(a=z,s=500,function(){var e=this,t=arguments,n=h&&!M;clearTimeout(M),M=setTimeout(function(){M=null,h||a.apply(e,t)},s),n&&a.apply(e,t)});function F(){var e,t=this,n=t.get();X.call(t)&&(t.options.update.call(t,n),t.$&&"undefined"==typeof Prototype?t.$(t.element).trigger("update.croppie",n):(window.CustomEvent?e=new CustomEvent("update",{detail:n}):(e=document.createEvent("CustomEvent")).initCustomEvent("update",!0,!0,n),t.element.dispatchEvent(e)))}function X(){return 0<this.elements.preview.offsetHeight&&0<this.elements.preview.offsetWidth}function Y(){var e,t=this,n={},i=t.elements.preview,o=new E(0,0,1),r=new L;X.call(t)&&!t.data.bound&&(t.data.bound=!0,n[g]=o.toString(),n[v]=r.toString(),n.opacity=1,b(i,n),e=t.elements.preview.getBoundingClientRect(),t._originalImageWidth=e.width,t._originalImageHeight=e.height,t.data.orientation=f(t.elements.img),t.options.enableZoom?W.call(t,!0):t._currentZoom=1,o.scale=t._currentZoom,n[g]=o.toString(),b(i,n),t.data.points.length?function(e){if(4!==e.length)throw"Croppie - Invalid number of points supplied: "+e;var t=this,n=e[2]-e[0],i=t.elements.viewport.getBoundingClientRect(),o=t.elements.boundary.getBoundingClientRect(),r={left:i.left-o.left,top:i.top-o.top},a=i.width/n,s=e[1],l=e[0],u=-1*e[1]+r.top,c=-1*e[0]+r.left,h={};h[v]=l+"px "+s+"px",h[g]=new E(c,u,a).toString(),b(t.elements.preview,h),B.call(t,a),t._currentZoom=a}.call(t,t.data.points):function(){var e=this,t=e.elements.preview.getBoundingClientRect(),n=e.elements.viewport.getBoundingClientRect(),i=e.elements.boundary.getBoundingClientRect(),o=n.left-i.left,r=n.top-i.top,a=o-(t.width-n.width)/2,s=r-(t.height-n.height)/2,l=new E(a,s,e._currentZoom);b(e.elements.preview,g,l.toString())}.call(t),Z.call(t),z.call(t))}function W(e){var t,n,i,o,r=this,a=Math.max(r.options.minZoom,0)||0,s=r.options.maxZoom||1.5,l=r.elements.zoomer,u=parseFloat(l.value),c=r.elements.boundary.getBoundingClientRect(),h=m(r.elements.img,r.data.orientation),p=r.elements.viewport.getBoundingClientRect();r.options.enforceBoundary&&(i=p.width/h.width,o=p.height/h.height,a=Math.max(i,o)),s<=a&&(s=a+1),l.min=A(a,4),l.max=A(s,4),!e&&(u<l.min||u>l.max)?B.call(r,u<l.min?l.min:l.max):e&&(n=Math.max(c.width/h.width,c.height/h.height),t=null!==r.data.boundZoom?r.data.boundZoom:n,B.call(r,t)),y(l)}function O(e){var t=e.points,n=C(t[0]),i=C(t[1]),o=C(t[2])-n,r=C(t[3])-i,a=e.circle,s=document.createElement("canvas"),l=s.getContext("2d"),u=e.outputWidth||o,c=e.outputHeight||r;s.width=u,s.height=c,e.backgroundColor&&(l.fillStyle=e.backgroundColor,l.fillRect(0,0,u,c));var h=n,p=i,d=o,m=r,f=0,v=0,g=u,w=c;return n<0&&(h=0,f=Math.abs(n)/o*u),d+h>this._originalImageWidth&&(g=(d=this._originalImageWidth-h)/o*u),i<0&&(p=0,v=Math.abs(i)/r*c),m+p>this._originalImageHeight&&(w=(m=this._originalImageHeight-p)/r*c),l.drawImage(this.elements.preview,h,p,d,m,f,v,g,w),a&&(l.fillStyle="#fff",l.globalCompositeOperation="destination-in",l.beginPath(),l.arc(s.width/2,s.height/2,s.width/2,0,2*Math.PI,!0),l.closePath(),l.fill()),s}function k(c,h){var e,i,o,r,p=this,d=[],t=null,n=R.call(p);if("string"==typeof c)e=c,c={};else if(Array.isArray(c))d=c.slice();else{if(void 0===c&&p.data.url)return Y.call(p),F.call(p),null;e=c.url,d=c.points||[],t=void 0===c.zoom?null:c.zoom}return p.data.bound=!1,p.data.url=e||p.data.url,p.data.boundZoom=t,(i=e,o=n,r=new Image,r.style.opacity="0",new Promise(function(e,t){function n(){r.style.opacity="1",setTimeout(function(){e(r)},1)}r.removeAttribute("crossOrigin"),i.match(/^https?:\/\/|^\/\//)&&r.setAttribute("crossOrigin","anonymous"),r.onload=function(){o?EXIF.getData(r,function(){n()}):n()},r.onerror=function(e){r.style.opacity=1,setTimeout(function(){t(e)},1)},r.src=i})).then(function(e){if(function(t){this.elements.img.parentNode&&(Array.prototype.forEach.call(this.elements.img.classList,function(e){t.classList.add(e)}),this.elements.img.parentNode.replaceChild(t,this.elements.img),this.elements.preview=t),this.elements.img=t}.call(p,e),d.length)p.options.relative&&(d=[d[0]*e.naturalWidth/100,d[1]*e.naturalHeight/100,d[2]*e.naturalWidth/100,d[3]*e.naturalHeight/100]);else{var t,n,i=m(e),o=p.elements.viewport.getBoundingClientRect(),r=o.width/o.height;r<i.width/i.height?t=(n=i.height)*r:(t=i.width,n=i.height/r);var a=(i.width-t)/2,s=(i.height-n)/2,l=a+t,u=s+n;p.data.points=[a,s,l,u]}p.data.points=d.map(function(e){return parseFloat(e)}),p.options.useCanvas&&function(e){var t=this.elements.canvas,n=this.elements.img;t.getContext("2d").clearRect(0,0,t.width,t.height),t.width=n.width,t.height=n.height,_(t,n,this.options.enableOrientation&&e||f(n))}.call(p,c.orientation),Y.call(p),F.call(p),h&&h()})}function A(e,t){return parseFloat(e).toFixed(t||0)}function j(){var e=this,t=e.elements.preview.getBoundingClientRect(),n=e.elements.viewport.getBoundingClientRect(),i=n.left-t.left,o=n.top-t.top,r=(n.width-e.elements.viewport.offsetWidth)/2,a=(n.height-e.elements.viewport.offsetHeight)/2,s=i+e.elements.viewport.offsetWidth+r,l=o+e.elements.viewport.offsetHeight+a,u=e._currentZoom;(u===1/0||isNaN(u))&&(u=1);var c=e.options.enforceBoundary?0:Number.NEGATIVE_INFINITY;return i=Math.max(c,i/u),o=Math.max(c,o/u),s=Math.max(c,s/u),l=Math.max(c,l/u),{points:[A(i),A(o),A(s),A(l)],zoom:u,orientation:e.data.orientation}}var H={type:"canvas",format:"png",quality:1},N=["jpeg","webp","png"];function n(e){var t=this,n=j.call(t),i=p(d(H),d(e)),o="string"==typeof e?e:i.type||"base64",r=i.size||"viewport",a=i.format,s=i.quality,l=i.backgroundColor,u="boolean"==typeof i.circle?i.circle:"circle"===t.options.viewport.type,c=t.elements.viewport.getBoundingClientRect(),h=c.width/c.height;return"viewport"===r?(n.outputWidth=c.width,n.outputHeight=c.height):"object"==typeof r&&(r.width&&r.height?(n.outputWidth=r.width,n.outputHeight=r.height):r.width?(n.outputWidth=r.width,n.outputHeight=r.width/h):r.height&&(n.outputWidth=r.height*h,n.outputHeight=r.height)),-1<N.indexOf(a)&&(n.format="image/"+a,n.quality=s),n.circle=u,n.url=t.data.url,n.backgroundColor=l,new Promise(function(e){switch(o.toLowerCase()){case"rawcanvas":e(O.call(t,n));break;case"canvas":case"base64":e(function(e){return O.call(this,e).toDataURL(e.format,e.quality)}.call(t,n));break;case"blob":(function(e){var n=this;return new Promise(function(t){O.call(n,e).toBlob(function(e){t(e)},e.format,e.quality)})}).call(t,n).then(e);break;default:e(function(e){var t=e.points,n=document.createElement("div"),i=document.createElement("img"),o=t[2]-t[0],r=t[3]-t[1];return x(n,"croppie-result"),n.appendChild(i),b(i,{left:-1*t[0]+"px",top:-1*t[1]+"px"}),i.src=e.url,b(n,{width:o+"px",height:r+"px"}),n}.call(t,n))}})}function S(e){if(!this.options.useCanvas||!this.options.enableOrientation)throw"Croppie: Cannot rotate without enableOrientation && EXIF.js included";var t,n,i,o,r,a=this,s=a.elements.canvas;a.data.orientation=(t=a.data.orientation,n=e,i=-1<l.indexOf(t)?l:u,o=i.indexOf(t),r=n/90%i.length,i[(i.length+o+r%i.length)%i.length]),_(s,a.elements.img,a.data.orientation),Z.call(a,!0),W.call(a)}if(window.jQuery){var P=window.jQuery;P.fn.croppie=function(n){if("string"!==typeof n)return this.each(function(){var e=new T(this,n);(e.$=P)(this).data("croppie",e)});var i=Array.prototype.slice.call(arguments,1),e=P(this).data("croppie");return"get"===n?e.get():"result"===n?e.result.apply(e,i):"bind"===n?e.bind.apply(e,i):this.each(function(){var e=P(this).data("croppie");if(e){var t=e[n];if(!P.isFunction(t))throw"Croppie "+n+" method not found";t.apply(e,i),"destroy"===n&&P(this).removeData("croppie")}})}}function T(e,t){if(-1<e.className.indexOf("croppie-container"))throw new Error("Croppie: Can't initialize croppie more than once");if(this.element=e,this.options=p(d(T.defaults),t),"img"===this.element.tagName.toLowerCase()){var n=this.element;x(n,"cr-original-image"),c(n,{"aria-hidden":"true",alt:""});var i=document.createElement("div");this.element.parentNode.appendChild(i),i.appendChild(n),this.element=i,this.options.url=this.options.url||n.src}if(r.call(this),this.options.url){var o={url:this.options.url,points:this.options.points};delete this.options.url,delete this.options.points,k.call(this,o)}}return T.defaults={viewport:{width:100,height:100,type:"square"},boundary:{},orientationControls:{enabled:!0,leftClass:"",rightClass:""},resizeControls:{width:!0,height:!0},customClass:"",showZoomer:!0,enableZoom:!0,enableResize:!1,mouseWheelZoom:!0,enableExif:!1,enforceBoundary:!0,enableOrientation:!1,enableKeyMovement:!0,update:function(){}},T.globals={translate:"translate3d"},p(T.prototype,{bind:function(e,t){return k.call(this,e,t)},get:function(){var e=j.call(this),t=e.points;return this.options.relative&&(t[0]/=this.elements.img.naturalWidth/100,t[1]/=this.elements.img.naturalHeight/100,t[2]/=this.elements.img.naturalWidth/100,t[3]/=this.elements.img.naturalHeight/100),e},result:function(e){return n.call(this,e)},refresh:function(){return function(){Y.call(this)}.call(this)},setZoom:function(e){B.call(this,e),y(this.elements.zoomer)},rotate:function(e){S.call(this,e)},destroy:function(){return function(){var e,t,n=this;n.element.removeChild(n.elements.boundary),e=n.element,t="croppie-container",e.classList?e.classList.remove(t):e.className=e.className.replace(t,""),n.options.enableZoom&&n.element.removeChild(n.elements.zoomerWrap),delete n.elements}.call(this)}}),T});
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../timers-browserify/main.js */ "./node_modules/timers-browserify/main.js").setImmediate))
+
+/***/ }),
+
 /***/ "./node_modules/ieee754/index.js":
 /*!***************************************!*\
   !*** ./node_modules/ieee754/index.js ***!
@@ -66307,6 +66323,279 @@ module.exports = __webpack_require__(63);
 
 /***/ }),
 
+/***/ "./node_modules/setimmediate/setImmediate.js":
+/*!***************************************************!*\
+  !*** ./node_modules/setimmediate/setImmediate.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
+    "use strict";
+
+    if (global.setImmediate) {
+        return;
+    }
+
+    var nextHandle = 1; // Spec says greater than zero
+    var tasksByHandle = {};
+    var currentlyRunningATask = false;
+    var doc = global.document;
+    var registerImmediate;
+
+    function setImmediate(callback) {
+      // Callback can either be a function or a string
+      if (typeof callback !== "function") {
+        callback = new Function("" + callback);
+      }
+      // Copy function arguments
+      var args = new Array(arguments.length - 1);
+      for (var i = 0; i < args.length; i++) {
+          args[i] = arguments[i + 1];
+      }
+      // Store and register the task
+      var task = { callback: callback, args: args };
+      tasksByHandle[nextHandle] = task;
+      registerImmediate(nextHandle);
+      return nextHandle++;
+    }
+
+    function clearImmediate(handle) {
+        delete tasksByHandle[handle];
+    }
+
+    function run(task) {
+        var callback = task.callback;
+        var args = task.args;
+        switch (args.length) {
+        case 0:
+            callback();
+            break;
+        case 1:
+            callback(args[0]);
+            break;
+        case 2:
+            callback(args[0], args[1]);
+            break;
+        case 3:
+            callback(args[0], args[1], args[2]);
+            break;
+        default:
+            callback.apply(undefined, args);
+            break;
+        }
+    }
+
+    function runIfPresent(handle) {
+        // From the spec: "Wait until any invocations of this algorithm started before this one have completed."
+        // So if we're currently running a task, we'll need to delay this invocation.
+        if (currentlyRunningATask) {
+            // Delay by doing a setTimeout. setImmediate was tried instead, but in Firefox 7 it generated a
+            // "too much recursion" error.
+            setTimeout(runIfPresent, 0, handle);
+        } else {
+            var task = tasksByHandle[handle];
+            if (task) {
+                currentlyRunningATask = true;
+                try {
+                    run(task);
+                } finally {
+                    clearImmediate(handle);
+                    currentlyRunningATask = false;
+                }
+            }
+        }
+    }
+
+    function installNextTickImplementation() {
+        registerImmediate = function(handle) {
+            process.nextTick(function () { runIfPresent(handle); });
+        };
+    }
+
+    function canUsePostMessage() {
+        // The test against `importScripts` prevents this implementation from being installed inside a web worker,
+        // where `global.postMessage` means something completely different and can't be used for this purpose.
+        if (global.postMessage && !global.importScripts) {
+            var postMessageIsAsynchronous = true;
+            var oldOnMessage = global.onmessage;
+            global.onmessage = function() {
+                postMessageIsAsynchronous = false;
+            };
+            global.postMessage("", "*");
+            global.onmessage = oldOnMessage;
+            return postMessageIsAsynchronous;
+        }
+    }
+
+    function installPostMessageImplementation() {
+        // Installs an event handler on `global` for the `message` event: see
+        // * https://developer.mozilla.org/en/DOM/window.postMessage
+        // * http://www.whatwg.org/specs/web-apps/current-work/multipage/comms.html#crossDocumentMessages
+
+        var messagePrefix = "setImmediate$" + Math.random() + "$";
+        var onGlobalMessage = function(event) {
+            if (event.source === global &&
+                typeof event.data === "string" &&
+                event.data.indexOf(messagePrefix) === 0) {
+                runIfPresent(+event.data.slice(messagePrefix.length));
+            }
+        };
+
+        if (global.addEventListener) {
+            global.addEventListener("message", onGlobalMessage, false);
+        } else {
+            global.attachEvent("onmessage", onGlobalMessage);
+        }
+
+        registerImmediate = function(handle) {
+            global.postMessage(messagePrefix + handle, "*");
+        };
+    }
+
+    function installMessageChannelImplementation() {
+        var channel = new MessageChannel();
+        channel.port1.onmessage = function(event) {
+            var handle = event.data;
+            runIfPresent(handle);
+        };
+
+        registerImmediate = function(handle) {
+            channel.port2.postMessage(handle);
+        };
+    }
+
+    function installReadyStateChangeImplementation() {
+        var html = doc.documentElement;
+        registerImmediate = function(handle) {
+            // Create a <script> element; its readystatechange event will be fired asynchronously once it is inserted
+            // into the document. Do so, thus queuing up the task. Remember to clean up once it's been called.
+            var script = doc.createElement("script");
+            script.onreadystatechange = function () {
+                runIfPresent(handle);
+                script.onreadystatechange = null;
+                html.removeChild(script);
+                script = null;
+            };
+            html.appendChild(script);
+        };
+    }
+
+    function installSetTimeoutImplementation() {
+        registerImmediate = function(handle) {
+            setTimeout(runIfPresent, 0, handle);
+        };
+    }
+
+    // If supported, we should attach to the prototype of global, since that is where setTimeout et al. live.
+    var attachTo = Object.getPrototypeOf && Object.getPrototypeOf(global);
+    attachTo = attachTo && attachTo.setTimeout ? attachTo : global;
+
+    // Don't get fooled by e.g. browserify environments.
+    if ({}.toString.call(global.process) === "[object process]") {
+        // For Node.js before 0.9
+        installNextTickImplementation();
+
+    } else if (canUsePostMessage()) {
+        // For non-IE10 modern browsers
+        installPostMessageImplementation();
+
+    } else if (global.MessageChannel) {
+        // For web workers, where supported
+        installMessageChannelImplementation();
+
+    } else if (doc && "onreadystatechange" in doc.createElement("script")) {
+        // For IE 6–8
+        installReadyStateChangeImplementation();
+
+    } else {
+        // For older browsers
+        installSetTimeoutImplementation();
+    }
+
+    attachTo.setImmediate = setImmediate;
+    attachTo.clearImmediate = clearImmediate;
+}(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js"), __webpack_require__(/*! ./../process/browser.js */ "./node_modules/process/browser.js")))
+
+/***/ }),
+
+/***/ "./node_modules/timers-browserify/main.js":
+/*!************************************************!*\
+  !*** ./node_modules/timers-browserify/main.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {var scope = (typeof global !== "undefined" && global) ||
+            (typeof self !== "undefined" && self) ||
+            window;
+var apply = Function.prototype.apply;
+
+// DOM APIs, for completeness
+
+exports.setTimeout = function() {
+  return new Timeout(apply.call(setTimeout, scope, arguments), clearTimeout);
+};
+exports.setInterval = function() {
+  return new Timeout(apply.call(setInterval, scope, arguments), clearInterval);
+};
+exports.clearTimeout =
+exports.clearInterval = function(timeout) {
+  if (timeout) {
+    timeout.close();
+  }
+};
+
+function Timeout(id, clearFn) {
+  this._id = id;
+  this._clearFn = clearFn;
+}
+Timeout.prototype.unref = Timeout.prototype.ref = function() {};
+Timeout.prototype.close = function() {
+  this._clearFn.call(scope, this._id);
+};
+
+// Does not start the time, just sets up the members needed.
+exports.enroll = function(item, msecs) {
+  clearTimeout(item._idleTimeoutId);
+  item._idleTimeout = msecs;
+};
+
+exports.unenroll = function(item) {
+  clearTimeout(item._idleTimeoutId);
+  item._idleTimeout = -1;
+};
+
+exports._unrefActive = exports.active = function(item) {
+  clearTimeout(item._idleTimeoutId);
+
+  var msecs = item._idleTimeout;
+  if (msecs >= 0) {
+    item._idleTimeoutId = setTimeout(function onTimeout() {
+      if (item._onTimeout)
+        item._onTimeout();
+    }, msecs);
+  }
+};
+
+// setimmediate attaches itself to the global object
+__webpack_require__(/*! setimmediate */ "./node_modules/setimmediate/setImmediate.js");
+// On some exotic environments, it's not clear which object `setimmediate` was
+// able to install onto.  Search each possibility in the same order as the
+// `setimmediate` library.
+exports.setImmediate = (typeof self !== "undefined" && self.setImmediate) ||
+                       (typeof global !== "undefined" && global.setImmediate) ||
+                       (this && this.setImmediate);
+exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
+                         (typeof global !== "undefined" && global.clearImmediate) ||
+                         (this && this.clearImmediate);
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
 /***/ "./node_modules/webpack/buildin/global.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -66792,7 +67081,10 @@ __webpack_require__(/*! codemirror/addon/edit/matchbrackets */ "./node_modules/c
 
 __webpack_require__(/*! codemirror/addon/edit/closetag */ "./node_modules/codemirror/addon/edit/closetag.js");
 
-__webpack_require__(/*! codemirror/addon/edit/matchtags */ "./node_modules/codemirror/addon/edit/matchtags.js");
+__webpack_require__(/*! codemirror/addon/edit/matchtags */ "./node_modules/codemirror/addon/edit/matchtags.js"); // Croppie
+
+
+__webpack_require__(/*! croppie/croppie.min */ "./node_modules/croppie/croppie.min.js");
 /**
  * KC Scripts
  */
@@ -66833,6 +67125,74 @@ $(document).ready(function () {
   $('.selectCountry').dropdown({
     forceSelection: false
   });
+  $('.editProfileContent .btnChangeAvatar').click(function (e) {
+    $('.ui.modal.whiteBasicModal .header').html('Change Avatar Image');
+    $('.ui.modal.whiteBasicModal .actions').remove();
+    var contentMarkUp = "\n            <div class=\"changeAvatarInModal\">\n                <div class=\"ui form\">\n                    <div class=\"grouped fields\">\n                        <label>Type of Avatar:</label>\n                        <div class=\"field\">\n                            <div class=\"ui toggle checkbox typeAvatarCheckBox\">\n                                <input type=\"radio\" name=\"typeAvatar\" value=\"image\" checked=\"checked\">\n                                <label>Upload Image</label>\n                            </div>\n                        </div>\n                        <div class=\"field\">\n                            <div class=\"ui toggle checkbox typeAvatarCheckBox\">\n                                <input type=\"radio\" name=\"typeAvatar\" value=\"jdenticon\">\n                                <label>Jdenticon</label>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"actionAvatar\">\n                    <div class=\"useJdenticon\">Jdenticon</div>\n                    <div class=\"useImage\">\n                        <div class=\"ui form\">\n                            <div class=\"field\">\n                                <label for=\"iptAvatarImage\">\n                                    <strong>Browse image</strong>\n                                </label>\n                                <input type=\"file\" class=\"iptAvatarImage\" accept=\"image/*\"/>\n                            </div>\n                        </div>\n                        <div class=\"cropImgBlock\">\n                            <div class=\"imgTmp\"></div>\n                            <button class=\"ui button btnCrop\">Crop</button>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        ";
+    $('.ui.modal.whiteBasicModal .content').html(contentMarkUp);
+    navigateTabTypeAvatar($('.changeAvatarInModal').find('[name="typeAvatar"]:checked').val());
+    $('.changeAvatarInModal .typeAvatarCheckBox').checkbox({
+      onChange: function onChange() {
+        var typeAvatar = $('.changeAvatarInModal').find('[name="typeAvatar"]:checked').val();
+        navigateTabTypeAvatar(typeAvatar);
+      }
+    });
+    $('.changeAvatarInModal .cropImgBlock').css('visibility', 'hidden');
+    var imageCrop = $('.changeAvatarInModal .imgTmp').croppie({
+      enableExif: true,
+      viewport: {
+        width: 200,
+        height: 200,
+        type: 'circle'
+      },
+      boundary: {
+        width: 200,
+        height: 200
+      }
+    });
+    $('.changeAvatarInModal .iptAvatarImage').on('change', function () {
+      var valAvatarSelect = $(this).val();
+
+      if (valAvatarSelect !== '') {
+        var reader = new FileReader();
+
+        reader.onload = function (event) {
+          imageCrop.croppie('bind', {
+            url: event.target.result
+          });
+        };
+
+        reader.readAsDataURL(this.files[0]);
+        $('.changeAvatarInModal .cropImgBlock').css('visibility', 'visible');
+      } else {
+        $('.changeAvatarInModal .cropImgBlock').css('visibility', 'hidden');
+      }
+    });
+    $('.changeAvatarInModal .btnCrop').click(function (event) {
+      imageCrop.croppie('result', {
+        type: 'canvas',
+        size: 'viewport'
+      }).then(function (response) {
+        $('.editProfileContent .briefInfo .avatar_img').attr('src', response);
+        $('.editProfileContent .editProfileForm .imgAvatar').val(response);
+        $('.ui.modal.whiteBasicModal').modal('hide');
+      });
+    });
+    $('.ui.modal.whiteBasicModal').modal('show');
+  });
+
+  function navigateTabTypeAvatar(typeAvatar) {
+    var useJdenticon = $('.changeAvatarInModal .actionAvatar .useJdenticon');
+    var useImage = $('.changeAvatarInModal .actionAvatar .useImage');
+    useJdenticon.css('display', 'none');
+    useImage.css('display', 'none');
+
+    if (typeAvatar === 'image') {
+      useImage.css('display', 'block');
+    } else if (typeAvatar === 'jdenticon') {
+      useJdenticon.css('display', 'block');
+    }
+  }
 });
 
 /***/ }),

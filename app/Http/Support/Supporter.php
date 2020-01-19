@@ -31,6 +31,23 @@ class Supporter
         {
             return $this->doResponseError($exception, false);
         }
+    }
 
+    public function decodeBase64StringToImageFile ($str)
+    {
+        try
+        {
+            $matches = null;
+            preg_match('/data:image\\/(.*);base64,(.*)/', $str, $matches);
+            $file = base64_decode($matches[2]);
+            return [
+                'file' => $file,
+                'extension' => $matches[1]
+            ];
+        }
+        catch(\Exception $exception)
+        {
+            return null;
+        }
     }
 }

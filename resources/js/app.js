@@ -74,6 +74,9 @@ require('codemirror/addon/edit/matchbrackets');
 require('codemirror/addon/edit/closetag');
 require('codemirror/addon/edit/matchtags');
 
+// Croppie
+require('croppie/croppie.min');
+
 /**
  * KC Scripts
  */

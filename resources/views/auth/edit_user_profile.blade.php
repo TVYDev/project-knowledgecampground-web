@@ -15,7 +15,10 @@
     ?>
     <div class="editProfileContent">
         <div class="briefInfo">
-            <img class="avatar_img" src="{{$default_avatar_url}}" alt="avatar_image">
+            <div class="blockAvatar">
+                <img class="avatar_img" src="{{$default_avatar_url}}" alt="avatar_image">
+                <button class="btnChangeAvatar">Change Avatar Image</button>
+            </div>
             <h3 class="username">{{'@'.$username}}</h3>
         </div>
         <div class="editProfileForm">
@@ -23,6 +26,7 @@
             <div class="ui section divider"></div>
             <form action="{{ route(\App\Lib\RouteConstants::USER_POST_EDIT_USER_PROFILE) }}" method="post" id="formEditProfile">
                 @csrf
+                <input type="hidden" name="imgAvatar" class="imgAvatar">
                 <div class="ui form">
                     <div class="ui header">Public Information</div>
                     <div class="field">
