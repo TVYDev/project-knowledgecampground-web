@@ -1,5 +1,5 @@
 <div class="ui fluid search selection dropdown selectCountry">
-    <input type="hidden" name="country">
+    <input type="hidden" name="country" value="{{ $country }}">
     <i class="dropdown icon"></i>
     <div class="default text">Please select your country</div>
     <div class="menu">

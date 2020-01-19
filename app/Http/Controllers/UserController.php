@@ -9,6 +9,7 @@ use App\Lib\ResponseEndPoint;
 use App\Lib\RouteConstants;
 use App\Http\Support\UserAvatar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -199,23 +200,68 @@ class UserController extends Controller
      *------------------------------------------------------------------------*/
     public function getViewUserProfile ()
     {
-        return view('auth.view_user_profile');
+        try
+        {
+            $response = $this->get($this->getApiRequestUrl('user_profile.view'),null, null, $this->getAuthorizationHeader());
+            if($response->success == true) {
+                return view('auth.view_user_profile')->with('data', $response->data);
+            }
+            throw new \Exception('Unable to fetch you profile information. Please try again');
+        }
+        catch(\Exception $exception)
+        {
+            return $this->doResponseError($exception, true, RouteConstants::HOME, false);
+        }
     }
 
     public function getEditUserProfile ()
     {
-        return view('auth.edit_user_profile');
+        try
+        {
+            $response = $this->get($this->getApiRequestUrl('user_profile.view'),null, null, $this->getAuthorizationHeader());
+            if($response->success == true) {
+                return view('auth.edit_user_profile')->with('data', $response->data);
+            }
+            throw new \Exception('Unable to fetch you profile information. Please try again');
+        }
+        catch(\Exception $exception)
+        {
+            return $this->doResponseError($exception, true, RouteConstants::USER_GET_VIEW_USER_PROFILE, false);
+        }
     }
 
     public function postEditUserProfile (Request $request)
     {
         try
         {
-            dd($request->all());
+            $requestedData = [
+                'full_name'     => $request->fullName,
+                'country_code'  => $request->country,
+                'position'      => $request->position,
+                'location'      => $request->location,
+                'about_me'      => $request->aboutMe,
+                'website_link'  => $request->websiteLink,
+                'facebook_link' => $request->facebookLink,
+                'twitter_link'  => $request->twitterLink,
+                'telegram_link' => $request->telegramLink
+            ];
+
+            $response = $this->put(
+                $this->getApiRequestUrl('user_profile.update'),
+                null,
+                $requestedData,
+                $this->getAuthorizationHeader()
+            );
+
+            if($response->success == true)
+            {
+                return $this->doResponseSuccess(RouteConstants::USER_GET_VIEW_USER_PROFILE, 'Your profile is updated successfully', false);
+            }
+            throw new \Exception('Unable to update your profile. Please try again.');
         }
         catch (\Exception $exception)
         {
-            dd($exception->getMessage());
+            return $this->doResponseError($exception, true, RouteConstants::USER_GET_EDIT_USER_PROFILE, true);
         }
     }
 }

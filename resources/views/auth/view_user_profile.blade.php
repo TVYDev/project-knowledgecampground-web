@@ -8,6 +8,19 @@
 $ua = session(\App\Lib\UserConstants::KEY_TO_USER_AVATAR);
 $default_avatar_url = $ua[\App\Lib\UserConstants::USER_AVATAR_SVG_URL];
 $username = $ua[\App\Lib\UserConstants::USER_NAME];
+
+$country = null;
+$position = null;
+$location = null;
+$aboutMe = null;
+if(isset($data)){
+    if(isset($data->country)) {
+        $country = $data->country;
+    }
+    $position = $data->position;
+    $location = $data->location;
+    $aboutMe = $data->about_me;
+}
 ?>
 
 <div class="userProfileContent">
@@ -16,14 +29,18 @@ $username = $ua[\App\Lib\UserConstants::USER_NAME];
             <div>
                 <div class="username">{{'@'}}{{$username}}</div>
                 <div class="country">
-                    <span class="countryName">Cambodia</span>
-                    <i class="kh flag countryIcon"></i>
+                    @if(isset($country))
+                        <span class="countryName">{{ $country->name_en }}</span>
+                        <i class="{{$country->code}} flag countryIcon"></i>
+                    @else
+                        ( Your <em>country</em> is not yet set. )
+                    @endif
                 </div>
                 <div class="position">
-                    @if(isset($title))
-                        {{$title}}
+                    @if(isset($position))
+                        {{$position}}
                         @if(isset($location))
-                            &nbsp;at&nbsp;{{$location}}
+                            at&nbsp;{{$location}}
                         @endif
                     @else
                         ( Your <em>position</em> is not yet set. )

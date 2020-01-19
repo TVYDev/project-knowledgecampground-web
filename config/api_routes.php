@@ -53,6 +53,18 @@ return [
             'url'   => $host.'/api/auth/refresh-token'
         ]
     ],
+    'user_profile' => [
+        'update' => [
+            'method'    => 'put',
+            'path'      => '/api/user-profile/update',
+            'url'       => $host.'/api/user-profile/update'
+        ],
+        'view' => [
+            'method'    => 'get',
+            'path'      => '/api/user-profile/view',
+            'url'       => $host.'/api/user-profile/view'
+        ]
+    ],
     'question' => [
         'save'  =>  [
             'method'=> 'put',
