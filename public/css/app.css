@@ -13072,7 +13072,8 @@ h6,
 .ui.button,
 .ui.form input[type=text],
 .ui.form textarea,
-.ui.input input[type=text] {
+.ui.input input[type=text],
+.ui.header {
   font-family: "Taprom", "Comfortaa", sans-serif;
 }
 
@@ -13228,6 +13229,14 @@ button:focus {
 
 .ui.dropdown .menu .item:hover {
   background-color: #fcc45e;
+}
+
+.ui.header {
+  color: #026670;
+}
+
+.ui.header::before {
+  content: "\27A4   ";
 }
 
 .ui.toggle.checkbox input:checked ~ label:before,
@@ -15033,27 +15042,23 @@ button:focus {
   align-items: center;
 }
 
-.userProfileContent .topPartData .personalDescription .fullName,
 .userProfileContent .topPartData .personalDescription .username,
-.userProfileContent .topPartData .personalDescription .country {
+.userProfileContent .topPartData .personalDescription .country,
+.userProfileContent .topPartData .personalDescription .position {
   text-align: right;
 }
 
-.userProfileContent .topPartData .personalDescription .country .countryFlag {
-  height: 30px;
-}
-
-.userProfileContent .topPartData .personalDescription .fullName {
-  font-weight: bold;
-  color: #262626;
+.userProfileContent .topPartData .personalDescription .country {
+  margin-bottom: 10px;
 }
 
 .userProfileContent .topPartData .personalDescription .username {
-  font-weight: bold;
-  color: #707070;
+  font-size: 1.6em;
+  color: #026670;
+  margin-bottom: 10px;
 }
 
-.userProfileContent .topPartData .personalDescription .description {
+.userProfileContent .topPartData .personalDescription .aboutMe {
   align-self: baseline;
   text-align: center;
   margin: 0;
@@ -15066,7 +15071,7 @@ button:focus {
 }
 
 .userProfileContent .topPartData .avatarBlock .avatar_img {
-  border: 2px solid #0A5748;
+  border: 2px solid #fcc45e;
   border-radius: 100px;
   padding: 5px;
   width: 200px;
@@ -15075,18 +15080,16 @@ button:focus {
 
 .userProfileContent .topPartData .avatarBlock .btnEditProfile {
   margin-top: 10px;
-  background-color: #F3F3F3;
-  border: 1.5px solid #0A5748;
+  background-color: #FFF;
+  border: 1.5px solid #026670;
   border-radius: 20px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 5px 20px;
 }
 
 .userProfileContent .topPartData .avatarBlock .btnEditProfile:hover,
 .userProfileContent .topPartData .avatarBlock .btnEditProfile:focus {
-  font-weight: bold;
-  background-color: #17CCA9;
-  color: white;
+  background-color: #026670;
+  color: #FFF;
   cursor: pointer;
 }
 
@@ -15179,6 +15182,36 @@ button:focus {
 .changePasswordContent .notice p {
   line-height: 20px;
   color: #555;
+}
+
+.editProfileContent {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-column-gap: 5px;
+}
+
+.editProfileContent .briefInfo {
+  padding-right: 50px;
+  border-right: 1.2px solid #D8D8D8;
+  justify-self: right;
+  text-align: center;
+}
+
+.editProfileContent .briefInfo .username {
+  color: #026670;
+}
+
+.editProfileContent .briefInfo .avatar_img {
+  border: 2px solid #0A5748;
+  border-radius: 100px;
+  padding: 5px;
+  width: 180px;
+  height: 180px;
+}
+
+.editProfileContent .editProfileForm {
+  padding-left: 50px;
 }
 
 .askQuestionContent {

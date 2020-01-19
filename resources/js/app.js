@@ -79,6 +79,8 @@ require('codemirror/addon/edit/matchtags');
  */
 require('./navbar');
 require('./auth/login');
+require('./auth/view_user_profile');
+require('./auth/edit_user_profile');
 require('./form_alert_message');
 require('./question/post_question');
 require('./question/view_question');

@@ -199,6 +199,23 @@ class UserController extends Controller
      *------------------------------------------------------------------------*/
     public function getViewUserProfile ()
     {
-        return view('auth.user_profile');
+        return view('auth.view_user_profile');
+    }
+
+    public function getEditUserProfile ()
+    {
+        return view('auth.edit_user_profile');
+    }
+
+    public function postEditUserProfile (Request $request)
+    {
+        try
+        {
+            dd($request->all());
+        }
+        catch (\Exception $exception)
+        {
+            dd($exception->getMessage());
+        }
     }
 }

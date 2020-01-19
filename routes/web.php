@@ -47,6 +47,10 @@ Route::group([
 
     Route::get('/view-user-profile', 'UserController@getViewUserProfile')
         ->name(RouteConstants::USER_GET_VIEW_USER_PROFILE);
+    Route::get('/edit-user-profile', 'UserController@getEditUserProfile')
+        ->name(RouteConstants::USER_GET_EDIT_USER_PROFILE);
+    Route::post('/edit-user-profile', 'UserController@postEditUserProfile')
+        ->name(RouteConstants::USER_POST_EDIT_USER_PROFILE);
 });
 
 Route::group([

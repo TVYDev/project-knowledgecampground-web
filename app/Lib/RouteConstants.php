@@ -23,6 +23,8 @@ class RouteConstants
     const USER_GET_CHANGE_PASSWORD = 'user.getChangePassword';
     const USER_POST_CHANGE_PASSWORD = 'user.postChangePassword';
     const USER_GET_VIEW_USER_PROFILE = 'user.getViewUserProfile';
+    const USER_GET_EDIT_USER_PROFILE = 'user.getEditUserProfile';
+    const USER_POST_EDIT_USER_PROFILE = 'user.postEditUserProfile';
     /***********************************************************/
 
     /************************************************************

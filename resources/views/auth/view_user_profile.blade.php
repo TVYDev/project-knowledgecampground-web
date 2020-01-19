@@ -14,29 +14,37 @@ $username = $ua[\App\Lib\UserConstants::USER_NAME];
     <div class="topPartData">
         <div class="personalDescription">
             <div>
-                <h3 class="fullName">TANG Vannyou</h3>
-                <h5 class="username">@vannyou</h5>
-                <h6 class="country">
+                <div class="username">{{'@'}}{{$username}}</div>
+                <div class="country">
                     <span class="countryName">Cambodia</span>
-                    <img src="{{ asset('icons/flag_cambodia.png') }}" alt="cambodia-flag" class="countryFlag">
-                </h6>
+                    <i class="kh flag countryIcon"></i>
+                </div>
+                <div class="position">
+                    @if(isset($title))
+                        {{$title}}
+                        @if(isset($location))
+                            &nbsp;at&nbsp;{{$location}}
+                        @endif
+                    @else
+                        ( Your <em>position</em> is not yet set. )
+                    @endif
+                </div>
             </div>
             <div>
                 <hr class="grayLine">
             </div>
-            <div class="description">
-                Personal Description Lorem ipsum dolor sit amet, consecter
-                quis erat gravida nisl volutpat hendrerit eu a lorem.ravida n
-                drerit eu a lorem.
-                Personal Description Lorem ipsum dolor sit amet, consecter
-                quis erat gravida nisl volutpat hendrerit eu a lorem.ravida n
-                drerit eu a lorem.
+            <div class="aboutMe">
+                @if(isset($aboutMe))
+                    {{$aboutMe}}
+                @else
+                    ( Your <em>about me</em> is not yet set. )
+                @endif
             </div>
         </div>
         <div class="avatarBlock">
             <img class="avatar_img" src="{{$default_avatar_url}}" alt="avatar_image">
             <br>
-            <button class="btnEditProfile">Edit Profile</button>
+            <button class="btnEditProfile" data-url="{{ route(\App\Lib\RouteConstants::USER_GET_EDIT_USER_PROFILE) }}">Edit Profile</button>
         </div>
         <div class="statistics">
             <div>

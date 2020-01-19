@@ -66802,6 +66802,10 @@ __webpack_require__(/*! ./navbar */ "./resources/js/navbar.js");
 
 __webpack_require__(/*! ./auth/login */ "./resources/js/auth/login.js");
 
+__webpack_require__(/*! ./auth/view_user_profile */ "./resources/js/auth/view_user_profile.js");
+
+__webpack_require__(/*! ./auth/edit_user_profile */ "./resources/js/auth/edit_user_profile.js");
+
 __webpack_require__(/*! ./form_alert_message */ "./resources/js/form_alert_message.js");
 
 __webpack_require__(/*! ./question/post_question */ "./resources/js/question/post_question.js");
@@ -66815,6 +66819,21 @@ __webpack_require__(/*! ./reusable_components/content_editor */ "./resources/js/
 __webpack_require__(/*! ./reusable_components/content_action_view */ "./resources/js/reusable_components/content_action_view.js");
 
 __webpack_require__(/*! ./reusable_components/list_content_action_view */ "./resources/js/reusable_components/list_content_action_view.js");
+
+/***/ }),
+
+/***/ "./resources/js/auth/edit_user_profile.js":
+/*!************************************************!*\
+  !*** ./resources/js/auth/edit_user_profile.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  $('.selectCountry').dropdown({
+    forceSelection: false
+  });
+});
 
 /***/ }),
 
@@ -66840,6 +66859,21 @@ function moveCardToLogin() {
   $('.loginContent .formSide .kcCard .backCard').css('transform', 'rotateY(180deg)');
   $('.loginContent .formSide .kcCard .frontCard').css('transform', 'rotateY(0deg)');
 }
+
+/***/ }),
+
+/***/ "./resources/js/auth/view_user_profile.js":
+/*!************************************************!*\
+  !*** ./resources/js/auth/view_user_profile.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  $('.userProfileContent .btnEditProfile').click(function (e) {
+    window.location.href = $(this).attr('data-url');
+  });
+});
 
 /***/ }),
 
