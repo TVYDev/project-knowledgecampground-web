@@ -67090,6 +67090,14 @@ __webpack_require__(/*! croppie/croppie.min */ "./node_modules/croppie/croppie.m
  */
 
 
+__webpack_require__(/*! ./reusable_components/content_management_preview */ "./resources/js/reusable_components/content_management_preview.js");
+
+__webpack_require__(/*! ./reusable_components/content_editor */ "./resources/js/reusable_components/content_editor.js");
+
+__webpack_require__(/*! ./reusable_components/content_action_view */ "./resources/js/reusable_components/content_action_view.js");
+
+__webpack_require__(/*! ./reusable_components/list_content_action_view */ "./resources/js/reusable_components/list_content_action_view.js");
+
 __webpack_require__(/*! ./navbar */ "./resources/js/navbar.js");
 
 __webpack_require__(/*! ./auth/login */ "./resources/js/auth/login.js");
@@ -67103,14 +67111,6 @@ __webpack_require__(/*! ./form_alert_message */ "./resources/js/form_alert_messa
 __webpack_require__(/*! ./question/post_question */ "./resources/js/question/post_question.js");
 
 __webpack_require__(/*! ./question/view_question */ "./resources/js/question/view_question.js");
-
-__webpack_require__(/*! ./reusable_components/content_management_preview */ "./resources/js/reusable_components/content_management_preview.js");
-
-__webpack_require__(/*! ./reusable_components/content_editor */ "./resources/js/reusable_components/content_editor.js");
-
-__webpack_require__(/*! ./reusable_components/content_action_view */ "./resources/js/reusable_components/content_action_view.js");
-
-__webpack_require__(/*! ./reusable_components/list_content_action_view */ "./resources/js/reusable_components/list_content_action_view.js");
 
 /***/ }),
 
@@ -67542,6 +67542,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../NotyAlertMessage */ "./resources/js/NotyAlertMessage.js");
 
 $(document).ready(function () {
+  console.log('here');
+  var url = window.location.origin + '/question/get-info/JghFacmZTp';
+  $.ajax({
+    url: url,
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    type: 'GET',
+    success: function success(result) {
+      console.log(result);
+    },
+    error: function error(err) {
+      console.log('error', err);
+    }
+  });
+  var tvyContentActionView = document.querySelector('tvy-content-action-view[data-for="currentQuestion"]'); // tvyContentActionView.items = 123;
+  // console.log('view', tvyContentActionView.items);
+  // tvyContentActionView.render();
+
   $('#formAnswerQuestion').submit(function (e) {
     var canSubmit = true;
     var hasValueDesc = $('tvy-content-editor').attr('data-has-value');
@@ -67598,8 +67617,36 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 
-
-var html = "\n<div class=\"TVYContentActionView\">\n    <input type=\"hidden\" name=\"reRender\" class=\"reRender\" />\n    <div class=\"viewPart\"></div>\n    <div class=\"actionPart\">\n        <div class=\"vote\">\n            <i class=\"far fa-thumbs-up selected\"></i>\n            <span class=\"numVote\">23</span>\n            <i class=\"far fa-thumbs-down\"></i>\n        </div>\n        <div class=\"askedOrEditedDate\"></div>\n        <div class=\"authorIdentity\">\n            <div><a href=\"#\" class=\"authorInfo\"></a></div>\n            <div><img class=\"authorAvatar\" src=\"\" alt=\"avatar\"></div>    \n        </div>\n    </div>\n    <div class=\"commentsBlock\">\n        <div class=\"listOfComments\"></div>\n        <div class=\"addNewCommentBlock\">\n            <div><img class=\"authorAvatar\" src=\"\" alt=\"avatar\"></div>    \n            <div class=\"commentBody\">\n                <div class=\"ui input commentInput\">\n                    <input type=\"text\" class=\"txtComment\"/>\n                </div>\n                <div class=\"commentButton\"><i class=\"fas fa-chevron-circle-right\"></i></div>\n            </div>\n        </div>\n    </div>\n</div>\n";
+ // const html = `
+// <div class="TVYContentActionView">
+//     <input type="hidden" name="reRender" class="reRender" />
+//     <div class="viewPart"></div>
+//     <div class="actionPart">
+//         <div class="vote">
+//             <i class="far fa-thumbs-up selected"></i>
+//             <span class="numVote">23</span>
+//             <i class="far fa-thumbs-down"></i>
+//         </div>
+//         <div class="askedOrEditedDate"></div>
+//         <div class="authorIdentity">
+//             <div><a href="#" class="authorInfo"></a></div>
+//             <div><img class="authorAvatar" src="" alt="avatar"></div>
+//         </div>
+//     </div>
+//     <div class="commentsBlock">
+//         <div class="listOfComments"></div>
+//         <div class="addNewCommentBlock">
+//             <div><img class="authorAvatar" src="" alt="avatar"></div>
+//             <div class="commentBody">
+//                 <div class="ui input commentInput">
+//                     <input type="text" class="txtComment"/>
+//                 </div>
+//                 <div class="commentButton"><i class="fas fa-chevron-circle-right"></i></div>
+//             </div>
+//         </div>
+//     </div>
+// </div>
+// `;
 
 var TVYContentActionView =
 /*#__PURE__*/
@@ -67612,49 +67659,48 @@ function (_HTMLElement) {
     _classCallCheck(this, TVYContentActionView);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(TVYContentActionView).call(this));
-    _this.innerHTML = html;
-    _this.descriptionContent = null;
-    _this.relativePathStoreImages = null;
-    _this.authorId = null;
-    _this.authorName = null;
-    _this.avatarUrl = null;
-    _this.defaultSharedAvatarUrl = window.location.protocol + '//' + window.location.host + '/icons/robot.png';
-    _this.currentAvatarUrl = _this.getAttribute('data-current-avatar-url');
-    _this.currentUsername = _this.getAttribute('data-current-username');
-
-    var contentType = _this.getAttribute('data-content-type');
-
-    if (contentType === 'question') {
-      _this.contentType = TVYContentActionView.QUESTION_CONTENT_TYPE;
-    } else {
-      _this.contentType = TVYContentActionView.ANSWER_CONTENT_TYPE;
-    }
-
-    _this.viewPart = _this.querySelector('.viewPart');
-    _this.actionPart = _this.querySelector('.actionPart');
-    _this.askedOrEditedDate = _this.actionPart.querySelector('.askedOrEditedDate');
-    _this.author = _this.actionPart.querySelector('.authorIdentity .authorInfo');
-    _this.avatar = _this.actionPart.querySelector('.authorIdentity .authorAvatar');
-    _this.reRenderHidden = _this.querySelector('.reRender');
-    _this.avatarAddComment = _this.querySelector('.addNewCommentBlock .authorAvatar');
-    _this.txtComment = _this.querySelector('.txtComment');
-    _this.btnComment = _this.querySelector('.commentButton');
-    _this.listOfComments = _this.querySelector('.commentsBlock .listOfComments');
-    _this.loaderContent = document.createElement('div');
-    _this.loaderContent.className = 'ui active centered inline text loader loaderContent';
-    _this.loaderContent.innerHTML = 'Loading';
-
-    _this.reRenderHidden.addEventListener('click', _this.getDescriptionContent.bind(_assertThisInitialized(_this)));
-
-    _this.btnComment.addEventListener('click', _this.saveComment.bind(_assertThisInitialized(_this)));
-
-    _this.avatarAddComment.setAttribute('src', _this.defaultSharedAvatarUrl);
-
-    _this.avatar.setAttribute('src', _this.defaultSharedAvatarUrl);
-
-    _this.getDescriptionContent();
-
-    _this.getListOfPostedComments();
+    var markup = document.getElementById('tplContentActionView').innerHTML;
+    _this.innerHTML = markup; // this.innerHTML = html;
+    // this.descriptionContent = null;
+    // this.relativePathStoreImages = null;
+    // this.authorId = null;
+    // this.authorName = null;
+    // this.avatarUrl = null;
+    //
+    // this.defaultSharedAvatarUrl = window.location.protocol + '//' + window.location.host + '/icons/robot.png';
+    // this.currentAvatarUrl = this.getAttribute('data-current-avatar-url');
+    // this.currentUsername = this.getAttribute('data-current-username');
+    // let contentType = this.getAttribute('data-content-type');
+    // if(contentType === 'question') {
+    //     this.contentType = TVYContentActionView.QUESTION_CONTENT_TYPE;
+    // }else {
+    //     this.contentType = TVYContentActionView.ANSWER_CONTENT_TYPE;
+    // }
+    //
+    // this.viewPart = this.querySelector('.viewPart');
+    // this.actionPart = this.querySelector('.actionPart');
+    // this.askedOrEditedDate = this.actionPart.querySelector('.askedOrEditedDate');
+    // this.author = this.actionPart.querySelector('.authorIdentity .authorInfo');
+    // this.avatar = this.actionPart.querySelector('.authorIdentity .authorAvatar');
+    // this.reRenderHidden = this.querySelector('.reRender');
+    // this.avatarAddComment = this.querySelector('.addNewCommentBlock .authorAvatar');
+    // this.txtComment = this.querySelector('.txtComment');
+    // this.btnComment = this.querySelector('.commentButton');
+    //
+    // this.listOfComments = this.querySelector('.commentsBlock .listOfComments');
+    //
+    // this.loaderContent = document.createElement('div');
+    // this.loaderContent.className = 'ui active centered inline text loader loaderContent';
+    // this.loaderContent.innerHTML = 'Loading';
+    //
+    // this.reRenderHidden.addEventListener('click', this.getDescriptionContent.bind(this));
+    // this.btnComment.addEventListener('click', this.saveComment.bind(this));
+    //
+    // this.avatarAddComment.setAttribute('src', this.defaultSharedAvatarUrl);
+    // this.avatar.setAttribute('src', this.defaultSharedAvatarUrl);
+    //
+    // this.getDescriptionContent();
+    // this.getListOfPostedComments();
 
     return _this;
   }

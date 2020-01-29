@@ -90,6 +90,11 @@ return [
             'method'=> 'get',
             'path'  => '/api/question/list',
             'url'   => $host.'/api/question/list'
+        ],
+        'get_subject_tags' => [
+            'method'=> 'get',
+            'path'  => '/api/question/get-subject-tags-of/{publicId}',
+            'url'   => $host.'/api/question/get-subject-tags-of'
         ]
     ],
     'answer' => [

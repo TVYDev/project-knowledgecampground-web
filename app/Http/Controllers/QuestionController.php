@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Support\Paginator;
 use App\Http\Support\Supporter;
+use App\Lib\Helper;
 use App\Lib\HttpConstants;
 use App\Lib\MiddlewareConstants;
 use App\Lib\RequestAPI;
@@ -11,6 +12,7 @@ use App\Lib\ResponseEndPoint;
 use App\Lib\RouteConstants;
 use http\Exception\UnexpectedValueException;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\File;
 
 class QuestionController extends Controller
@@ -161,7 +163,7 @@ class QuestionController extends Controller
     {
         try
         {
-            $response = $this->get($this->getApiRequestUrl('question.view'), [$publicId], null, $this->getAuthorizationHeader());
+            $response = $this->get($this->getApiRequestUrl('question.get_subject_tags'), [$publicId]);
 
             if($response->success) {
                 $data = $response->data;
@@ -169,11 +171,10 @@ class QuestionController extends Controller
                 $newAnswerPublicId = $this->supporter->doGeneratePublicId();
 
                 return view('question.view_question')
-                    ->with('data', $data)
-                    ->with('questionPublicId', $publicId)
-                    ->with('answerPublicId', $newAnswerPublicId)
-                    ->with('avatarUrl', HttpConstants::HOST_URL . $data->avatar_url)
-                    ->with('relativePathStoreImagesOfQuestion', HttpConstants::HOST_URL . $data->description->relative_path_store_images);
+                    ->with('title', Helper::getProp($data, 'title'))
+                    ->with('subject', Helper::getProp($data, 'subject'))
+                    ->with('tags', Helper::getProp($data, 'tags'))
+                    ->with('answerPublicId', $newAnswerPublicId);
             }
         }
         catch(\Exception $exception)
@@ -185,6 +186,11 @@ class QuestionController extends Controller
                 false
             );
         }
+    }
+
+    public function getInfo ($publicId)
+    {
+        return response()->json(['adf' => 'wqe']);
     }
 
     public function getContentOfQuestion ($publicId)

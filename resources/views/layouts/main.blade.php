@@ -14,6 +14,8 @@
     @include('layouts.partials._basic_modal')
     @include('layouts.partials._basic_white_modal')
 
+    @include('reusable_components._template_content_action_view')
+
     <div id="mainContent" class="container">
         @yield('content')
     </div>

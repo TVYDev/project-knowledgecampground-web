@@ -1,83 +1,86 @@
 import QuillEditor from "../QuillEditor";
 import CodeMirrorEditor from "../CodeMirrorEditor";
 
-const html = `
-<div class="TVYContentActionView">
-    <input type="hidden" name="reRender" class="reRender" />
-    <div class="viewPart"></div>
-    <div class="actionPart">
-        <div class="vote">
-            <i class="far fa-thumbs-up selected"></i>
-            <span class="numVote">23</span>
-            <i class="far fa-thumbs-down"></i>
-        </div>
-        <div class="askedOrEditedDate"></div>
-        <div class="authorIdentity">
-            <div><a href="#" class="authorInfo"></a></div>
-            <div><img class="authorAvatar" src="" alt="avatar"></div>    
-        </div>
-    </div>
-    <div class="commentsBlock">
-        <div class="listOfComments"></div>
-        <div class="addNewCommentBlock">
-            <div><img class="authorAvatar" src="" alt="avatar"></div>    
-            <div class="commentBody">
-                <div class="ui input commentInput">
-                    <input type="text" class="txtComment"/>
-                </div>
-                <div class="commentButton"><i class="fas fa-chevron-circle-right"></i></div>
-            </div>
-        </div>
-    </div>
-</div>
-`;
+// const html = `
+// <div class="TVYContentActionView">
+//     <input type="hidden" name="reRender" class="reRender" />
+//     <div class="viewPart"></div>
+//     <div class="actionPart">
+//         <div class="vote">
+//             <i class="far fa-thumbs-up selected"></i>
+//             <span class="numVote">23</span>
+//             <i class="far fa-thumbs-down"></i>
+//         </div>
+//         <div class="askedOrEditedDate"></div>
+//         <div class="authorIdentity">
+//             <div><a href="#" class="authorInfo"></a></div>
+//             <div><img class="authorAvatar" src="" alt="avatar"></div>
+//         </div>
+//     </div>
+//     <div class="commentsBlock">
+//         <div class="listOfComments"></div>
+//         <div class="addNewCommentBlock">
+//             <div><img class="authorAvatar" src="" alt="avatar"></div>
+//             <div class="commentBody">
+//                 <div class="ui input commentInput">
+//                     <input type="text" class="txtComment"/>
+//                 </div>
+//                 <div class="commentButton"><i class="fas fa-chevron-circle-right"></i></div>
+//             </div>
+//         </div>
+//     </div>
+// </div>
+// `;
 
 class TVYContentActionView extends HTMLElement
 {
     constructor() {
         super();
-        this.innerHTML = html;
 
-        this.descriptionContent = null;
-        this.relativePathStoreImages = null;
-        this.authorId = null;
-        this.authorName = null;
-        this.avatarUrl = null;
+        let markup = document.getElementById('tplContentActionView').innerHTML;
+        this.innerHTML = markup;
+        // this.innerHTML = html;
 
-        this.defaultSharedAvatarUrl = window.location.protocol + '//' + window.location.host + '/icons/robot.png';
-        this.currentAvatarUrl = this.getAttribute('data-current-avatar-url');
-        this.currentUsername = this.getAttribute('data-current-username');
-        let contentType = this.getAttribute('data-content-type');
-        if(contentType === 'question') {
-            this.contentType = TVYContentActionView.QUESTION_CONTENT_TYPE;
-        }else {
-            this.contentType = TVYContentActionView.ANSWER_CONTENT_TYPE;
-        }
-
-        this.viewPart = this.querySelector('.viewPart');
-        this.actionPart = this.querySelector('.actionPart');
-        this.askedOrEditedDate = this.actionPart.querySelector('.askedOrEditedDate');
-        this.author = this.actionPart.querySelector('.authorIdentity .authorInfo');
-        this.avatar = this.actionPart.querySelector('.authorIdentity .authorAvatar');
-        this.reRenderHidden = this.querySelector('.reRender');
-        this.avatarAddComment = this.querySelector('.addNewCommentBlock .authorAvatar');
-        this.txtComment = this.querySelector('.txtComment');
-        this.btnComment = this.querySelector('.commentButton');
-
-        this.listOfComments = this.querySelector('.commentsBlock .listOfComments');
-
-        this.loaderContent = document.createElement('div');
-        this.loaderContent.className = 'ui active centered inline text loader loaderContent';
-        this.loaderContent.innerHTML = 'Loading';
-
-        this.reRenderHidden.addEventListener('click', this.getDescriptionContent.bind(this));
-        this.btnComment.addEventListener('click', this.saveComment.bind(this));
-
-        this.avatarAddComment.setAttribute('src', this.defaultSharedAvatarUrl);
-        this.avatar.setAttribute('src', this.defaultSharedAvatarUrl);
-
-        this.getDescriptionContent();
-        this.getListOfPostedComments();
+        // this.descriptionContent = null;
+        // this.relativePathStoreImages = null;
+        // this.authorId = null;
+        // this.authorName = null;
+        // this.avatarUrl = null;
+        //
+        // this.defaultSharedAvatarUrl = window.location.protocol + '//' + window.location.host + '/icons/robot.png';
+        // this.currentAvatarUrl = this.getAttribute('data-current-avatar-url');
+        // this.currentUsername = this.getAttribute('data-current-username');
+        // let contentType = this.getAttribute('data-content-type');
+        // if(contentType === 'question') {
+        //     this.contentType = TVYContentActionView.QUESTION_CONTENT_TYPE;
+        // }else {
+        //     this.contentType = TVYContentActionView.ANSWER_CONTENT_TYPE;
+        // }
+        //
+        // this.viewPart = this.querySelector('.viewPart');
+        // this.actionPart = this.querySelector('.actionPart');
+        // this.askedOrEditedDate = this.actionPart.querySelector('.askedOrEditedDate');
+        // this.author = this.actionPart.querySelector('.authorIdentity .authorInfo');
+        // this.avatar = this.actionPart.querySelector('.authorIdentity .authorAvatar');
+        // this.reRenderHidden = this.querySelector('.reRender');
+        // this.avatarAddComment = this.querySelector('.addNewCommentBlock .authorAvatar');
+        // this.txtComment = this.querySelector('.txtComment');
+        // this.btnComment = this.querySelector('.commentButton');
+        //
+        // this.listOfComments = this.querySelector('.commentsBlock .listOfComments');
+        //
+        // this.loaderContent = document.createElement('div');
+        // this.loaderContent.className = 'ui active centered inline text loader loaderContent';
+        // this.loaderContent.innerHTML = 'Loading';
+        //
+        // this.reRenderHidden.addEventListener('click', this.getDescriptionContent.bind(this));
+        // this.btnComment.addEventListener('click', this.saveComment.bind(this));
+        //
+        // this.avatarAddComment.setAttribute('src', this.defaultSharedAvatarUrl);
+        // this.avatar.setAttribute('src', this.defaultSharedAvatarUrl);
+        //
+        // this.getDescriptionContent();
+        // this.getListOfPostedComments();
     }
 
     static get TEXT_TYPE()  {return 'text';}
