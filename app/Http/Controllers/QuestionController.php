@@ -10,9 +10,7 @@ use App\Lib\MiddlewareConstants;
 use App\Lib\RequestAPI;
 use App\Lib\ResponseEndPoint;
 use App\Lib\RouteConstants;
-use http\Exception\UnexpectedValueException;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\File;
 
 class QuestionController extends Controller
@@ -172,6 +170,7 @@ class QuestionController extends Controller
 
                 return view('question.view_question')
                     ->with('title', Helper::getProp($data, 'title'))
+                    ->with('questionPublicId', Helper::getProp($data, 'public_id'))
                     ->with('subject', Helper::getProp($data, 'subject'))
                     ->with('tags', Helper::getProp($data, 'tags'))
                     ->with('answerPublicId', $newAnswerPublicId);
@@ -190,7 +189,41 @@ class QuestionController extends Controller
 
     public function getInfo ($publicId)
     {
-        return response()->json(['adf' => 'wqe']);
+        $success = false;
+        $responseData = null;
+        $errorMsg = null;
+        try
+        {
+            $resultQuestion = $this->get(
+                $this->getApiRequestUrl('question.view'),
+                [$publicId]
+            );
+
+            if($resultQuestion->success == true) {
+                $success = true;
+                $data = Helper::getProp($resultQuestion, 'data');
+                if(isset($data)) {
+                    $responseData['question_avatar_url'] = Helper::getProp($data, 'avatar_url');
+                    $responseData['author_name'] = Helper::getProp($data, 'author_name');
+                    $responseData['author_id'] = Helper::getProp($data, 'author_id');
+                    $responseData['readable_time'] = Helper::getProp($data, 'readable_time_en');
+                }
+            }
+            else {
+                throw new \Exception('Unable to get info of question, public id = ' . $publicId);
+            }
+        }
+        catch(\Exception $exception)
+        {
+            $success = false;
+            $errorMsg = $exception->getMessage();
+        }
+
+        return response()->json([
+            'success'       => $success,
+            'data'          => $responseData,
+            'error_message' => $errorMsg
+        ]);
     }
 
     public function getContentOfQuestion ($publicId)
@@ -217,7 +250,7 @@ class QuestionController extends Controller
             }
             else
             {
-                throw new UnexpectedValueException('Question not found');
+                throw new \Exception('Question not found');
             }
         }
         catch(\Exception $exception)

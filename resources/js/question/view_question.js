@@ -1,25 +1,30 @@
 import NotyAlertMessage from "../NotyAlertMessage";
 
 $(document).ready(function() {
-    console.log('here', );
-    let url = window.location.origin + '/question/get-info/JghFacmZTp';
+    const questionPublicId = document.querySelector('.pageViewQuestion input[name="questionPublicId"]').value;
+    let url = window.location.origin + '/question/get-info/' + questionPublicId;
 
     $.ajax({
         url: url,
         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
         type: 'GET',
         success: (result) => {
-            console.log(result);
+            if(result.success === true) {
+                const { question_avatar_url, author_name, author_id, readable_time } = result.data;
+                let currentQuestionContentActionView = document.querySelector('tvy-content-action-view[data-for="currentQuestion"]');
+                currentQuestionContentActionView.ownerAvatarUrl = question_avatar_url;
+                currentQuestionContentActionView.authorName = author_name;
+                currentQuestionContentActionView.authorId = author_id;
+                currentQuestionContentActionView.readableTime = readable_time;
+                currentQuestionContentActionView.getViewContent();
+                console.log(currentQuestionContentActionView.ownerAvatarUrl);
+            }
         },
         error: function(err) {
             console.log('error', err);
         }
     });
 
-    let tvyContentActionView = document.querySelector('tvy-content-action-view[data-for="currentQuestion"]');
-    // tvyContentActionView.items = 123;
-    // console.log('view', tvyContentActionView.items);
-    // tvyContentActionView.render();
 
     $('#formAnswerQuestion').submit(function(e) {
         let canSubmit = true;

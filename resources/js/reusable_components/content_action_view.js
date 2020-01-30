@@ -1,37 +1,6 @@
 import QuillEditor from "../QuillEditor";
 import CodeMirrorEditor from "../CodeMirrorEditor";
 
-// const html = `
-// <div class="TVYContentActionView">
-//     <input type="hidden" name="reRender" class="reRender" />
-//     <div class="viewPart"></div>
-//     <div class="actionPart">
-//         <div class="vote">
-//             <i class="far fa-thumbs-up selected"></i>
-//             <span class="numVote">23</span>
-//             <i class="far fa-thumbs-down"></i>
-//         </div>
-//         <div class="askedOrEditedDate"></div>
-//         <div class="authorIdentity">
-//             <div><a href="#" class="authorInfo"></a></div>
-//             <div><img class="authorAvatar" src="" alt="avatar"></div>
-//         </div>
-//     </div>
-//     <div class="commentsBlock">
-//         <div class="listOfComments"></div>
-//         <div class="addNewCommentBlock">
-//             <div><img class="authorAvatar" src="" alt="avatar"></div>
-//             <div class="commentBody">
-//                 <div class="ui input commentInput">
-//                     <input type="text" class="txtComment"/>
-//                 </div>
-//                 <div class="commentButton"><i class="fas fa-chevron-circle-right"></i></div>
-//             </div>
-//         </div>
-//     </div>
-// </div>
-// `;
-
 class TVYContentActionView extends HTMLElement
 {
     constructor() {
@@ -39,16 +8,22 @@ class TVYContentActionView extends HTMLElement
 
         let markup = document.getElementById('tplContentActionView').innerHTML;
         this.innerHTML = markup;
-        // this.innerHTML = html;
 
+        // this.defaultSharedAvatarUrl = window.location.protocol + '//' + window.location.host + '/icons/robot.png';
+
+        // Properties
+        this._ownerAvatarUrl = null;
+        this._authorName = null;
+        this._authorId = null;
+        this._readableTime = null;
+
+        // this.currentAvatarUrl = this.getAttribute('data-current-avatar-url');
         // this.descriptionContent = null;
         // this.relativePathStoreImages = null;
         // this.authorId = null;
         // this.authorName = null;
         // this.avatarUrl = null;
         //
-        // this.defaultSharedAvatarUrl = window.location.protocol + '//' + window.location.host + '/icons/robot.png';
-        // this.currentAvatarUrl = this.getAttribute('data-current-avatar-url');
         // this.currentUsername = this.getAttribute('data-current-username');
         // let contentType = this.getAttribute('data-content-type');
         // if(contentType === 'question') {
@@ -58,10 +33,10 @@ class TVYContentActionView extends HTMLElement
         // }
         //
         // this.viewPart = this.querySelector('.viewPart');
-        // this.actionPart = this.querySelector('.actionPart');
-        // this.askedOrEditedDate = this.actionPart.querySelector('.askedOrEditedDate');
-        // this.author = this.actionPart.querySelector('.authorIdentity .authorInfo');
-        // this.avatar = this.actionPart.querySelector('.authorIdentity .authorAvatar');
+        this.actionPart = this.querySelector('.actionPart');
+        this.askedOrEditedDate = this.actionPart.querySelector('.askedOrEditedDate');
+        this.author = this.actionPart.querySelector('.authorIdentity .authorInfo');
+        this.avatar = this.actionPart.querySelector('.authorIdentity .authorAvatar');
         // this.reRenderHidden = this.querySelector('.reRender');
         // this.avatarAddComment = this.querySelector('.addNewCommentBlock .authorAvatar');
         // this.txtComment = this.querySelector('.txtComment');
@@ -81,6 +56,34 @@ class TVYContentActionView extends HTMLElement
         //
         // this.getDescriptionContent();
         // this.getListOfPostedComments();
+    }
+
+    set ownerAvatarUrl (url) {
+        this._ownerAvatarUrl = url;
+    }
+    get ownerAvatarUrl () {
+        return this._ownerAvatarUrl;
+    }
+
+    set authorName (name) {
+        this._authorName = name;
+    }
+    get authorName () {
+        return this._authorName;
+    }
+
+    set authorId (id) {
+        this._authorId = id;
+    }
+    get authorId () {
+        return this._authorId;
+    }
+
+    set readableTime (time) {
+        this._readableTime = time;
+    }
+    get readableTime () {
+        return this._readableTime;
     }
 
     static get TEXT_TYPE()  {return 'text';}
@@ -136,43 +139,44 @@ class TVYContentActionView extends HTMLElement
         this.listOfComments.appendChild(divSingleComment);
     }
 
-    getDescriptionContent ()
+    getViewContent ()
     {
-        let routePath = null;
-        if(this.contentType === TVYContentActionView.QUESTION_CONTENT_TYPE) {
-            routePath = '/question/content-of-question/';
-        }else {
-            routePath = '/answer/content-of-answer/';
-        }
-        let url = window.location.origin + routePath + this.getAttribute('data-public-id');
-        $.ajax({
-            url: url,
-            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-            type: 'GET',
-            beforeSend: (xhr) => {
-                this.viewPart.innerHTML = '';
-                this.viewPart.appendChild(this.loaderContent);
-            },
-            success: (result) => {
-                this.viewPart.removeChild(this.loaderContent);
-                if(result.success){
-                    this.descriptionContent = JSON.parse(result.data);
-                    this.relativePathStoreImages = result.relative_path_store_images;
-                    this.fillTheContent();
-
-                    this.fillInfoOfActionPart(result.readable_time, result.author_id, result.author_name, result.avatar_url);
-                    this.authorId = result.author_id;
-                    this.authorName = result.author_name;
-                    this.avatarUrl = result.avatar_url;
-                }else {
-                    this.addWarningNoContent();
-                }
-            },
-            error: function(err) {
-                console.log('---Error');
-                console.log(err);
-            }
-        });
+        this.fillInfoOfActionPart();
+        // let routePath = null;
+        // if(this.contentType === TVYContentActionView.QUESTION_CONTENT_TYPE) {
+        //     routePath = '/question/content-of-question/';
+        // }else {
+        //     routePath = '/answer/content-of-answer/';
+        // }
+        // let url = window.location.origin + routePath + this.getAttribute('data-public-id');
+        // $.ajax({
+        //     url: url,
+        //     headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+        //     type: 'GET',
+        //     beforeSend: (xhr) => {
+        //         this.viewPart.innerHTML = '';
+        //         this.viewPart.appendChild(this.loaderContent);
+        //     },
+        //     success: (result) => {
+        //         this.viewPart.removeChild(this.loaderContent);
+        //         if(result.success){
+        //             this.descriptionContent = JSON.parse(result.data);
+        //             this.relativePathStoreImages = result.relative_path_store_images;
+        //             this.fillTheContent();
+        //
+        //             this.fillInfoOfActionPart(result.readable_time, result.author_id, result.author_name, result.avatar_url);
+        //             this.authorId = result.author_id;
+        //             this.authorName = result.author_name;
+        //             this.avatarUrl = result.avatar_url;
+        //         }else {
+        //             this.addWarningNoContent();
+        //         }
+        //     },
+        //     error: function(err) {
+        //         console.log('---Error');
+        //         console.log(err);
+        //     }
+        // });
     }
 
     getListOfPostedComments ()
@@ -199,14 +203,15 @@ class TVYContentActionView extends HTMLElement
         });
     }
 
-    fillInfoOfActionPart (readableTime, authorId, authorName, avatarUrl)
+    // fillInfoOfActionPart (readableTime, authorId, authorName, avatarUrl)
+    fillInfoOfActionPart()
     {
-        this.askedOrEditedDate.textContent = readableTime;
-        this.author.setAttribute('data-author-id', authorId);
-        this.author.textContent = authorName;
-        this.avatar.setAttribute('data-author-id', authorId);
-        this.avatar.setAttribute('src', avatarUrl === null ? this.defaultSharedAvatarUrl : avatarUrl);
-        this.avatarAddComment.setAttribute('src', this.currentAvatarUrl === null ? this.defaultSharedAvatarUrl : this.currentAvatarUrl);
+        this.askedOrEditedDate.textContent = this.readableTime;
+        this.author.setAttribute('data-author-id', this.authorId);
+        this.author.textContent = this.authorName;
+        this.avatar.setAttribute('data-author-id', this.authorId);
+        this.avatar.setAttribute('src', this.ownerAvatarUrl);
+        // this.avatarAddComment.setAttribute('src', this.currentAvatarUrl === null ? this.defaultSharedAvatarUrl : this.currentAvatarUrl);
     }
 
     fillTheContent ()

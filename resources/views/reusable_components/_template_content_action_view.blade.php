@@ -11,7 +11,7 @@
             <div class="askedOrEditedDate"></div>
             <div class="authorIdentity">
                 <div><a href="#" class="authorInfo"></a></div>
-                <div><img class="authorAvatar" src="" alt="avatar"></div>
+                <div><img class="authorAvatar" src="{{ asset('icons/robot.png') }}" alt="avatar"></div>
             </div>
         </div>
         <div class="commentsBlock">

@@ -94,8 +94,3 @@ $username = $ua[\App\Lib\UserConstants::USER_NAME];
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    const placeholder = '<?php echo \App\Lib\RouteConstants::PLACEHOLDER?>';
-    const urlGetInfoOfQuestion = '<?php echo route(\App\Lib\RouteConstants::QUESTION_GET_INFO, [\App\Lib\RouteConstants::PLACEHOLDER]) ?>';
-</script>

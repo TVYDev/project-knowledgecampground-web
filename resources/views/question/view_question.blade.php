@@ -11,6 +11,7 @@ $username = $ua[\App\Lib\UserConstants::USER_NAME];
     <div class="pageViewQuestion">
         <div class="leftExtraSpace"></div>
         <div class="viewQuestionContent">
+            <input type="hidden" name="questionPublicId" value="{{ $questionPublicId }}">
             <div class="titleBlock">
                 <i class="far fa-star questionFavorite"></i>
                 <h2 class="questionTitle">{{ $title }}</h2>
