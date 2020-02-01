@@ -17,7 +17,7 @@
         <div class="commentsBlock">
             <div class="listOfComments"></div>
             <div class="addNewCommentBlock">
-                <div><img class="authorAvatar" src="" alt="avatar"></div>
+                <div><img class="authorAvatar" src="{{ asset('icons/robot.png') }}" alt="avatar"></div>
                 <div class="commentBody">
                     <div class="ui input commentInput">
                         <input type="text" class="txtComment"/>

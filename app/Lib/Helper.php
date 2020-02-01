@@ -10,4 +10,10 @@ class Helper
     {
         return isset($data->$prop) ? $data->$prop : $default;
     }
+
+    public static function isValidJSONString ($jsonString)
+    {
+        json_decode($jsonString);
+        return json_last_error() == JSON_ERROR_NONE;
+    }
 }

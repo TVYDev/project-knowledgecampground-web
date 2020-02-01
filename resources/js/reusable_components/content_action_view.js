@@ -16,8 +16,10 @@ class TVYContentActionView extends HTMLElement
         this._authorName = null;
         this._authorId = null;
         this._readableTime = null;
+        this._description = null;
+        this._relativePathStoreImages = null;
 
-        // this.currentAvatarUrl = this.getAttribute('data-current-avatar-url');
+        this.currentAvatarUrl = this.getAttribute('data-current-avatar-url');
         // this.descriptionContent = null;
         // this.relativePathStoreImages = null;
         // this.authorId = null;
@@ -32,13 +34,13 @@ class TVYContentActionView extends HTMLElement
         //     this.contentType = TVYContentActionView.ANSWER_CONTENT_TYPE;
         // }
         //
-        // this.viewPart = this.querySelector('.viewPart');
+        this.viewPart = this.querySelector('.viewPart');
         this.actionPart = this.querySelector('.actionPart');
         this.askedOrEditedDate = this.actionPart.querySelector('.askedOrEditedDate');
         this.author = this.actionPart.querySelector('.authorIdentity .authorInfo');
         this.avatar = this.actionPart.querySelector('.authorIdentity .authorAvatar');
         // this.reRenderHidden = this.querySelector('.reRender');
-        // this.avatarAddComment = this.querySelector('.addNewCommentBlock .authorAvatar');
+        this.avatarAddComment = this.querySelector('.addNewCommentBlock .authorAvatar');
         // this.txtComment = this.querySelector('.txtComment');
         // this.btnComment = this.querySelector('.commentButton');
         //
@@ -84,6 +86,20 @@ class TVYContentActionView extends HTMLElement
     }
     get readableTime () {
         return this._readableTime;
+    }
+
+    set description (desc) {
+        this._description = desc;
+    }
+    get description () {
+        return this._description;
+    }
+
+    set relativePathStoreImages (path) {
+        this._relativePathStoreImages = path;
+    }
+    get relativePathStoreImages () {
+        return this._relativePathStoreImages;
     }
 
     static get TEXT_TYPE()  {return 'text';}
@@ -141,6 +157,7 @@ class TVYContentActionView extends HTMLElement
 
     getViewContent ()
     {
+        this.fillTheContent();
         this.fillInfoOfActionPart();
         // let routePath = null;
         // if(this.contentType === TVYContentActionView.QUESTION_CONTENT_TYPE) {
@@ -211,15 +228,15 @@ class TVYContentActionView extends HTMLElement
         this.author.textContent = this.authorName;
         this.avatar.setAttribute('data-author-id', this.authorId);
         this.avatar.setAttribute('src', this.ownerAvatarUrl);
-        // this.avatarAddComment.setAttribute('src', this.currentAvatarUrl === null ? this.defaultSharedAvatarUrl : this.currentAvatarUrl);
+        this.avatarAddComment.setAttribute('src', this.currentAvatarUrl);
     }
 
     fillTheContent ()
     {
         this.viewPart.innerHTML = '';
-        if(this.descriptionContent != null && this.descriptionContent.length > 0) {
-            for (let i=0; i<this.descriptionContent.length; i++){
-                let description = this.descriptionContent[i];
+        if(this.description != null && this.description.length > 0) {
+            for (let i=0; i<this.description.length; i++){
+                let description = this.description[i];
                 this.addContent(description.data, description.type);
             }
         }else {

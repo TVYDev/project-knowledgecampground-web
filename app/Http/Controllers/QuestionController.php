@@ -207,6 +207,12 @@ class QuestionController extends Controller
                     $responseData['author_name'] = Helper::getProp($data, 'author_name');
                     $responseData['author_id'] = Helper::getProp($data, 'author_id');
                     $responseData['readable_time'] = Helper::getProp($data, 'readable_time_en');
+
+                    $descriptionPayLoad = Helper::getProp($data, 'description');
+                    $description = isset($descriptionPayLoad) ? Helper::getProp($descriptionPayLoad, 'data') : null;
+
+                    $responseData['description'] = Helper::isValidJSONString($description) ? $description : null;
+                    $responseData['relativePathStoreImages'] = isset($descriptionPayLoad) ? Helper::getProp($descriptionPayLoad, 'relative_path_store_images') : null;
                 }
             }
             else {

@@ -67556,14 +67556,17 @@ $(document).ready(function () {
             question_avatar_url = _result$data.question_avatar_url,
             author_name = _result$data.author_name,
             author_id = _result$data.author_id,
-            readable_time = _result$data.readable_time;
+            readable_time = _result$data.readable_time,
+            description = _result$data.description,
+            relativePathStoreImages = _result$data.relativePathStoreImages;
         var currentQuestionContentActionView = document.querySelector('tvy-content-action-view[data-for="currentQuestion"]');
         currentQuestionContentActionView.ownerAvatarUrl = question_avatar_url;
         currentQuestionContentActionView.authorName = author_name;
         currentQuestionContentActionView.authorId = author_id;
         currentQuestionContentActionView.readableTime = readable_time;
+        currentQuestionContentActionView.description = JSON.parse(description);
+        currentQuestionContentActionView.relativePathStoreImages = relativePathStoreImages;
         currentQuestionContentActionView.getViewContent();
-        console.log(currentQuestionContentActionView.ownerAvatarUrl);
       }
     },
     error: function error(err) {
@@ -67646,8 +67649,10 @@ function (_HTMLElement) {
     _this._ownerAvatarUrl = null;
     _this._authorName = null;
     _this._authorId = null;
-    _this._readableTime = null; // this.currentAvatarUrl = this.getAttribute('data-current-avatar-url');
-    // this.descriptionContent = null;
+    _this._readableTime = null;
+    _this._description = null;
+    _this._relativePathStoreImages = null;
+    _this.currentAvatarUrl = _this.getAttribute('data-current-avatar-url'); // this.descriptionContent = null;
     // this.relativePathStoreImages = null;
     // this.authorId = null;
     // this.authorName = null;
@@ -67661,14 +67666,14 @@ function (_HTMLElement) {
     //     this.contentType = TVYContentActionView.ANSWER_CONTENT_TYPE;
     // }
     //
-    // this.viewPart = this.querySelector('.viewPart');
 
+    _this.viewPart = _this.querySelector('.viewPart');
     _this.actionPart = _this.querySelector('.actionPart');
     _this.askedOrEditedDate = _this.actionPart.querySelector('.askedOrEditedDate');
     _this.author = _this.actionPart.querySelector('.authorIdentity .authorInfo');
     _this.avatar = _this.actionPart.querySelector('.authorIdentity .authorAvatar'); // this.reRenderHidden = this.querySelector('.reRender');
-    // this.avatarAddComment = this.querySelector('.addNewCommentBlock .authorAvatar');
-    // this.txtComment = this.querySelector('.txtComment');
+
+    _this.avatarAddComment = _this.querySelector('.addNewCommentBlock .authorAvatar'); // this.txtComment = this.querySelector('.txtComment');
     // this.btnComment = this.querySelector('.commentButton');
     //
     // this.listOfComments = this.querySelector('.commentsBlock .listOfComments');
@@ -67732,6 +67737,7 @@ function (_HTMLElement) {
   }, {
     key: "getViewContent",
     value: function getViewContent() {
+      this.fillTheContent();
       this.fillInfoOfActionPart(); // let routePath = null;
       // if(this.contentType === TVYContentActionView.QUESTION_CONTENT_TYPE) {
       //     routePath = '/question/content-of-question/';
@@ -67803,16 +67809,17 @@ function (_HTMLElement) {
       this.author.setAttribute('data-author-id', this.authorId);
       this.author.textContent = this.authorName;
       this.avatar.setAttribute('data-author-id', this.authorId);
-      this.avatar.setAttribute('src', this.ownerAvatarUrl); // this.avatarAddComment.setAttribute('src', this.currentAvatarUrl === null ? this.defaultSharedAvatarUrl : this.currentAvatarUrl);
+      this.avatar.setAttribute('src', this.ownerAvatarUrl);
+      this.avatarAddComment.setAttribute('src', this.currentAvatarUrl);
     }
   }, {
     key: "fillTheContent",
     value: function fillTheContent() {
       this.viewPart.innerHTML = '';
 
-      if (this.descriptionContent != null && this.descriptionContent.length > 0) {
-        for (var i = 0; i < this.descriptionContent.length; i++) {
-          var description = this.descriptionContent[i];
+      if (this.description != null && this.description.length > 0) {
+        for (var i = 0; i < this.description.length; i++) {
+          var description = this.description[i];
           this.addContent(description.data, description.type);
         }
       } else {
@@ -67899,6 +67906,22 @@ function (_HTMLElement) {
     },
     get: function get() {
       return this._readableTime;
+    }
+  }, {
+    key: "description",
+    set: function set(desc) {
+      this._description = desc;
+    },
+    get: function get() {
+      return this._description;
+    }
+  }, {
+    key: "relativePathStoreImages",
+    set: function set(path) {
+      this._relativePathStoreImages = path;
+    },
+    get: function get() {
+      return this._relativePathStoreImages;
     }
   }], [{
     key: "TEXT_TYPE",

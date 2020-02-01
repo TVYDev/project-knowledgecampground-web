@@ -23,7 +23,7 @@ $username = $ua[\App\Lib\UserConstants::USER_NAME];
 {{--                data-current-avatar-url="{{ $default_avatar_url }}"--}}
 {{--                data-current-username="{{ $username }}">--}}
 {{--            </tvy-content-action-view>--}}
-            <tvy-content-action-view data-for="currentQuestion"></tvy-content-action-view>
+            <tvy-content-action-view data-for="currentQuestion" data-current-avatar-url="{{$default_avatar_url}}"></tvy-content-action-view>
 {{--            <div class="answerBlock">--}}
 {{--                <tvy-list-content-action-view--}}
 {{--                    data-reference-public-id="{{ $questionPublicId }}"--}}

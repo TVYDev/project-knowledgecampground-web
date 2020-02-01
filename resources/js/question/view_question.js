@@ -10,14 +10,15 @@ $(document).ready(function() {
         type: 'GET',
         success: (result) => {
             if(result.success === true) {
-                const { question_avatar_url, author_name, author_id, readable_time } = result.data;
+                const { question_avatar_url, author_name, author_id, readable_time, description, relativePathStoreImages } = result.data;
                 let currentQuestionContentActionView = document.querySelector('tvy-content-action-view[data-for="currentQuestion"]');
                 currentQuestionContentActionView.ownerAvatarUrl = question_avatar_url;
                 currentQuestionContentActionView.authorName = author_name;
                 currentQuestionContentActionView.authorId = author_id;
                 currentQuestionContentActionView.readableTime = readable_time;
+                currentQuestionContentActionView.description = JSON.parse(description);
+                currentQuestionContentActionView.relativePathStoreImages = relativePathStoreImages;
                 currentQuestionContentActionView.getViewContent();
-                console.log(currentQuestionContentActionView.ownerAvatarUrl);
             }
         },
         error: function(err) {
