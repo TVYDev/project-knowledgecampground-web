@@ -67558,20 +67558,59 @@ $(document).ready(function () {
             author_id = _result$data.author_id,
             readable_time = _result$data.readable_time,
             description = _result$data.description,
-            relativePathStoreImages = _result$data.relativePathStoreImages;
+            relativePathStoreImages = _result$data.relativePathStoreImages,
+            comments = _result$data.comments;
         var currentQuestionContentActionView = document.querySelector('tvy-content-action-view[data-for="currentQuestion"]');
+        currentQuestionContentActionView.contentType = currentQuestionContentActionView.QUESTION_CONTENT_TYPE;
         currentQuestionContentActionView.ownerAvatarUrl = question_avatar_url;
         currentQuestionContentActionView.authorName = author_name;
         currentQuestionContentActionView.authorId = author_id;
         currentQuestionContentActionView.readableTime = readable_time;
         currentQuestionContentActionView.description = JSON.parse(description);
         currentQuestionContentActionView.relativePathStoreImages = relativePathStoreImages;
+        currentQuestionContentActionView.comments = comments;
         currentQuestionContentActionView.getViewContent();
       }
     },
     error: function error(err) {
-      console.log('error', err);
+      console.log("Error getting content of question [".concat(questionPublicId, "]"), err);
     }
+  });
+  var allAnswerContentActionViews = document.querySelectorAll('tvy-content-action-view[data-for="answer"]');
+  allAnswerContentActionViews.forEach(function (answerContentActionView) {
+    var answerPublicId = answerContentActionView.getAttribute('data-public-id');
+    var url = window.location.origin + '/answer/get-info/' + answerPublicId;
+    $.ajax({
+      url: url,
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      type: 'GET',
+      success: function success(result) {
+        if (result.success === true) {
+          var _result$data2 = result.data,
+              question_avatar_url = _result$data2.question_avatar_url,
+              author_name = _result$data2.author_name,
+              author_id = _result$data2.author_id,
+              readable_time = _result$data2.readable_time,
+              description = _result$data2.description,
+              relativePathStoreImages = _result$data2.relativePathStoreImages,
+              comments = _result$data2.comments;
+          answerContentActionView.contentType = answerContentActionView.QUESTION_CONTENT_TYPE;
+          answerContentActionView.ownerAvatarUrl = question_avatar_url;
+          answerContentActionView.authorName = author_name;
+          answerContentActionView.authorId = author_id;
+          answerContentActionView.readableTime = readable_time;
+          answerContentActionView.description = JSON.parse(description);
+          answerContentActionView.relativePathStoreImages = relativePathStoreImages;
+          answerContentActionView.comments = comments;
+          answerContentActionView.getViewContent();
+        }
+      },
+      error: function error(err) {
+        console.log("Error getting content of answer [".concat(answerPublicId, "]"), err);
+      }
+    });
   });
   $('#formAnswerQuestion').submit(function (e) {
     var canSubmit = true;
@@ -67646,19 +67685,22 @@ function (_HTMLElement) {
     _this.innerHTML = markup; // this.defaultSharedAvatarUrl = window.location.protocol + '//' + window.location.host + '/icons/robot.png';
     // Properties
 
+    _this._contentType = null;
     _this._ownerAvatarUrl = null;
     _this._authorName = null;
     _this._authorId = null;
     _this._readableTime = null;
     _this._description = null;
     _this._relativePathStoreImages = null;
-    _this.currentAvatarUrl = _this.getAttribute('data-current-avatar-url'); // this.descriptionContent = null;
+    _this._comments = [];
+    _this.publicId = _this.getAttribute('data-public-id');
+    _this.currentAvatarUrl = _this.getAttribute('data-current-avatar-url');
+    _this.currentUsername = _this.getAttribute('data-current-username'); // this.descriptionContent = null;
     // this.relativePathStoreImages = null;
     // this.authorId = null;
     // this.authorName = null;
     // this.avatarUrl = null;
     //
-    // this.currentUsername = this.getAttribute('data-current-username');
     // let contentType = this.getAttribute('data-content-type');
     // if(contentType === 'question') {
     //     this.contentType = TVYContentActionView.QUESTION_CONTENT_TYPE;
@@ -67673,11 +67715,11 @@ function (_HTMLElement) {
     _this.author = _this.actionPart.querySelector('.authorIdentity .authorInfo');
     _this.avatar = _this.actionPart.querySelector('.authorIdentity .authorAvatar'); // this.reRenderHidden = this.querySelector('.reRender');
 
-    _this.avatarAddComment = _this.querySelector('.addNewCommentBlock .authorAvatar'); // this.txtComment = this.querySelector('.txtComment');
-    // this.btnComment = this.querySelector('.commentButton');
-    //
-    // this.listOfComments = this.querySelector('.commentsBlock .listOfComments');
-    //
+    _this.avatarAddComment = _this.querySelector('.addNewCommentBlock .authorAvatar');
+    _this.txtComment = _this.querySelector('.txtComment');
+    _this.btnComment = _this.querySelector('.commentButton'); //
+
+    _this.listOfComments = _this.querySelector('.commentsBlock .listOfComments'); //
     // this.loaderContent = document.createElement('div');
     // this.loaderContent.className = 'ui active centered inline text loader loaderContent';
     // this.loaderContent.innerHTML = 'Loading';
@@ -67700,10 +67742,11 @@ function (_HTMLElement) {
       var _this2 = this;
 
       var preparedData = {
-        'commentable_public_id': this.getAttribute('data-public-id'),
+        'commentable_public_id': this.publicId,
         'commentable_type': this.contentType,
         'body': this.txtComment.value
       };
+      console.log(preparedData);
       var url = window.location.origin + '/comment/post';
       $.ajax({
         url: url,
@@ -67713,6 +67756,8 @@ function (_HTMLElement) {
         data: preparedData,
         type: 'POST',
         success: function success(result) {
+          console.log(result);
+
           if (result.success == true) {
             _this2.txtComment.value = '';
 
@@ -67738,7 +67783,9 @@ function (_HTMLElement) {
     key: "getViewContent",
     value: function getViewContent() {
       this.fillTheContent();
-      this.fillInfoOfActionPart(); // let routePath = null;
+      this.fillInfoOfActionPart();
+      this.fillListOfComments();
+      this.addNecessaryEventListeners(); // let routePath = null;
       // if(this.contentType === TVYContentActionView.QUESTION_CONTENT_TYPE) {
       //     routePath = '/question/content-of-question/';
       // }else {
@@ -67775,32 +67822,42 @@ function (_HTMLElement) {
       // });
     }
   }, {
-    key: "getListOfPostedComments",
-    value: function getListOfPostedComments() {
+    key: "addNecessaryEventListeners",
+    value: function addNecessaryEventListeners() {
+      this.btnComment.addEventListener('click', this.saveComment.bind(this));
+    }
+  }, {
+    key: "fillListOfComments",
+    value: function fillListOfComments() {
       var _this3 = this;
 
-      var url = "".concat(window.location.origin, "/comment/list-posted-comments-of/").concat(this.contentType, "/").concat(this.getAttribute('data-public-id'));
-      $.ajax({
-        url: url,
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        type: 'GET',
-        success: function success(result) {
-          if (result.success === true) {
-            for (var i = 0; i < result.data.length; i++) {
-              var d = result.data[i];
-
-              _this3.displayNewlyAddedComment(result.host_url + d.avatar_url, d.author_name, d.author_id, d.readable_time_en, d.body);
-            }
-          }
-        },
-        error: function error(err) {
-          console.log('---Error');
-          console.log(err);
-        }
+      this.comments.forEach(function (comment) {
+        _this3.displayNewlyAddedComment(comment.avatar_url, comment.author_name, comment.author_id, comment.readable_time_en, comment.body);
       });
-    } // fillInfoOfActionPart (readableTime, authorId, authorName, avatarUrl)
+    } // getListOfPostedComments ()
+    // {
+    //     let url = `${window.location.origin}/comment/list-posted-comments-of/${this.contentType}/${this.getAttribute('data-public-id')}`;
+    //     $.ajax({
+    //         url: url,
+    //         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+    //         type: 'GET',
+    //         success: result => {
+    //             if(result.success === true)
+    //             {
+    //                 for(let i=0; i<result.data.length; i++)
+    //                 {
+    //                     const d = result.data[i];
+    //                     this.displayNewlyAddedComment(result.host_url + d.avatar_url, d.author_name, d.author_id, d.readable_time_en, d.body);
+    //                 }
+    //             }
+    //         },
+    //         error: function(err) {
+    //             console.log('---Error');
+    //             console.log(err);
+    //         }
+    //     });
+    // }
+    // fillInfoOfActionPart (readableTime, authorId, authorName, avatarUrl)
 
   }, {
     key: "fillInfoOfActionPart",
@@ -67876,6 +67933,14 @@ function (_HTMLElement) {
       $('.ui.basic.modal.modalZoomImage').modal('show');
     }
   }, {
+    key: "contentType",
+    set: function set(contentType) {
+      this._contentType = contentType;
+    },
+    get: function get() {
+      return this._contentType;
+    }
+  }, {
     key: "ownerAvatarUrl",
     set: function set(url) {
       this._ownerAvatarUrl = url;
@@ -67923,6 +67988,24 @@ function (_HTMLElement) {
     get: function get() {
       return this._relativePathStoreImages;
     }
+  }, {
+    key: "comments",
+    set: function set(comments) {
+      this._comments = comments;
+    },
+    get: function get() {
+      return this._comments;
+    }
+  }, {
+    key: "QUESTION_CONTENT_TYPE",
+    get: function get() {
+      return 'question';
+    }
+  }, {
+    key: "ANSWER_CONTENT_TYPE",
+    get: function get() {
+      return 'answer';
+    }
   }], [{
     key: "TEXT_TYPE",
     get: function get() {
@@ -67937,16 +68020,6 @@ function (_HTMLElement) {
     key: "IMAGE_TYPE",
     get: function get() {
       return 'image';
-    }
-  }, {
-    key: "QUESTION_CONTENT_TYPE",
-    get: function get() {
-      return 'question';
-    }
-  }, {
-    key: "ANSWER_CONTENT_TYPE",
-    get: function get() {
-      return 'answer';
     }
   }]);
 

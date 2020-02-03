@@ -12,21 +12,24 @@ class TVYContentActionView extends HTMLElement
         // this.defaultSharedAvatarUrl = window.location.protocol + '//' + window.location.host + '/icons/robot.png';
 
         // Properties
+        this._contentType = null;
         this._ownerAvatarUrl = null;
         this._authorName = null;
         this._authorId = null;
         this._readableTime = null;
         this._description = null;
         this._relativePathStoreImages = null;
+        this._comments = [];
 
+        this.publicId = this.getAttribute('data-public-id');
         this.currentAvatarUrl = this.getAttribute('data-current-avatar-url');
+        this.currentUsername = this.getAttribute('data-current-username');
         // this.descriptionContent = null;
         // this.relativePathStoreImages = null;
         // this.authorId = null;
         // this.authorName = null;
         // this.avatarUrl = null;
         //
-        // this.currentUsername = this.getAttribute('data-current-username');
         // let contentType = this.getAttribute('data-content-type');
         // if(contentType === 'question') {
         //     this.contentType = TVYContentActionView.QUESTION_CONTENT_TYPE;
@@ -41,10 +44,10 @@ class TVYContentActionView extends HTMLElement
         this.avatar = this.actionPart.querySelector('.authorIdentity .authorAvatar');
         // this.reRenderHidden = this.querySelector('.reRender');
         this.avatarAddComment = this.querySelector('.addNewCommentBlock .authorAvatar');
-        // this.txtComment = this.querySelector('.txtComment');
-        // this.btnComment = this.querySelector('.commentButton');
+        this.txtComment = this.querySelector('.txtComment');
+        this.btnComment = this.querySelector('.commentButton');
         //
-        // this.listOfComments = this.querySelector('.commentsBlock .listOfComments');
+        this.listOfComments = this.querySelector('.commentsBlock .listOfComments');
         //
         // this.loaderContent = document.createElement('div');
         // this.loaderContent.className = 'ui active centered inline text loader loaderContent';
@@ -58,6 +61,13 @@ class TVYContentActionView extends HTMLElement
         //
         // this.getDescriptionContent();
         // this.getListOfPostedComments();
+    }
+
+    set contentType (contentType) {
+        this._contentType = contentType;
+    }
+    get contentType () {
+        return this._contentType;
     }
 
     set ownerAvatarUrl (url) {
@@ -102,19 +112,28 @@ class TVYContentActionView extends HTMLElement
         return this._relativePathStoreImages;
     }
 
+    set comments (comments) {
+        this._comments = comments;
+    }
+    get comments () {
+        return this._comments;
+    }
+
+    get QUESTION_CONTENT_TYPE()  {return 'question';}
+    get ANSWER_CONTENT_TYPE()    {return 'answer';}
+
     static get TEXT_TYPE()  {return 'text';}
     static get CODE_TYPE()  {return 'code';}
     static get IMAGE_TYPE() {return 'image';}
 
-    static get QUESTION_CONTENT_TYPE()  {return 'question';}
-    static get ANSWER_CONTENT_TYPE()    {return 'answer';}
-
     saveComment() {
         let preparedData = {
-            'commentable_public_id': this.getAttribute('data-public-id'),
+            'commentable_public_id': this.publicId,
             'commentable_type': this.contentType,
             'body': this.txtComment.value
         };
+
+        console.log(preparedData);
         let url = window.location.origin + '/comment/post';
         $.ajax({
             url: url,
@@ -122,6 +141,7 @@ class TVYContentActionView extends HTMLElement
             data: preparedData,
             type: 'POST',
             success: (result) => {
+                console.log(result);
                 if(result.success == true) {
                     this.txtComment.value = '';
                     this.displayNewlyAddedComment(
@@ -159,6 +179,8 @@ class TVYContentActionView extends HTMLElement
     {
         this.fillTheContent();
         this.fillInfoOfActionPart();
+        this.fillListOfComments();
+        this.addNecessaryEventListeners();
         // let routePath = null;
         // if(this.contentType === TVYContentActionView.QUESTION_CONTENT_TYPE) {
         //     routePath = '/question/content-of-question/';
@@ -196,29 +218,39 @@ class TVYContentActionView extends HTMLElement
         // });
     }
 
-    getListOfPostedComments ()
-    {
-        let url = `${window.location.origin}/comment/list-posted-comments-of/${this.contentType}/${this.getAttribute('data-public-id')}`;
-        $.ajax({
-            url: url,
-            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-            type: 'GET',
-            success: result => {
-                if(result.success === true)
-                {
-                    for(let i=0; i<result.data.length; i++)
-                    {
-                        const d = result.data[i];
-                        this.displayNewlyAddedComment(result.host_url + d.avatar_url, d.author_name, d.author_id, d.readable_time_en, d.body);
-                    }
-                }
-            },
-            error: function(err) {
-                console.log('---Error');
-                console.log(err);
-            }
+    addNecessaryEventListeners () {
+        this.btnComment.addEventListener('click', this.saveComment.bind(this));
+    }
+
+    fillListOfComments () {
+        this.comments.forEach(comment => {
+            this.displayNewlyAddedComment(comment.avatar_url, comment.author_name, comment.author_id, comment.readable_time_en, comment.body);
         });
     }
+
+    // getListOfPostedComments ()
+    // {
+    //     let url = `${window.location.origin}/comment/list-posted-comments-of/${this.contentType}/${this.getAttribute('data-public-id')}`;
+    //     $.ajax({
+    //         url: url,
+    //         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+    //         type: 'GET',
+    //         success: result => {
+    //             if(result.success === true)
+    //             {
+    //                 for(let i=0; i<result.data.length; i++)
+    //                 {
+    //                     const d = result.data[i];
+    //                     this.displayNewlyAddedComment(result.host_url + d.avatar_url, d.author_name, d.author_id, d.readable_time_en, d.body);
+    //                 }
+    //             }
+    //         },
+    //         error: function(err) {
+    //             console.log('---Error');
+    //             console.log(err);
+    //         }
+    //     });
+    // }
 
     // fillInfoOfActionPart (readableTime, authorId, authorName, avatarUrl)
     fillInfoOfActionPart()

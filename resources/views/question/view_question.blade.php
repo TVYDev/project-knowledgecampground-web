@@ -17,21 +17,20 @@ $username = $ua[\App\Lib\UserConstants::USER_NAME];
                 <h2 class="questionTitle">{{ $title }}</h2>
             </div>
             @include('layouts.partials._subject_tags')
-{{--            <tvy-content-action-view--}}
-{{--                data-public-id="{{ $questionPublicId }}"--}}
-{{--                data-content-type="question"--}}
-{{--                data-current-avatar-url="{{ $default_avatar_url }}"--}}
-{{--                data-current-username="{{ $username }}">--}}
-{{--            </tvy-content-action-view>--}}
-            <tvy-content-action-view data-for="currentQuestion" data-current-avatar-url="{{$default_avatar_url}}"></tvy-content-action-view>
-{{--            <div class="answerBlock">--}}
+            <tvy-content-action-view data-for="currentQuestion" data-current-avatar-url="{{$default_avatar_url}}" data-current-username="{{ $username }}" data-public-id="{{ $questionPublicId }}"></tvy-content-action-view>
+            <div class="answerBlock">
+                @if(isset($answers))
+                    @foreach($answers as $answer)
+                        <tvy-content-action-view data-for="answer" data-current-avatar-url="{{$default_avatar_url}}" data-current-username="{{ $username }}" data-public-id="{{ $answer->public_id }}"></tvy-content-action-view>
+                    @endforeach
+                @endif
 {{--                <tvy-list-content-action-view--}}
 {{--                    data-reference-public-id="{{ $questionPublicId }}"--}}
 {{--                    data-content-type="answer"--}}
 {{--                    data-current-avatar-url="{{ $default_avatar_url }}"--}}
 {{--                    data-current-username="{{ $username }}">--}}
 {{--                </tvy-list-content-action-view>--}}
-{{--            </div>--}}
+            </div>
         </div>
         <div class="rightExtraSpace"></div>
     </div>

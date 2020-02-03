@@ -168,12 +168,19 @@ class QuestionController extends Controller
 
                 $newAnswerPublicId = $this->supporter->doGeneratePublicId();
 
+                $answers = [];
+                $answersResponse = $this->get($this->getApiRequestUrl('answer.list_posted_answers'), [$publicId]);
+                if ($answersResponse->success) {
+                    $answers = Helper::getProp($answersResponse, 'data');
+                }
+
                 return view('question.view_question')
                     ->with('title', Helper::getProp($data, 'title'))
                     ->with('questionPublicId', Helper::getProp($data, 'public_id'))
                     ->with('subject', Helper::getProp($data, 'subject'))
                     ->with('tags', Helper::getProp($data, 'tags'))
-                    ->with('answerPublicId', $newAnswerPublicId);
+                    ->with('answerPublicId', $newAnswerPublicId)
+                    ->with('answers', $answers);
             }
         }
         catch(\Exception $exception)
@@ -189,7 +196,6 @@ class QuestionController extends Controller
 
     public function getInfo ($publicId)
     {
-        $success = false;
         $responseData = null;
         $errorMsg = null;
         try
@@ -213,6 +219,8 @@ class QuestionController extends Controller
 
                     $responseData['description'] = Helper::isValidJSONString($description) ? $description : null;
                     $responseData['relativePathStoreImages'] = isset($descriptionPayLoad) ? Helper::getProp($descriptionPayLoad, 'relative_path_store_images') : null;
+
+                    $responseData['comments'] = Helper::getProp($data, 'comments', []);
                 }
             }
             else {

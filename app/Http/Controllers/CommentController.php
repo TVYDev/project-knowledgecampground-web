@@ -33,7 +33,7 @@ class CommentController extends Controller
         }
         catch(\Exception $exception)
         {
-
+            return response()->json(['error' => $exception->getMessage()]);
         }
     }
 
