@@ -21,6 +21,9 @@ class AnswerController extends Controller
         $this->middleware('verify_access_token');
     }
 
+    /**-------------------------------------------------------------------------
+     * Purpose: Save a completed answer
+     *------------------------------------------------------------------------*/
     public function postPost (Request $request)
     {
         try
@@ -58,6 +61,9 @@ class AnswerController extends Controller
         }
     }
 
+    /**-------------------------------------------------------------------------
+     * Purpose: Save a answer when its description is modified
+     *------------------------------------------------------------------------*/
     public function postSaveDuringEditing (Request $request)
     {
         try
@@ -178,6 +184,9 @@ class AnswerController extends Controller
 //        }
 //    }
 
+    /**-------------------------------------------------------------------------
+     * Purpose: For AJAX, Get content of answer for ContentActionView
+     *------------------------------------------------------------------------*/
     public function getInfo ($publicId, Request $request)
     {
         // This route only from ajax request

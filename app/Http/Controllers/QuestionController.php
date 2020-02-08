@@ -27,8 +27,7 @@ class QuestionController extends Controller
     }
 
     /**-------------------------------------------------------------------------
-     * Question Ask (Create)
-     * [GET] [POST]
+     * Purpose: Render page Ask Question
      *------------------------------------------------------------------------*/
     public function getPost ()
     {
@@ -57,6 +56,9 @@ class QuestionController extends Controller
         }
     }
 
+    /**-------------------------------------------------------------------------
+     * Purpose: Save a question when its description is modified
+     *------------------------------------------------------------------------*/
     public function postSaveDuringEditing (Request $request)
     {
         try
@@ -108,6 +110,9 @@ class QuestionController extends Controller
         }
     }
 
+    /**-------------------------------------------------------------------------
+     * Purpose: Save a completed question
+     *------------------------------------------------------------------------*/
     public function postPost (Request $request)
     {
         try
@@ -155,10 +160,9 @@ class QuestionController extends Controller
         }
     }
 
-    /************************************************
-     * Question View
-     * [GET]
-     ***********************************************/
+    /**-------------------------------------------------------------------------
+     * Purpose: Render page View Question
+     *------------------------------------------------------------------------*/
     public function getView ($publicId)
     {
         try
@@ -196,6 +200,9 @@ class QuestionController extends Controller
         }
     }
 
+    /**-------------------------------------------------------------------------
+     * Purpose: For AJAX, Get content of question for ContentActionView
+     *------------------------------------------------------------------------*/
     public function getInfo ($publicId, Request $request)
     {
         // This route only from ajax request
@@ -269,6 +276,9 @@ class QuestionController extends Controller
 //        return response()->json($tempDataResponse);
 //    }
 
+    /**-------------------------------------------------------------------------
+     * Purpose: Render page List of Questions and Handle question searching
+     *------------------------------------------------------------------------*/
     public function getList(Request $request)
     {
         try
