@@ -70,8 +70,8 @@ Route::group([
     Route::get('/get-info/{publicId}', 'QuestionController@getInfo')
         ->name(RouteConstants::QUESTION_GET_INFO);
 
-    Route::get('/content-of-question/{publicId}', 'QuestionController@getContentOfQuestion')
-        ->name(RouteConstants::QUESTION_GET_DESCRIPTION_OF);
+//    Route::get('/content-of-question/{publicId}', 'QuestionController@getContentOfQuestion')
+//        ->name(RouteConstants::QUESTION_GET_DESCRIPTION_OF);
 
     Route::get('/list', 'QuestionController@getList')
         ->name(RouteConstants::QUESTION_GET_LIST);
@@ -84,10 +84,12 @@ Route::group([
         ->name(RouteConstants::ANSWER_POST_POST);
     Route::post('/save-during-editing', 'AnswerController@postSaveDuringEditing')
         ->name(RouteConstants::ANSWER_POST_SAVE_DURING_EDITING);
-    Route::get('/content-of-answer/{publicId}', 'AnswerController@getContentOfAnswer')
-        ->name(RouteConstants::ANSWER_GET_DESCRIPTION_OF);
-    Route::get('/list-posted-answers-of-question/{questionPublicId}/{sortedType}', 'AnswerController@getListPostedAnswersOfQuestion')
-        ->name(RouteConstants::ANSWER_GET_LIST_POSTED_ANSWERS_OF);
+//    Route::get('/content-of-answer/{publicId}', 'AnswerController@getContentOfAnswer')
+//        ->name(RouteConstants::ANSWER_GET_DESCRIPTION_OF);
+//    Route::get('/list-posted-answers-of-question/{questionPublicId}/{sortedType}', 'AnswerController@getListPostedAnswersOfQuestion')
+//        ->name(RouteConstants::ANSWER_GET_LIST_POSTED_ANSWERS_OF);
+    Route::get('/get-info/{publicId}', 'AnswerController@getInfo')
+        ->name(RouteConstants::ANSWER_GET_INFO);
 });
 
 Route::group([
@@ -95,8 +97,8 @@ Route::group([
     ], function() {
     Route::post('/post', 'CommentController@postPost')
         ->name(RouteConstants::COMMENT_POST_POST);
-    Route::get('/list-posted-comments-of/{commentableType}/{commentablePublicId}', 'CommentController@getListPostedCommentsOf')
-        ->name(RouteConstants::COMMENT_GET_LIST_POSTED_COMMENTS_OF);
+//    Route::get('/list-posted-comments-of/{commentableType}/{commentablePublicId}', 'CommentController@getListPostedCommentsOf')
+//        ->name(RouteConstants::COMMENT_GET_LIST_POSTED_COMMENTS_OF);
 });
 
 Route::group([

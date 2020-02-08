@@ -1,61 +1,52 @@
 import NotyAlertMessage from "../NotyAlertMessage";
 
 $(document).ready(function() {
+    // Fill ContentActionView for current question
     const questionPublicId = document.querySelector('.pageViewQuestion input[name="questionPublicId"]').value;
-    let url = window.location.origin + '/question/get-info/' + questionPublicId;
+    let currentQuestionContentActionView = document.querySelector('tvy-content-action-view[data-for="currentQuestion"]');
+    getInfoForQuestionContentActionView(currentQuestionContentActionView, questionPublicId);
 
-    $.ajax({
-        url: url,
-        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-        type: 'GET',
-        success: (result) => {
-            if(result.success === true) {
-                const { question_avatar_url, author_name, author_id, readable_time, description, relativePathStoreImages, comments } = result.data;
-                let currentQuestionContentActionView = document.querySelector('tvy-content-action-view[data-for="currentQuestion"]');
-                currentQuestionContentActionView.contentType = currentQuestionContentActionView.QUESTION_CONTENT_TYPE;
-                currentQuestionContentActionView.ownerAvatarUrl = question_avatar_url;
-                currentQuestionContentActionView.authorName = author_name;
-                currentQuestionContentActionView.authorId = author_id;
-                currentQuestionContentActionView.readableTime = readable_time;
-                currentQuestionContentActionView.description = JSON.parse(description);
-                currentQuestionContentActionView.relativePathStoreImages = relativePathStoreImages;
-                currentQuestionContentActionView.comments = comments;
-                currentQuestionContentActionView.getViewContent();
-            }
-        },
-        error: function(err) {
-            console.log(`Error getting content of question [${questionPublicId}]`, err);
-        }
-    });
-
+    // Fill ContentActionView for each answer
     let allAnswerContentActionViews = document.querySelectorAll('tvy-content-action-view[data-for="answer"]');
     allAnswerContentActionViews.forEach(answerContentActionView => {
         const answerPublicId = answerContentActionView.getAttribute('data-public-id');
-        let url = window.location.origin + '/answer/get-info/' + answerPublicId;
+        getInfoForAnswerContentActionView(answerContentActionView, answerPublicId);
+    });
+
+    function getInfoForQuestionContentActionView (contentActonView, publicId) {
+        getInfoForContentActionView(contentActonView, publicId, 'question');
+    }
+
+    function getInfoForAnswerContentActionView (contentActionView, publicId) {
+        getInfoForContentActionView(contentActionView, publicId, 'answer');
+    }
+
+    function getInfoForContentActionView (contentActionView, publicId, type) {
+        let url = window.location.origin + `/${type}/get-info/` + publicId;
+
         $.ajax({
             url: url,
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             type: 'GET',
             success: (result) => {
                 if(result.success === true) {
-                    const { question_avatar_url, author_name, author_id, readable_time, description, relativePathStoreImages, comments } = result.data;
-                    answerContentActionView.contentType = answerContentActionView.QUESTION_CONTENT_TYPE;
-                    answerContentActionView.ownerAvatarUrl = question_avatar_url;
-                    answerContentActionView.authorName = author_name;
-                    answerContentActionView.authorId = author_id;
-                    answerContentActionView.readableTime = readable_time;
-                    answerContentActionView.description = JSON.parse(description);
-                    answerContentActionView.relativePathStoreImages = relativePathStoreImages;
-                    answerContentActionView.comments = comments;
-                    answerContentActionView.getViewContent();
+                    const { owner_avatar_url, author_name, author_id, readable_time, description, relativePathStoreImages, comments } = result.data;
+                    contentActionView.contentType = type;
+                    contentActionView.ownerAvatarUrl = owner_avatar_url;
+                    contentActionView.authorName = author_name;
+                    contentActionView.authorId = author_id;
+                    contentActionView.readableTime = readable_time;
+                    contentActionView.description = JSON.parse(description);
+                    contentActionView.relativePathStoreImages = relativePathStoreImages;
+                    contentActionView.comments = comments;
+                    contentActionView.getViewContent();
                 }
             },
             error: function(err) {
-                console.log(`Error getting content of answer [${answerPublicId}]` , err);
+                console.log(`Error getting content of ${type} [${questionPublicId}]`, err);
             }
         });
-    });
-
+    }
 
     $('#formAnswerQuestion').submit(function(e) {
         let canSubmit = true;

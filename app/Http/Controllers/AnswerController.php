@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\ViewModel\QuestionAnswerViewModel;
+use App\Lib\Helper;
 use App\Lib\HttpConstants;
 use App\Lib\RequestAPI;
 use App\Lib\ResponseEndPoint;
@@ -114,65 +116,103 @@ class AnswerController extends Controller
         }
     }
 
-    public function getContentOfAnswer ($publicId)
+//    public function getContentOfAnswer ($publicId)
+//    {
+//        $tempDataResponse = [];
+//        try
+//        {
+//            $resultAnswer = $this->get(
+//                $this->getApiRequestUrl('answer.view'),
+//                [$publicId],
+//                null,
+//                $this->getAuthorizationHeader()
+//            );
+//
+//            if($resultAnswer->success == true) {
+//                $dataAnswer = $resultAnswer->data;
+//                $tempDataResponse['success'] = true;
+//                $tempDataResponse['author_name'] = $dataAnswer->author_name;
+//                $tempDataResponse['author_id'] = $dataAnswer->author_id;
+//                $tempDataResponse['avatar_url'] = HttpConstants::HOST_URL . $dataAnswer->avatar_url;
+//                $tempDataResponse['readable_time'] = $dataAnswer->readable_time_en;
+//                $tempDataResponse['data'] = $dataAnswer->description->data;
+//                $tempDataResponse['relative_path_store_images'] = HttpConstants::HOST_URL . $dataAnswer->description->relative_path_store_images;
+//            }
+//            else
+//            {
+//                throw new UnexpectedValueException('Answer not found');
+//            }
+//        }
+//        catch(\Exception $exception)
+//        {
+//            $tempDataResponse['success'] = false;
+//            $tempDataResponse['error_message'] = $exception->getMessage();
+//        }
+//        return response()->json($tempDataResponse);
+//    }
+
+//    public function getListPostedAnswersOfQuestion ($questionPublicId, $sortedType)
+//    {
+//        try
+//        {
+//            $answers = $this->get(
+//                $this->getApiRequestUrl('answer.list_posted_answers'),
+//                [$questionPublicId, $sortedType],
+//                null,
+//                $this->getAuthorizationHeader()
+//            );
+//
+//            if($answers->success == true) {
+//                $publicIds = [];
+//                foreach ($answers->data as $ans) {
+//                    array_push($publicIds, $ans->public_id);
+//                }
+//                return response()->json($publicIds);
+//            }else {
+//                throw new UnexpectedValueException('Question not found');
+//            }
+//        }
+//        catch(\Exception $exception)
+//        {
+//            return response()->json(['errorMessage' => $exception->getMessage()]);
+//        }
+//    }
+
+    public function getInfo ($publicId, Request $request)
     {
-        $tempDataResponse = [];
+        // This route only from ajax request
+        if(!$request->ajax()) {
+            return 'Invalid Request Gateway';
+        }
+
+        $responseData = null;
+        $errorMsg = null;
         try
         {
             $resultAnswer = $this->get(
                 $this->getApiRequestUrl('answer.view'),
-                [$publicId],
-                null,
-                $this->getAuthorizationHeader()
+                [$publicId]
             );
 
             if($resultAnswer->success == true) {
-                $dataAnswer = $resultAnswer->data;
-                $tempDataResponse['success'] = true;
-                $tempDataResponse['author_name'] = $dataAnswer->author_name;
-                $tempDataResponse['author_id'] = $dataAnswer->author_id;
-                $tempDataResponse['avatar_url'] = HttpConstants::HOST_URL . $dataAnswer->avatar_url;
-                $tempDataResponse['readable_time'] = $dataAnswer->readable_time_en;
-                $tempDataResponse['data'] = $dataAnswer->description->data;
-                $tempDataResponse['relative_path_store_images'] = HttpConstants::HOST_URL . $dataAnswer->description->relative_path_store_images;
+                $success = true;
+                $data = Helper::getProp($resultAnswer, 'data');
+                $responseData = (new QuestionAnswerViewModel())->getStandardPreparedDataForView($data);
             }
-            else
-            {
-                throw new UnexpectedValueException('Answer not found');
+            else {
+                throw new \Exception('Unable to get info of question, public id = ' . $publicId);
             }
         }
         catch(\Exception $exception)
         {
-            $tempDataResponse['success'] = false;
-            $tempDataResponse['error_message'] = $exception->getMessage();
+            $success = false;
+            $errorMsg = $exception->getMessage();
         }
-        return response()->json($tempDataResponse);
-    }
 
-    public function getListPostedAnswersOfQuestion ($questionPublicId, $sortedType)
-    {
-        try
-        {
-            $answers = $this->get(
-                $this->getApiRequestUrl('answer.list_posted_answers'),
-                [$questionPublicId, $sortedType],
-                null,
-                $this->getAuthorizationHeader()
-            );
-
-            if($answers->success == true) {
-                $publicIds = [];
-                foreach ($answers->data as $ans) {
-                    array_push($publicIds, $ans->public_id);
-                }
-                return response()->json($publicIds);
-            }else {
-                throw new UnexpectedValueException('Question not found');
-            }
-        }
-        catch(\Exception $exception)
-        {
-            return response()->json(['errorMessage' => $exception->getMessage()]);
-        }
+        return response()->json([
+            'success'       => $success,
+            'data'          => $responseData,
+            'error_message' => $errorMsg
+        ]);
     }
 }

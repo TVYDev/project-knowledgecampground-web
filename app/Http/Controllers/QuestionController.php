@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Support\Paginator;
 use App\Http\Support\Supporter;
+use App\Http\ViewModel\QuestionAnswerViewModel;
 use App\Lib\Helper;
 use App\Lib\HttpConstants;
 use App\Lib\MiddlewareConstants;
@@ -21,7 +22,7 @@ class QuestionController extends Controller
 
     public function __construct()
     {
-        $this->middleware(MiddlewareConstants::VERIFY_ACCESS_TOKEN, ['except' => ['getList']]);
+        $this->middleware(MiddlewareConstants::VERIFY_ACCESS_TOKEN)->except(['getView','getList','getInfo']);
         $this->supporter = new Supporter();
     }
 
@@ -55,6 +56,7 @@ class QuestionController extends Controller
 
         }
     }
+
     public function postSaveDuringEditing (Request $request)
     {
         try
@@ -194,8 +196,13 @@ class QuestionController extends Controller
         }
     }
 
-    public function getInfo ($publicId)
+    public function getInfo ($publicId, Request $request)
     {
+        // This route only from ajax request
+        if(!$request->ajax()) {
+            return 'Invalid Request Gateway';
+        }
+
         $responseData = null;
         $errorMsg = null;
         try
@@ -208,20 +215,7 @@ class QuestionController extends Controller
             if($resultQuestion->success == true) {
                 $success = true;
                 $data = Helper::getProp($resultQuestion, 'data');
-                if(isset($data)) {
-                    $responseData['question_avatar_url'] = Helper::getProp($data, 'avatar_url');
-                    $responseData['author_name'] = Helper::getProp($data, 'author_name');
-                    $responseData['author_id'] = Helper::getProp($data, 'author_id');
-                    $responseData['readable_time'] = Helper::getProp($data, 'readable_time_en');
-
-                    $descriptionPayLoad = Helper::getProp($data, 'description');
-                    $description = isset($descriptionPayLoad) ? Helper::getProp($descriptionPayLoad, 'data') : null;
-
-                    $responseData['description'] = Helper::isValidJSONString($description) ? $description : null;
-                    $responseData['relativePathStoreImages'] = isset($descriptionPayLoad) ? Helper::getProp($descriptionPayLoad, 'relative_path_store_images') : null;
-
-                    $responseData['comments'] = Helper::getProp($data, 'comments', []);
-                }
+                $responseData = (new QuestionAnswerViewModel())->getStandardPreparedDataForView($data);
             }
             else {
                 throw new \Exception('Unable to get info of question, public id = ' . $publicId);
@@ -240,40 +234,40 @@ class QuestionController extends Controller
         ]);
     }
 
-    public function getContentOfQuestion ($publicId)
-    {
-        $tempDataResponse = [];
-        try
-        {
-            $resultQuestion = $this->get(
-                $this->getApiRequestUrl('question.view'),
-                [$publicId],
-                null,
-                $this->getAuthorizationHeader()
-            );
-
-            if($resultQuestion->success == true) {
-                $dataQuestion = $resultQuestion->data;
-                $tempDataResponse['success'] = true;
-                $tempDataResponse['author_name'] = $dataQuestion->author_name;
-                $tempDataResponse['author_id'] = $dataQuestion->author_id;
-                $tempDataResponse['avatar_url'] = HttpConstants::HOST_URL . $dataQuestion->avatar_url;
-                $tempDataResponse['readable_time'] = $dataQuestion->readable_time_en;
-                $tempDataResponse['data'] = $dataQuestion->description->data;
-                $tempDataResponse['relative_path_store_images'] = HttpConstants::HOST_URL . $dataQuestion->description->relative_path_store_images;
-            }
-            else
-            {
-                throw new \Exception('Question not found');
-            }
-        }
-        catch(\Exception $exception)
-        {
-            $tempDataResponse['success'] = false;
-            $tempDataResponse['error_message'] = $exception->getMessage();
-        }
-        return response()->json($tempDataResponse);
-    }
+//    public function getContentOfQuestion ($publicId)
+//    {
+//        $tempDataResponse = [];
+//        try
+//        {
+//            $resultQuestion = $this->get(
+//                $this->getApiRequestUrl('question.view'),
+//                [$publicId],
+//                null,
+//                $this->getAuthorizationHeader()
+//            );
+//
+//            if($resultQuestion->success == true) {
+//                $dataQuestion = $resultQuestion->data;
+//                $tempDataResponse['success'] = true;
+//                $tempDataResponse['author_name'] = $dataQuestion->author_name;
+//                $tempDataResponse['author_id'] = $dataQuestion->author_id;
+//                $tempDataResponse['avatar_url'] = HttpConstants::HOST_URL . $dataQuestion->avatar_url;
+//                $tempDataResponse['readable_time'] = $dataQuestion->readable_time_en;
+//                $tempDataResponse['data'] = $dataQuestion->description->data;
+//                $tempDataResponse['relative_path_store_images'] = HttpConstants::HOST_URL . $dataQuestion->description->relative_path_store_images;
+//            }
+//            else
+//            {
+//                throw new \Exception('Question not found');
+//            }
+//        }
+//        catch(\Exception $exception)
+//        {
+//            $tempDataResponse['success'] = false;
+//            $tempDataResponse['error_message'] = $exception->getMessage();
+//        }
+//        return response()->json($tempDataResponse);
+//    }
 
     public function getList(Request $request)
     {

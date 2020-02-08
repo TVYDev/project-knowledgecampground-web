@@ -35,7 +35,7 @@ class VerifyAccessToken
         catch(\Exception $exception)
         {
             $request->session()->forget(HttpConstants::KEY_TO_KC_USER_AUTHENTICATED);
-            return redirect()->route('user.getLogin')->withFailure('Session has expired. Please log in again');
+            return redirect()->route('user.getLogin')->withFailure('Please log in to continue');
         }
     }
 }
