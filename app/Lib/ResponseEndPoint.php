@@ -56,7 +56,7 @@ trait ResponseEndPoint
                 return $redirectObj;
             }
         }
-        throw  new \Exception($errorMessage);
+        throw new \Exception($errorMessage);
     }
 
     public function doResponseSuccess ($redirectRoute, $message, $isIncludedInput, $routeParams = [])

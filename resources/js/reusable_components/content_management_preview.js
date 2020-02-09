@@ -1,63 +1,41 @@
-const html = `
-    <div class="TVYContentManagementPreview">
-        <div class="ui form">
-            <div class="inline field">
-                <div class="ui toggle checkbox chkPreviewContent">
-                    <input type="checkbox" name="chkPreviewContent" tabindex="0" class="hidden">
-                    <label class="lblPreviewContent"></label>
-                </div>
-            </div>
-        </div>
-        <div class="orderAndPreview">
-            <input type="hidden" name="reRender" class="reRender"/>
-            <div class="contentPreview" hidden="hidden">    
-            </div>
-            <div class="contentOrder">
-                <div class="TVYContentOrder col-md-12"></div>
-            </div>
-        </div>
-    </div>
-`;
-
 class TVYContentManagementPreview extends HTMLElement
 {
     constructor() {
         super();
+
+        let html = document.getElementById('tplContentManagementPreview').innerHTML;
         this.innerHTML = html;
 
+        // Properties
+        this._contentType = null;
+
         this.publicId = this.getAttribute('data-public-id');
-        let dataContentType = this.getAttribute('data-content-type');
-        if(dataContentType === 'question') {
-            this.contentType = TVYContentManagementPreview.QUESTION_CONTENT_TYPE;
-        }else {
-            this.contentType = TVYContentManagementPreview.ANSWER_CONTENT_TYPE;
-        }
 
         this.contentPreview = this.querySelector('.contentPreview');
         this.reRenderHidden = this.querySelector('.reRender');
         this.lblPreviewContent = this.querySelector('.lblPreviewContent');
+        this.mockedContentActionView = this.querySelector('tvy-content-action-view[data-for="mock-only"]');
 
-        this.reRenderHidden.addEventListener('click', this.handleContentPreview.bind(this));
+        this.mockedContentActionView.setAttribute('data-public-id', this.publicId);
 
-        this.setLabelTextPreviewContent();
-        this.handlePreviewCheckBox();
-        this.handleContentPreview();
+        this.reRenderHidden.addEventListener('click', this._handleMockedContentActionView.bind(this));
     }
 
-    static get QUESTION_CONTENT_TYPE()  {return 'question';}
-    static get ANSWER_CONTENT_TYPE()    {return 'answer';}
-
-    setLabelTextPreviewContent () {
-        let text = '';
-        if(this.contentType === TVYContentManagementPreview.QUESTION_CONTENT_TYPE) {
-            text = 'Preview your question';
-        }else {
-            text = 'Preview your answer';
-        }
-        this.lblPreviewContent.innerHTML = text;
+    set contentType (type) {
+        this._contentType = type;
+    }
+    get contentType () {
+        return this._contentType;
     }
 
-    handlePreviewCheckBox () {
+    get QUESTION_CONTENT_TYPE()  {return 'question';}
+    get ANSWER_CONTENT_TYPE()    {return 'answer';}
+
+    getManagementPreview () {
+        this._handlePreviewCheckBox();
+    }
+
+    _handlePreviewCheckBox () {
         $('.TVYContentManagementPreview .chkPreviewContent').checkbox({
             onChecked: function() {
                 $('.TVYContentManagementPreview .contentPreview').removeAttr('hidden');
@@ -70,15 +48,27 @@ class TVYContentManagementPreview extends HTMLElement
         });
     }
 
-    handleContentPreview () {
-        if(this.querySelector('tvy-content-action-view')){
-            this.querySelector('.TVYContentActionView .reRender').click();
-        }else {
-            let mockedContentActionView = document.createElement('tvy-content-action-view');
-            mockedContentActionView.setAttribute('data-public-id', this.publicId);
-            mockedContentActionView.setAttribute('data-content-type', this.contentType);
-            this.contentPreview.appendChild(mockedContentActionView);
-        }
+    _handleMockedContentActionView () {
+        let url = window.location.origin + `/${this.contentType}/get-info/` + this.publicId;
+
+        $.ajax({
+            url: url,
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            type: 'GET',
+            success: result => {
+                if(result.success === true) {
+                    const { description, relativePathStoreImages } = result.data;
+                    let contentActionView = this.mockedContentActionView;
+                    contentActionView.isMockOnly = true;
+                    contentActionView.description = JSON.parse(description);
+                    contentActionView.relativePathStoreImages = relativePathStoreImages;
+                    contentActionView.getViewContent();
+                }
+            },
+            error: err => {
+                console.log(`Error getting content of ${type} [${this.publicId}]`, err);
+            }
+        });
     }
 }
 

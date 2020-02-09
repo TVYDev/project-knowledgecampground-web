@@ -13,6 +13,8 @@ class RouteConstants
 {
     const HOME = 'home';
     const LOCALIZATION = 'localization';
+
+    const PLACEHOLDER = 'PLACEHOLDER';
     /************************************************************
      * Route for UserController
      ***********************************************************/
@@ -23,6 +25,8 @@ class RouteConstants
     const USER_GET_CHANGE_PASSWORD = 'user.getChangePassword';
     const USER_POST_CHANGE_PASSWORD = 'user.postChangePassword';
     const USER_GET_VIEW_USER_PROFILE = 'user.getViewUserProfile';
+    const USER_GET_EDIT_USER_PROFILE = 'user.getEditUserProfile';
+    const USER_POST_EDIT_USER_PROFILE = 'user.postEditUserProfile';
     /***********************************************************/
 
     /************************************************************
@@ -32,6 +36,7 @@ class RouteConstants
     const QUESTION_POST_POST = 'question.postPost';
     const QUESTION_POST_SAVE_DURING_EDITING = 'question.postSaveDuringEditing';
     const QUESTION_GET_VIEW = 'question.getView';
+    const QUESTION_GET_INFO = 'question.getInfo';
     const QUESTION_GET_DESCRIPTION_OF = 'question.getDescriptionOf';
     const QUESTION_GET_LIST = 'question.getList';
     /***********************************************************/
@@ -43,6 +48,7 @@ class RouteConstants
     const ANSWER_POST_SAVE_DURING_EDITING = 'answer.postSaveDuringEditing';
     const ANSWER_GET_DESCRIPTION_OF = 'answer.getDescriptionOf';
     const ANSWER_GET_LIST_POSTED_ANSWERS_OF = 'answer.getListPostedAnswersOf';
+    const ANSWER_GET_INFO = 'answer.getInfo';
     /***********************************************************/
 
     /************************************************************

@@ -37,11 +37,6 @@ return [
             'path'  => '/api/auth/change-password',
             'url'   => $host.'/api/auth/change-password'
         ],
-        'get_user_avatar'   => [
-            'method'=> 'get',
-            'path'  => '/api/user-avatar/user-avatar',
-            'url'   => $host.'/api/user-avatar/user-avatar'
-        ],
         'verify_authentication' => [
             'method'=> 'get',
             'path'  => '/api/auth/verify-authentication',
@@ -51,6 +46,18 @@ return [
             'method'=> 'post',
             'path'  => '/api/auth/refresh-token',
             'url'   => $host.'/api/auth/refresh-token'
+        ]
+    ],
+    'user_profile' => [
+        'update' => [
+            'method'    => 'put',
+            'path'      => '/api/user-profile/update',
+            'url'       => $host.'/api/user-profile/update'
+        ],
+        'view' => [
+            'method'    => 'get',
+            'path'      => '/api/user-profile/view',
+            'url'       => $host.'/api/user-profile/view'
         ]
     ],
     'question' => [
@@ -78,6 +85,11 @@ return [
             'method'=> 'get',
             'path'  => '/api/question/list',
             'url'   => $host.'/api/question/list'
+        ],
+        'get_subject_tags' => [
+            'method'=> 'get',
+            'path'  => '/api/question/get-subject-tags-of/{publicId}',
+            'url'   => $host.'/api/question/get-subject-tags-of'
         ]
     ],
     'answer' => [

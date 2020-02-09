@@ -4,9 +4,8 @@
 
 @section('content')
     <?php
-    $ua = session(\App\Lib\UserConstants::KEY_TO_USER_AVATAR);
-    $default_avatar_url = $ua[\App\Lib\UserConstants::USER_AVATAR_SVG_URL];
-    $username = $ua[\App\Lib\UserConstants::USER_NAME];
+    $default_avatar_url = session(\App\Lib\SessionConstants::USER_AVATAR_URL);
+    $username = session(\App\Lib\SessionConstants::USER_NAME);
     ?>
 
     <div class="askQuestionContent">
@@ -57,15 +56,15 @@
                         <button type="submit" name="submit" value="post" class="ui button btnPostQuestion btnFormPrimary">
                             <span>{{ __('Post my question') }}</span>&nbsp;&nbsp;&nbsp;<i class="far fa-paper-plane"></i>
                         </button>
-{{--                        <button type="submit" name="submit" value="draft" class="ui button btnSaveDraftQuestion btnFormSecondary">--}}
-{{--                            <span>{{ __('Save as draft') }}</span>&nbsp;&nbsp;&nbsp;<i class="far fa-save"></i>--}}
-{{--                        </button>--}}
                     </div>
                 </form>
             </div>
         </div>
         <div class="questionContentManagement">
-            <tvy-content-management-preview data-content-type="question" data-public-id="{{ $publicId }}"></tvy-content-management-preview>
+            <tvy-content-management-preview data-for="currentQuestion" data-public-id="{{ $publicId }}"></tvy-content-management-preview>
         </div>
     </div>
+@endsection
+@section('pageScript')
+    <script type="text/javascript" src="{{ asset('js/module/post_question.js') }}"></script>
 @endsection

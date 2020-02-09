@@ -74,15 +74,18 @@ require('codemirror/addon/edit/matchbrackets');
 require('codemirror/addon/edit/closetag');
 require('codemirror/addon/edit/matchtags');
 
+// Croppie
+require('croppie/croppie.min');
+
 /**
  * KC Scripts
  */
-require('./navbar');
-require('./auth/login');
-require('./form_alert_message');
-require('./question/post_question');
-require('./question/view_question');
 require('./reusable_components/content_management_preview');
 require('./reusable_components/content_editor');
 require('./reusable_components/content_action_view');
-require('./reusable_components/list_content_action_view');
+
+require('./navbar');
+require('./auth/login');
+require('./auth/view_user_profile');
+require('./auth/edit_user_profile');
+require('./form_alert_message');

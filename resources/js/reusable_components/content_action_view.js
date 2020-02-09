@@ -1,98 +1,121 @@
 import QuillEditor from "../QuillEditor";
 import CodeMirrorEditor from "../CodeMirrorEditor";
 
-const html = `
-<div class="TVYContentActionView">
-    <input type="hidden" name="reRender" class="reRender" />
-    <div class="viewPart"></div>
-    <div class="actionPart">
-        <div class="vote">
-            <i class="far fa-thumbs-up selected"></i>
-            <span class="numVote">23</span>
-            <i class="far fa-thumbs-down"></i>
-        </div>
-        <div class="askedOrEditedDate"></div>
-        <div class="authorIdentity">
-            <div><a href="#" class="authorInfo"></a></div>
-            <div><img class="authorAvatar" src="" alt="avatar"></div>    
-        </div>
-    </div>
-    <div class="commentsBlock">
-        <div class="listOfComments"></div>
-        <div class="addNewCommentBlock">
-            <div><img class="authorAvatar" src="" alt="avatar"></div>    
-            <div class="commentBody">
-                <div class="ui input commentInput">
-                    <input type="text" class="txtComment"/>
-                </div>
-                <div class="commentButton"><i class="fas fa-chevron-circle-right"></i></div>
-            </div>
-        </div>
-    </div>
-</div>
-`;
-
 class TVYContentActionView extends HTMLElement
 {
     constructor() {
         super();
-        this.innerHTML = html;
 
-        this.descriptionContent = null;
-        this.relativePathStoreImages = null;
-        this.authorId = null;
-        this.authorName = null;
-        this.avatarUrl = null;
+        let markup = document.getElementById('tplContentActionView').innerHTML;
+        this.innerHTML = markup;
 
-        this.defaultSharedAvatarUrl = window.location.protocol + '//' + window.location.host + '/icons/robot.png';
+        // Properties
+        this._contentType = null;
+        this._ownerAvatarUrl = null;
+        this._authorName = null;
+        this._authorId = null;
+        this._readableTime = null;
+        this._description = null;
+        this._relativePathStoreImages = null;
+        this._comments = [];
+        this._isMockOnly = false;
+
+        this.publicId = this.getAttribute('data-public-id');
         this.currentAvatarUrl = this.getAttribute('data-current-avatar-url');
         this.currentUsername = this.getAttribute('data-current-username');
-        let contentType = this.getAttribute('data-content-type');
-        if(contentType === 'question') {
-            this.contentType = TVYContentActionView.QUESTION_CONTENT_TYPE;
-        }else {
-            this.contentType = TVYContentActionView.ANSWER_CONTENT_TYPE;
-        }
 
         this.viewPart = this.querySelector('.viewPart');
         this.actionPart = this.querySelector('.actionPart');
         this.askedOrEditedDate = this.actionPart.querySelector('.askedOrEditedDate');
         this.author = this.actionPart.querySelector('.authorIdentity .authorInfo');
         this.avatar = this.actionPart.querySelector('.authorIdentity .authorAvatar');
-        this.reRenderHidden = this.querySelector('.reRender');
         this.avatarAddComment = this.querySelector('.addNewCommentBlock .authorAvatar');
         this.txtComment = this.querySelector('.txtComment');
         this.btnComment = this.querySelector('.commentButton');
-
         this.listOfComments = this.querySelector('.commentsBlock .listOfComments');
 
-        this.loaderContent = document.createElement('div');
-        this.loaderContent.className = 'ui active centered inline text loader loaderContent';
-        this.loaderContent.innerHTML = 'Loading';
-
-        this.reRenderHidden.addEventListener('click', this.getDescriptionContent.bind(this));
-        this.btnComment.addEventListener('click', this.saveComment.bind(this));
-
-        this.avatarAddComment.setAttribute('src', this.defaultSharedAvatarUrl);
-        this.avatar.setAttribute('src', this.defaultSharedAvatarUrl);
-
-        this.getDescriptionContent();
-        this.getListOfPostedComments();
+        // this.loaderContent = document.createElement('div');
+        // this.loaderContent.className = 'ui active centered inline text loader loaderContent';
+        // this.loaderContent.innerHTML = 'Loading';
     }
+
+    set contentType (contentType) {
+        this._contentType = contentType;
+    }
+    get contentType () {
+        return this._contentType;
+    }
+
+    set ownerAvatarUrl (url) {
+        this._ownerAvatarUrl = url;
+    }
+    get ownerAvatarUrl () {
+        return this._ownerAvatarUrl;
+    }
+
+    set authorName (name) {
+        this._authorName = name;
+    }
+    get authorName () {
+        return this._authorName;
+    }
+
+    set authorId (id) {
+        this._authorId = id;
+    }
+    get authorId () {
+        return this._authorId;
+    }
+
+    set readableTime (time) {
+        this._readableTime = time;
+    }
+    get readableTime () {
+        return this._readableTime;
+    }
+
+    set description (desc) {
+        this._description = desc;
+    }
+    get description () {
+        return this._description;
+    }
+
+    set relativePathStoreImages (path) {
+        this._relativePathStoreImages = path;
+    }
+    get relativePathStoreImages () {
+        return this._relativePathStoreImages;
+    }
+
+    set comments (comments) {
+        this._comments = comments;
+    }
+    get comments () {
+        return this._comments;
+    }
+
+    set isMockOnly (isMock) {
+        this._isMockOnly = isMock;
+    }
+    get isMockOnly () {
+        return this._isMockOnly;
+    }
+
+    get QUESTION_CONTENT_TYPE()  {return 'question';}
+    get ANSWER_CONTENT_TYPE()    {return 'answer';}
 
     static get TEXT_TYPE()  {return 'text';}
     static get CODE_TYPE()  {return 'code';}
     static get IMAGE_TYPE() {return 'image';}
 
-    static get QUESTION_CONTENT_TYPE()  {return 'question';}
-    static get ANSWER_CONTENT_TYPE()    {return 'answer';}
-
-    saveComment() {
+    _saveComment() {
         let preparedData = {
-            'commentable_public_id': this.getAttribute('data-public-id'),
+            'commentable_public_id': this.publicId,
             'commentable_type': this.contentType,
             'body': this.txtComment.value
         };
+
         let url = window.location.origin + '/comment/post';
         $.ajax({
             url: url,
@@ -102,7 +125,7 @@ class TVYContentActionView extends HTMLElement
             success: (result) => {
                 if(result.success == true) {
                     this.txtComment.value = '';
-                    this.displayNewlyAddedComment(
+                    this._displayNewlyAddedComment(
                         this.currentAvatarUrl,
                         this.currentUsername,
                         this.authorId,
@@ -118,108 +141,62 @@ class TVYContentActionView extends HTMLElement
         });
     }
 
-    displayNewlyAddedComment (avatarUrl, authorName, authorId,readableTime, body) {
+    _displayNewlyAddedComment (avatarUrl, authorName, authorId,readableTime, body) {
         let divSingleComment = document.createElement('div');
         divSingleComment.className = 'singleComment';
-        const markup = `
+        const html = `
             <div><img class="authorAvatar" src="${avatarUrl}" alt="avatar"></div>
             <div>
                 <div><a href="#${authorId}" class="authorName">${authorName}</a>&nbsp;&nbsp;&nbsp;<span class="commentDateTime">${readableTime}</span></div>
                 <div>${body}</div>
             </div>
         `;
-        divSingleComment.innerHTML = markup;
+        divSingleComment.innerHTML = html;
 
         this.listOfComments.appendChild(divSingleComment);
     }
 
-    getDescriptionContent ()
-    {
-        let routePath = null;
-        if(this.contentType === TVYContentActionView.QUESTION_CONTENT_TYPE) {
-            routePath = '/question/content-of-question/';
-        }else {
-            routePath = '/answer/content-of-answer/';
+    getViewContent () {
+        this._fillTheContent();
+        if(this.isMockOnly === false) {
+            this._fillInfoOfActionPart();
+            this._fillListOfComments();
+            this._addNecessaryEventListeners();
         }
-        let url = window.location.origin + routePath + this.getAttribute('data-public-id');
-        $.ajax({
-            url: url,
-            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-            type: 'GET',
-            beforeSend: (xhr) => {
-                this.viewPart.innerHTML = '';
-                this.viewPart.appendChild(this.loaderContent);
-            },
-            success: (result) => {
-                this.viewPart.removeChild(this.loaderContent);
-                if(result.success){
-                    this.descriptionContent = JSON.parse(result.data);
-                    this.relativePathStoreImages = result.relative_path_store_images;
-                    this.fillTheContent();
+    }
 
-                    this.fillInfoOfActionPart(result.readable_time, result.author_id, result.author_name, result.avatar_url);
-                    this.authorId = result.author_id;
-                    this.authorName = result.author_name;
-                    this.avatarUrl = result.avatar_url;
-                }else {
-                    this.addWarningNoContent();
-                }
-            },
-            error: function(err) {
-                console.log('---Error');
-                console.log(err);
-            }
+    _addNecessaryEventListeners () {
+        this.btnComment.addEventListener('click', this._saveComment.bind(this));
+    }
+
+    _fillListOfComments () {
+        this.comments.forEach(comment => {
+            this._displayNewlyAddedComment(comment.avatar_url, comment.author_name, comment.author_id, comment.readable_time_en, comment.body);
         });
     }
 
-    getListOfPostedComments ()
-    {
-        let url = `${window.location.origin}/comment/list-posted-comments-of/${this.contentType}/${this.getAttribute('data-public-id')}`;
-        $.ajax({
-            url: url,
-            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-            type: 'GET',
-            success: result => {
-                if(result.success === true)
-                {
-                    for(let i=0; i<result.data.length; i++)
-                    {
-                        const d = result.data[i];
-                        this.displayNewlyAddedComment(result.host_url + d.avatar_url, d.author_name, d.author_id, d.readable_time_en, d.body);
-                    }
-                }
-            },
-            error: function(err) {
-                console.log('---Error');
-                console.log(err);
-            }
-        });
+    _fillInfoOfActionPart() {
+        this.askedOrEditedDate.textContent = this.readableTime;
+        this.author.setAttribute('data-author-id', this.authorId);
+        this.author.textContent = this.authorName;
+        this.avatar.setAttribute('data-author-id', this.authorId);
+        this.avatar.setAttribute('src', this.ownerAvatarUrl);
+        this.avatarAddComment.setAttribute('src', this.currentAvatarUrl);
     }
 
-    fillInfoOfActionPart (readableTime, authorId, authorName, avatarUrl)
-    {
-        this.askedOrEditedDate.textContent = readableTime;
-        this.author.setAttribute('data-author-id', authorId);
-        this.author.textContent = authorName;
-        this.avatar.setAttribute('data-author-id', authorId);
-        this.avatar.setAttribute('src', avatarUrl === null ? this.defaultSharedAvatarUrl : avatarUrl);
-        this.avatarAddComment.setAttribute('src', this.currentAvatarUrl === null ? this.defaultSharedAvatarUrl : this.currentAvatarUrl);
-    }
-
-    fillTheContent ()
-    {
+    _fillTheContent () {
         this.viewPart.innerHTML = '';
-        if(this.descriptionContent != null && this.descriptionContent.length > 0) {
-            for (let i=0; i<this.descriptionContent.length; i++){
-                let description = this.descriptionContent[i];
-                this.addContent(description.data, description.type);
+        if(this.description != null && this.description.length > 0) {
+            for (let i=0; i<this.description.length; i++){
+                let description = this.description[i];
+                this._addContent(description.data, description.type);
             }
         }else {
-            this.addWarningNoContent();
+            this._addWarningNoContent();
         }
     }
 
-    addWarningNoContent () {
+    _addWarningNoContent () {
         let element = document.createElement('div');
         element.className = 'ui warning floating message';
         let html = `
@@ -232,8 +209,7 @@ class TVYContentActionView extends HTMLElement
         this.viewPart.appendChild(element);
     }
 
-    addContent (descData, type)
-    {
+    _addContent (descData, type) {
         let element = document.createElement('div');
         element.className = 'descElementForView col-md-12';
         this.viewPart.appendChild(element);
@@ -269,11 +245,11 @@ class TVYContentActionView extends HTMLElement
             `;
             element.appendChild(divImageContent);
 
-            divImageContent.querySelector('.imageView').addEventListener('click', () => this.onClickZoomImage(imageUrl));
+            divImageContent.querySelector('.imageView').addEventListener('click', () => this._onClickZoomImage(imageUrl));
         }
     }
 
-    onClickZoomImage (imageUrl) {
+    _onClickZoomImage (imageUrl) {
         let modalContentHtml = `
             <img class="imageFile" src="${imageUrl}" style="width: 100%; border-radius: 5px;"/>
         `;

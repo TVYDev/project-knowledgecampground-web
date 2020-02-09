@@ -55,6 +55,9 @@
 
 @import 'code_mirror_editor.scss';
 
+// Croppie
+@import '~croppie/croppie.css';
+
 //***************************************
 // Global Style
 //***************************************
@@ -79,7 +82,9 @@ h1, h2, h3, h4, h5, h6,
 .ui.button,
 .ui.form input[type=text],
 .ui.form textarea,
-.ui.input input[type=text]
+.ui.input input[type=text],
+.ui.header,
+.ui.form input[type=file]
 {
     font-family: 'Taprom', 'Comfortaa', sans-serif;
 }
@@ -219,6 +224,12 @@ button:focus {
         }
     }
 }
+.ui.header {
+    color: $prim;
+}
+.ui.header::before {
+    content: '➤ ';
+}
 
 .ui.toggle.checkbox input:checked~label:before,
 .ui.toggle.checkbox input:focus:checked~label:before {
@@ -238,9 +249,9 @@ button:focus {
 }
 // Global
 @import 'layouts/global/page_title';
+@import 'layouts/global/header_list.scss';
 
 @import '_animate.css';
-@import 'reusable_components/list_content_action_view';
 @import 'reusable_components/content_management_preview';
 @import 'reusable_components/content_editor';
 @import 'reusable_components/description_element';
@@ -254,8 +265,9 @@ button:focus {
 @import 'layouts/partials/footer';
 @import 'auth/social_login.scss';
 @import 'auth/login';
-@import 'auth/user_profile';
+@import 'auth/view_user_profile';
 @import 'auth/change_password';
+@import 'auth/edit_user_profile';
 @import 'question/post_question';
 @import 'question/view_question';
 @import 'question/list_question';

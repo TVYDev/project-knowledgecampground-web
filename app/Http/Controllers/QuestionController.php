@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Support\Paginator;
 use App\Http\Support\Supporter;
+use App\Http\ViewModel\QuestionAnswerViewModel;
+use App\Lib\Helper;
 use App\Lib\HttpConstants;
 use App\Lib\MiddlewareConstants;
 use App\Lib\RequestAPI;
 use App\Lib\ResponseEndPoint;
 use App\Lib\RouteConstants;
-use http\Exception\UnexpectedValueException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -21,13 +22,12 @@ class QuestionController extends Controller
 
     public function __construct()
     {
-        $this->middleware(MiddlewareConstants::VERIFY_ACCESS_TOKEN, ['except' => ['getList']]);
+        $this->middleware(MiddlewareConstants::VERIFY_ACCESS_TOKEN)->except(['getView','getList','getInfo']);
         $this->supporter = new Supporter();
     }
 
     /**-------------------------------------------------------------------------
-     * Question Ask (Create)
-     * [GET] [POST]
+     * Purpose: Render page Ask Question
      *------------------------------------------------------------------------*/
     public function getPost ()
     {
@@ -55,6 +55,10 @@ class QuestionController extends Controller
 
         }
     }
+
+    /**-------------------------------------------------------------------------
+     * Purpose: Save a question when its description is modified
+     *------------------------------------------------------------------------*/
     public function postSaveDuringEditing (Request $request)
     {
         try
@@ -106,6 +110,9 @@ class QuestionController extends Controller
         }
     }
 
+    /**-------------------------------------------------------------------------
+     * Purpose: Save a completed question
+     *------------------------------------------------------------------------*/
     public function postPost (Request $request)
     {
         try
@@ -153,27 +160,33 @@ class QuestionController extends Controller
         }
     }
 
-    /************************************************
-     * Question View
-     * [GET]
-     ***********************************************/
+    /**-------------------------------------------------------------------------
+     * Purpose: Render page View Question
+     *------------------------------------------------------------------------*/
     public function getView ($publicId)
     {
         try
         {
-            $response = $this->get($this->getApiRequestUrl('question.view'), [$publicId], null, $this->getAuthorizationHeader());
+            $response = $this->get($this->getApiRequestUrl('question.get_subject_tags'), [$publicId]);
 
             if($response->success) {
                 $data = $response->data;
 
                 $newAnswerPublicId = $this->supporter->doGeneratePublicId();
 
+                $answers = [];
+                $answersResponse = $this->get($this->getApiRequestUrl('answer.list_posted_answers'), [$publicId]);
+                if ($answersResponse->success) {
+                    $answers = Helper::getProp($answersResponse, 'data');
+                }
+
                 return view('question.view_question')
-                    ->with('data', $data)
-                    ->with('questionPublicId', $publicId)
+                    ->with('title', Helper::getProp($data, 'title'))
+                    ->with('questionPublicId', Helper::getProp($data, 'public_id'))
+                    ->with('subject', Helper::getProp($data, 'subject'))
+                    ->with('tags', Helper::getProp($data, 'tags'))
                     ->with('answerPublicId', $newAnswerPublicId)
-                    ->with('avatarUrl', HttpConstants::HOST_URL . $data->avatar_url)
-                    ->with('relativePathStoreImagesOfQuestion', HttpConstants::HOST_URL . $data->description->relative_path_store_images);
+                    ->with('answers', $answers);
             }
         }
         catch(\Exception $exception)
@@ -187,41 +200,85 @@ class QuestionController extends Controller
         }
     }
 
-    public function getContentOfQuestion ($publicId)
+    /**-------------------------------------------------------------------------
+     * Purpose: For AJAX, Get content of question for ContentActionView
+     *------------------------------------------------------------------------*/
+    public function getInfo ($publicId, Request $request)
     {
-        $tempDataResponse = [];
+        // This route only from ajax request
+        if(!$request->ajax()) {
+            return 'Invalid Request Gateway';
+        }
+
+        $responseData = null;
+        $errorMsg = null;
         try
         {
             $resultQuestion = $this->get(
                 $this->getApiRequestUrl('question.view'),
-                [$publicId],
-                null,
-                $this->getAuthorizationHeader()
+                [$publicId]
             );
 
             if($resultQuestion->success == true) {
-                $dataQuestion = $resultQuestion->data;
-                $tempDataResponse['success'] = true;
-                $tempDataResponse['author_name'] = $dataQuestion->author_name;
-                $tempDataResponse['author_id'] = $dataQuestion->author_id;
-                $tempDataResponse['avatar_url'] = HttpConstants::HOST_URL . $dataQuestion->avatar_url;
-                $tempDataResponse['readable_time'] = $dataQuestion->readable_time_en;
-                $tempDataResponse['data'] = $dataQuestion->description->data;
-                $tempDataResponse['relative_path_store_images'] = HttpConstants::HOST_URL . $dataQuestion->description->relative_path_store_images;
+                $success = true;
+                $data = Helper::getProp($resultQuestion, 'data');
+                $responseData = (new QuestionAnswerViewModel())->getStandardPreparedDataForView($data);
             }
-            else
-            {
-                throw new UnexpectedValueException('Question not found');
+            else {
+                throw new \Exception('Unable to get info of question, public id = ' . $publicId);
             }
         }
         catch(\Exception $exception)
         {
-            $tempDataResponse['success'] = false;
-            $tempDataResponse['error_message'] = $exception->getMessage();
+            $success = false;
+            $errorMsg = $exception->getMessage();
         }
-        return response()->json($tempDataResponse);
+
+        return response()->json([
+            'success'       => $success,
+            'data'          => $responseData,
+            'error_message' => $errorMsg
+        ]);
     }
 
+//    public function getContentOfQuestion ($publicId)
+//    {
+//        $tempDataResponse = [];
+//        try
+//        {
+//            $resultQuestion = $this->get(
+//                $this->getApiRequestUrl('question.view'),
+//                [$publicId],
+//                null,
+//                $this->getAuthorizationHeader()
+//            );
+//
+//            if($resultQuestion->success == true) {
+//                $dataQuestion = $resultQuestion->data;
+//                $tempDataResponse['success'] = true;
+//                $tempDataResponse['author_name'] = $dataQuestion->author_name;
+//                $tempDataResponse['author_id'] = $dataQuestion->author_id;
+//                $tempDataResponse['avatar_url'] = HttpConstants::HOST_URL . $dataQuestion->avatar_url;
+//                $tempDataResponse['readable_time'] = $dataQuestion->readable_time_en;
+//                $tempDataResponse['data'] = $dataQuestion->description->data;
+//                $tempDataResponse['relative_path_store_images'] = HttpConstants::HOST_URL . $dataQuestion->description->relative_path_store_images;
+//            }
+//            else
+//            {
+//                throw new \Exception('Question not found');
+//            }
+//        }
+//        catch(\Exception $exception)
+//        {
+//            $tempDataResponse['success'] = false;
+//            $tempDataResponse['error_message'] = $exception->getMessage();
+//        }
+//        return response()->json($tempDataResponse);
+//    }
+
+    /**-------------------------------------------------------------------------
+     * Purpose: Render page List of Questions and Handle question searching
+     *------------------------------------------------------------------------*/
     public function getList(Request $request)
     {
         try

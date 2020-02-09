@@ -173,7 +173,7 @@ trait RequestAPI
      */
     public function getErrorMessage (\Exception $exception, $isIncludedTrace = false)
     {
-        $message = $exception->getMessage() . $isIncludedTrace ? $exception->getTraceAsString() : '';
+        $message = $exception->getMessage() . ($isIncludedTrace ? $exception->getTraceAsString() : '');
         if($exception instanceof ClientException){
             $stringResponse = str($exception->getResponse());
             $match = null;
