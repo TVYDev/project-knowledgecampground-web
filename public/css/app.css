@@ -13541,14 +13541,13 @@ button:focus {
   margin-left: 10px;
 }
 
-.TVYListContentActionView .headerBlock {
+.headerList {
   margin-top: 30px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  margin-bottom: 30px;
   border-bottom: 5px solid #026670;
 }
 
-.TVYListContentActionView .headerBlock div:first-child i {
+.headerList > div i {
   border-radius: 8px 8px 0 0;
   border: 2px solid #026670;
   border-bottom: none;
@@ -13557,41 +13556,12 @@ button:focus {
   font-size: 2em;
 }
 
-.TVYListContentActionView .headerBlock div:first-child span {
+.headerList > div span {
   margin-left: 10px;
   vertical-align: middle;
   color: #026670;
   font-weight: bold;
   font-size: 1.3em;
-}
-
-.TVYListContentActionView .headerBlock div:last-child {
-  justify-self: right;
-  align-self: center;
-}
-
-.TVYListContentActionView .headerBlock div:last-child .btnMostHelpful,
-.TVYListContentActionView .headerBlock div:last-child .btnMostDated {
-  padding: 5px 10px;
-  background: none;
-  border: none;
-  color: #424242;
-}
-
-.TVYListContentActionView .headerBlock div:last-child .btnMostHelpful:hover,
-.TVYListContentActionView .headerBlock div:last-child .btnMostHelpful:focus,
-.TVYListContentActionView .headerBlock div:last-child .btnMostDated:hover,
-.TVYListContentActionView .headerBlock div:last-child .btnMostDated:focus {
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.TVYListContentActionView .headerBlock div:last-child .btnMostHelpful.active,
-.TVYListContentActionView .headerBlock div:last-child .btnMostDated.active {
-  border-radius: 20px;
-  border: 1px solid #707070;
-  color: white;
-  background-color: #707070;
 }
 
 .TVYContentManagementPreview .form {

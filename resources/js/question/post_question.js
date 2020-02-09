@@ -1,6 +1,10 @@
 import NotyAlertMessage from "../NotyAlertMessage";
 
 $(document).ready(function() {
+    let currentQuestionContentManagementPreview = document.querySelector('tvy-content-management-preview[data-for="currentQuestion"]');
+    currentQuestionContentManagementPreview.contentType = 'question';
+    currentQuestionContentManagementPreview.getManagementPreview();
+
     $('.subjectOfQuestion').dropdown({
         forceSelection: false,
         onChange: function(value){

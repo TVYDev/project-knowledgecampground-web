@@ -57,15 +57,15 @@
                         <button type="submit" name="submit" value="post" class="ui button btnPostQuestion btnFormPrimary">
                             <span>{{ __('Post my question') }}</span>&nbsp;&nbsp;&nbsp;<i class="far fa-paper-plane"></i>
                         </button>
-{{--                        <button type="submit" name="submit" value="draft" class="ui button btnSaveDraftQuestion btnFormSecondary">--}}
-{{--                            <span>{{ __('Save as draft') }}</span>&nbsp;&nbsp;&nbsp;<i class="far fa-save"></i>--}}
-{{--                        </button>--}}
                     </div>
                 </form>
             </div>
         </div>
         <div class="questionContentManagement">
-            <tvy-content-management-preview data-content-type="question" data-public-id="{{ $publicId }}"></tvy-content-management-preview>
+            <tvy-content-management-preview data-for="currentQuestion" data-public-id="{{ $publicId }}"></tvy-content-management-preview>
         </div>
     </div>
+@endsection
+@section('pageScript')
+    <script type="text/javascript" src="{{ asset('js/module/post_question.js') }}"></script>
 @endsection

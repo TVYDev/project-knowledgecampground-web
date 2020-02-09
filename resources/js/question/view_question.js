@@ -13,6 +13,11 @@ $(document).ready(function() {
         getInfoForAnswerContentActionView(answerContentActionView, answerPublicId);
     });
 
+    // ContentManagementPreview for answer
+    let currentQuestionContentManagementPreview = document.querySelector('tvy-content-management-preview[data-for="currentAnswer"]');
+    currentQuestionContentManagementPreview.contentType = 'answer';
+    currentQuestionContentManagementPreview.getManagementPreview();
+
     function getInfoForQuestionContentActionView (contentActonView, publicId) {
         getInfoForContentActionView(contentActonView, publicId, 'question');
     }
