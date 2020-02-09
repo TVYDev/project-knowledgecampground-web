@@ -1,0 +1,22 @@
+.headerList {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-bottom: 5px solid $prim;
+    >div {
+        i {
+            border-radius: 8px 8px 0 0;
+            border: 2px solid $prim;
+            border-bottom: none;
+            color: $prim;
+            padding: 5px;
+            font-size: 2em;
+        }
+        span {
+            margin-left: 10px;
+            vertical-align: middle;
+            color: $prim;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+    }
+}

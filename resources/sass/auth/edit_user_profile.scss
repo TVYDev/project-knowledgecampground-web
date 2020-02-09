@@ -1,0 +1,66 @@
+.editProfileContent {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-column-gap: 5px;
+    .briefInfo {
+        padding-right: 50px;
+        border-right: 1.2px solid $thirdly-gray;
+        justify-self: right;
+        text-align: center;
+        .username {
+            color: $prim;
+        }
+        .blockAvatar {
+            .avatar_img {
+                border: 2px solid $main-green;
+                border-radius: 100px;
+                padding: 5px;
+                width: 180px;
+                height: 180px;
+            }
+            .btnChangeAvatar {
+                color: $contrast-prim;
+                background: none;
+                border: 1px solid $contrast-prim;
+                padding: 5px 10px;
+                border-radius: 20px;
+                cursor: pointer;
+            }
+            .btnChangeAvatar:hover, .btnChangeAvatar:focus {
+                color: $main-background;
+                background-color: $contrast-prim;
+            }
+        }
+    }
+    .editProfileForm {
+        padding-left: 50px;
+    }
+}
+.changeAvatarInModal {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-column-gap: 10px;
+    .blockOptions {
+        border-right: 1px solid $thirdly-gray;
+    }
+    .actionAvatar {
+        .useJdenticon {
+            text-align: center;
+            .imgJdenticon {
+                width: 200px;
+                border-radius: 100px;
+                border: 2px solid $contrast-prim;
+                padding: 3px;
+            }
+            .btnJdenticon {
+                margin: auto;
+                display: block;
+            }
+        }
+        .cropImgBlock {
+            margin-top: 10px;
+            text-align: center;
+        }
+    }
+}

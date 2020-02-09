@@ -13,3 +13,6 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css');
+
+mix.js('resources/js/question/view_question.js', 'public/js/module');
+mix.js('resources/js/question/post_question.js', 'public/js/module');

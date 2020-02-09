@@ -3,21 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\KCValidationException;
+use App\Http\Support\Supporter;
 use App\Lib\HttpConstants;
 use App\Lib\RequestAPI;
 use App\Lib\ResponseEndPoint;
 use App\Lib\RouteConstants;
 use App\Http\Support\UserAvatar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
     use RequestAPI, ResponseEndPoint;
 
+    protected $supporter;
+
     public function __construct()
     {
         $this->middleware('verify_access_token')->except(['getLogin','postLogin','postRegister']);
+        $this->supporter = new Supporter();
     }
 
     /**-------------------------------------------------------------------------
@@ -93,8 +99,7 @@ class UserController extends Controller
             $this->saveAccessToken($response);
 
             // --- save user_avatar to session for displaying nav_bar
-            $userAvatar = new UserAvatar();
-            $this->saveUserAvatarToSession($userAvatar->getUserAvatar());
+            $this->supporter->saveCommonUserInfoToSession();
 
             return $this->doResponseSuccess(RouteConstants::HOME, $response->message_en, false);
         }
@@ -137,8 +142,7 @@ class UserController extends Controller
             $this->saveAccessToken($response);
 
             // --- save user_avatar to session for displaying nav_bar
-            $userAvatar = new UserAvatar();
-            $this->saveUserAvatarToSession($userAvatar->getUserAvatar());
+            $this->supporter->saveCommonUserInfoToSession();
 
             return $this->doResponseSuccess(RouteConstants::HOME, $response->message_en, false);
         }
@@ -199,6 +203,135 @@ class UserController extends Controller
      *------------------------------------------------------------------------*/
     public function getViewUserProfile ()
     {
-        return view('auth.user_profile');
+        try
+        {
+            $response = $this->get($this->getApiRequestUrl('user_profile.view'),null, null, $this->getAuthorizationHeader());
+            if($response->success == true) {
+                return view('auth.view_user_profile')->with('data', $response->data);
+            }
+            throw new \Exception('Unable to fetch you profile information. Please try again');
+        }
+        catch(\Exception $exception)
+        {
+            return $this->doResponseError($exception, true, RouteConstants::HOME, false);
+        }
+    }
+
+    public function getEditUserProfile ()
+    {
+        try
+        {
+            $response = $this->get($this->getApiRequestUrl('user_profile.view'),null, null, $this->getAuthorizationHeader());
+            if($response->success == true) {
+                return view('auth.edit_user_profile')->with('data', $response->data);
+            }
+            throw new \Exception('Unable to fetch you profile information. Please try again');
+        }
+        catch(\Exception $exception)
+        {
+            return $this->doResponseError($exception, true, RouteConstants::USER_GET_VIEW_USER_PROFILE, false);
+        }
+    }
+
+    public function postEditUserProfile (Request $request)
+    {
+        try
+        {
+            $requestedData = [
+                [
+                    'name'      => 'full_name',
+                    'contents'  => $request->fullName
+                ],
+                [
+                    'name'      => 'country_code',
+                    'contents'  => $request->country
+                ],
+                [
+                    'name'      => 'position',
+                    'contents'  => $request->position
+                ],
+                [
+                    'name'      => 'location',
+                    'contents'  => $request->location
+                ],
+                [
+                    'name'      => 'about_me',
+                    'contents'  => $request->aboutMe
+                ],
+                [
+                    'name'      => 'website_link',
+                    'contents'  => $request->websiteLink
+                ],
+                [
+                    'name'      => 'facebook_link',
+                    'contents'  => $request->facebookLink
+                ],
+                [
+                    'name'      => 'twitter_link',
+                    'contents'  => $request->twitterLink
+                ],
+                [
+                    'name'      => 'telegram_link',
+                    'contents'  => $request->telegramLink
+                ]
+            ];
+
+            $file = null;
+            $filename = null;
+            if($request->has('typeAvatar')) {
+                if($request->typeAvatar == 'image') {
+                    if(isset($request->imgAvatar))
+                    {
+                        $result = $this->supporter->decodeBase64StringToImageFile($request->imgAvatar);
+                        $file = $result['file'];
+                        $filename = uniqid() . '.' . $result['extension'];
+
+                        $requestedData = array_merge($requestedData, [
+                            [
+                                'name'      => 'img_file_name',
+                                'contents'  => $filename
+                            ],
+                            [
+                                'name' => 'img_upload',
+                                'contents' => $file,
+                                'filename' => 'qwe.jpg'
+                            ],
+                            [
+                                'name'      => 'avatar_type',
+                                'contents'  => 'image'
+                            ]
+                        ]);
+                    }
+                }
+                else {
+                    $requestedData = array_merge($requestedData, [
+                        [
+                            'name'      => 'avatar_type',
+                            'contents'  => 'jdenticon'
+                        ]
+                    ]);
+                }
+            }
+
+            $response = $this->post(
+                $this->getApiRequestUrl('user_profile.update'),
+                $requestedData,
+                $this->getAuthorizationHeader(true, false),
+                'multipart'
+            );
+
+            // Update data in session
+            $this->supporter->saveCommonUserInfoToSession();
+
+            if($response->success == true)
+            {
+                return $this->doResponseSuccess(RouteConstants::USER_GET_VIEW_USER_PROFILE, 'Your profile is updated successfully', false);
+            }
+            throw new \Exception('Unable to update your profile. Please try again.');
+        }
+        catch (\Exception $exception)
+        {
+            return $this->doResponseError($exception, true, RouteConstants::USER_GET_EDIT_USER_PROFILE, true);
+        }
     }
 }

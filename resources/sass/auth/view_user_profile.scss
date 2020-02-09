@@ -10,23 +10,18 @@
             grid-template-columns: 1fr;
             grid-template-rows: 5fr 1fr 5fr;
             align-items: center;
-            .fullName, .username, .country {
+            .username, .country, .position {
                 text-align: right;
             }
             .country {
-                .countryFlag {
-                    height: 30px;
-                }
-            }
-            .fullName {
-                font-weight: bold;
-                color: $main-black;
+                margin-bottom: 10px;
             }
             .username {
-                font-weight: bold;
-                color: $secondary-gray;
+                font-size: 1.6em;
+                color: $prim;
+                margin-bottom: 10px;
             }
-            .description {
+            .aboutMe {
                 align-self: baseline;
                 text-align: center;
                 margin: 0;
@@ -37,7 +32,7 @@
             justify-self: center;
             text-align: center;
             .avatar_img {
-                border: 2px solid $main-green;
+                border: 2px solid $contrast-prim;
                 border-radius: 100px;
                 padding: 5px;
                 width: 200px;
@@ -45,16 +40,14 @@
             }
             .btnEditProfile {
                 margin-top: 10px;
-                background-color: $page-background;
-                border: 1.5px solid $main-green;
+                background-color: $main-background;
+                border: 1.5px solid $prim;
                 border-radius: 20px;
-                padding-left: 20px;
-                padding-right: 20px;
+                padding: 5px 20px;
             }
             .btnEditProfile:hover, .btnEditProfile:focus {
-                font-weight: bold;
-                background-color: $secondary-green;
-                color: white;
+                background-color: $prim;
+                color: $main-background;
                 cursor: pointer;
             }
         }
