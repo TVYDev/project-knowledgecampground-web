@@ -13,6 +13,7 @@
     @include('layouts.partials._alert_message')
     @include('layouts.partials._basic_modal')
     @include('layouts.partials._basic_white_modal')
+    @include('layouts.partials._template_modal_change_avatar')
 
     @include('reusable_components._template_content_action_view')
     @include('reusable_components._template_content_management_preview')

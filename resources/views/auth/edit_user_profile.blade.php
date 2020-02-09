@@ -26,6 +26,7 @@
             <form action="{{ route(\App\Lib\RouteConstants::USER_POST_EDIT_USER_PROFILE) }}" method="post" id="formEditProfile">
                 @csrf
                 <input type="hidden" name="imgAvatar" class="imgAvatar">
+                <input type="hidden" name="typeAvatar" class="typeAvatar">
                 <div class="ui form">
                     <div class="ui header">Public Information</div>
                     <div class="field">

@@ -7,44 +7,7 @@ $(document).ready(function(){
         $('.ui.modal.whiteBasicModal .header').html('Change Avatar Image');
         $('.ui.modal.whiteBasicModal .actions').remove();
 
-        const contentMarkUp = `
-            <div class="changeAvatarInModal">
-                <div class="ui form">
-                    <div class="grouped fields">
-                        <label>Type of Avatar:</label>
-                        <div class="field">
-                            <div class="ui toggle checkbox typeAvatarCheckBox">
-                                <input type="radio" name="typeAvatar" value="image" checked="checked">
-                                <label>Upload Image</label>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <div class="ui toggle checkbox typeAvatarCheckBox">
-                                <input type="radio" name="typeAvatar" value="jdenticon">
-                                <label>Jdenticon</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="actionAvatar">
-                    <div class="useJdenticon">Jdenticon</div>
-                    <div class="useImage">
-                        <div class="ui form">
-                            <div class="field">
-                                <label for="iptAvatarImage">
-                                    <strong>Browse image</strong>
-                                </label>
-                                <input type="file" class="iptAvatarImage" accept="image/*"/>
-                            </div>
-                        </div>
-                        <div class="cropImgBlock">
-                            <div class="imgTmp"></div>
-                            <button class="ui button btnCrop">Crop</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
+        let contentMarkUp = document.getElementById('tplModalChangeAvatar').innerHTML;
 
         $('.ui.modal.whiteBasicModal .content').html(contentMarkUp);
 
@@ -94,8 +57,16 @@ $(document).ready(function(){
             }).then(function(response){
                 $('.editProfileContent .briefInfo .avatar_img').attr('src', response);
                 $('.editProfileContent .editProfileForm .imgAvatar').val(response);
+                $('.editProfileContent .editProfileForm .typeAvatar').val('image');
                 $('.ui.modal.whiteBasicModal').modal('hide');
             })
+        });
+
+        $('.actionAvatar .btnJdenticon').click(function(event) {
+            let iconUrl = $('.actionAvatar .imgJdenticon').attr('src');
+            $('.editProfileContent .briefInfo .avatar_img').attr('src', iconUrl);
+            $('.editProfileContent .editProfileForm .typeAvatar').val('jdenticon');
+            $('.ui.modal.whiteBasicModal').modal('hide');
         });
 
         $('.ui.modal.whiteBasicModal').modal('show');

@@ -265,10 +265,12 @@ class UserController extends Controller
                 [
                     'name'      => 'facebook_link',
                     'contents'  => $request->facebookLink
-                ],[
+                ],
+                [
                     'name'      => 'twitter_link',
                     'contents'  => $request->twitterLink
-                ],[
+                ],
+                [
                     'name'      => 'telegram_link',
                     'contents'  => $request->telegramLink
                 ]
@@ -276,23 +278,39 @@ class UserController extends Controller
 
             $file = null;
             $filename = null;
-            if(isset($request->imgAvatar))
-            {
-                $result = $this->supporter->decodeBase64StringToImageFile($request->imgAvatar);
-                $file = $result['file'];
-                $filename = uniqid() . '.' . $result['extension'];
+            if($request->has('typeAvatar')) {
+                if($request->typeAvatar == 'image') {
+                    if(isset($request->imgAvatar))
+                    {
+                        $result = $this->supporter->decodeBase64StringToImageFile($request->imgAvatar);
+                        $file = $result['file'];
+                        $filename = uniqid() . '.' . $result['extension'];
 
-                $requestedData = array_merge($requestedData, [
-                    [
-                        'name'      => 'img_file_name',
-                        'contents'  => $filename
-                    ],
-                    [
-                        'name' => 'img_upload',
-                        'contents' => $file,
-                        'filename' => 'qwe.jpg'
-                    ]
-                ]);
+                        $requestedData = array_merge($requestedData, [
+                            [
+                                'name'      => 'img_file_name',
+                                'contents'  => $filename
+                            ],
+                            [
+                                'name' => 'img_upload',
+                                'contents' => $file,
+                                'filename' => 'qwe.jpg'
+                            ],
+                            [
+                                'name'      => 'avatar_type',
+                                'contents'  => 'image'
+                            ]
+                        ]);
+                    }
+                }
+                else {
+                    $requestedData = array_merge($requestedData, [
+                        [
+                            'name'      => 'avatar_type',
+                            'contents'  => 'jdenticon'
+                        ]
+                    ]);
+                }
             }
 
             $response = $this->post(

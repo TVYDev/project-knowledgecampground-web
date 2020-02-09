@@ -40,7 +40,24 @@
 .changeAvatarInModal {
     display: grid;
     grid-template-columns: 1fr 2fr;
+    grid-column-gap: 10px;
+    .blockOptions {
+        border-right: 1px solid $thirdly-gray;
+    }
     .actionAvatar {
+        .useJdenticon {
+            text-align: center;
+            .imgJdenticon {
+                width: 200px;
+                border-radius: 100px;
+                border: 2px solid $contrast-prim;
+                padding: 3px;
+            }
+            .btnJdenticon {
+                margin: auto;
+                display: block;
+            }
+        }
         .cropImgBlock {
             margin-top: 10px;
             text-align: center;

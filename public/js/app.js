@@ -67122,7 +67122,7 @@ $(document).ready(function () {
   $('.editProfileContent .btnChangeAvatar').click(function (e) {
     $('.ui.modal.whiteBasicModal .header').html('Change Avatar Image');
     $('.ui.modal.whiteBasicModal .actions').remove();
-    var contentMarkUp = "\n            <div class=\"changeAvatarInModal\">\n                <div class=\"ui form\">\n                    <div class=\"grouped fields\">\n                        <label>Type of Avatar:</label>\n                        <div class=\"field\">\n                            <div class=\"ui toggle checkbox typeAvatarCheckBox\">\n                                <input type=\"radio\" name=\"typeAvatar\" value=\"image\" checked=\"checked\">\n                                <label>Upload Image</label>\n                            </div>\n                        </div>\n                        <div class=\"field\">\n                            <div class=\"ui toggle checkbox typeAvatarCheckBox\">\n                                <input type=\"radio\" name=\"typeAvatar\" value=\"jdenticon\">\n                                <label>Jdenticon</label>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div class=\"actionAvatar\">\n                    <div class=\"useJdenticon\">Jdenticon</div>\n                    <div class=\"useImage\">\n                        <div class=\"ui form\">\n                            <div class=\"field\">\n                                <label for=\"iptAvatarImage\">\n                                    <strong>Browse image</strong>\n                                </label>\n                                <input type=\"file\" class=\"iptAvatarImage\" accept=\"image/*\"/>\n                            </div>\n                        </div>\n                        <div class=\"cropImgBlock\">\n                            <div class=\"imgTmp\"></div>\n                            <button class=\"ui button btnCrop\">Crop</button>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        ";
+    var contentMarkUp = document.getElementById('tplModalChangeAvatar').innerHTML;
     $('.ui.modal.whiteBasicModal .content').html(contentMarkUp);
     navigateTabTypeAvatar($('.changeAvatarInModal').find('[name="typeAvatar"]:checked').val());
     $('.changeAvatarInModal .typeAvatarCheckBox').checkbox({
@@ -67169,8 +67169,15 @@ $(document).ready(function () {
       }).then(function (response) {
         $('.editProfileContent .briefInfo .avatar_img').attr('src', response);
         $('.editProfileContent .editProfileForm .imgAvatar').val(response);
+        $('.editProfileContent .editProfileForm .typeAvatar').val('image');
         $('.ui.modal.whiteBasicModal').modal('hide');
       });
+    });
+    $('.actionAvatar .btnJdenticon').click(function (event) {
+      var iconUrl = $('.actionAvatar .imgJdenticon').attr('src');
+      $('.editProfileContent .briefInfo .avatar_img').attr('src', iconUrl);
+      $('.editProfileContent .editProfileForm .typeAvatar').val('jdenticon');
+      $('.ui.modal.whiteBasicModal').modal('hide');
     });
     $('.ui.modal.whiteBasicModal').modal('show');
   });

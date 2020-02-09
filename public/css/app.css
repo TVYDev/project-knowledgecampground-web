@@ -15453,6 +15453,27 @@ button:focus {
 .changeAvatarInModal {
   display: grid;
   grid-template-columns: 1fr 2fr;
+  grid-column-gap: 10px;
+}
+
+.changeAvatarInModal .blockOptions {
+  border-right: 1px solid #D8D8D8;
+}
+
+.changeAvatarInModal .actionAvatar .useJdenticon {
+  text-align: center;
+}
+
+.changeAvatarInModal .actionAvatar .useJdenticon .imgJdenticon {
+  width: 200px;
+  border-radius: 100px;
+  border: 2px solid #fcc45e;
+  padding: 3px;
+}
+
+.changeAvatarInModal .actionAvatar .useJdenticon .btnJdenticon {
+  margin: auto;
+  display: block;
 }
 
 .changeAvatarInModal .actionAvatar .cropImgBlock {

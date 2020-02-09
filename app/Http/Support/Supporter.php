@@ -66,6 +66,7 @@ class Supporter
                 if(isset($data)) {
                     $this->saveUsernameToSession(Helper::getProp($data, 'username'));
                     $this->saveAvatarUrlToSession(Helper::getProp($data, 'avatar_url'));
+                    $this->saveAvatarUrlJdenticonToSession(Helper::getProp($data, 'avatar_url_jdenticon'));
                 }
             }
             throw new \UnexpectedValueException('Unable to get user profile');
@@ -79,7 +80,12 @@ class Supporter
         session([SessionConstants::USER_AVATAR_URL => $avatarUrl]);
     }
 
+    public function saveAvatarUrlJdenticonToSession ($jdenticon) {
+        session([SessionConstants::USER_AVATAR_URL_JDENTICON => $jdenticon]);
+    }
+
     public function saveUsernameToSession ($username) {
         session([SessionConstants::USER_NAME => $username]);
     }
+
 }
