@@ -1,7 +1,6 @@
 <?php
-$ua = session(\App\Lib\UserConstants::KEY_TO_USER_AVATAR);
-$default_avatar_url = $ua[\App\Lib\UserConstants::USER_AVATAR_SVG_URL];
-$username = $ua[\App\Lib\UserConstants::USER_NAME];
+$default_avatar_url = session(\App\Lib\SessionConstants::USER_AVATAR_URL);
+$username = session(\App\Lib\SessionConstants::USER_NAME);
 ?>
 <div id="KCNavbar">
     <button id="navLogo">

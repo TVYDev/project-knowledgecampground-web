@@ -37,11 +37,6 @@ return [
             'path'  => '/api/auth/change-password',
             'url'   => $host.'/api/auth/change-password'
         ],
-        'get_user_avatar'   => [
-            'method'=> 'get',
-            'path'  => '/api/user-avatar/user-avatar',
-            'url'   => $host.'/api/user-avatar/user-avatar'
-        ],
         'verify_authentication' => [
             'method'=> 'get',
             'path'  => '/api/auth/verify-authentication',

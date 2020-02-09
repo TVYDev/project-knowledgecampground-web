@@ -9,8 +9,10 @@
 namespace App\Http\Support;
 
 
+use App\Lib\Helper;
 use App\Lib\RequestAPI;
 use App\Lib\ResponseEndPoint;
+use App\Lib\SessionConstants;
 
 class Supporter
 {
@@ -49,5 +51,35 @@ class Supporter
         {
             return null;
         }
+    }
+
+    /*
+     * Currently save:
+     * username
+     * avatar_url
+     */
+    public function saveCommonUserInfoToSession () {
+        try {
+            $response = $this->get($this->getApiRequestUrl('user_profile.view'),null, null, $this->getAuthorizationHeader());
+            if($response->success == true) {
+                $data = Helper::getProp($response, 'data');
+                if(isset($data)) {
+                    $this->saveUsernameToSession(Helper::getProp($data, 'username'));
+                    $this->saveAvatarUrlToSession(Helper::getProp($data, 'avatar_url'));
+                }
+            }
+            throw new \UnexpectedValueException('Unable to get user profile');
+        }catch(\Exception $exception) {
+            // TODO:
+            return null;
+        }
+    }
+
+    public function saveAvatarUrlToSession ($avatarUrl) {
+        session([SessionConstants::USER_AVATAR_URL => $avatarUrl]);
+    }
+
+    public function saveUsernameToSession ($username) {
+        session([SessionConstants::USER_NAME => $username]);
     }
 }

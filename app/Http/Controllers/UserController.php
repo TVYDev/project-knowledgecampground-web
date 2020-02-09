@@ -99,8 +99,7 @@ class UserController extends Controller
             $this->saveAccessToken($response);
 
             // --- save user_avatar to session for displaying nav_bar
-            $userAvatar = new UserAvatar();
-            $this->saveUserAvatarToSession($userAvatar->getUserAvatar());
+            $this->supporter->saveCommonUserInfoToSession();
 
             return $this->doResponseSuccess(RouteConstants::HOME, $response->message_en, false);
         }
@@ -143,8 +142,7 @@ class UserController extends Controller
             $this->saveAccessToken($response);
 
             // --- save user_avatar to session for displaying nav_bar
-            $userAvatar = new UserAvatar();
-            $this->saveUserAvatarToSession($userAvatar->getUserAvatar());
+            $this->supporter->saveCommonUserInfoToSession();
 
             return $this->doResponseSuccess(RouteConstants::HOME, $response->message_en, false);
         }
@@ -303,6 +301,9 @@ class UserController extends Controller
                 $this->getAuthorizationHeader(true, false),
                 'multipart'
             );
+
+            // Update data in session
+            $this->supporter->saveCommonUserInfoToSession();
 
             if($response->success == true)
             {
