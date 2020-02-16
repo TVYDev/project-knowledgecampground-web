@@ -6,9 +6,7 @@
  * Time: 4:56 PM
  */
 
-$prodHost = '';
-$devHost = 'http://127.0.0.1:8000';
-$host = $devHost;
+$host = env('KC_API_HOST');
 
 return [
     'user' => [
