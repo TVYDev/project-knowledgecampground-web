@@ -1,6 +1,6 @@
 <div class="KCFooter">
     <div class="logoSide">
-        <img src="{{ asset('icons/logos/KC_white_standard.png') }}" alt="KC" class="KCLogo">
+        <img src="{{ asset('icons/logos/KC_primary_logo.png') }}" alt="KC" class="KCLogo">
     </div>
     <div class="about">
         <div class="appName">Knowledge Campground</div>
