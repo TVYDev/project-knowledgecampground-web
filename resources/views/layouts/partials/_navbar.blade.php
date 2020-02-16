@@ -6,7 +6,7 @@ $username = session(\App\Lib\SessionConstants::USER_NAME);
     <button id="navLogo">
         <div>
             <div><i class="fas fa-bars" id="btnSideMenu" data-side-menu="closed"></i></div>
-            <img src="{{ asset('icons/logos/KC_white_standard.png') }}" alt="KC" class="KCLogo">
+            <img src="{{ asset('icons/logos/KC_primary_logo.png') }}" alt="KC" class="KCLogo">
         </div>
     </button>
     <div id="navContent">
@@ -53,7 +53,7 @@ $username = session(\App\Lib\SessionConstants::USER_NAME);
     </div>
     <div id="sideMenu">
         <div class="logo">
-            <img src="{{ asset('icons/logos/KC_white_standard.png') }}" alt="KC" class="KCLogo">
+            <img src="{{ asset('icons/logos/KC_primary_logo.png') }}" alt="KC" class="KCLogo">
         </div>
         <hr>
         <div>
