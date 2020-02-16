@@ -1,4 +1,4 @@
-<?
+<?php
 $avatar_url_jdenticon = session(\App\Lib\SessionConstants::USER_AVATAR_URL_JDENTICON);
 ?>
 <template id="tplModalChangeAvatar">

@@ -37,25 +37,25 @@ class CommentController extends Controller
         }
     }
 
-    public function getListPostedCommentsOf ($commentableType, $commentablePublicId)
-    {
-        try
-        {
-            $response = $this->get(
-                $this->getApiRequestUrl('comment.list_posted_comments'),
-                [$commentableType, $commentablePublicId],
-                null,
-                $this->getAuthorizationHeader()
-            );
-            $response->host_url = HttpConstants::HOST_URL;
-
-            if($response->success == true)
-            {
-                return response()->json($response);
-            }
-        }
-        catch(\Exception $exception)
-        {
-        }
-    }
+//    public function getListPostedCommentsOf ($commentableType, $commentablePublicId)
+//    {
+//        try
+//        {
+//            $response = $this->get(
+//                $this->getApiRequestUrl('comment.list_posted_comments'),
+//                [$commentableType, $commentablePublicId],
+//                null,
+//                $this->getAuthorizationHeader()
+//            );
+//            $response->host_url = HttpConstants::HOST_URL;
+//
+//            if($response->success == true)
+//            {
+//                return response()->json($response);
+//            }
+//        }
+//        catch(\Exception $exception)
+//        {
+//        }
+//    }
 }

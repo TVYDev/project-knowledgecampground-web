@@ -207,17 +207,17 @@ trait RequestAPI
      *
      * @param $userAvatar
      */
-    public function saveUserAvatarToSession ($userAvatar)
-    {
-        $ua[UserConstants::USER_NAME] = $userAvatar->data->name;
-        if($userAvatar->data->is_active){
-            $ua[UserConstants::USER_AVATAR_SVG_URL] = HttpConstants::HOST_URL . $userAvatar->data->default_avatar_url;
-        }
-        else
-        {
-            $ua[UserConstants::USER_AVATAR_IMG_URL] = HttpConstants::HOST_URL . $userAvatar->img_url;
-        }
-
-        session([UserConstants::KEY_TO_USER_AVATAR => $ua]);
-    }
+//    public function saveUserAvatarToSession ($userAvatar)
+//    {
+//        $ua[UserConstants::USER_NAME] = $userAvatar->data->name;
+//        if($userAvatar->data->is_active){
+//            $ua[UserConstants::USER_AVATAR_SVG_URL] = HttpConstants::HOST_URL . $userAvatar->data->default_avatar_url;
+//        }
+//        else
+//        {
+//            $ua[UserConstants::USER_AVATAR_IMG_URL] = HttpConstants::HOST_URL . $userAvatar->img_url;
+//        }
+//
+//        session([UserConstants::KEY_TO_USER_AVATAR => $ua]);
+//    }
 }
