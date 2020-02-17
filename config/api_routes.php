@@ -46,6 +46,13 @@ return [
             'url'   => $host.'/api/auth/refresh-token'
         ]
     ],
+    'social_auth' => [
+        'google_login' => [
+            'method'    => 'get',
+            'path'      => '/api/social-auth/google/login',
+            'url'       => $host.'/api/social-auth/google/login'
+        ]
+    ],
     'user_profile' => [
         'update' => [
             'method'    => 'put',

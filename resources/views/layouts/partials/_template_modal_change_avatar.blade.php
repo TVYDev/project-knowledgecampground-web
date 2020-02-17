@@ -9,13 +9,13 @@ $avatar_url_jdenticon = session(\App\Lib\SessionConstants::USER_AVATAR_URL_JDENT
                 <div class="field">
                     <div class="ui toggle checkbox typeAvatarCheckBox">
                         <input type="radio" name="typeAvatar" value="image" checked="checked">
-                        <label>Uploaded Image</label>
+                        <label>Uploaded New Image</label>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui toggle checkbox typeAvatarCheckBox">
                         <input type="radio" name="typeAvatar" value="jdenticon">
-                        <label>Generated Jdenticon</label>
+                        <label>Default Avatar</label>
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@ $avatar_url_jdenticon = session(\App\Lib\SessionConstants::USER_AVATAR_URL_JDENT
         <div class="actionAvatar">
             <div class="useJdenticon">
                 <img class="imgJdenticon" src="{{ $avatar_url_jdenticon }}" alt="jdenticon">
-                <button class="ui button btnFormPrimary btnJdenticon">Use Jdenticon</button>
+                <button class="ui button btnFormPrimary btnJdenticon">Use Default Avatar</button>
             </div>
             <div class="useImage">
                 <div class="ui form">
