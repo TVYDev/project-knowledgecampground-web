@@ -24,6 +24,13 @@ Route::get('/locale/{locale}', 'LocalizationController@index')
     ->name(RouteConstants::LOCALIZATION);
 
 Route::group([
+    'prefix' => 'google-auth'
+    ], function() {
+        Route::get('/redirect', 'SocialLoginController@redirectToGoogleProvider');
+        Route::get('/callback', 'SocialLoginController@handleGoogleProviderCallback');
+});
+
+Route::group([
     'prefix' => 'auth'
 ], function() {
     Route::get('/login', 'UserController@getLogin')
