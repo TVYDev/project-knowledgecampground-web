@@ -8,10 +8,9 @@ use App\Lib\HttpConstants;
 use App\Lib\RequestAPI;
 use App\Lib\ResponseEndPoint;
 use App\Lib\RouteConstants;
-use App\Http\Support\UserAvatar;
+use App\Lib\SessionConstants;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Redirect;
+
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -101,6 +100,9 @@ class UserController extends Controller
             // --- save user_avatar to session for displaying nav_bar
             $this->supporter->saveCommonUserInfoToSession();
 
+            // --- save user permissions to session
+            $this->supporter->saveUserPermissionsToSession();
+
             return $this->doResponseSuccess(RouteConstants::HOME, $response->message_en, false);
         }
         catch(\Exception $e)
@@ -144,6 +146,9 @@ class UserController extends Controller
             // --- save user_avatar to session for displaying nav_bar
             $this->supporter->saveCommonUserInfoToSession();
 
+            // --- save user permissions to session
+            $this->supporter->saveUserPermissionsToSession();
+
             return $this->doResponseSuccess(RouteConstants::HOME, $response->message_en, false);
         }
         catch(\Exception $e)
@@ -168,6 +173,7 @@ class UserController extends Controller
                 // --- remove some data from session that used in nav_bar
                 \request()->session()->forget(HttpConstants::KEY_TO_KC_USER_AUTHENTICATED);
                 \request()->session()->forget(HttpConstants::KEY_TO_LAST_POST_ROUTE_STORED);
+                \request()->session()->forget(SessionConstants::USER_PERMISSIONS);
 
                 return $this->doResponseSuccess(RouteConstants::USER_GET_LOGIN,'You are logged out successfully',false);
             }

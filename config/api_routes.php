@@ -44,6 +44,11 @@ return [
             'method'=> 'post',
             'path'  => '/api/auth/refresh-token',
             'url'   => $host.'/api/auth/refresh-token'
+        ],
+        'permissions' => [
+            'method'=> 'get',
+            'path'  => '/api/auth/user-permissions',
+            'url'   => $host.'/api/auth/user-permissions'
         ]
     ],
     'social_auth' => [

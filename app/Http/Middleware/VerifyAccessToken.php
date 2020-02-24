@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Lib\HttpConstants;
 use App\Lib\RequestAPI;
+use App\Lib\RouteConstants;
 use Closure;
 
 class VerifyAccessToken
@@ -35,7 +36,7 @@ class VerifyAccessToken
         catch(\Exception $exception)
         {
             $request->session()->forget(HttpConstants::KEY_TO_KC_USER_AUTHENTICATED);
-            return redirect()->route('user.getLogin')->withFailure('Please log in to continue');
+            return redirect()->route(RouteConstants::USER_GET_LOGIN)->withFailure('Please log in to continue');
         }
     }
 }
