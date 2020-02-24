@@ -53,6 +53,17 @@ class Supporter
         }
     }
 
+    public function saveUserPermissionsToSession () {
+        try {
+            $permissions = (new Permission())->getPermissions();
+            session([SessionConstants::USER_PERMISSIONS => $permissions]);
+        }
+        catch(\Exception $exception) {
+            // TODO: add log
+            return null;
+        }
+    }
+
     /*
      * Currently save:
      * username

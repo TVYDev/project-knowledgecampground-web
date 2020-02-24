@@ -44,6 +44,18 @@ return [
             'method'=> 'post',
             'path'  => '/api/auth/refresh-token',
             'url'   => $host.'/api/auth/refresh-token'
+        ],
+        'permissions' => [
+            'method'=> 'get',
+            'path'  => '/api/auth/user-permissions',
+            'url'   => $host.'/api/auth/user-permissions'
+        ]
+    ],
+    'social_auth' => [
+        'google_login' => [
+            'method'    => 'get',
+            'path'      => '/api/social-auth/google/login',
+            'url'       => $host.'/api/social-auth/google/login'
         ]
     ],
     'user_profile' => [

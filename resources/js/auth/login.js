@@ -1,7 +1,10 @@
 $(document).ready(function () {
-    // $('body').css('backgroundColor', '#d2ffe1');
     $('.loginContent .kcCard .frontCard .btnGoToRegister').click(moveCardToRegister);
     $('.loginContent .kcCard .backCard .btnGoToLogin').click(moveCardToLogin);
+
+    $('.btnGoogle').click(function() {
+        window.location.href = $(this).data('url');
+    });
 });
 
 function moveCardToRegister () {
