@@ -21,7 +21,8 @@
     <button class="btnTwitter btnSocialLogin btnWithToolTip"
             data-content="Twitter"
             data-position="top center"
-            data-variation="mini">
+            data-variation="mini"
+            data-url="{{ route(\App\Lib\RouteConstants::SOCIAL_AUTH_GET_REDIRECT, ['twitter']) }}">
         <i class="fab fa-twitter"></i>
     </button>
 </div>
