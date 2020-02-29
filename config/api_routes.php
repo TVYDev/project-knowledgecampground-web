@@ -52,10 +52,10 @@ return [
         ]
     ],
     'social_auth' => [
-        'google_login' => [
+        'login' => [
             'method'    => 'get',
-            'path'      => '/api/social-auth/google/login',
-            'url'       => $host.'/api/social-auth/google/login'
+            'path'      => '/api/social-auth/login',
+            'url'       => $host.'/api/social-auth/login'
         ]
     ],
     'user_profile' => [

@@ -20,19 +20,24 @@ class SocialAuthController extends Controller
         $this->supporter = new Supporter();
     }
 
-    public function redirectToGoogleProvider() {
-        return Socialite::driver('google')->redirect();
+    public function redirectToSocialProvider($provider) {
+        try {
+            return Socialite::driver($provider)->redirect();
+        }catch(\Exception $exception) {
+            return $this->doResponseError($exception, true, RouteConstants::USER_GET_LOGIN,false);
+        }
     }
 
-    public function handleGoogleProviderCallback() {
+    public function handleSocialProviderCallback($provider) {
         try {
-            $user = Socialite::driver('google')->user();
+            $user = Socialite::driver($provider)->user();
 
             if(isset($user)) {
-                $response = $this->post($this->getApiRequestUrl('social_auth.google_login'), [
+                $response = $this->post($this->getApiRequestUrl('social_auth.login'), [
                     'email' => $user->getEmail(),
                     'name'  => $user->user['given_name'],
-                    'google_id' => $user->getId(),
+                    'provider_user_id' => $user->getId(),
+                    'provider' => $provider,
                     'picture' => $user->getAvatar()
                 ]);
 
@@ -44,7 +49,8 @@ class SocialAuthController extends Controller
                     return $this->doResponseSuccess(RouteConstants::HOME, $response->message_en, false);
                 }
             }
-            throw new \UnexpectedValueException('Unable to get Google credentials');
+            $provider = ucfirst($provider);
+            throw new \UnexpectedValueException("Unable to get $provider credentials");
         }
         catch(\Exception $exception) {
             return $this->doResponseError($exception, true, RouteConstants::USER_GET_LOGIN,true);
