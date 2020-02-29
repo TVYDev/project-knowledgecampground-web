@@ -32,7 +32,7 @@ class RouteConstants
     /************************************************************
      * Route for SocialAuthController
      ***********************************************************/
-    const GOOGLE_AUTH_GET_REDIRECT = 'googleAuth.getRedirect';
+    const SOCIAL_AUTH_GET_REDIRECT = 'socialAuth.getRedirect';
     /***********************************************************/
 
     /************************************************************

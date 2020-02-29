@@ -24,11 +24,11 @@ Route::get('/locale/{locale}', 'LocalizationController@index')
     ->name(RouteConstants::LOCALIZATION);
 
 Route::group([
-    'prefix' => 'google-auth'
+    'prefix' => 'social-auth'
     ], function() {
-        Route::get('/redirect', 'SocialAuthController@redirectToGoogleProvider')
-            ->name(RouteConstants::GOOGLE_AUTH_GET_REDIRECT);
-        Route::get('/callback', 'SocialAuthController@handleGoogleProviderCallback');
+        Route::get('/{provider}/redirect', 'SocialAuthController@redirectToSocialProvider')
+            ->name(RouteConstants::SOCIAL_AUTH_GET_REDIRECT);
+        Route::get('/{provider}/callback', 'SocialAuthController@handleSocialProviderCallback');
 });
 
 Route::group([
