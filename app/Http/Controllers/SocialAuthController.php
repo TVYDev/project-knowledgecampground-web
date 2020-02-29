@@ -33,9 +33,18 @@ class SocialAuthController extends Controller
             $user = Socialite::driver($provider)->user();
 
             if(isset($user)) {
+                $name = strtolower($user->getName());
+                $arr = explode(' ', $name);
+                if(array_key_exists(0, $arr)) {
+                    $name = $arr[0];
+                }
+                if(!isset($name) || $name == '') {
+                    throw new \UnexpectedValueException('Empty user name. Please try again.');
+                }
+
                 $response = $this->post($this->getApiRequestUrl('social_auth.login'), [
                     'email' => $user->getEmail(),
-                    'name'  => $user->user['given_name'],
+                    'name'  => $name,
                     'provider_user_id' => $user->getId(),
                     'provider' => $provider,
                     'picture' => $user->getAvatar()
