@@ -21,7 +21,15 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware('verify_access_token')->except(['getLogin','postLogin','postRegister']);
+        $this->middleware('verify_access_token')->except([
+            'getLogin',
+            'postLogin',
+            'postRegister',
+            'getRequestResetPasswordLink',
+            'postRequestResetPasswordLink',
+            'getResetPassword',
+            'postResetPassword'
+        ]);
         $this->supporter = new Supporter();
     }
 
@@ -338,6 +346,95 @@ class UserController extends Controller
         catch (\Exception $exception)
         {
             return $this->doResponseError($exception, true, RouteConstants::USER_GET_EDIT_USER_PROFILE, true);
+        }
+    }
+
+    public function getRequestResetPasswordLink () { return view('auth.request_reset_password_link'); }
+    public function postRequestResetPasswordLink (Request $request)
+    {
+        try {
+            $email = $request->email;
+            $response = $this->post(
+                $this->getApiRequestUrl('user.send_reset_email'),
+                [
+                    'email' => $email,
+                    'route' => route(RouteConstants::USER_GET_RESET_PASSWORD)
+                ]
+            );
+
+            if($response->success == true) {
+                return $this->doResponseSuccess(RouteConstants::USER_GET_LOGIN, "Reset Password Link has been sent to your email ($email)", false);
+            }
+            throw new \UnexpectedValueException('Failed to generate reset password link. Please try again.');
+        }
+        catch(\Exception $exception) {
+            return $this->doResponseError($exception, true, RouteConstants::USER_GET_REQUEST_RESET_PASSWORD_LINK, true);
+        }
+    }
+
+    public function getResetPassword (Request $request)
+    {
+        try {
+            if($request->has('token')) {
+                $response = $this->get($this->getApiRequestUrl('user.verify_authentication'),
+                    null,
+                    null,
+                    $this->getAuthorizationHeader(
+                        true,
+                        true,
+                        [],
+                        'Bearer ' . $request->token
+                    )
+                );
+
+                if($response->success == true) {
+                    return view('auth.reset_password')->with('token', $request->token);
+                }
+                throw new \UnexpectedValueException('Invalid Link');
+            }
+        }
+        catch(\Exception $exception) {
+            return view('layouts.invalid');
+        }
+    }
+    public function postResetPassword (Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'newPassword' => 'required|string|confirmed'
+            ]);
+
+            if($validator->fails()){
+                throw new KCValidationException(RouteConstants::USER_GET_RESET_PASSWORD,false, $validator);
+            }
+
+            $response = $this->post(
+                $this->getApiRequestUrl('user.reset_password'),
+                [
+                    'new_password' => $request->newPassword,
+                    'new_password_confirmation' => $request->newPassword_confirmation
+                ],
+                $this->getAuthorizationHeader(
+                    true,
+                    true,
+                    [],
+                    'Bearer ' . $request->resetToken
+                )
+            );
+
+            if ($response->success == true) {
+                return $this->doResponseSuccess(RouteConstants::USER_GET_LOGIN, 'Your password has been reset successfully. Please log in again.', false);
+            }
+            throw new \UnexpectedValueException('Unable to reset your password. Please try again');
+        }
+        catch(\Exception $exception) {
+            return $this->doResponseError(
+                $exception,
+                true,
+                RouteConstants::USER_GET_RESET_PASSWORD,
+                false,
+                ['token' => $request->resetToken]
+            );
         }
     }
 }

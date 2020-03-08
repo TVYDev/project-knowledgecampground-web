@@ -121,11 +121,17 @@ trait RequestAPI
 
     public function getAuthorizationHeader($isIncludedAuthorizationHeader = true,
                                            $isIncludedContentTypeApplicationJson = true,
-                                           $otherHeadersBesidesContentTypeApplicationJson = [])
+                                           $otherHeadersBesidesContentTypeApplicationJson = [],
+                                           $overriddenToken = null)
     {
         $tempHeaders = [];
         if($isIncludedAuthorizationHeader){
-            $tempHeaders['Authorization'] = self::getAccessToken();
+            if(!isset($overriddenToken)) {
+                $token = self::getAccessToken();
+            }else {
+                $token = $overriddenToken;
+            }
+            $tempHeaders['Authorization'] = $token;
         }
 
         if($isIncludedContentTypeApplicationJson){

@@ -36,7 +36,7 @@
                         </form>
                         <div class="forgotPasswordBlock">
                             <span>{{ __('Forgot Password?') }}</span>&nbsp;
-                            <a href="#" class="btnLink">{{ __('Reset now!') }}</a>
+                            <button class="btnLink btnResetPassword" data-url="{{ route(\App\Lib\RouteConstants::USER_GET_REQUEST_RESET_PASSWORD_LINK) }}">{{ __('Reset now!') }}</button>
                         </div>
                         <div class="registerNowBlock">
                             <span>{{ __('Haven\'t you had an account yet?') }}</span>&nbsp;

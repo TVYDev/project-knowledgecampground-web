@@ -59,6 +59,15 @@ Route::group([
         ->name(RouteConstants::USER_GET_EDIT_USER_PROFILE);
     Route::post('/edit-user-profile', 'UserController@postEditUserProfile')
         ->name(RouteConstants::USER_POST_EDIT_USER_PROFILE);
+
+    Route::get('/request-reset-password-link', 'UserController@getRequestResetPasswordLink')
+        ->name(RouteConstants::USER_GET_REQUEST_RESET_PASSWORD_LINK);
+    Route::post('/request-reset-password-link', 'UserController@postRequestResetPasswordLink')
+        ->name(RouteConstants::USER_POST_REQUEST_RESET_PASSWORD_LINK);
+    Route::get('/reset-password', 'UserController@getResetPassword')
+        ->name(RouteConstants::USER_GET_RESET_PASSWORD);
+    Route::post('/reset-password', 'UserController@postResetPassword')
+        ->name(RouteConstants::USER_POST_RESET_PASSWORD);
 });
 
 Route::group([
