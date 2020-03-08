@@ -27,6 +27,10 @@ class RouteConstants
     const USER_GET_VIEW_USER_PROFILE = 'user.getViewUserProfile';
     const USER_GET_EDIT_USER_PROFILE = 'user.getEditUserProfile';
     const USER_POST_EDIT_USER_PROFILE = 'user.postEditUserProfile';
+    const USER_GET_REQUEST_RESET_PASSWORD_LINK = 'user.getRequestResetPasswordLink';
+    const USER_POST_REQUEST_RESET_PASSWORD_LINK = 'user.postRequestResetPasswordLink';
+    const USER_GET_RESET_PASSWORD = 'user.getResetPassword';
+    const USER_POST_RESET_PASSWORD = 'user.postResetPassword';
     /***********************************************************/
 
     /************************************************************
