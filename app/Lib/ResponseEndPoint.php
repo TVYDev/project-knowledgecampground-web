@@ -17,7 +17,8 @@ trait ResponseEndPoint
     public function doResponseError (\Exception $exception,
                                      $isRedirect = true,
                                      $redirectRouteForGeneralException = null,
-                                     $isIncludedInputForGeneralException = true)
+                                     $isIncludedInputForGeneralException = true,
+                                     $arrayQueryString = [])
     {
         $redirectObj = null;
         $errorMessage = null;
@@ -30,7 +31,7 @@ trait ResponseEndPoint
 
             if($isRedirect)
             {
-                $redirectObj = Redirect::route($exception->getRedirectedRoute())
+                $redirectObj = Redirect::route($exception->getRedirectedRoute(), $arrayQueryString)
                     ->withErrors($validatorObj);
                 if($exception->isRedirectWithInput())
                 {
@@ -47,7 +48,7 @@ trait ResponseEndPoint
 
             if($isRedirect)
             {
-                $redirectObj = Redirect::route($redirectRouteForGeneralException)
+                $redirectObj = Redirect::route($redirectRouteForGeneralException, $arrayQueryString)
                     ->withFailure($errorMessage);
                 if($isIncludedInputForGeneralException)
                 {

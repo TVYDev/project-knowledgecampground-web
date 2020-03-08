@@ -81,6 +81,7 @@ button,
 h1, h2, h3, h4, h5, h6,
 .ui.button,
 .ui.form input[type=text],
+.ui.form input[type=email],
 .ui.form textarea,
 .ui.input input[type=text],
 .ui.header,
@@ -267,6 +268,7 @@ button:focus {
 @import 'auth/login';
 @import 'auth/view_user_profile';
 @import 'auth/change_password';
+@import 'auth/request_reset_password_link';
 @import 'auth/edit_user_profile';
 @import 'question/post_question';
 @import 'question/view_question';

@@ -49,6 +49,16 @@ return [
             'method'=> 'get',
             'path'  => '/api/auth/user-permissions',
             'url'   => $host.'/api/auth/user-permissions'
+        ],
+        'send_reset_email' => [
+            'method'=> 'post',
+            'path'  => '/api/auth/send-reset-email',
+            'url'   => $host.'/api/auth/send-reset-email'
+        ],
+        'reset_password' => [
+            'method'=> 'post',
+            'path'  => '/api/auth/reset-password',
+            'url'   => $host.'/api/auth/reset-password'
         ]
     ],
     'social_auth' => [

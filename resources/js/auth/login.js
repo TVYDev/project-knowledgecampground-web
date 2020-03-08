@@ -2,7 +2,7 @@ $(document).ready(function () {
     $('.loginContent .kcCard .frontCard .btnGoToRegister').click(moveCardToRegister);
     $('.loginContent .kcCard .backCard .btnGoToLogin').click(moveCardToLogin);
 
-    $('.btnGoogle, .btnFacebook, .btnTwitter').click(function() {
+    $('.btnGoogle, .btnFacebook, .btnTwitter, .btnResetPassword').click(function() {
         window.location.href = $(this).data('url');
     });
 });
