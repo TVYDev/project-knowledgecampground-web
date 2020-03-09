@@ -48,21 +48,17 @@ return [
 
         'daily' => [
             'driver' => 'daily',
-            'path' => storage_path('logs/knowledgecampground_web.log'),
-            'formatter' => Monolog\Formatter\LineFormatter::class,
-            'formatter_with' => [
-                'format' => "[%datetime%] [%level_name%] %context% [%message%]\n"
-            ],
-            'level' => 'debug',
-            'days' => 14,
+            'path' => storage_path('logs/kc_web.log'),
+            'tap' => [App\Logging\KCFormatter::class],
+            'level' => 'debug'
         ],
 
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),
-            'username' => 'Laravel Log',
+            'username' => 'KnowledgeCampground',
             'emoji' => ':boom:',
-            'level' => 'critical',
+            'level' => 'debug',
         ],
 
         'papertrail' => [
