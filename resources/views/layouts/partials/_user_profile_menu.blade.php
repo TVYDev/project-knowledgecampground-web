@@ -4,6 +4,7 @@
     </div>
     <div>
         <ul class="menuBtns">
+            <li class="btnMyPosts" data-url="{{ route(\App\Lib\RouteConstants::ACTIVITY_GET_MY_POSTS) }}">{{ __('My Posts') }}</li>
             <li class="btnViewProfile" data-url="{{ route(\App\Lib\RouteConstants::USER_GET_VIEW_USER_PROFILE) }}">{{ __('View Profile') }}</li>
             @if(\App\Http\Support\Permission::can(\App\Http\Support\Permission::CAN_CHANGE_PASSWORD))
                 <li class="btnChangePassword" data-url="{{ route(\App\Lib\RouteConstants::USER_GET_CHANGE_PASSWORD) }}">{{ __('Change Password') }}</li>

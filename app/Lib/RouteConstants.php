@@ -73,4 +73,10 @@ class RouteConstants
     const COMMENT_POST_POST  = 'comment.postPost';
     const COMMENT_GET_LIST_POSTED_COMMENTS_OF = 'comment.getListPostedCommentsOf';
     /***********************************************************/
+
+    /************************************************************
+     * Route for ActivityController
+     ***********************************************************/
+    const ACTIVITY_GET_MY_POSTS  = 'activity.getMyPosts';
+    /***********************************************************/
 }

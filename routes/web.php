@@ -124,3 +124,10 @@ Route::group([
     Route::get('/get_tags_of_subject/{subjectId}', 'TagController@getTagsOfSubject')
         ->name(RouteConstants::TAG_GET_TAGS_OF_SUBJECT);
 });
+
+Route::group([
+    'prefix' => 'activity'
+    ], function() {
+    Route::get('/my-posts', 'ActivityController@getMyPosts')
+        ->name(RouteConstants::ACTIVITY_GET_MY_POSTS);
+});

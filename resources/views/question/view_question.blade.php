@@ -26,7 +26,7 @@ $username = session(\App\Lib\SessionConstants::USER_NAME);
                         </div>
                     </div>
                     @foreach($answers as $answer)
-                        <tvy-content-action-view data-for="answer" data-current-avatar-url="{{$default_avatar_url}}" data-current-username="{{ $username }}" data-public-id="{{ $answer->public_id }}"></tvy-content-action-view>
+                        <tvy-content-action-view id="{{ $answer->public_id }}" data-for="answer" data-current-avatar-url="{{$default_avatar_url}}" data-current-username="{{ $username }}" data-public-id="{{ $answer->public_id }}"></tvy-content-action-view>
                     @endforeach
                 @else
                     <div class="headerListAnswers headerList">

@@ -171,5 +171,12 @@ return [
             'path' => '/api/support/generate-public-id',
             'url' => $host.'/api/support/generate-public-id'
         ]
+    ],
+    'activity' => [
+        'my_posts' => [
+            'method' => 'get',
+            'path'   => '/api/activity/my-posts',
+            'url'    => $host.'/api/activity/my-posts'
+        ]
     ]
 ];
