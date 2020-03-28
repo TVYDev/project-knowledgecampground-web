@@ -177,38 +177,23 @@ $(document).ready(function () {
   var currentQuestionContentManagementPreview = document.querySelector('tvy-content-management-preview[data-for="currentQuestion"]');
   currentQuestionContentManagementPreview.contentType = 'question';
   currentQuestionContentManagementPreview.getManagementPreview();
+  var loadedValueSubject = $('.subjectOfQuestion').dropdown('get value');
+
+  if (loadedValueSubject !== '' || loadedValueSubject !== undefined) {
+    var loadedValueTags = $('.tagsOfQuestion').dropdown('get value');
+    var arrValueTags = [];
+
+    if (loadedValueTags !== '' || loadedValueTags !== undefined) {
+      arrValueTags = loadedValueTags.split(',');
+    }
+
+    loadDataForDropdownTags(loadedValueSubject, arrValueTags);
+  }
+
   $('.subjectOfQuestion').dropdown({
     forceSelection: false,
     onChange: function onChange(value) {
-      var subjectPublicId = value;
-      var url = window.location.origin + '/tag/get_tags_of_subject/' + subjectPublicId;
-      $.ajax({
-        url: url,
-        type: 'GET',
-        success: function success(result) {
-          var tags = result;
-          $('.tagsOfQuestion .menu').html('');
-          $('.tagsOfQuestion').dropdown('clear');
-
-          if (tags.length > 0) {
-            tags.forEach(function (ele) {
-              var html = '<div class="item" data-value="' + ele.public_id + '">';
-              html += '<img class="ui mini avatar image" src="' + ele.img_url + '">';
-              html += '<span class="menuSubjectName">' + ele.name_en + '</span>';
-              html += '<span class="menuNewLine"><br><br></span>';
-              html += '<span class="menuSubjectDesc">';
-              html += '<a href="https://www.google.com/" target="_blank"><i class="fas fa-info-circle"></i></a>&nbsp;';
-              html += ele.desc_en;
-              html += '</span>';
-              html += '</div>';
-              $('.tagsOfQuestion .menu').append(html);
-            });
-          }
-        },
-        error: function error(err) {
-          console.log(err);
-        }
-      });
+      loadDataForDropdownTags(value);
     }
   });
   $('.tagsOfQuestion').dropdown({
@@ -241,6 +226,44 @@ $(document).ready(function () {
       e.preventDefault();
     }
   });
+
+  function loadDataForDropdownTags(subjectPublicId) {
+    var selectedTags = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+    var url = window.location.origin + '/tag/get_tags_of_subject/' + subjectPublicId;
+    $.ajax({
+      url: url,
+      type: 'GET',
+      success: function success(result) {
+        var tags = result;
+        $('.tagsOfQuestion .menu').html('');
+        $('.tagsOfQuestion').dropdown('clear');
+
+        if (tags.length > 0) {
+          tags.forEach(function (ele) {
+            var html = '<div class="item" data-value="' + ele.public_id + '">';
+            html += '<img class="ui mini avatar image" src="' + ele.img_url + '">';
+            html += '<span class="menuSubjectName">' + ele.name_en + '</span>';
+            html += '<span class="menuNewLine"><br><br></span>';
+            html += '<span class="menuSubjectDesc">';
+            html += '<a href="https://www.google.com/" target="_blank"><i class="fas fa-info-circle"></i></a>&nbsp;';
+            html += ele.desc_en;
+            html += '</span>';
+            html += '</div>';
+            $('.tagsOfQuestion .menu').append(html);
+          });
+        }
+
+        selectedTags.forEach(function (tag) {
+          setTimeout(function () {
+            $('.tagsOfQuestion').dropdown('set selected', tag);
+          }, 0);
+        });
+      },
+      error: function error(err) {
+        console.log(err);
+      }
+    });
+  }
 });
 
 /***/ }),

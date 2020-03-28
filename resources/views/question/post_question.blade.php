@@ -20,7 +20,7 @@
                     <div class="ui form">
                         <div class="field">
                             <label for="title" class="requiredField">{{ __('Title') }}</label>
-                            <input type="text" class="questionTitle" id="title" name="title" placeholder="{{ __('Keep your title short and simple') }}" required="required">
+                            <input type="text" class="questionTitle" id="title" name="title" placeholder="{{ __('Keep your title short and simple') }}" required="required" value="{{@$title}}">
                         </div>
                         <div class="field">
                             <label for="description" class="requiredField"><strong>{{ __('Description') }}</strong></label>
@@ -31,14 +31,14 @@
                         <div class="field">
                             <label for="subject" class="requiredField">{{ __('Subject') }}</label>
                             <div class="ui fluid selection dropdown subjectOfQuestion">
-                                <input type="hidden" name="subject" value="">
+                                <input type="hidden" name="subject" value="{{ @$chosenSubject }}">
                                 <i class="dropdown icon"></i>
                                 <div class="default text">{{ __('Choose a subject') }}</div>
                                 <div class="menu">
                                     @foreach($subjectsData as $s)
-                                        <div class="item" data-value="{{$s['public_id']}}">
-                                            <img class="ui mini avatar image" src="{{$s['img_url']}}">
-                                            {{$s['name_en']}}
+                                        <div class="item" data-value="{{$s->public_id}}">
+                                            <img class="ui mini avatar image" src="{{$s->img_url}}">
+                                            {{$s->name_en}}
                                         </div>
                                     @endforeach
                                 </div>
@@ -47,7 +47,7 @@
                         <div class="field">
                             <label for="tags" class="requiredField">{{ __('Tags') }}</label>
                             <div class="ui fluid multiple search selection dropdown tagsOfQuestion">
-                                <input type="hidden" name="tags" value="">
+                                <input type="hidden" name="tags" value="{{ @$chosenTags }}">
                                 <i class="dropdown icon"></i>
                                 <div class="default text">{{ __('Choose related tags (maximum 3 tags)') }}</div>
                                 <div class="menu"></div>

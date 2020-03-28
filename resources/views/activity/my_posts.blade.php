@@ -45,7 +45,7 @@
                                 </div>
                             </div>
                             <div class="actions">
-                                <button class="btn btnEdit"><i class="fas fa-edit"></i> Edit</button>
+                                <button class="btn btnEdit" data-href="{{ route(\App\Lib\RouteConstants::QUESTION_GET_EDIT, [$item->question_public_id]) }}"><i class="fas fa-edit"></i> Edit</button>
                             </div>
                         </div>
                     @endforeach

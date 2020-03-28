@@ -66986,6 +66986,21 @@ function () {
 
 /***/ }),
 
+/***/ "./resources/js/activity/my_posts.js":
+/*!*******************************************!*\
+  !*** ./resources/js/activity/my_posts.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  $('.myPostsContent .btnEdit').click(function () {
+    window.location.href = $(this).data('href');
+  });
+});
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -67105,6 +67120,8 @@ __webpack_require__(/*! ./auth/view_user_profile */ "./resources/js/auth/view_us
 __webpack_require__(/*! ./auth/edit_user_profile */ "./resources/js/auth/edit_user_profile.js");
 
 __webpack_require__(/*! ./form_alert_message */ "./resources/js/form_alert_message.js");
+
+__webpack_require__(/*! ./activity/my_posts */ "./resources/js/activity/my_posts.js");
 
 /***/ }),
 

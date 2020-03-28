@@ -36,23 +36,46 @@ class QuestionController extends Controller
             $publicId = $this->supporter->doGeneratePublicId();
 
             $resultSubjects = $this->get($this->getApiRequestUrl('subject.get_all_subjects'), null, null, $this->getAuthorizationHeader());
-            $subjectsDataToBePassedToView = [];
-            foreach ($resultSubjects->data as $s){
-                array_push($subjectsDataToBePassedToView, [
-                    'public_id' => $s->public_id,
-                    'name_en' => $s->name_en,
-                    'name_kh' => $s->name_kh,
-                    'img_url' => $s->img_url
-                ]);
-            }
 
             return view('question.post_question')
                 ->with('publicId', $publicId)
-                ->with('subjectsData', $subjectsDataToBePassedToView);
+                ->with('subjectsData', Helper::getProp($resultSubjects, 'data'));
         }
         catch(\Exception $exception)
         {
+            dd($exception->getMessage());
+        }
+    }
 
+    public function getEdit ($publicId)
+    {
+        try
+        {
+            $resultQuestion = $this->get($this->getApiRequestUrl('question.view'), [$publicId]);
+            if($resultQuestion->success === true) {
+                $question = Helper::getProp($resultQuestion, 'data');
+                $resultSubjects = $this->get($this->getApiRequestUrl('subject.get_all_subjects'), null, null, $this->getAuthorizationHeader());
+
+                $resultSubjectTags = $this->get($this->getApiRequestUrl('question.get_subject_tags'), [$publicId]);
+                $chosenSubject = Helper::getProp($resultSubjectTags->data, 'subject');
+                $tempChosenTags = Helper::getProp($resultSubjectTags->data, 'tags');
+                $tempTagPublicIds = [];
+                foreach ($tempChosenTags as $chosenTag) {
+                    array_push($tempTagPublicIds, Helper::getProp($chosenTag, 'public_id'));
+                }
+                $chosenTags = implode($tempTagPublicIds, ',');
+
+                return view('question.post_question')
+                    ->with('title', Helper::getProp($question, 'title'))
+                    ->with('chosenSubject', Helper::getProp($chosenSubject, 'public_id'))
+                    ->with('chosenTags', $chosenTags)
+                    ->with('publicId', $publicId)
+                    ->with('subjectsData', Helper::getProp($resultSubjects, 'data'));
+            }
+        }
+        catch(\Exception $exception)
+        {
+            dd($exception->getMessage());
         }
     }
 
