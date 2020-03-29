@@ -67857,6 +67857,7 @@ function (_HTMLElement) {
     _this.currentAvatarUrl = _this.getAttribute('data-current-avatar-url');
     _this.publicId = _this.getAttribute('data-public-id');
     _this.referencePublicId = _this.getAttribute('data-reference-public-id');
+    _this.isExisting = _this.getAttribute('data-is-existing');
 
     var editorContentType = _this.getAttribute('data-content-type');
 
@@ -67889,6 +67890,7 @@ function (_HTMLElement) {
     _this.fileImageToUpload = null;
     _this.nameFileImageToUpload = null;
     _this.fileImageExtension = null;
+    _this.existingDescription = null;
     _this.imageEditor = _this.querySelector('.editor #TVYImageEditor');
     _this.imageSelector = _this.imageEditor.querySelector('.imageSelector');
     _this.imageBrowser = _this.imageEditor.querySelector('.iptBrowseImage');
@@ -67902,6 +67904,8 @@ function (_HTMLElement) {
     _this.allDescData = [];
 
     _this.tabEditorMovement();
+
+    _this.checkExistingContent();
 
     _this.quillTextObj = new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](_this.actualTextEditor);
     _this.codeMirrorObj = new _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"](_this.actualCodeEditor, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].THEME_DRACULA, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].MODE_JAVASCRIPT);
@@ -67941,6 +67945,13 @@ function (_HTMLElement) {
   }
 
   _createClass(TVYContentEditor, [{
+    key: "checkExistingContent",
+    value: function checkExistingContent() {
+      if (this.isExisting === 'true') {
+        this.renderExistingDescription(this.publicId, this.contentType);
+      }
+    }
+  }, {
     key: "handleImageSelectorClick",
     value: function handleImageSelectorClick(event) {
       if (!event.target.className.includes('imageCaption')) {
@@ -68049,8 +68060,7 @@ function (_HTMLElement) {
             descTools.classList.add('edited');
             textEditor.removeAttribute('data-editing');
           } else {
-            var textDescContent = this.createDescriptionElementAndAttachEventOfDescTools(randomDescId, TVYContentEditor.TEXT_TYPE, textEditor);
-            new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](textDescContent, false, true, this.quillTextContent);
+            this.createDescElementAndAddToContentOrder(randomDescId, dataType, this.quillTextContent);
             this.storeDataContent(this.quillTextContent, TVYContentEditor.TEXT_TYPE, randomDescId);
           }
 
@@ -68088,8 +68098,7 @@ function (_HTMLElement) {
 
             codeEditor.removeAttribute('data-editing');
           } else {
-            var codeDescContent = this.createDescriptionElementAndAttachEventOfDescTools(randomDescId, TVYContentEditor.CODE_TYPE, codeEditor);
-            new _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"](codeDescContent, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].THEME_MATERIAL, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].MODE_JAVASCRIPT, true, this.codeMirrorContent, null);
+            this.createDescElementAndAddToContentOrder(randomDescId, dataType, this.codeMirrorContent);
             this.storeDataContent(this.codeMirrorContent, TVYContentEditor.CODE_TYPE, randomDescId);
           }
 
@@ -68130,15 +68139,11 @@ function (_HTMLElement) {
             imageEditor.removeAttribute('data-editing');
             imageEditor.removeAttribute('data-image-extension');
           } else {
-            var imageDescContent = this.createDescriptionElementAndAttachEventOfDescTools(randomDescId, TVYContentEditor.IMAGE_TYPE);
-            var imageCaptionToView = '';
-
-            if (this.imageCaption.value !== '') {
-              imageCaptionToView = "<strong>Caption:</strong>&nbsp;".concat(this.imageCaption.value);
-            }
-
-            var imageContentHTML = "\n                        <div class=\"imageContent\">\n                            <img \n                                class=\"imageFile\" \n                                src=".concat(this.uploadedImagePreivew.getAttribute('src'), " \n                                data-image-extension=").concat(this.fileImageExtension, " />\n                            <p class=\"imageCaption\">").concat(imageCaptionToView, "</p>\n                        </div>\n                    ");
-            imageDescContent.innerHTML = imageContentHTML;
+            this.createDescElementAndAddToContentOrder(randomDescId, dataType, {
+              caption: this.imageCaption.value,
+              src: this.uploadedImagePreivew.getAttribute('src'),
+              extension: this.fileImageExtension
+            });
 
             var _imageFileName = this.publicId + '_' + randomDescId + '.' + this.fileImageExtension;
 
@@ -68163,13 +68168,18 @@ function (_HTMLElement) {
       this.enableAllTabEditors();
     }
   }, {
-    key: "storeDataContent",
-    value: function storeDataContent(dataContent, type, descId) {
+    key: "pushDataContent",
+    value: function pushDataContent(dataContent, type, descId) {
       this.allDescData.push({
         type: type,
         data: dataContent,
         desc_id: descId
       });
+    }
+  }, {
+    key: "storeDataContent",
+    value: function storeDataContent(dataContent, type, descId) {
+      this.pushDataContent(dataContent, type, descId);
       this.saveDescDataToBackend();
     }
   }, {
@@ -68483,6 +68493,73 @@ function (_HTMLElement) {
           console.log(err);
         }
       });
+    }
+  }, {
+    key: "renderExistingDescription",
+    value: function renderExistingDescription(publicId, type) {
+      var _this4 = this;
+
+      var url = window.location.origin + "/".concat(type, "/get-description/") + publicId;
+      $.ajax({
+        url: url,
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'GET',
+        success: function success(result) {
+          if (result.success === true) {
+            var _result$data = result.data,
+                data = _result$data.data,
+                relative_path_store_images = _result$data.relative_path_store_images;
+            var dataArray = JSON.parse(data);
+            dataArray.forEach(function (_ref) {
+              var type = _ref.type,
+                  data = _ref.data,
+                  desc_id = _ref.desc_id;
+              var content = data;
+
+              if (type === TVYContentEditor.IMAGE_TYPE) {
+                content = {
+                  caption: data.caption,
+                  src: relative_path_store_images + data.image_file_name,
+                  extension: data.image_file_name.split('.')[1]
+                };
+              }
+
+              _this4.createDescElementAndAddToContentOrder(desc_id, type, content);
+
+              _this4.pushDataContent(data, type, desc_id);
+            });
+          }
+        },
+        error: function error(err) {
+          console.log("Error getting content of ".concat(type, " [").concat(publicId, "]"), err);
+        }
+      });
+    }
+  }, {
+    key: "createDescElementAndAddToContentOrder",
+    value: function createDescElementAndAddToContentOrder(descId, type, content) {
+      if (type === TVYContentEditor.TEXT_TYPE) {
+        var textDescContent = this.createDescriptionElementAndAttachEventOfDescTools(descId);
+        new _QuillEditor__WEBPACK_IMPORTED_MODULE_1__["default"](textDescContent, false, true, content);
+      } else if (type === TVYContentEditor.CODE_TYPE) {
+        var codeDescContent = this.createDescriptionElementAndAttachEventOfDescTools(descId);
+        new _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"](codeDescContent, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].THEME_MATERIAL, _CodeMirrorEditor__WEBPACK_IMPORTED_MODULE_2__["default"].MODE_JAVASCRIPT, true, content, null);
+      } else if (type === TVYContentEditor.IMAGE_TYPE) {
+        var imageDescContent = this.createDescriptionElementAndAttachEventOfDescTools(descId);
+        var imageCaptionToView = '';
+        var caption = content.caption,
+            src = content.src,
+            extension = content.extension;
+
+        if (caption !== '') {
+          imageCaptionToView = "<strong>Caption:</strong>&nbsp;".concat(caption);
+        }
+
+        var imageContentHTML = "\n                        <div class=\"imageContent\">\n                            <img \n                                class=\"imageFile\" \n                                src=".concat(src, " \n                                data-image-extension=").concat(extension, " />\n                            <p class=\"imageCaption\">").concat(imageCaptionToView, "</p>\n                        </div>\n                    ");
+        imageDescContent.innerHTML = imageContentHTML;
+      }
     }
   }, {
     key: "connectedCallback",

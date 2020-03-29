@@ -109,6 +109,7 @@ class TVYContentEditor extends HTMLElement
         this.currentAvatarUrl = this.getAttribute('data-current-avatar-url');
         this.publicId = this.getAttribute('data-public-id');
         this.referencePublicId = this.getAttribute('data-reference-public-id');
+        this.isExisting = this.getAttribute('data-is-existing');
         let editorContentType = this.getAttribute('data-content-type');
         if(editorContentType === 'answer') {
             this.contentType = TVYContentEditor.ANSWER_CONTENT_TYPE;
@@ -141,6 +142,7 @@ class TVYContentEditor extends HTMLElement
         this.fileImageToUpload = null;
         this.nameFileImageToUpload = null;
         this.fileImageExtension = null;
+        this.existingDescription = null;
         this.imageEditor = this.querySelector('.editor #TVYImageEditor');
         this.imageSelector = this.imageEditor.querySelector('.imageSelector');
         this.imageBrowser = this.imageEditor.querySelector('.iptBrowseImage');
@@ -156,6 +158,7 @@ class TVYContentEditor extends HTMLElement
         this.allDescData = [];
 
         this.tabEditorMovement();
+        this.checkExistingContent();
 
         this.quillTextObj = new QuillEditor(this.actualTextEditor);
 
@@ -201,6 +204,12 @@ class TVYContentEditor extends HTMLElement
     static get ARRAY_INDEX_PREV()   {return 777;}
     static get ARRAY_INDEX_NEXT()   {return 888;}
     static get ARRAY_INDEX_BOTTOM() {return 999;}
+
+    checkExistingContent () {
+        if (this.isExisting === 'true') {
+            this.renderExistingDescription(this.publicId, this.contentType);
+        }
+    }
 
     handleImageSelectorClick (event) {
         if(!event.target.className.includes('imageCaption')){
@@ -301,10 +310,7 @@ class TVYContentEditor extends HTMLElement
                 }
                 else
                 {
-                    let textDescContent = this.createDescriptionElementAndAttachEventOfDescTools(randomDescId, TVYContentEditor.TEXT_TYPE, textEditor);
-
-                    new QuillEditor(textDescContent, false, true, this.quillTextContent);
-
+                    this.createDescElementAndAddToContentOrder(randomDescId, dataType, this.quillTextContent);
                     this.storeDataContent(this.quillTextContent, TVYContentEditor.TEXT_TYPE, randomDescId);
                 }
                 this.quillTextObj.clearContent();
@@ -339,11 +345,7 @@ class TVYContentEditor extends HTMLElement
                 }
                 else
                 {
-                    let codeDescContent = this.createDescriptionElementAndAttachEventOfDescTools(randomDescId, TVYContentEditor.CODE_TYPE, codeEditor);
-
-                    new CodeMirrorEditor(codeDescContent, CodeMirrorEditor.THEME_MATERIAL, CodeMirrorEditor.MODE_JAVASCRIPT,
-                        true, this.codeMirrorContent, null);
-
+                    this.createDescElementAndAddToContentOrder(randomDescId, dataType, this.codeMirrorContent);
                     this.storeDataContent(this.codeMirrorContent, TVYContentEditor.CODE_TYPE, randomDescId);
                 }
                 this.codeMirrorObj.clearContent();
@@ -386,21 +388,11 @@ class TVYContentEditor extends HTMLElement
                 }
                 else
                 {
-                    let imageDescContent = this.createDescriptionElementAndAttachEventOfDescTools(randomDescId, TVYContentEditor.IMAGE_TYPE);
-                    let imageCaptionToView = '';
-                    if(this.imageCaption.value !== ''){
-                        imageCaptionToView = `<strong>Caption:</strong>&nbsp;${this.imageCaption.value}`;
-                    }
-                    let imageContentHTML = `
-                        <div class="imageContent">
-                            <img 
-                                class="imageFile" 
-                                src=${this.uploadedImagePreivew.getAttribute('src')} 
-                                data-image-extension=${this.fileImageExtension} />
-                            <p class="imageCaption">${imageCaptionToView}</p>
-                        </div>
-                    `;
-                    imageDescContent.innerHTML = imageContentHTML;
+                    this.createDescElementAndAddToContentOrder(randomDescId, dataType, {
+                        caption: this.imageCaption.value,
+                        src: this.uploadedImagePreivew.getAttribute('src'),
+                        extension: this.fileImageExtension
+                    });
 
                     let imageFileName = this.publicId + '_' + randomDescId + '.' + this.fileImageExtension;
                     this.nameFileImageToUpload = imageFileName;
@@ -432,8 +424,12 @@ class TVYContentEditor extends HTMLElement
         return this.quillTextObj.getContent();
     }
 
-    storeDataContent(dataContent, type, descId) {
+    pushDataContent(dataContent, type, descId) {
         this.allDescData.push({type: type, data: dataContent, desc_id: descId});
+    }
+
+    storeDataContent(dataContent, type, descId) {
+        this.pushDataContent(dataContent, type, descId);
         this.saveDescDataToBackend();
     }
 
@@ -741,6 +737,66 @@ class TVYContentEditor extends HTMLElement
                 console.log(err);
             }
         });
+    }
+
+    renderExistingDescription (publicId, type) {
+        let url = window.location.origin + `/${type}/get-description/` + publicId;
+        $.ajax({
+            url: url,
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            type: 'GET',
+            success: (result) => {
+                if(result.success === true) {
+                    const { data, relative_path_store_images } = result.data;
+                    const dataArray = JSON.parse(data);
+                    dataArray.forEach(({type, data, desc_id}) => {
+                        let content = data;
+                        if(type === TVYContentEditor.IMAGE_TYPE) {
+                            content = {
+                                caption: data.caption,
+                                src: relative_path_store_images + data.image_file_name,
+                                extension: data.image_file_name.split('.')[1]
+                            }
+                        }
+                        this.createDescElementAndAddToContentOrder(desc_id, type, content)
+                        this.pushDataContent(data, type, desc_id);
+                    });
+                }
+            },
+            error: function(err) {
+                console.log(`Error getting content of ${type} [${publicId}]`, err);
+            }
+        });
+    }
+
+    createDescElementAndAddToContentOrder (descId, type, content) {
+        if(type === TVYContentEditor.TEXT_TYPE) {
+            let textDescContent = this.createDescriptionElementAndAttachEventOfDescTools(descId);
+            new QuillEditor(textDescContent, false, true, content);
+        }
+        else if(type === TVYContentEditor.CODE_TYPE) {
+            let codeDescContent = this.createDescriptionElementAndAttachEventOfDescTools(descId);
+            new CodeMirrorEditor(codeDescContent, CodeMirrorEditor.THEME_MATERIAL, CodeMirrorEditor.MODE_JAVASCRIPT,
+                true, content, null);
+        }
+        else if(type === TVYContentEditor.IMAGE_TYPE) {
+            let imageDescContent = this.createDescriptionElementAndAttachEventOfDescTools(descId);
+            let imageCaptionToView = '';
+            const { caption, src, extension } = content;
+            if(caption !== ''){
+                imageCaptionToView = `<strong>Caption:</strong>&nbsp;${caption}`;
+            }
+            let imageContentHTML = `
+                        <div class="imageContent">
+                            <img 
+                                class="imageFile" 
+                                src=${src} 
+                                data-image-extension=${extension} />
+                            <p class="imageCaption">${imageCaptionToView}</p>
+                        </div>
+                    `;
+            imageDescContent.innerHTML = imageContentHTML;
+        }
     }
 
     connectedCallback()

@@ -50,6 +50,7 @@ class RouteConstants
     const QUESTION_GET_INFO = 'question.getInfo';
     const QUESTION_GET_DESCRIPTION_OF = 'question.getDescriptionOf';
     const QUESTION_GET_LIST = 'question.getList';
+    const QUESTION_GET_DESCRIPTION = 'question.getDescription';
     /***********************************************************/
 
     /************************************************************

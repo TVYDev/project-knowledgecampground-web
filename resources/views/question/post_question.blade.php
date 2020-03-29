@@ -26,7 +26,7 @@
                             <label for="description" class="requiredField"><strong>{{ __('Description') }}</strong></label>
                             <div class="descriptionBlock col-md-12 m-0 p-0"></div>
                             <input type="hidden" name="publicId" value="{{ $publicId }}">
-                            <tvy-content-editor class="col-md-12" data-public-id="{{ $publicId }}"></tvy-content-editor>
+                            <tvy-content-editor class="col-md-12" data-public-id="{{ $publicId }}" data-is-existing="true"></tvy-content-editor>
                         </div>
                         <div class="field">
                             <label for="subject" class="requiredField">{{ __('Subject') }}</label>

@@ -264,6 +264,45 @@ class QuestionController extends Controller
         ]);
     }
 
+    /**-------------------------------------------------------------------------
+     * Purpose: For AJAX, Get description of question
+     *------------------------------------------------------------------------*/
+    public function getDescription ($publicId, Request $request)
+    {
+        // This route only from ajax request
+        if(!$request->ajax()) {
+            return 'Invalid Request Gateway';
+        }
+
+        $responseData = null;
+        $errorMsg = null;
+        try
+        {
+            $resultQuestion = $this->get(
+                $this->getApiRequestUrl('question.description'),
+                [$publicId]
+            );
+
+            if($resultQuestion->success == true) {
+                $success = true;
+                $responseData = Helper::getProp($resultQuestion, 'data');
+            }
+            else {
+                throw new \Exception('Unable to get description of question, public id = ' . $publicId);
+            }
+        }
+        catch(\Exception $exception)
+        {
+            $success = false;
+            $errorMsg = $exception->getMessage();
+        }
+
+        return response()->json([
+            'success'       => $success,
+            'data'          => $responseData,
+            'error_message' => $errorMsg
+        ]);
+    }
 //    public function getContentOfQuestion ($publicId)
 //    {
 //        $tempDataResponse = [];
