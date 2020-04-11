@@ -70,7 +70,8 @@ class QuestionController extends Controller
                     ->with('chosenSubject', Helper::getProp($chosenSubject, 'public_id'))
                     ->with('chosenTags', $chosenTags)
                     ->with('publicId', $publicId)
-                    ->with('subjectsData', Helper::getProp($resultSubjects, 'data'));
+                    ->with('subjectsData', Helper::getProp($resultSubjects, 'data'))
+                    ->with('isExisting', true);
             }
         }
         catch(\Exception $exception)
@@ -110,7 +111,7 @@ class QuestionController extends Controller
                 ],
                 [
                     'name'  => 'is_draft',
-                    'contents' => true
+                    'contents' => $request->is_draft
                 ],
                 [
                     'name'  => 'image_file_name',
@@ -126,10 +127,12 @@ class QuestionController extends Controller
             $response = $this->post($this->getApiRequestUrl('question.save_during_editing'),
                 $requestedData,
                 $this->getAuthorizationHeader(true, false), 'multipart');
+
+            return response()->json($response);
         }
         catch(\Exception $exception)
         {
-
+            return $exception->getMessage();
         }
     }
 

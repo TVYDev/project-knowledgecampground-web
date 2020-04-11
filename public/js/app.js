@@ -68449,6 +68449,7 @@ function (_HTMLElement) {
     value: function prepareFormDataToSaveToBackend(contentType) {
       var baseUrl = window.location.origin;
       var url = null;
+      var isDraft = true;
       var formData = new FormData();
 
       if (contentType === TVYContentEditor.QUESTION_CONTENT_TYPE) {
@@ -68460,6 +68461,11 @@ function (_HTMLElement) {
         formData.append('question_public_id', this.referencePublicId);
       }
 
+      if (this.isExisting === 'true') {
+        isDraft = false;
+      }
+
+      formData.append('is_draft', isDraft.toString());
       formData.append('public_id', this.publicId);
       formData.append('desc_data', JSON.stringify(this.allDescData));
       formData.append('image_file_upload', this.fileImageToUpload);
@@ -68530,6 +68536,7 @@ function (_HTMLElement) {
 
               _this4.pushDataContent(data, type, desc_id);
             });
+            document.querySelector('.TVYContentManagementPreview .reRender').click();
           }
         },
         error: function error(err) {

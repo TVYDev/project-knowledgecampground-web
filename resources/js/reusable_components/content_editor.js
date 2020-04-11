@@ -697,6 +697,7 @@ class TVYContentEditor extends HTMLElement
     prepareFormDataToSaveToBackend (contentType) {
         let baseUrl = window.location.origin;
         let url = null;
+        let isDraft = true;
         let formData = new FormData();
         if(contentType === TVYContentEditor.QUESTION_CONTENT_TYPE) {
             url = baseUrl + '/question/save-during-editing';
@@ -706,6 +707,10 @@ class TVYContentEditor extends HTMLElement
             url = baseUrl + '/answer/save-during-editing';
             formData.append('question_public_id', this.referencePublicId);
         }
+        if(this.isExisting === 'true') {
+            isDraft = false;
+        }
+        formData.append('is_draft', isDraft.toString());
         formData.append('public_id', this.publicId);
         formData.append('desc_data', JSON.stringify(this.allDescData));
         formData.append('image_file_upload', this.fileImageToUpload);
@@ -758,9 +763,10 @@ class TVYContentEditor extends HTMLElement
                                 extension: data.image_file_name.split('.')[1]
                             }
                         }
-                        this.createDescElementAndAddToContentOrder(desc_id, type, content)
+                        this.createDescElementAndAddToContentOrder(desc_id, type, content);
                         this.pushDataContent(data, type, desc_id);
                     });
+                    document.querySelector('.TVYContentManagementPreview .reRender').click();
                 }
             },
             error: function(err) {
