@@ -110,6 +110,8 @@ Route::group([
 //        ->name(RouteConstants::ANSWER_GET_DESCRIPTION_OF);
 //    Route::get('/list-posted-answers-of-question/{questionPublicId}/{sortedType}', 'AnswerController@getListPostedAnswersOfQuestion')
 //        ->name(RouteConstants::ANSWER_GET_LIST_POSTED_ANSWERS_OF);
+    Route::get('/get-description/{publicId}', 'AnswerController@getDescription')
+        ->name(RouteConstants::ANSWER_GET_DESCRIPTION);
     Route::get('/get-info/{publicId}', 'AnswerController@getInfo')
         ->name(RouteConstants::ANSWER_GET_INFO);
 });

@@ -68513,6 +68513,8 @@ function (_HTMLElement) {
         },
         type: 'GET',
         success: function success(result) {
+          console.log(result);
+
           if (result.success === true) {
             var _result$data = result.data,
                 data = _result$data.data,

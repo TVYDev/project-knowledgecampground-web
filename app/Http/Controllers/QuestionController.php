@@ -189,21 +189,28 @@ class QuestionController extends Controller
     /**-------------------------------------------------------------------------
      * Purpose: Render page View Question
      *------------------------------------------------------------------------*/
-    public function getView ($publicId)
+    public function getView ($publicId, Request $request)
     {
         try
         {
+            $existingAnswerPublicId = null;
+            if($request->has('edit_answer')) {
+                $existingAnswerPublicId = $request->edit_answer;
+            }
+
             $response = $this->get($this->getApiRequestUrl('question.get_subject_tags'), [$publicId]);
 
             if($response->success) {
                 $data = $response->data;
 
-                $newAnswerPublicId = $this->supporter->doGeneratePublicId();
+                $newAnswerPublicId = isset($existingAnswerPublicId) ? $existingAnswerPublicId : $this->supporter->doGeneratePublicId();
 
                 $answers = [];
-                $answersResponse = $this->get($this->getApiRequestUrl('answer.list_posted_answers'), [$publicId]);
-                if ($answersResponse->success) {
-                    $answers = Helper::getProp($answersResponse, 'data');
+                if(!isset($existingAnswerPublicId)) {
+                    $answersResponse = $this->get($this->getApiRequestUrl('answer.list_posted_answers'), [$publicId]);
+                    if ($answersResponse->success) {
+                        $answers = Helper::getProp($answersResponse, 'data');
+                    }
                 }
 
                 return view('question.view_question')
@@ -212,7 +219,8 @@ class QuestionController extends Controller
                     ->with('subject', Helper::getProp($data, 'subject'))
                     ->with('tags', Helper::getProp($data, 'tags'))
                     ->with('answerPublicId', $newAnswerPublicId)
-                    ->with('answers', $answers);
+                    ->with('answers', $answers)
+                    ->with('isEditingAnswer', isset($existingAnswerPublicId) ? true : false);
             }
         }
         catch(\Exception $exception)

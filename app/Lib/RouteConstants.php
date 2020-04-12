@@ -58,6 +58,7 @@ class RouteConstants
      ***********************************************************/
     const ANSWER_POST_POST = 'answer.postPost';
     const ANSWER_POST_SAVE_DURING_EDITING = 'answer.postSaveDuringEditing';
+    const ANSWER_GET_DESCRIPTION = 'answre.getDescription';
     const ANSWER_GET_DESCRIPTION_OF = 'answer.getDescriptionOf';
     const ANSWER_GET_LIST_POSTED_ANSWERS_OF = 'answer.getListPostedAnswersOf';
     const ANSWER_GET_INFO = 'answer.getInfo';

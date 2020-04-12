@@ -51,7 +51,11 @@ $username = session(\App\Lib\SessionConstants::USER_NAME);
                     class="col-md-12"
                     data-public-id="{{ $answerPublicId }}"
                     data-reference-public-id="{{ $questionPublicId  }}"
-                    data-content-type="answer">
+                    data-content-type="answer"
+                    @if($isEditingAnswer)
+                        data-is-existing="true"
+                    @endif
+                >
                 </tvy-content-editor>
                 <button type="submit" name="submit" value="post" class="ui button btnPostQuestion btnFormPrimary">
                     <span>{{ __('Post my answer') }}</span>&nbsp;&nbsp;&nbsp;<i class="far fa-paper-plane"></i>

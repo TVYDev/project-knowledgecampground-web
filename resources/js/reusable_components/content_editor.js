@@ -751,6 +751,7 @@ class TVYContentEditor extends HTMLElement
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             type: 'GET',
             success: (result) => {
+                console.log(result);
                 if(result.success === true) {
                     const { data, relative_path_store_images } = result.data;
                     const dataArray = JSON.parse(data);
