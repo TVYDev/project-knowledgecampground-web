@@ -29,9 +29,9 @@ $(document).ready(function() {
     $('#formAskQuestion').submit(function(e) {
         let canSubmit = true;
         let valueSubject = $('.subjectOfQuestion').dropdown('get value');
-        let hasValueDesc = $('tvy-content-editor').attr('data-has-value');
+        // let hasValueDesc = $('tvy-content-editor').attr('data-has-value');
         let descElements = $('.questionContentManagement .TVYContentOrder').children();
-        if(hasValueDesc !== 'true' || descElements.length < 1) {
+        if(descElements.length < 1) {
             new NotyAlertMessage(NotyAlertMessage.WARNING, 'Please add description for your question').show();
             canSubmit = false;
         }else {

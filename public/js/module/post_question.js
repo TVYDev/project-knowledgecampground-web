@@ -201,11 +201,11 @@ $(document).ready(function () {
   });
   $('#formAskQuestion').submit(function (e) {
     var canSubmit = true;
-    var valueSubject = $('.subjectOfQuestion').dropdown('get value');
-    var hasValueDesc = $('tvy-content-editor').attr('data-has-value');
+    var valueSubject = $('.subjectOfQuestion').dropdown('get value'); // let hasValueDesc = $('tvy-content-editor').attr('data-has-value');
+
     var descElements = $('.questionContentManagement .TVYContentOrder').children();
 
-    if (hasValueDesc !== 'true' || descElements.length < 1) {
+    if (descElements.length < 1) {
       new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, 'Please add description for your question').show();
       canSubmit = false;
     } else {

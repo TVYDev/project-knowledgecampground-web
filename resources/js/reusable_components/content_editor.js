@@ -767,6 +767,7 @@ class TVYContentEditor extends HTMLElement
                         this.pushDataContent(data, type, desc_id);
                     });
                     document.querySelector('.TVYContentManagementPreview .reRender').click();
+                    this.saveDescDataToBackend();
                 }
             },
             error: function(err) {

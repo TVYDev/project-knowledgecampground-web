@@ -68537,6 +68537,8 @@ function (_HTMLElement) {
               _this4.pushDataContent(data, type, desc_id);
             });
             document.querySelector('.TVYContentManagementPreview .reRender').click();
+
+            _this4.saveDescDataToBackend();
           }
         },
         error: function error(err) {
