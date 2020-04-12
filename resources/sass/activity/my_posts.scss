@@ -1,0 +1,60 @@
+.myPostsContent {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    .listOfItems {
+        margin-top: 20px;
+        .item {
+            display: grid;
+            grid-template-columns: auto 100px;
+            .info {
+                display: grid;
+                grid-template-columns: 100px auto;
+                .postType {
+                    font-weight: bold;
+                    color: $prim;
+                    padding: 5px 7px;
+                    border-radius: 10px;
+                    border: 2px solid $prim;
+                }
+                .postType.questionType {
+                    background-color: $prim;
+                    color: white;
+                }
+                .postType.answerType {
+                    background-color: white;
+                    color: $prim;
+                }
+                .numVotes {
+                    padding: 5px 7px;
+                    border-radius: 10px;
+                    font-weight: bold;
+                }
+                .numVotes.positive {
+                    border: 1px solid $main-positive;
+                    color: $main-positive;
+                }
+                .numVotes.negative {
+                    border: 1px solid $main-negative;
+                    color: $main-negative;
+                }
+                .numVotes.neutral {
+                    border: 1px solid $main-neutral;
+                    color: $main-neutral;
+                }
+            }
+            .actions {
+                justify-self: center;
+                .btnEdit {
+                    padding: 10px 15px;
+                    background: none;
+                    border: none;
+                    color: $contrast-prim;
+                }
+                .btnEdit:hover, .btnEdit:focus {
+                    color: $prim;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

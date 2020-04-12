@@ -77,6 +77,8 @@ Route::group([
         ->name(RouteConstants::QUESTION_GET_POST);
     Route::post('/post', 'QuestionController@postPost')
         ->name(RouteConstants::QUESTION_POST_POST);
+    Route::get('/edit/{publicId}', 'QuestionController@getEdit')
+        ->name(RouteConstants::QUESTION_GET_EDIT);
 
     Route::post('/save-during-editing', 'QuestionController@postSaveDuringEditing')
         ->name(RouteConstants::QUESTION_POST_SAVE_DURING_EDITING);
@@ -86,6 +88,9 @@ Route::group([
 
     Route::get('/get-info/{publicId}', 'QuestionController@getInfo')
         ->name(RouteConstants::QUESTION_GET_INFO);
+
+    Route::get('/get-description/{publicId}', 'QuestionController@getDescription')
+        ->name(RouteConstants::QUESTION_GET_DESCRIPTION);
 
 //    Route::get('/content-of-question/{publicId}', 'QuestionController@getContentOfQuestion')
 //        ->name(RouteConstants::QUESTION_GET_DESCRIPTION_OF);
@@ -105,6 +110,8 @@ Route::group([
 //        ->name(RouteConstants::ANSWER_GET_DESCRIPTION_OF);
 //    Route::get('/list-posted-answers-of-question/{questionPublicId}/{sortedType}', 'AnswerController@getListPostedAnswersOfQuestion')
 //        ->name(RouteConstants::ANSWER_GET_LIST_POSTED_ANSWERS_OF);
+    Route::get('/get-description/{publicId}', 'AnswerController@getDescription')
+        ->name(RouteConstants::ANSWER_GET_DESCRIPTION);
     Route::get('/get-info/{publicId}', 'AnswerController@getInfo')
         ->name(RouteConstants::ANSWER_GET_INFO);
 });
@@ -123,4 +130,11 @@ Route::group([
     ], function (){
     Route::get('/get_tags_of_subject/{subjectId}', 'TagController@getTagsOfSubject')
         ->name(RouteConstants::TAG_GET_TAGS_OF_SUBJECT);
+});
+
+Route::group([
+    'prefix' => 'activity'
+    ], function() {
+    Route::get('/my-posts', 'ActivityController@getMyPosts')
+        ->name(RouteConstants::ACTIVITY_GET_MY_POSTS);
 });
