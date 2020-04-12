@@ -23,9 +23,15 @@
             cursor: pointer;
             border-radius: 8px;
         }
-        li:nth-child(2) {
+        li {
             border-top: 1px solid $thirdly-gray;
             border-bottom: 1px solid $thirdly-gray;
+        }
+        li:first-child {
+            border-top: none;
+        }
+        li:last-child {
+            border-bottom: none;
         }
         li:hover, li:focus {
             background-color: $prim;

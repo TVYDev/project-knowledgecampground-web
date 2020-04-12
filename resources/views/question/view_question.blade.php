@@ -1,6 +1,10 @@
 @extends('layouts.main')
 
-@section('title', 'View Question')
+@if($isEditingAnswer)
+    @section('title', 'Edit Answer')
+@else
+    @section('title', 'View Question')
+@endif
 
 @section('content')
 <?php
@@ -26,21 +30,29 @@ $username = session(\App\Lib\SessionConstants::USER_NAME);
                         </div>
                     </div>
                     @foreach($answers as $answer)
-                        <tvy-content-action-view data-for="answer" data-current-avatar-url="{{$default_avatar_url}}" data-current-username="{{ $username }}" data-public-id="{{ $answer->public_id }}"></tvy-content-action-view>
+                        <tvy-content-action-view id="{{ $answer->public_id }}" data-for="answer" data-current-avatar-url="{{$default_avatar_url}}" data-current-username="{{ $username }}" data-public-id="{{ $answer->public_id }}"></tvy-content-action-view>
                     @endforeach
                 @else
-                    <div class="headerListAnswers headerList">
-                        <div>
-                            <i class="fas fa-lightbulb"></i>
-                            <span class="numRecords">No Answer</span>
+                    @if(!$isEditingAnswer)
+                        <div class="headerListAnswers headerList">
+                            <div>
+                                <i class="fas fa-lightbulb"></i>
+                                <span class="numRecords">No Answer</span>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 @endif
             </div>
         </div>
         <div class="rightExtraSpace"></div>
     </div>
-    <h3 class="headerWriteYourAnswer"><i class="fas fa-pen-alt"></i>&nbsp;&nbsp;Write your own answer below</h3>
+    <h3 class="headerWriteYourAnswer" id="titleEditingAnswer"><i class="fas fa-pen-alt"></i>&nbsp;&nbsp;
+        @if($isEditingAnswer)
+            Edit your answer below
+        @else
+            Write your own answer below
+        @endif
+    </h3>
     <div class="answerQuestionBlock">
         <div class="answerCreation">
             <form action="{{ route(\App\Lib\RouteConstants::ANSWER_POST_POST) }}" method="POST" id="formAnswerQuestion">
@@ -51,10 +63,20 @@ $username = session(\App\Lib\SessionConstants::USER_NAME);
                     class="col-md-12"
                     data-public-id="{{ $answerPublicId }}"
                     data-reference-public-id="{{ $questionPublicId  }}"
-                    data-content-type="answer">
+                    data-content-type="answer"
+                    @if($isEditingAnswer)
+                        data-is-existing="true"
+                    @endif
+                >
                 </tvy-content-editor>
                 <button type="submit" name="submit" value="post" class="ui button btnPostQuestion btnFormPrimary">
-                    <span>{{ __('Post my answer') }}</span>&nbsp;&nbsp;&nbsp;<i class="far fa-paper-plane"></i>
+                    <span>
+                        @if($isEditingAnswer)
+                            {{ __('Update my answer') }}
+                        @else
+                            {{ __('Post my answer') }}
+                        @endif
+                    </span>&nbsp;&nbsp;&nbsp;<i class="far fa-paper-plane"></i>
                 </button>
             </form>
         </div>

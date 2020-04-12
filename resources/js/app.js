@@ -89,3 +89,4 @@ require('./auth/login');
 require('./auth/view_user_profile');
 require('./auth/edit_user_profile');
 require('./form_alert_message');
+require('./activity/my_posts');

@@ -53,6 +53,13 @@ $(document).ready(function() {
         });
     }
 
+    const search = window.location.search;
+    const regexSearch = /top=(\w+)&?/;
+    const result = search.match(regexSearch);
+    if(result) {
+        $('html, body').animate({ scrollTop: $(`#${result[1]}`).offset().top - 30 }, 500);
+    }
+
     $('#formAnswerQuestion').submit(function(e) {
         let canSubmit = true;
         let hasValueDesc = $('tvy-content-editor').attr('data-has-value');

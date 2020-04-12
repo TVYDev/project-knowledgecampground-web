@@ -18,7 +18,12 @@ class QuestionAnswerViewModel
             $responseData['readable_time'] = Helper::getProp($data, 'readable_time_en');
 
             $descriptionPayLoad = Helper::getProp($data, 'description');
-            $description = isset($descriptionPayLoad) ? Helper::getProp($descriptionPayLoad, 'data') : null;
+            $tmpDescription = isset($descriptionPayLoad) ? Helper::getProp($descriptionPayLoad, 'tmp_data') : null;
+            if(isset($tmpDescription)) {
+                $description = $tmpDescription;
+            }else {
+                $description = isset($descriptionPayLoad) ? Helper::getProp($descriptionPayLoad, 'data') : null;
+            }
 
             $responseData['description'] = Helper::isValidJSONString($description) ? $description : null;
             $responseData['relativePathStoreImages'] = isset($descriptionPayLoad) ? Helper::getProp($descriptionPayLoad, 'relative_path_store_images') : null;

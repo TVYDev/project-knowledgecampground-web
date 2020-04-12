@@ -61,6 +61,9 @@
 //***************************************
 // Global Style
 //***************************************
+html {
+    scroll-behavior: smooth;
+}
 body {
     padding-top: 4rem;
     font-size: 13px;
@@ -273,3 +276,4 @@ button:focus {
 @import 'question/post_question';
 @import 'question/view_question';
 @import 'question/list_question';
+@import 'activity/my_posts';

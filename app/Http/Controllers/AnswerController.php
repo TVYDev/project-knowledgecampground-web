@@ -26,6 +26,7 @@ class AnswerController extends Controller
      *------------------------------------------------------------------------*/
     public function postPost (Request $request)
     {
+        $referencePublicId = null;
         try
         {
             $isDraft = false;
@@ -33,7 +34,6 @@ class AnswerController extends Controller
             {
                 $isDraft = true;
             }
-
             $publicId = $request->publicId;
             $referencePublicId = $request->referencePublicId;
             $response = $this->put($this->getApiRequestUrl('answer.save'), $publicId, [
@@ -56,7 +56,8 @@ class AnswerController extends Controller
                 $exception,
                 true,
                 RouteConstants::QUESTION_GET_VIEW,
-                true
+                true,
+                ['publicId' => $referencePublicId]
             );
         }
     }
@@ -96,7 +97,7 @@ class AnswerController extends Controller
                 ],
                 [
                     'name'  => 'is_draft',
-                    'contents' => true
+                    'contents' => $request->is_draft
                 ],
                 [
                     'name'  => 'image_file_name',
@@ -115,10 +116,12 @@ class AnswerController extends Controller
                 $this->getAuthorizationHeader(true, false),
                 'multipart'
             );
+
+            return response()->json($response);
         }
         catch(\Exception $exception)
         {
-            dd($exception);
+            return $exception->getMessage();
         }
     }
 
@@ -183,6 +186,46 @@ class AnswerController extends Controller
 //            return response()->json(['errorMessage' => $exception->getMessage()]);
 //        }
 //    }
+    /**-------------------------------------------------------------------------
+     * Purpose: For AJAX, Get description of question
+     *------------------------------------------------------------------------*/
+    public function getDescription ($publicId, Request $request)
+    {
+        // This route only from ajax request
+        if(!$request->ajax()) {
+            return 'Invalid Request Gateway';
+        }
+
+        $responseData = null;
+        $errorMsg = null;
+        try
+        {
+            $resultQuestion = $this->get(
+                $this->getApiRequestUrl('answer.description'),
+                [$publicId]
+            );
+
+            if($resultQuestion->success == true) {
+                $success = true;
+                $responseData = Helper::getProp($resultQuestion, 'data');
+            }
+            else {
+                throw new \Exception('Unable to get description of answer, public id = ' . $publicId);
+            }
+        }
+        catch(\Exception $exception)
+        {
+            $success = false;
+            $errorMsg = $exception->getMessage();
+        }
+
+        return response()->json([
+            'success'       => $success,
+            'data'          => $responseData,
+            'error_message' => $errorMsg
+        ]);
+    }
+
 
     /**-------------------------------------------------------------------------
      * Purpose: For AJAX, Get content of answer for ContentActionView

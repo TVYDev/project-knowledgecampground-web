@@ -1,6 +1,10 @@
 @extends('layouts.main')
 
-@section('title', 'Ask Question')
+@if(isset($isExisting))
+    @section('title', 'Edit Question')
+@else
+    @section('title', 'Ask Question')
+@endif
 
 @section('content')
     <?php
@@ -12,7 +16,15 @@
         <div class="questionCreation">
             <div class="headAskQuestion pageTitle">
                 <div><i class="fas fa-feather-alt"></i></div>
-                <div><span>{{ __('Ask Question') }}</span></div>
+                <div>
+                    <span>
+                        @if(isset($isExisting))
+                            {{ __('Edit Question') }}
+                        @else
+                            {{ __('Ask Question') }}
+                        @endif
+                    </span>
+                </div>
             </div>
             <div class="askQuestionForm">
                 <form action="{{ route(\App\Lib\RouteConstants::QUESTION_POST_POST) }}" method="POST" id="formAskQuestion">
@@ -20,25 +32,31 @@
                     <div class="ui form">
                         <div class="field">
                             <label for="title" class="requiredField">{{ __('Title') }}</label>
-                            <input type="text" class="questionTitle" id="title" name="title" placeholder="{{ __('Keep your title short and simple') }}" required="required">
+                            <input type="text" class="questionTitle" id="title" name="title" placeholder="{{ __('Keep your title short and simple') }}" required="required" value="{{@$title}}">
                         </div>
                         <div class="field">
                             <label for="description" class="requiredField"><strong>{{ __('Description') }}</strong></label>
                             <div class="descriptionBlock col-md-12 m-0 p-0"></div>
                             <input type="hidden" name="publicId" value="{{ $publicId }}">
-                            <tvy-content-editor class="col-md-12" data-public-id="{{ $publicId }}"></tvy-content-editor>
+                            <tvy-content-editor
+                                class="col-md-12"
+                                data-public-id="{{ $publicId }}"
+                                @if(isset($isExisting))
+                                    data-is-existing="true"
+                                @endif
+                            ></tvy-content-editor>
                         </div>
                         <div class="field">
                             <label for="subject" class="requiredField">{{ __('Subject') }}</label>
                             <div class="ui fluid selection dropdown subjectOfQuestion">
-                                <input type="hidden" name="subject" value="">
+                                <input type="hidden" name="subject" value="{{ @$chosenSubject }}">
                                 <i class="dropdown icon"></i>
                                 <div class="default text">{{ __('Choose a subject') }}</div>
                                 <div class="menu">
                                     @foreach($subjectsData as $s)
-                                        <div class="item" data-value="{{$s['public_id']}}">
-                                            <img class="ui mini avatar image" src="{{$s['img_url']}}">
-                                            {{$s['name_en']}}
+                                        <div class="item" data-value="{{$s->public_id}}">
+                                            <img class="ui mini avatar image" src="{{$s->img_url}}">
+                                            {{$s->name_en}}
                                         </div>
                                     @endforeach
                                 </div>
@@ -47,14 +65,20 @@
                         <div class="field">
                             <label for="tags" class="requiredField">{{ __('Tags') }}</label>
                             <div class="ui fluid multiple search selection dropdown tagsOfQuestion">
-                                <input type="hidden" name="tags" value="">
+                                <input type="hidden" name="tags" value="{{ @$chosenTags }}">
                                 <i class="dropdown icon"></i>
                                 <div class="default text">{{ __('Choose related tags (maximum 3 tags)') }}</div>
                                 <div class="menu"></div>
                             </div>
                         </div>
                         <button type="submit" name="submit" value="post" class="ui button btnPostQuestion btnFormPrimary">
-                            <span>{{ __('Post my question') }}</span>&nbsp;&nbsp;&nbsp;<i class="far fa-paper-plane"></i>
+                            <span>
+                                @if(isset($isExisting))
+                                    {{ __('Update my question') }}
+                                @else
+                                    {{ __('Post my question') }}
+                                @endif
+                            </span>&nbsp;&nbsp;&nbsp;<i class="far fa-paper-plane"></i>
                         </button>
                     </div>
                 </form>

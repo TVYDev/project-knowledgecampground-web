@@ -44,11 +44,13 @@ class RouteConstants
      ***********************************************************/
     const QUESTION_GET_POST  = 'question.getPost';
     const QUESTION_POST_POST = 'question.postPost';
+    const QUESTION_GET_EDIT = 'question.getEdit';
     const QUESTION_POST_SAVE_DURING_EDITING = 'question.postSaveDuringEditing';
     const QUESTION_GET_VIEW = 'question.getView';
     const QUESTION_GET_INFO = 'question.getInfo';
     const QUESTION_GET_DESCRIPTION_OF = 'question.getDescriptionOf';
     const QUESTION_GET_LIST = 'question.getList';
+    const QUESTION_GET_DESCRIPTION = 'question.getDescription';
     /***********************************************************/
 
     /************************************************************
@@ -56,6 +58,7 @@ class RouteConstants
      ***********************************************************/
     const ANSWER_POST_POST = 'answer.postPost';
     const ANSWER_POST_SAVE_DURING_EDITING = 'answer.postSaveDuringEditing';
+    const ANSWER_GET_DESCRIPTION = 'answre.getDescription';
     const ANSWER_GET_DESCRIPTION_OF = 'answer.getDescriptionOf';
     const ANSWER_GET_LIST_POSTED_ANSWERS_OF = 'answer.getListPostedAnswersOf';
     const ANSWER_GET_INFO = 'answer.getInfo';
@@ -72,5 +75,11 @@ class RouteConstants
      ***********************************************************/
     const COMMENT_POST_POST  = 'comment.postPost';
     const COMMENT_GET_LIST_POSTED_COMMENTS_OF = 'comment.getListPostedCommentsOf';
+    /***********************************************************/
+
+    /************************************************************
+     * Route for ActivityController
+     ***********************************************************/
+    const ACTIVITY_GET_MY_POSTS  = 'activity.getMyPosts';
     /***********************************************************/
 }
