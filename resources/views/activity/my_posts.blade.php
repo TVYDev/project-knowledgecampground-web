@@ -50,7 +50,7 @@
                                     @if($item->type === 'Q')
                                         data-href="{{ route(\App\Lib\RouteConstants::QUESTION_GET_EDIT, [$item->question_public_id]) }}"
                                     @else
-                                        data-href="{{ route(\App\Lib\RouteConstants::QUESTION_GET_VIEW, [$item->question_public_id]) . '?edit_answer=' . $item->answer_public_id }}"
+                                        data-href="{{ route(\App\Lib\RouteConstants::QUESTION_GET_VIEW, [$item->question_public_id]) . '?edit_answer=' . $item->answer_public_id . '&top=titleEditingAnswer' }}"
                                     @endif
                                 ><i class="fas fa-edit"></i> Edit</button>
                             </div>
