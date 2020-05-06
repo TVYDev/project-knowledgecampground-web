@@ -19,6 +19,7 @@ class TVYContentActionView extends HTMLElement
         this._relativePathStoreImages = null;
         this._comments = [];
         this._isMockOnly = false;
+        this._vote = 0;
 
         this.publicId = this.getAttribute('data-public-id');
         this.currentAvatarUrl = this.getAttribute('data-current-avatar-url');
@@ -33,6 +34,12 @@ class TVYContentActionView extends HTMLElement
         this.txtComment = this.querySelector('.txtComment');
         this.btnComment = this.querySelector('.commentButton');
         this.listOfComments = this.querySelector('.commentsBlock .listOfComments');
+        this.numVote = this.querySelector('.vote .numVote');
+        this.btnUpVote = this.querySelector('.vote .btnUpVote');
+        this.btnDownVote = this.querySelector('.vote .btnDownVote');
+
+        this.btnUpVote.addEventListener('click', this.upVoteHandler.bind(this));
+        this.btnDownVote.addEventListener('click', this.downVoteHandler.bind(this));
 
         // this.loaderContent = document.createElement('div');
         // this.loaderContent.className = 'ui active centered inline text loader loaderContent';
@@ -102,12 +109,72 @@ class TVYContentActionView extends HTMLElement
         return this._isMockOnly;
     }
 
+    set vote (vote) {
+        this._vote = vote;
+    }
+    get vote () {
+        return this._vote;
+    }
+
     get QUESTION_CONTENT_TYPE()  {return 'question';}
     get ANSWER_CONTENT_TYPE()    {return 'answer';}
+
+    get UPVOTE() {return 'upvote';};
+    get DOWNVOTE() {return 'downvote';}
 
     static get TEXT_TYPE()  {return 'text';}
     static get CODE_TYPE()  {return 'code';}
     static get IMAGE_TYPE() {return 'image';}
+
+    upVoteHandler () {
+        if(this.btnUpVote.classList.contains('selected')) {
+            this._votePost(0, this.UPVOTE);
+            // vote = 0
+            console.log('up', 0);
+            // this.numVote.textContent = 0;
+        }
+        else {
+            this._votePost(1, this.UPVOTE);
+            // vote = 1
+            console.log('up', 1);
+            // this.numVote.textContent = 1;
+        }
+
+    }
+
+    downVoteHandler () {
+        if(this.btnDownVote.classList.contains('selected')) {
+            this._votePost(0, this.DOWNVOTE);
+            // vote = 0
+            console.log('down', 0);
+            // this.numVote.textContent = 0;
+        }
+        else {
+            this._votePost(-1, this.DOWNVOTE);
+            // vote = -1
+            console.log('down', -1);
+            // this.numVote.textContent = -1;
+        }
+
+    }
+
+    updateVoteUI (vote ,voteType) {
+        this.numVote.textContent = vote;
+        if(voteType === this.UPVOTE) {
+            this.btnUpVote.classList.toggle('selected');
+            this.btnUpVote.classList.toggle('far');
+            this.btnUpVote.classList.toggle('fas');
+            this.btnDownVote.classList.remove('selected');
+            this.btnDownVote.classList.replace('fas', 'far');
+        }
+        else if(voteType === this.DOWNVOTE) {
+            this.btnDownVote.classList.toggle('selected');
+            this.btnDownVote.classList.toggle('far');
+            this.btnDownVote.classList.toggle('fas');
+            this.btnUpVote.classList.remove('selected');
+            this.btnUpVote.classList.replace('fas', 'far');
+        }
+    }
 
     _saveComment() {
         let preparedData = {
@@ -132,6 +199,33 @@ class TVYContentActionView extends HTMLElement
                         result.data.readable_time_en,
                         result.data.body
                     );
+                }
+            },
+            error: function(err) {
+                console.log('---Error');
+                console.log(err);
+            }
+        });
+    }
+
+    _votePost(vote, voteType) {
+        let preparedData = {
+            'post_type': this.contentType,
+            'post_public_id': this.publicId,
+            'vote': vote
+        };
+
+        let url = window.location.origin + '/activity/vote-post';
+        $.ajax({
+            url: url,
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            data: preparedData,
+            type: 'POST',
+            success: (result) => {
+                console.log('vote_success',result);
+                if(result.success == true) {
+                    this.vote = result.data.vote;
+                    this.updateVoteUI(this.vote, voteType);
                 }
             },
             error: function(err) {

@@ -137,4 +137,6 @@ Route::group([
     ], function() {
     Route::get('/my-posts', 'ActivityController@getMyPosts')
         ->name(RouteConstants::ACTIVITY_GET_MY_POSTS);
+    Route::post('/vote-post', 'ActivityController@postVotePost')
+        ->name(RouteConstants::ACTIVITY_POST_VOTE_POST);
 });

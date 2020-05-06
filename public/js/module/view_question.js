@@ -1,1 +1,275 @@
-!function(e){var t={};function n(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)n.d(r,o,function(t){return e[t]}.bind(null,o));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="/",n(n.s=83)}({0:function(e,t,n){"use strict";function r(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}function o(e,t,n){return t&&r(e.prototype,t),n&&r(e,n),e}n.d(t,"a",function(){return a});var a=function(){function e(t,n){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e),this.type=t,this.msg=n}return o(e,null,[{key:"ERROR",get:function(){return"error"}},{key:"SUCCESS",get:function(){return"success"}},{key:"WARNING",get:function(){return"warning"}},{key:"INFO",get:function(){return"info"}}]),o(e,[{key:"show",value:function(){new Noty({type:this.type,theme:"relax",layout:"topRight",text:this.msg,timeout:"2000",progressBar:!0,closeWith:["click"],animation:{open:"animated bounceInRight",close:"animated bounceOutRight"}}).show()}}]),e}()},83:function(e,t,n){e.exports=n(84)},84:function(e,t,n){"use strict";n.r(t);var r=n(0);$(document).ready(function(){var e=document.querySelector('.pageViewQuestion input[name="questionPublicId"]').value,t=document.querySelector('tvy-content-action-view[data-for="currentQuestion"]');o(t,e,"question"),document.querySelectorAll('tvy-content-action-view[data-for="answer"]').forEach(function(e){var t=e.getAttribute("data-public-id");o(e,t,"answer")});var n=document.querySelector('tvy-content-management-preview[data-for="currentAnswer"]');function o(t,n,r){var o=window.location.origin+"/".concat(r,"/get-info/")+n;$.ajax({url:o,headers:{"X-CSRF-TOKEN":$('meta[name="csrf-token"]').attr("content")},type:"GET",success:function(e){if(!0===e.success){var n=e.data,o=n.owner_avatar_url,a=n.author_name,i=n.author_id,u=n.readable_time,c=n.description,s=n.relativePathStoreImages,l=n.comments;t.contentType=r,t.ownerAvatarUrl=o,t.authorName=a,t.authorId=i,t.readableTime=u,t.description=JSON.parse(c),t.relativePathStoreImages=s,t.comments=l,t.getViewContent()}},error:function(t){console.log("Error getting content of ".concat(r," [").concat(e,"]"),t)}})}n.contentType="answer",n.getManagementPreview();var a=window.location.search.match(/top=(\w+)&?/);a&&$("html, body").animate({scrollTop:$("#".concat(a[1])).offset().top-30},500),$("#formAnswerQuestion").submit(function(e){var t=!0,n=$("tvy-content-editor").attr("data-has-value"),o=$(".answerContentManagement .TVYContentOrder").children();("true"!==n||o.length<1)&&(new r.a(r.a.WARNING,"Please add description for your answer").show(),t=!1),t||e.preventDefault()})})}});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./resources/js/NotyAlertMessage.js":
+/*!******************************************!*\
+  !*** ./resources/js/NotyAlertMessage.js ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return NotyAlertMessage; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var NotyAlertMessage =
+/*#__PURE__*/
+function () {
+  _createClass(NotyAlertMessage, null, [{
+    key: "ERROR",
+    get: function get() {
+      return 'error';
+    }
+  }, {
+    key: "SUCCESS",
+    get: function get() {
+      return 'success';
+    }
+  }, {
+    key: "WARNING",
+    get: function get() {
+      return 'warning';
+    }
+  }, {
+    key: "INFO",
+    get: function get() {
+      return 'info';
+    }
+  }]);
+
+  function NotyAlertMessage(type, msg) {
+    _classCallCheck(this, NotyAlertMessage);
+
+    this.type = type;
+    this.msg = msg;
+  }
+
+  _createClass(NotyAlertMessage, [{
+    key: "show",
+    value: function show() {
+      new Noty({
+        type: this.type,
+        theme: 'relax',
+        layout: 'topRight',
+        text: this.msg,
+        timeout: '2000',
+        progressBar: true,
+        closeWith: ['click'],
+        animation: {
+          open: 'animated bounceInRight',
+          // Animate.css class names
+          close: 'animated bounceOutRight' // Animate.css class names
+
+        }
+      }).show();
+    }
+  }]);
+
+  return NotyAlertMessage;
+}();
+
+
+
+/***/ }),
+
+/***/ "./resources/js/question/view_question.js":
+/*!************************************************!*\
+  !*** ./resources/js/question/view_question.js ***!
+  \************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../NotyAlertMessage */ "./resources/js/NotyAlertMessage.js");
+
+$(document).ready(function () {
+  // Fill ContentActionView for current question
+  var questionPublicId = document.querySelector('.pageViewQuestion input[name="questionPublicId"]').value;
+  var currentQuestionContentActionView = document.querySelector('tvy-content-action-view[data-for="currentQuestion"]');
+  getInfoForQuestionContentActionView(currentQuestionContentActionView, questionPublicId); // Fill ContentActionView for each answer
+
+  var allAnswerContentActionViews = document.querySelectorAll('tvy-content-action-view[data-for="answer"]');
+  allAnswerContentActionViews.forEach(function (answerContentActionView) {
+    var answerPublicId = answerContentActionView.getAttribute('data-public-id');
+    getInfoForAnswerContentActionView(answerContentActionView, answerPublicId);
+  }); // ContentManagementPreview for answer
+
+  var currentQuestionContentManagementPreview = document.querySelector('tvy-content-management-preview[data-for="currentAnswer"]');
+  currentQuestionContentManagementPreview.contentType = 'answer';
+  currentQuestionContentManagementPreview.getManagementPreview();
+
+  function getInfoForQuestionContentActionView(contentActonView, publicId) {
+    getInfoForContentActionView(contentActonView, publicId, 'question');
+  }
+
+  function getInfoForAnswerContentActionView(contentActionView, publicId) {
+    getInfoForContentActionView(contentActionView, publicId, 'answer');
+  }
+
+  function getInfoForContentActionView(contentActionView, publicId, type) {
+    var url = window.location.origin + "/".concat(type, "/get-info/") + publicId;
+    $.ajax({
+      url: url,
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      type: 'GET',
+      success: function success(result) {
+        if (result.success === true) {
+          var _result$data = result.data,
+              owner_avatar_url = _result$data.owner_avatar_url,
+              author_name = _result$data.author_name,
+              author_id = _result$data.author_id,
+              readable_time = _result$data.readable_time,
+              description = _result$data.description,
+              relativePathStoreImages = _result$data.relativePathStoreImages,
+              comments = _result$data.comments;
+          contentActionView.contentType = type;
+          contentActionView.ownerAvatarUrl = owner_avatar_url;
+          contentActionView.authorName = author_name;
+          contentActionView.authorId = author_id;
+          contentActionView.readableTime = readable_time;
+          contentActionView.description = JSON.parse(description);
+          contentActionView.relativePathStoreImages = relativePathStoreImages;
+          contentActionView.comments = comments;
+          contentActionView.getViewContent();
+        }
+      },
+      error: function error(err) {
+        console.log("Error getting content of ".concat(type, " [").concat(questionPublicId, "]"), err);
+      }
+    });
+  }
+
+  var search = window.location.search;
+  var regexSearch = /top=(\w+)&?/;
+  var result = search.match(regexSearch);
+
+  if (result) {
+    $('html, body').animate({
+      scrollTop: $("#".concat(result[1])).offset().top - 30
+    }, 500);
+  }
+
+  $('#formAnswerQuestion').submit(function (e) {
+    var canSubmit = true;
+    var hasValueDesc = $('tvy-content-editor').attr('data-has-value');
+    var descElements = $('.answerContentManagement .TVYContentOrder').children();
+
+    if (hasValueDesc !== 'true' || descElements.length < 1) {
+      new _NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"](_NotyAlertMessage__WEBPACK_IMPORTED_MODULE_0__["default"].WARNING, 'Please add description for your answer').show();
+      canSubmit = false;
+    }
+
+    if (!canSubmit) {
+      e.preventDefault();
+    }
+  });
+});
+
+/***/ }),
+
+/***/ 1:
+/*!******************************************************!*\
+  !*** multi ./resources/js/question/view_question.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! D:\Vannyou\KC\kc_web\resources\js\question\view_question.js */"./resources/js/question/view_question.js");
+
+
+/***/ })
+
+/******/ });
