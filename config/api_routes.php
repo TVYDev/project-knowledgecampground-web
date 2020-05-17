@@ -177,6 +177,11 @@ return [
             'method' => 'get',
             'path'   => '/api/activity/my-posts',
             'url'    => $host.'/api/activity/my-posts'
+        ],
+        'vote_post' => [
+            'method' => 'post',
+            'path'   => '/api/activity/vote-post',
+            'url'   => $host.'/api/activity/vote-post'
         ]
     ]
 ];

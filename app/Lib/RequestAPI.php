@@ -92,7 +92,7 @@ trait RequestAPI
         return self::call($url, HttpConstants::METHOD_DELETE, $data, $headers, $requestOption);
     }
 
-    public function get (string $url, $keyConditions = [], $data = null, $headers = null, $requestOption = null)
+    public function get (string $url, $keyConditions = [], $data = null, $headers = null, $requestOption = null, $queryString = null)
     {
         if(isset($keyConditions))
         {
@@ -101,6 +101,7 @@ trait RequestAPI
                 $urlCondition .= "/$k";
             }
             $url .= $urlCondition;
+            $url .= $queryString;
         }
         return self::call($url, HttpConstants::METHOD_GET, $data, $headers, $requestOption);
     }

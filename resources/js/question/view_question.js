@@ -1,6 +1,8 @@
 import NotyAlertMessage from "../NotyAlertMessage";
 
 $(document).ready(function() {
+    const userPublicId = document.querySelector('.pageViewQuestion input[name="userPublicId"]').value;
+
     // Fill ContentActionView for current question
     const questionPublicId = document.querySelector('.pageViewQuestion input[name="questionPublicId"]').value;
     let currentQuestionContentActionView = document.querySelector('tvy-content-action-view[data-for="currentQuestion"]');
@@ -28,6 +30,9 @@ $(document).ready(function() {
 
     function getInfoForContentActionView (contentActionView, publicId, type) {
         let url = window.location.origin + `/${type}/get-info/` + publicId;
+        if(userPublicId) {
+            url += `?viewer=${userPublicId}`;
+        }
 
         $.ajax({
             url: url,
@@ -35,7 +40,9 @@ $(document).ready(function() {
             type: 'GET',
             success: (result) => {
                 if(result.success === true) {
-                    const { owner_avatar_url, author_name, author_id, readable_time, description, relativePathStoreImages, comments } = result.data;
+                    const { owner_avatar_url, author_name, author_id, readable_time, description, relativePathStoreImages, comments, vote, vote_by_viewer } = result.data;
+                    contentActionView.vote = vote;
+                    contentActionView.voteByViewer = vote_by_viewer;
                     contentActionView.contentType = type;
                     contentActionView.ownerAvatarUrl = owner_avatar_url;
                     contentActionView.authorName = author_name;

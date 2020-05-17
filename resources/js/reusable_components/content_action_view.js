@@ -19,6 +19,8 @@ class TVYContentActionView extends HTMLElement
         this._relativePathStoreImages = null;
         this._comments = [];
         this._isMockOnly = false;
+        this._vote = 0;
+        this._voteByViewer = 0;
 
         this.publicId = this.getAttribute('data-public-id');
         this.currentAvatarUrl = this.getAttribute('data-current-avatar-url');
@@ -33,6 +35,9 @@ class TVYContentActionView extends HTMLElement
         this.txtComment = this.querySelector('.txtComment');
         this.btnComment = this.querySelector('.commentButton');
         this.listOfComments = this.querySelector('.commentsBlock .listOfComments');
+        this.numVote = this.querySelector('.vote .numVote');
+        this.btnUpVote = this.querySelector('.vote .btnUpVote');
+        this.btnDownVote = this.querySelector('.vote .btnDownVote');
 
         // this.loaderContent = document.createElement('div');
         // this.loaderContent.className = 'ui active centered inline text loader loaderContent';
@@ -102,12 +107,67 @@ class TVYContentActionView extends HTMLElement
         return this._isMockOnly;
     }
 
+    set vote (vote) {
+        this._vote = vote;
+    }
+    get vote () {
+        return this._vote;
+    }
+
+    set voteByViewer (voteByViewer) {
+        this._voteByViewer = voteByViewer;
+    }
+    get voteByViewer () {
+        return this._voteByViewer;
+    }
+
     get QUESTION_CONTENT_TYPE()  {return 'question';}
     get ANSWER_CONTENT_TYPE()    {return 'answer';}
+
+    get UPVOTE() {return 'upvote';};
+    get DOWNVOTE() {return 'downvote';}
 
     static get TEXT_TYPE()  {return 'text';}
     static get CODE_TYPE()  {return 'code';}
     static get IMAGE_TYPE() {return 'image';}
+
+    upVoteHandler () {
+        if(this.btnUpVote.classList.contains('selected')) {
+            this._votePost(0, this.UPVOTE);
+        }
+        else {
+            this._votePost(1, this.UPVOTE);
+        }
+
+    }
+
+    downVoteHandler () {
+        if(this.btnDownVote.classList.contains('selected')) {
+            this._votePost(0, this.DOWNVOTE);
+        }
+        else {
+            this._votePost(-1, this.DOWNVOTE);
+        }
+
+    }
+
+    updateVoteUI (vote ,voteType) {
+        this.numVote.textContent = vote;
+        if(voteType === this.UPVOTE) {
+            this.btnUpVote.classList.toggle('selected');
+            this.btnUpVote.classList.toggle('far');
+            this.btnUpVote.classList.toggle('fas');
+            this.btnDownVote.classList.remove('selected');
+            this.btnDownVote.classList.replace('fas', 'far');
+        }
+        else if(voteType === this.DOWNVOTE) {
+            this.btnDownVote.classList.toggle('selected');
+            this.btnDownVote.classList.toggle('far');
+            this.btnDownVote.classList.toggle('fas');
+            this.btnUpVote.classList.remove('selected');
+            this.btnUpVote.classList.replace('fas', 'far');
+        }
+    }
 
     _saveComment() {
         let preparedData = {
@@ -141,6 +201,32 @@ class TVYContentActionView extends HTMLElement
         });
     }
 
+    _votePost(vote, voteType) {
+        let preparedData = {
+            'post_type': this.contentType,
+            'post_public_id': this.publicId,
+            'vote': vote
+        };
+
+        let url = window.location.origin + '/activity/vote-post';
+        $.ajax({
+            url: url,
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            data: preparedData,
+            type: 'POST',
+            success: (result) => {
+                if(result.success == true) {
+                    this.vote = result.data.vote;
+                    this.updateVoteUI(this.vote, voteType);
+                }
+            },
+            error: function(err) {
+                console.log('---Error');
+                console.log(err);
+            }
+        });
+    }
+
     _displayNewlyAddedComment (avatarUrl, authorName, authorId,readableTime, body) {
         let divSingleComment = document.createElement('div');
         divSingleComment.className = 'singleComment';
@@ -165,8 +251,34 @@ class TVYContentActionView extends HTMLElement
         }
     }
 
+    _fillVoteInfo () {
+        let voteType = null;
+        if(this.voteByViewer === 1) {
+            voteType = this.UPVOTE;
+        }
+        else if(this.voteByViewer === -1) {
+            voteType = this.DOWNVOTE;
+        }
+        this.updateVoteUI(this.vote, voteType);
+
+        let titleBtnUpVote = 'Upvote';
+        let titleBtnDownVote = 'Downvote';
+        if(this.contentType === this.QUESTION_CONTENT_TYPE) {
+            titleBtnUpVote = 'This question is clear and written with research effort';
+            titleBtnDownVote = 'This question is not clear and written with less or no research effort';
+        }
+        else if(this.contentType === this.ANSWER_CONTENT_TYPE) {
+            titleBtnUpVote = 'This answer is useful';
+            titleBtnDownVote = 'This answer is not useful';
+        }
+        this.btnUpVote.setAttribute('title', titleBtnUpVote);
+        this.btnDownVote.setAttribute('title', titleBtnDownVote);
+    }
+
     _addNecessaryEventListeners () {
         this.btnComment.addEventListener('click', this._saveComment.bind(this));
+        this.btnUpVote.addEventListener('click', this.upVoteHandler.bind(this));
+        this.btnDownVote.addEventListener('click', this.downVoteHandler.bind(this));
     }
 
     _fillListOfComments () {
@@ -182,6 +294,8 @@ class TVYContentActionView extends HTMLElement
         this.avatar.setAttribute('data-author-id', this.authorId);
         this.avatar.setAttribute('src', this.ownerAvatarUrl);
         this.avatarAddComment.setAttribute('src', this.currentAvatarUrl);
+
+        this._fillVoteInfo();
     }
 
     _fillTheContent () {

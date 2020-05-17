@@ -48,4 +48,27 @@ class ActivityController extends Controller
             dd($exception->getMessage());
         }
     }
+
+    public function postVotePost (Request $request)
+    {
+        try {
+            $response = $this->post(
+                $this->getApiRequestUrl('activity.vote_post'),
+                [
+                    'post_type' => $request->post_type,
+                    'post_public_id' => $request->post_public_id,
+                    'vote' => $request->vote
+                ],
+                $this->getAuthorizationHeader()
+            );
+
+            if($response->success == true)
+            {
+                return response()->json($response);
+            }
+        }
+        catch(\Exception $exception) {
+            return response()->json(['error' => $exception->getMessage()]);
+        }
+    }
 }

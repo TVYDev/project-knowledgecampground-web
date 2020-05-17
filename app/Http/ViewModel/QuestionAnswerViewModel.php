@@ -29,6 +29,8 @@ class QuestionAnswerViewModel
             $responseData['relativePathStoreImages'] = isset($descriptionPayLoad) ? Helper::getProp($descriptionPayLoad, 'relative_path_store_images') : null;
 
             $responseData['comments'] = Helper::getProp($data, 'comments', []);
+            $responseData['vote'] = Helper::getProp($data, 'vote', 0);
+            $responseData['vote_by_viewer'] = Helper::getProp($data, 'vote_by_viewer', 0);
         }
         return $responseData;
     }

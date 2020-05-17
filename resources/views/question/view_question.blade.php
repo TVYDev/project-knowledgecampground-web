@@ -10,10 +10,12 @@
 <?php
 $default_avatar_url = session(\App\Lib\SessionConstants::USER_AVATAR_URL);
 $username = session(\App\Lib\SessionConstants::USER_NAME);
+$user_public_id = session(\App\Lib\SessionConstants::USER_PUBLIC_ID);
 ?>
     <div class="pageViewQuestion">
         <div class="leftExtraSpace"></div>
         <div class="viewQuestionContent">
+            <input type="hidden" name="userPublicId"  value="{{ $user_public_id }}">
             <input type="hidden" name="questionPublicId" value="{{ $questionPublicId }}">
             <div class="titleBlock">
                 <i class="far fa-star questionFavorite"></i>
