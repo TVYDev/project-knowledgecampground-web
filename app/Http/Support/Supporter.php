@@ -75,6 +75,7 @@ class Supporter
             if($response->success == true) {
                 $data = Helper::getProp($response, 'data');
                 if(isset($data)) {
+                    $this->saveUserPublicIdToSession(Helper::getProp($data, 'public_id'));
                     $this->saveUsernameToSession(Helper::getProp($data, 'username'));
                     $this->saveAvatarUrlToSession(Helper::getProp($data, 'avatar_url'));
                     $this->saveAvatarUrlJdenticonToSession(Helper::getProp($data, 'avatar_url_jdenticon'));
@@ -85,6 +86,10 @@ class Supporter
             // TODO:
             return null;
         }
+    }
+
+    public function saveUserPublicIdToSession ($publicId) {
+        session([SessionConstants::USER_PUBLIC_ID => $publicId]);
     }
 
     public function saveAvatarUrlToSession ($avatarUrl) {

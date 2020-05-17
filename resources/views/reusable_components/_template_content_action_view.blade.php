@@ -4,9 +4,9 @@
         <div class="viewPart"></div>
         <div class="actionPart">
             <div class="vote">
-                <i class="far fa-thumbs-up selected"></i>
-                <span class="numVote">23</span>
-                <i class="far fa-thumbs-down"></i>
+                <i class="btnUpVote far fa-thumbs-up"></i>
+                <span class="numVote">0</span>
+                <i class="btnDownVote far fa-thumbs-down"></i>
             </div>
             <div class="askedOrEditedDate"></div>
             <div class="authorIdentity">
