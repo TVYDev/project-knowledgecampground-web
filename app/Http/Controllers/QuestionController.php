@@ -248,9 +248,18 @@ class QuestionController extends Controller
         $errorMsg = null;
         try
         {
+            $queryString = null;
+            if($request->has('viewer')) {
+                $queryString = '?viewer=' . $request->viewer;
+            }
+
             $resultQuestion = $this->get(
                 $this->getApiRequestUrl('question.view'),
-                [$publicId]
+                [$publicId],
+                null,
+                null,
+                null,
+                $queryString
             );
 
             if($resultQuestion->success == true) {

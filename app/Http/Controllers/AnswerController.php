@@ -241,9 +241,18 @@ class AnswerController extends Controller
         $errorMsg = null;
         try
         {
+            $queryString = null;
+            if($request->has('viewer')) {
+                $queryString = '?viewer=' . $request->viewer;
+            }
+
             $resultAnswer = $this->get(
                 $this->getApiRequestUrl('answer.view'),
-                [$publicId]
+                [$publicId],
+                null,
+                null,
+                null,
+                $queryString
             );
 
             if($resultAnswer->success == true) {

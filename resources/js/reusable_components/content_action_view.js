@@ -20,6 +20,7 @@ class TVYContentActionView extends HTMLElement
         this._comments = [];
         this._isMockOnly = false;
         this._vote = 0;
+        this._voteByViewer = 0;
 
         this.publicId = this.getAttribute('data-public-id');
         this.currentAvatarUrl = this.getAttribute('data-current-avatar-url');
@@ -37,9 +38,6 @@ class TVYContentActionView extends HTMLElement
         this.numVote = this.querySelector('.vote .numVote');
         this.btnUpVote = this.querySelector('.vote .btnUpVote');
         this.btnDownVote = this.querySelector('.vote .btnDownVote');
-
-        this.btnUpVote.addEventListener('click', this.upVoteHandler.bind(this));
-        this.btnDownVote.addEventListener('click', this.downVoteHandler.bind(this));
 
         // this.loaderContent = document.createElement('div');
         // this.loaderContent.className = 'ui active centered inline text loader loaderContent';
@@ -116,6 +114,13 @@ class TVYContentActionView extends HTMLElement
         return this._vote;
     }
 
+    set voteByViewer (voteByViewer) {
+        this._voteByViewer = voteByViewer;
+    }
+    get voteByViewer () {
+        return this._voteByViewer;
+    }
+
     get QUESTION_CONTENT_TYPE()  {return 'question';}
     get ANSWER_CONTENT_TYPE()    {return 'answer';}
 
@@ -129,15 +134,9 @@ class TVYContentActionView extends HTMLElement
     upVoteHandler () {
         if(this.btnUpVote.classList.contains('selected')) {
             this._votePost(0, this.UPVOTE);
-            // vote = 0
-            console.log('up', 0);
-            // this.numVote.textContent = 0;
         }
         else {
             this._votePost(1, this.UPVOTE);
-            // vote = 1
-            console.log('up', 1);
-            // this.numVote.textContent = 1;
         }
 
     }
@@ -145,15 +144,9 @@ class TVYContentActionView extends HTMLElement
     downVoteHandler () {
         if(this.btnDownVote.classList.contains('selected')) {
             this._votePost(0, this.DOWNVOTE);
-            // vote = 0
-            console.log('down', 0);
-            // this.numVote.textContent = 0;
         }
         else {
             this._votePost(-1, this.DOWNVOTE);
-            // vote = -1
-            console.log('down', -1);
-            // this.numVote.textContent = -1;
         }
 
     }
@@ -222,7 +215,6 @@ class TVYContentActionView extends HTMLElement
             data: preparedData,
             type: 'POST',
             success: (result) => {
-                console.log('vote_success',result);
                 if(result.success == true) {
                     this.vote = result.data.vote;
                     this.updateVoteUI(this.vote, voteType);
@@ -259,8 +251,34 @@ class TVYContentActionView extends HTMLElement
         }
     }
 
+    _fillVoteInfo () {
+        let voteType = null;
+        if(this.voteByViewer === 1) {
+            voteType = this.UPVOTE;
+        }
+        else if(this.voteByViewer === -1) {
+            voteType = this.DOWNVOTE;
+        }
+        this.updateVoteUI(this.vote, voteType);
+
+        let titleBtnUpVote = 'Upvote';
+        let titleBtnDownVote = 'Downvote';
+        if(this.contentType === this.QUESTION_CONTENT_TYPE) {
+            titleBtnUpVote = 'This question is clear and written with research effort';
+            titleBtnDownVote = 'This question is not clear and written with less or no research effort';
+        }
+        else if(this.contentType === this.ANSWER_CONTENT_TYPE) {
+            titleBtnUpVote = 'This answer is useful';
+            titleBtnDownVote = 'This answer is not useful';
+        }
+        this.btnUpVote.setAttribute('title', titleBtnUpVote);
+        this.btnDownVote.setAttribute('title', titleBtnDownVote);
+    }
+
     _addNecessaryEventListeners () {
         this.btnComment.addEventListener('click', this._saveComment.bind(this));
+        this.btnUpVote.addEventListener('click', this.upVoteHandler.bind(this));
+        this.btnDownVote.addEventListener('click', this.downVoteHandler.bind(this));
     }
 
     _fillListOfComments () {
@@ -276,6 +294,8 @@ class TVYContentActionView extends HTMLElement
         this.avatar.setAttribute('data-author-id', this.authorId);
         this.avatar.setAttribute('src', this.ownerAvatarUrl);
         this.avatarAddComment.setAttribute('src', this.currentAvatarUrl);
+
+        this._fillVoteInfo();
     }
 
     _fillTheContent () {
