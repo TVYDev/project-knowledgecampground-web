@@ -139,4 +139,5 @@ Route::group([
         ->name(RouteConstants::ACTIVITY_GET_MY_POSTS);
     Route::post('/vote-post', 'ActivityController@postVotePost')
         ->name(RouteConstants::ACTIVITY_POST_VOTE_POST);
+    Route::post('/manage-favorite-question', 'ActivityController@postManageFavoriteQuestion');
 });

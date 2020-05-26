@@ -71,4 +71,25 @@ class ActivityController extends Controller
             return response()->json(['error' => $exception->getMessage()]);
         }
     }
+
+    public function postManageFavoriteQuestion (Request $request)
+    {
+        try {
+            $response = $this->post(
+                $this->getApiRequestUrl('activity.manage_favorite_question'),
+                [
+                    'question_public_id' => $request->question_public_id,
+                    'is_favorite' => $request->is_favorite == 'true' ? true : false
+                ],
+                $this->getAuthorizationHeader()
+            );
+
+            if($response->success == true) {
+                return response()->json($response);
+            }
+        }
+        catch(\Exception $exception) {
+            return response()->json(['error' => $exception->getMessage()]);
+        }
+    }
 }
