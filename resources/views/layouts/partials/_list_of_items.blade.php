@@ -16,7 +16,7 @@
                     </div>
                     @include('layouts.partials._subject_tags')
                 </div>
-                <div class="stats">123<br/>votes</div>
+                <div class="stats"><span class="numVotes">{{$item->vote}}</span><br/>votes</div>
             </div>
         @endforeach
         @if(isset($paginator))
