@@ -27,8 +27,19 @@
         }
     }
     .rightExtraSpace {
-        //border: 1px dashed mediumpurple;
-        //border-left: 1px solid $thirdly-gray;
+        .questionSummaryInfo {
+            color: $secondary-gray;
+            padding: 10px;
+            border: 1px solid $thirdly-gray;
+            border-radius: 10px;
+            h4 {
+                text-align: center;
+            }
+            .info {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+        }
     }
 }
 .headerWriteYourAnswer {

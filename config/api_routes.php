@@ -182,6 +182,11 @@ return [
             'method' => 'post',
             'path'   => '/api/activity/vote-post',
             'url'   => $host.'/api/activity/vote-post'
+        ],
+        'manage_favorite_question' => [
+            'method' => 'post',
+            'path'   => '/api/activity/manage-favorite-question',
+            'url'    => $host.'/api/activity/manage-favorite-question'
         ]
     ]
 ];

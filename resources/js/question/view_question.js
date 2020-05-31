@@ -41,6 +41,12 @@ $(document).ready(function() {
             success: (result) => {
                 if(result.success === true) {
                     const { owner_avatar_url, author_name, author_id, readable_time, description, relativePathStoreImages, comments, vote, vote_by_viewer } = result.data;
+                    if(type === 'question') {
+                        const { is_favorite_by_viewer, summary_info } = result.data;
+                        const { num_views, last_active_date } = summary_info;
+                        setUIStateBtnFavoriteQuestion(is_favorite_by_viewer);
+                        setSummaryInfoOFQuestion(num_views, last_active_date);
+                    }
                     contentActionView.vote = vote;
                     contentActionView.voteByViewer = vote_by_viewer;
                     contentActionView.contentType = type;
@@ -79,4 +85,56 @@ $(document).ready(function() {
             e.preventDefault();
         }
     });
+
+    // Summary Info of question
+    function setSummaryInfoOFQuestion(numViews, lastActive) {
+        const summaryInfo = $('.questionSummaryInfo');
+        summaryInfo.find('.numViews').text(numViews);
+        summaryInfo.find('.lastActive').text(lastActive);
+    }
+
+    // Favorite question
+    $('.questionFavorite').click(function() {
+        let isFavorite = $(this).hasClass('selected');
+        manageFavoriteQuestion(questionPublicId, !isFavorite);
+    });
+
+    function setUIStateBtnFavoriteQuestion (isFavorite) {
+        let btnFavoriteQuestion = $('.questionFavorite');
+        if(isFavorite) {
+            btnFavoriteQuestion.addClass('selected fas');
+            btnFavoriteQuestion.removeClass('far');
+        }else{
+            btnFavoriteQuestion.removeClass('selected fas');
+            btnFavoriteQuestion.addClass('far');
+        }
+
+        let title = btnFavoriteQuestion.hasClass('selected') ? 'Unmark as favorite' : 'Mark as favorite';
+        btnFavoriteQuestion.attr('title', title);
+    }
+
+    function manageFavoriteQuestion (questionPublicId, isFavorite) {
+        let url = window.location.origin + '/activity/manage-favorite-question';
+
+        $.ajax({
+            url: url,
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            type: 'POST',
+            data: {
+                'question_public_id': questionPublicId,
+                'is_favorite': isFavorite
+            },
+            success: (result) => {
+                if(result.success === true) {
+                    setUIStateBtnFavoriteQuestion(isFavorite);
+                }
+                else {
+                    console.log(`Failed to manage favorite question`, result);
+                }
+            },
+            error: function(err) {
+                console.log(`Error getting content of ${type} [${questionPublicId}]`, err);
+            }
+        });
+    }
 });
