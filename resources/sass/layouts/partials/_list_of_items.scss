@@ -32,6 +32,10 @@
         .stats {
             color: $main-front;
             justify-self: center;
+            text-align: center;
+            .numVotes {
+                font-weight: bold;
+            }
         }
     }
     .KCPagination {

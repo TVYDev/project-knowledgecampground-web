@@ -178,10 +178,7 @@ class UserController extends Controller
 
             if($response->success == true)
             {
-                // --- remove some data from session that used in nav_bar
-                \request()->session()->forget(HttpConstants::KEY_TO_KC_USER_AUTHENTICATED);
-                \request()->session()->forget(HttpConstants::KEY_TO_LAST_POST_ROUTE_STORED);
-                \request()->session()->forget(SessionConstants::USER_PERMISSIONS);
+                session()->flush();
 
                 return $this->doResponseSuccess(RouteConstants::USER_GET_LOGIN,'You are logged out successfully',false);
             }

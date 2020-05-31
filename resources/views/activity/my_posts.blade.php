@@ -34,7 +34,7 @@
                             <div class="info">
                                 <div class="stats">
                                     <span class="postType {{ $classType }}">{{ $item->type }}</span>
-                                    <span class="numVotes neutral">123</span>
+                                    <span class="numVotes neutral">{{ $item->vote }}</span>
                                 </div>
                                 <div class="basicInfo">
                                     <div class="title">
