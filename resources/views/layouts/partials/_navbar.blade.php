@@ -25,14 +25,11 @@ $username = session(\App\Lib\SessionConstants::USER_NAME);
                 data-content="{{ __('All Questions') }}" data-position="bottom center" data-variation="mini">
                 <i class="fas fa-book"></i>
             </button>
-            <button class="btnTags btnNavMenu btnWithToolTip" data-content="{{ __('All Tags') }}" data-position="bottom center" data-variation="mini">
-                <i class="fas fa-tags"></i>
-            </button>
             <button class="btnNotifications btnNavMenu btnWithToolTip" data-content="{{ __('Notifications') }}" data-position="bottom center" data-variation="mini">
                 <i class="fas fa-bell"></i>
             </button>
-            <button class="btnGuide btnNavMenu btnWithToolTip" data-content="{{ __('Guide') }}" data-position="bottom center" data-variation="mini">
-                <i class="fas fa-question-circle"></i>
+            <button class="btnBlog btnNavMenu btnWithToolTip" data-content="{{ __('Blog') }}" data-position="bottom center" data-variation="mini">
+                <i class="fas fa-bookmark"></i>
             </button>
             <button class="btnLang btnNavMenu btnWithToolTip">
                 <i class="fas fa-keyboard"></i>
