@@ -15574,6 +15574,22 @@ button:focus {
   margin: 0;
 }
 
+.pageViewQuestion .rightExtraSpace .questionSummaryInfo {
+  color: #707070;
+  padding: 10px;
+  border: 1px solid #D8D8D8;
+  border-radius: 10px;
+}
+
+.pageViewQuestion .rightExtraSpace .questionSummaryInfo h4 {
+  text-align: center;
+}
+
+.pageViewQuestion .rightExtraSpace .questionSummaryInfo .info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
 .headerWriteYourAnswer {
   color: #fcc45e;
   border-bottom: 2px solid #fcc45e;

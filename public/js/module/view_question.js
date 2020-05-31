@@ -225,8 +225,13 @@ $(document).ready(function () {
               vote_by_viewer = _result$data.vote_by_viewer;
 
           if (type === 'question') {
-            var is_favorite_by_viewer = result.data.is_favorite_by_viewer;
+            var _result$data2 = result.data,
+                is_favorite_by_viewer = _result$data2.is_favorite_by_viewer,
+                summary_info = _result$data2.summary_info;
+            var num_views = summary_info.num_views,
+                last_active_date = summary_info.last_active_date;
             setUIStateBtnFavoriteQuestion(is_favorite_by_viewer);
+            setSummaryInfoOFQuestion(num_views, last_active_date);
           }
 
           contentActionView.vote = vote;
@@ -271,7 +276,14 @@ $(document).ready(function () {
     if (!canSubmit) {
       e.preventDefault();
     }
-  }); // Favorite question
+  }); // Summary Info of question
+
+  function setSummaryInfoOFQuestion(numViews, lastActive) {
+    var summaryInfo = $('.questionSummaryInfo');
+    summaryInfo.find('.numViews').text(numViews);
+    summaryInfo.find('.lastActive').text(lastActive);
+  } // Favorite question
+
 
   $('.questionFavorite').click(function () {
     var isFavorite = $(this).hasClass('selected');

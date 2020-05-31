@@ -32,6 +32,8 @@ class QuestionAnswerViewModel
             $responseData['vote'] = Helper::getProp($data, 'vote', 0);
             $responseData['vote_by_viewer'] = Helper::getProp($data, 'vote_by_viewer', 0);
             $responseData['is_favorite_by_viewer'] = Helper::getProp($data, 'is_favorite_by_viewer', false);
+
+            $responseData['summary_info'] = Helper::getProp($data, 'summary_info');
         }
         return $responseData;
     }

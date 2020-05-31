@@ -46,8 +46,19 @@ $user_public_id = session(\App\Lib\SessionConstants::USER_PUBLIC_ID);
                 @endif
             </div>
         </div>
-        <div class="rightExtraSpace"></div>
+        <div class="rightExtraSpace">
+            <div class="questionSummaryInfo">
+                <h5>Summary Info</h5>
+                <div class="info">
+                    <div>Viewed</div><div>:&nbsp;<span class="numViews">N/A</span>&nbsp;times</div>
+                </div>
+                <div class="info">
+                    <div>Last Active</div><div>:&nbsp;<span class="lastActive">N/A</span></div>
+                </div>
+            </div>
+        </div>
     </div>
+    @if(isset($username))
     <h3 class="headerWriteYourAnswer" id="titleEditingAnswer"><i class="fas fa-pen-alt"></i>&nbsp;&nbsp;
         @if($isEditingAnswer)
             Edit your answer below
@@ -86,6 +97,7 @@ $user_public_id = session(\App\Lib\SessionConstants::USER_PUBLIC_ID);
             <tvy-content-management-preview data-for="currentAnswer" data-public-id="{{ $answerPublicId }}"></tvy-content-management-preview>
         </div>
     </div>
+    @endif
 @endsection
 @section('pageScript')
     <script type="text/javascript" src="{{ asset('js/module/view_question.js') }}"></script>
