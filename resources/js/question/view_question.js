@@ -6,6 +6,7 @@ $(document).ready(function() {
     // Fill ContentActionView for current question
     const questionPublicId = document.querySelector('.pageViewQuestion input[name="questionPublicId"]').value;
     let currentQuestionContentActionView = document.querySelector('tvy-content-action-view[data-for="currentQuestion"]');
+    let isCurrentUserOwnCurrentQuestion = false;
     getInfoForQuestionContentActionView(currentQuestionContentActionView, questionPublicId);
 
     // Fill ContentActionView for each answer
@@ -42,10 +43,19 @@ $(document).ready(function() {
                 if(result.success === true) {
                     const { owner_avatar_url, author_name, author_id, readable_time, description, relativePathStoreImages, comments, vote, vote_by_viewer } = result.data;
                     if(type === 'question') {
-                        const { is_favorite_by_viewer, summary_info } = result.data;
+                        const { is_favorite_by_viewer, summary_info, author_public_id } = result.data;
                         const { num_views, last_active_date } = summary_info;
                         setUIStateBtnFavoriteQuestion(is_favorite_by_viewer);
                         setSummaryInfoOFQuestion(num_views, last_active_date);
+
+                        if(author_public_id === userPublicId) {
+                            handleBestAnswer();
+                            isCurrentUserOwnCurrentQuestion = true;
+                        }
+                    }
+                    else if(type === 'answer') {
+                        contentActionView.isBestAnswer = result.data.is_best_answer;
+                        contentActionView.canSetBestAnswer = isCurrentUserOwnCurrentQuestion;
                     }
                     contentActionView.vote = vote;
                     contentActionView.voteByViewer = vote_by_viewer;
@@ -85,6 +95,37 @@ $(document).ready(function() {
             e.preventDefault();
         }
     });
+
+    // Manage Best Answer
+    function handleBestAnswer() {
+        const textSetBestAnswer = 'Click to set as best answer';
+        const textBestAnswer = '✔️ Best Answer';
+        const textUnsetBestAnswer = 'Click to unset as best answer';
+        $('tvy-content-action-view[data-for="answer"] .setBestAnswer').on('mouseover', function() {
+            const text = $(this).hasClass('selected') ? textUnsetBestAnswer : $(this).find('.labelBestAnswer').text();
+            $(this).find('.labelBestAnswer').text(text);
+        });
+        $('tvy-content-action-view[data-for="answer"] .setBestAnswer').on('mouseleave', function() {
+            const text = $(this).hasClass('selected') ? textBestAnswer : $(this).find('.labelBestAnswer').text();
+            $(this).find('.labelBestAnswer').text(text);
+        });
+        $('tvy-content-action-view[data-for="answer"] .setBestAnswer').on('click', function() {
+            if($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+                $(this).siblings('.TVYContentActionView').removeClass('selected');
+                $(this).find('.labelBestAnswer').text(textSetBestAnswer);
+                return;
+            }
+
+            $('tvy-content-action-view[data-for="answer"] .setBestAnswer').removeClass('selected');
+            $('tvy-content-action-view[data-for="answer"] .labelBestAnswer').text(textSetBestAnswer);
+            $('tvy-content-action-view[data-for="answer"] .TVYContentActionView').removeClass('selected');
+
+            $(this).addClass('selected');
+            $(this).siblings('.TVYContentActionView').addClass('selected');
+            $(this).find('.labelBestAnswer').text(textBestAnswer);
+        });
+    }
 
     // Summary Info of question
     function setSummaryInfoOFQuestion(numViews, lastActive) {
