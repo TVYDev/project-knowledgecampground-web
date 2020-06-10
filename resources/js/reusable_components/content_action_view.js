@@ -21,10 +21,15 @@ class TVYContentActionView extends HTMLElement
         this._isMockOnly = false;
         this._vote = 0;
         this._voteByViewer = 0;
+        this._canSetBestAnswer = false;
+        this._isBestAnswer = false;
 
         this.publicId = this.getAttribute('data-public-id');
         this.currentAvatarUrl = this.getAttribute('data-current-avatar-url');
         this.currentUsername = this.getAttribute('data-current-username');
+
+        this.setBestAnswer = this.querySelector('.setBestAnswer');
+        this.contentActionView = this.querySelector('.TVYContentActionView');
 
         this.viewPart = this.querySelector('.viewPart');
         this.actionPart = this.querySelector('.actionPart');
@@ -119,6 +124,20 @@ class TVYContentActionView extends HTMLElement
     }
     get voteByViewer () {
         return this._voteByViewer;
+    }
+
+    set canSetBestAnswer (canSetBestAnswer) {
+        this._canSetBestAnswer = canSetBestAnswer;
+    }
+    get canSetBestAnswer () {
+        return this._canSetBestAnswer;
+    }
+
+    set isBestAnswer (isBestAnswer) {
+        this._isBestAnswer = isBestAnswer;
+    }
+    get isBestAnswer () {
+        return this._isBestAnswer;
     }
 
     get QUESTION_CONTENT_TYPE()  {return 'question';}
@@ -248,6 +267,25 @@ class TVYContentActionView extends HTMLElement
             this._fillInfoOfActionPart();
             this._fillListOfComments();
             this._addNecessaryEventListeners();
+        }
+        this._setUIForBestAnswer();
+    }
+
+    _setUIForBestAnswer() {
+        if(this.contentType === this.ANSWER_CONTENT_TYPE) {
+            this.setBestAnswer.removeAttribute('hidden');
+        }else {
+            this.contentActionView.style.marginTop = '5px';
+        }
+
+        if(!this.canSetBestAnswer && !this.isBestAnswer) {
+            this.setBestAnswer.setAttribute('hidden', 'hidden');
+        }
+
+        if(this.isBestAnswer) {
+            this.setBestAnswer.querySelector('.labelBestAnswer').textContent = '✔️ Best Answer';
+            this.setBestAnswer.classList.add('selected');
+            this.contentActionView.classList.add('selected');
         }
     }
 

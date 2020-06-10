@@ -1,4 +1,7 @@
 <template id="tplContentActionView">
+    <div class="setBestAnswer" hidden="hidden">
+        <span class="labelBestAnswer">Click to unset as best answer</span>
+    </div>
     <div class="TVYContentActionView">
         <input type="hidden" name="reRender" class="reRender" />
         <div class="viewPart"></div>
