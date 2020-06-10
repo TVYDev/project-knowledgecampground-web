@@ -187,6 +187,11 @@ return [
             'method' => 'post',
             'path'   => '/api/activity/manage-favorite-question',
             'url'    => $host.'/api/activity/manage-favorite-question'
+        ],
+        'choose_best_answer' => [
+            'method' => 'post',
+            'path'   => '/api/activity/choose-best-answer',
+            'url'    => $host.'/api/activity/choose-best-answer'
         ]
     ]
 ];

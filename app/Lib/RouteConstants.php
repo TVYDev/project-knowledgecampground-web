@@ -83,5 +83,6 @@ class RouteConstants
     const ACTIVITY_GET_MY_POSTS  = 'activity.getMyPosts';
     const ACTIVITY_POST_VOTE_POST = 'activity.postVotePost';
     const ACTIVITY_POST_MANAGE_FAVORITE_QUESTION = 'activity.postManageFavoriteQuestion';
+    const ACTIVITY_POST_CHOOSE_BEST_ANSWER = 'activity.postChooseBestAnswer';
     /***********************************************************/
 }

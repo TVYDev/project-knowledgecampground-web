@@ -15,6 +15,7 @@ class QuestionAnswerViewModel
             $responseData['owner_avatar_url'] = Helper::getProp($data, 'avatar_url');
             $responseData['author_name'] = Helper::getProp($data, 'author_name');
             $responseData['author_id'] = Helper::getProp($data, 'author_id');
+            $responseData['author_public_id'] = Helper::getProp($data, 'author_public_id');
             $responseData['readable_time'] = Helper::getProp($data, 'readable_time_en');
 
             $descriptionPayLoad = Helper::getProp($data, 'description');
@@ -32,6 +33,7 @@ class QuestionAnswerViewModel
             $responseData['vote'] = Helper::getProp($data, 'vote', 0);
             $responseData['vote_by_viewer'] = Helper::getProp($data, 'vote_by_viewer', 0);
             $responseData['is_favorite_by_viewer'] = Helper::getProp($data, 'is_favorite_by_viewer', false);
+            $responseData['is_best_answer'] = Helper::getProp($data, 'is_best_answer', false);
 
             $responseData['summary_info'] = Helper::getProp($data, 'summary_info');
         }
