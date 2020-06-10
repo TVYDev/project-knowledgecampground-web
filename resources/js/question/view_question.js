@@ -110,20 +110,41 @@ $(document).ready(function() {
             $(this).find('.labelBestAnswer').text(text);
         });
         $('tvy-content-action-view[data-for="answer"] .setBestAnswer').on('click', function() {
-            if($(this).hasClass('selected')) {
-                $(this).removeClass('selected');
-                $(this).siblings('.TVYContentActionView').removeClass('selected');
-                $(this).find('.labelBestAnswer').text(textSetBestAnswer);
-                return;
-            }
+            const answerPublicId = $(this).hasClass('selected') ? null : $(this).parent().data('public-id');
 
-            $('tvy-content-action-view[data-for="answer"] .setBestAnswer').removeClass('selected');
-            $('tvy-content-action-view[data-for="answer"] .labelBestAnswer').text(textSetBestAnswer);
-            $('tvy-content-action-view[data-for="answer"] .TVYContentActionView').removeClass('selected');
+            let url = window.location.origin + '/activity/choose-best-answer';
 
-            $(this).addClass('selected');
-            $(this).siblings('.TVYContentActionView').addClass('selected');
-            $(this).find('.labelBestAnswer').text(textBestAnswer);
+            $.ajax({
+                url: url,
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                type: 'POST',
+                data: {
+                    'question_public_id': questionPublicId,
+                    'answer_public_id': answerPublicId
+                },
+                success: (result) => {
+                    if(result.success === true) {
+                        if(answerPublicId == null) {
+                            $(this).removeClass('selected');
+                            $(this).siblings('.TVYContentActionView').removeClass('selected');
+                            $(this).find('.labelBestAnswer').text(textSetBestAnswer);
+                        }
+                        else {
+                            $('tvy-content-action-view[data-for="answer"] .setBestAnswer').removeClass('selected');
+                            $('tvy-content-action-view[data-for="answer"] .labelBestAnswer').text(textSetBestAnswer);
+                            $('tvy-content-action-view[data-for="answer"] .TVYContentActionView').removeClass('selected');
+
+                            $(this).addClass('selected');
+                            $(this).siblings('.TVYContentActionView').addClass('selected');
+                            $(this).find('.labelBestAnswer').text(textBestAnswer);
+                        }
+                    }
+                },
+                error: function(err) {
+                    console.log(`Error set best answer (${answerPublicId}) of question (${questionPublicId})`, err);
+                }
+            });
+
         });
     }
 

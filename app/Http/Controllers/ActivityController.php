@@ -92,4 +92,25 @@ class ActivityController extends Controller
             return response()->json(['error' => $exception->getMessage()]);
         }
     }
+
+    public function postChooseBestAnswer (Request $request)
+    {
+        try {
+            $response = $this->post(
+                $this->getApiRequestUrl('activity.choose_best_answer'),
+                [
+                    'question_public_id' => $request->question_public_id,
+                    'answer_public_id' => $request->answer_public_id
+                ],
+                $this->getAuthorizationHeader()
+            );
+
+            if($response->success == true) {
+                return response()->json($response);
+            }
+        }
+        catch(\Exception $exception) {
+            return response()->json(['error' => $exception->getMessage()]);
+        }
+    }
 }
