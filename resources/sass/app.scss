@@ -68,16 +68,16 @@ body {
     padding-top: 4rem;
     font-size: 13px;
 }
-@media screen and (max-width: $tablet) and (min-width: $above-mobile-L) {
-    body {
-        display: none;
-    }
-}
-@media screen and (max-width: $above-mobile-L) {
-    body {
-        display: none;
-    }
-}
+//@media screen and (max-width: $tablet) and (min-width: $above-mobile-L) {
+//    body {
+//        display: none;
+//    }
+//}
+//@media screen and (max-width: $above-mobile-L) {
+//    body {
+//        display: none;
+//    }
+//}
 
 *,
 button,
